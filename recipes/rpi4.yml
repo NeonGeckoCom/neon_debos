@@ -10,9 +10,9 @@ actions:
   - action: download
     description: Fetch latest kernel ci build
 {{ if eq $architecture "armhf" }}
-    url: https://bshah.in/linux-pi4-armhf.zip
+    url: http://bshah.in/linux-pi4-armhf.zip
 {{ else }}
-    url: https://bshah.in/linux-pi4-5.4-arm64.zip
+    url: http://bshah.in/linux-pi4-5.4-arm64.zip
 {{ end }}
     name: kernel
     filename: kernel.zip
