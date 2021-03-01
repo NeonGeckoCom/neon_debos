@@ -1,0 +1,94 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $firmware_version := or .firmware_version "master" -}}
+{{ $suite :=  or .suite "focal" }}
+{{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
+{{- $user := or .user "mycroft" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: recipe
+    recipe: recipes/ubuntu-focal-repos.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/rpi4.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/base-packages.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/desktop-packages.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/gstreamer-packages.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/base-embedded.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/mycroft.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/load-precise.yml
+    variables:
+      architecture: {{ $architecture }}
+      user: {{ $user }}
+
+  - action: recipe
+    recipe: recipes/ovos.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/base-finalscripts.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/finalize.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}

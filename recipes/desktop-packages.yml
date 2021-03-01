@@ -1,0 +1,32 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $firmware_version := or .firmware_version "master" -}}
+{{ $suite :=  or .suite "focal" }}
+{{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+    # Desktop packages
+  - action: apt
+    description: Base packages
+    packages:
+      - xauth
+      - kwin-wayland
+      - konsole
+
+    # Desktop packages
+  - action: apt
+    description: Plasma packages
+    packages:
+      - plasma-workspace-wayland
+      - plasma-pa
+      - plasma-widgets-addons
+      - libkf5wallet-bin
+      - kscreen
+
+  - action: apt
+    description: Networking packages
+    packages:
+      - network-manager
+      - plasma-nm
+      - ubuntu-minimal

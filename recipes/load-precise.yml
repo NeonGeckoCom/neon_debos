@@ -1,0 +1,44 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $user := or .user "mycroft" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: run
+    chroot: true
+    command: mkdir -p /home/{{ $user }}/.mycroft/precise
+
+  - action: download
+    url: https://github.com/MycroftAI/precise-data/raw/dist/aarch64/precise-engine_0.3.0_aarch64.tar.gz
+    unpack: false
+    name: precise-engine
+
+  - action: overlay
+    origin: precise-engine
+    source: .
+    destination: /home/{{ $user }}/.mycroft/precise/precise-engine_0.3.0_aarch64.tar.gz
+
+  - action: run
+    description: Unpack Precise engine
+    chroot: true
+    command: tar -xzf /home/{{ $user }}/.mycroft/precise/precise-engine_0.3.0_aarch64.tar.gz -C /home/{{ $user }}/.mycroft/precise
+
+  - action: download
+    url: http://raw.githubusercontent.com/MycroftAI/precise-data/models/hey-mycroft.tar.gz
+    unpack: false
+    name: precise-model
+
+  - action: overlay
+    origin: precise-model
+    source: .
+    destination: /home/{{ $user }}/.mycroft/precise/hey-mycroft.tar.gz
+
+  - action: run
+    description: Unpack Precise model
+    chroot: true
+    command: tar -xzf /home/{{ $user }}/.mycroft/precise/hey-mycroft.tar.gz -C /home/{{ $user }}/.mycroft/precise
+
+  - action: run
+    description: Set ownership of Precise directory and contents
+    chroot: true
+    command: chown -R {{ $user }}:{{ $user }} /home/{{ $user }}/.mycroft/precise

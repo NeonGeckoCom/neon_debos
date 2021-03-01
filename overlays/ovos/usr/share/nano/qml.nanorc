@@ -1,0 +1,74 @@
+## Syntax highlighting for QML
+
+syntax "QtModelingLanguage" "\.qml$"
+comment "//"
+
+# NOTE: Colors = black, white, blue, green, red, cyan, yellow, magenta and bright*
+
+# Blocks
+color white  start="\{" end="\}"
+color brightblue    start="\(" end="\)"
+color brightwhite   start=":" end="([;^\{]|$)"
+
+# Javascript flow control and special keywords.
+color brightyellow "\b(do|while|in|if|else|switch|new|delete|instanceof|typeof)\b"
+color brightyellow "\b(Array|Boolean|Date|Function|Number|Object|String|RegExp)\b"
+color brightyellow "\b(action|alias|bool|color|date|double|enumeration|font|int)\b"
+color brightyellow "\b(list|point|real|rect|size|string|time|url|variant|vector3d)\b"
+color brightyellow "\b(with|arguments|this|var|case|default|try|catch|finally)\b"
+color brightyellow "\b(throw|alert|confirm|prompt|status|self|property|signal)\b"
+color brightyellow "\b(abstract|boolean|byte|char|class|const|debugger|enum)\b"
+color brightyellow "\b(export|extends|final|float|goto|implements|import|interface)\b"
+color brightyellow "\b(native|package|pragma|private|protected|public|short)\b"
+color brightyellow "\b(readonly|long|static|super|synchronized|throws|transient|volatile)\b"
+# Questionable keywords (remove?)
+color brightyellow "\b(as|await|for|each|of)\b"
+
+# "Exit" points.
+color magenta "\b(break|continue|return|yield)\b"
+
+# Base QML Classes
+color green "\b(Text|Item|Column|Rectangle|Canvas|Layout|ColumnLayout|RowLayout|Image|TextInput)\b"
+
+# Unrecognized properties
+color brightblack "^\s*[a-z,A-Z,0-9\.]*:"
+# Special Properties
+color brightgreen "id:|width:|height:"
+color magenta  "\b(true|false|undefined|null)\b"
+# Common Properties
+color brightgreen "UnknownProperty:|BackgroundColor:|Color:|Float:|Font:|FontFamily:|FontSize:"
+color brightgreen "FontStyle:|FontWeight:|Margin:|MarginBottom:|MarginLeft:|MarginRight:"
+color brightgreen "MarginTop:|QtBlockIndent:|QtListIndent:|QtParagraphType:|QtTableType:"
+color brightgreen "QtUserState:|TextDecoration:|TextIndent:|TextUnderlineStyle:|VerticalAlignment:"
+color brightgreen "Whitespace:|QtSelectionForeground:|QtSelectionBackground:|Border:|BorderLeft:"
+color brightgreen "BorderRight:|BorderTop:|BorderBottom:|Padding:|PaddingLeft:|PaddingRight:"
+color brightgreen "PaddingTop:|PaddingBottom:|PageBreakBefore:|PageBreakAfter:|QtAlternateBackground:"
+color brightgreen "BorderLeftStyle:|BorderRightStyle:|BorderTopStyle:|BorderBottomStyle:|BorderStyles:"
+color brightgreen "BorderLeftColor:|BorderRightColor:|BorderTopColor:|BorderBottomColor:|BorderColor:"
+color brightgreen "BorderLeftWidth:|BorderRightWidth:|BorderTopWidth:|BorderBottomWidth:|BorderWidth:"
+color brightgreen "BorderTopLeftRadius:|BorderTopRightRadius:|BorderBottomLeftRadius:"
+color brightgreen "BorderBottomRightRadius:|BorderRadius:|Background:|BackgroundOrigin:|BackgroundClip:"
+color brightgreen "BackgroundRepeat:|BackgroundPosition:|BackgroundAttachment:|BackgroundImage:"
+color brightgreen "BorderImage:|QtSpacing:|Width:|Height:|MinimumWidth:|MinimumHeight:|MaximumWidth:"
+color brightgreen "MaximumHeight:|QtImage:|Left:|Right:|Top:|Bottom:|QtOrigin:|QtPosition:|Position:"
+color brightgreen "QtStyleFeatures:|QtBackgroundRole:|ListStyleType:|ListStyle:|QtImageAlignment:"
+color brightgreen "TextAlignment:|Outline:|OutlineOffset:|OutlineWidth:|OutlineColor:|OutlineStyle:"
+color brightgreen "OutlineRadius:|OutlineTopLeftRadius:|OutlineTopRightRadius:|OutlineBottomLeftRadius:"
+color brightgreen "OutlineBottomRightRadius:|FontVariant:|TextTransform:|QtListNumberPrefix:"
+color brightgreen "QtListNumberSuffix:|LineHeight:|QtLineHeightType:|FontKerning:|NumProperties:"
+
+# Octal/decimal and hexadecimal numbers.
+color brightmagenta "\<[0-9]+\>" "\<0x[0-9A-Fa-f]+\>"
+
+# Strings.
+color brightblack ""(\\.|[^"])*"" "'(\\.|[^'])*'" "`(\\.|[^`])*`"
+
+# Comments.
+color cyan "//.*$"
+color cyan start="/\*" end="\*/"
+
+# Trailing whitespace.
+color ,green "[[:space:]]+$"
+
+# Special characters
+color white "&&|\|\||=|!==|==|;|:|\{|\}"

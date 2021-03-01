@@ -1,0 +1,39 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $firmware_version := or .firmware_version "master" -}}
+{{ $suite :=  or .suite "focal" }}
+{{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: debootstrap
+    keyring-package: ubuntu-keyring
+    keyring-file: ubuntu-archive-keyring.gpg
+    suite: {{ $suite }}
+    components:
+      - main
+      - restricted
+      - multiverse
+      - universe
+    mirror: http://ports.ubuntu.com/ubuntu-ports
+    variant: minbase
+
+  - action: apt
+    packages:
+      - gnupg
+      - wget
+      - curl
+      - apt-transport-https
+      - software-properties-common
+      - linux-firmware
+      - kmod
+
+  #- action: run
+    #description: Add Mycroft-alternatives GPG key
+    #chroot: true
+    #command: curl https://forslund.github.io/mycroft-alternatives/conf/mycroft-alternatives.gpg.key | apt-key add -
+
+  #- action: run
+    #description: Add Mycroft alternatives repo
+    #chroot: true
+    #command: echo "deb http://forslund.github.io/mycroft-alternatives focal main" > /etc/apt/sources.list.d/mycroft-alt.list

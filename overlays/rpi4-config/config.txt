@@ -1,0 +1,25 @@
+# Set 'force_turbo=1' to disable dynamic overclocking and enable overclocking always
+force_turbo=0
+
+# have a properly sized image
+disable_overscan=1
+
+# for sound over HDMI
+# hdmi_drive=2
+hdmi_ignore_cec_init=1
+
+# Enable audio (loads snd_bcm2835)
+dtparam=audio=on
+
+# armstub8-gic stub for Pi4s with older firmware
+armstub=armstub8-gic.bin
+enable_gic=1
+
+[pi4]
+dtoverlay=vc4-fkms-v3d
+dtparam=i2c_arm=on
+max_framebuffers=2
+arm_64bit=1
+
+[all]
+gpu_mem=320

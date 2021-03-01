@@ -1,0 +1,1 @@
+mycroft ALL=(ALL) NOPASSWD: /usr/bin/dpkg *, ! /usr/bin/dpkg --install *, ! /usr/bin/dpkg -i *
