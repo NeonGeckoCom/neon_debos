@@ -10,8 +10,8 @@ cd /home/$USER/mycroft-core
 # Get latest patches
 wget https://raw.githubusercontent.com/OpenVoiceOS/OpenVoiceOS/develop/buildroot-external/package/python-mycroft/0001-Bump-requests-requirement-to-2.24.0-inline-with-buil.patch
 wget https://raw.githubusercontent.com/OpenVoiceOS/OpenVoiceOS/develop/buildroot-external/package/python-mycroft/0002-Shut-up.patch
-wget https://github.com/OpenVoiceOS/OpenVoiceOS/blob/develop/buildroot-external/package/python-mycroft/0003-OVOS-PR2843.patch
-wget https://github.com/OpenVoiceOS/OpenVoiceOS/blob/develop/buildroot-external/package/python-mycroft/0004-OVOS-enclosure_assumptions.patch 
+wget https://raw.githubusercontent.com/OpenVoiceOS/OpenVoiceOS/develop/buildroot-external/package/python-mycroft/0003-OVOS-PR2843.patch
+wget https://raw.githubusercontent.com/OpenVoiceOS/OpenVoiceOS/develop/buildroot-external/package/python-mycroft/0004-OVOS-enclosure_assumptions.patch 
 
 # Apply all patches
 git am 0001-Bump-requests-requirement-to-2.24.0-inline-with-buil.patch
