@@ -23,6 +23,7 @@ actions:
       - plasma-widgets-addons
       - libkf5wallet-bin
       - kscreen
+      - qt5ct
 
   - action: apt
     description: Networking packages

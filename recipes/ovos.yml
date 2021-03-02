@@ -7,12 +7,16 @@ architecture: {{ $architecture }}
 
 actions:
 
-    # Mycroft packages
-  #- action: apt
-    #description: Mycroft packages
-    #packages:
-      #- mycroft-gui
-      #- qml-module-org-kde-lottie
+  - action: download
+    description: Download Balena Wifi Connect
+    url: https://github.com/balena-io/wifi-connect/releases/download/v4.4.4/wifi-connect-v4.4.4-linux-aarch64.tar.gz
+    name: wifi-connect
+    filename: wifi-connect-aarch64.tar.gz
+    
+  - action: overlay
+    origin: wifi-connect
+    source: .
+    destination: /var/tmp/wifi-connect-aarch64.tar.gz
 
   - action: download
     description: Download Noto Sans Font
@@ -37,12 +41,39 @@ actions:
     description: Update font cache
     chroot: true
     command: fc-cache -f -v
+    
+  - action: run
+    description: Setting up WifiConnect
+    chroot: true
+    script: ../scripts/97-wifi-connect.sh
+    
+  - action: apt
+    description: Mycroft GUI build and runtime dependencies
+    packages:
+      - git-core
+      - g++
+      - cmake
+      - extra-cmake-modules
+      - gettext
+      - pkg-config
+      - qml-module-qtwebengine
+      - pkg-kde-tools
+      - qtbase5-dev
+      - qtdeclarative5-dev 
+      - libkf5kio-dev 
+      - libqt5websockets5-dev 
+      - libkf5i18n-dev 
+      - libkf5notifications-dev 
+      - libkf5plasma-dev 
+      - libqt5webview5-dev 
+      - qtmultimedia5-dev
+      - plasma-workspace-dev
 
-  #- action: apt
-    #description: OVOS Specific Package
-    #packages:
-      #- mycroft-gui-embedded-shell
-
+  - action: run
+    description: Set up gui and embedded shell
+    chroot: true
+    script: ../scripts/98-mycroft-gui.sh
+    
   - action: overlay
     description: OVOS specific overlay
     source: ../overlays/ovos

@@ -10,16 +10,20 @@ actions:
     description: OVOS specific overlay
     source: ../overlays/mycroft
 
-  #- action: download
-    #url: https://openvoiceos.com/mycroft-core-setup-aarch64.tar.gz
-    #name: mycroft-core
-    #filename: mycroft-core-setup-aarch64.tar.gz
+  - action: download
+{{ if eq $architecture "armhf" }}
+    url: https://github.com/forslund/mycroft-desktop-repo/raw/gh-pages/pool/main/m/mimic/mimic_1.3.0.1_armhf.deb
+{{ else }}
+    url: http://frozenmazegames.se/mimic-arm64_1.2.0.2+1559651054-1.deb
+{{end}}
+    name: mimic
+    filename: mimic.deb
 
-  #- action: overlay
-    #origin: mycroft-core
-    #source: .
-    #destination: /var/tmp/mycroft-core-setup-aarch64.tar.gz
-
+  - action: overlay
+    origin: mimic
+    source: .
+    destination: /var/tmp/mimic.deb
+    
   - action: apt
     description: Mycroft runtime dependencies
     packages:
@@ -48,14 +52,13 @@ actions:
       - build-essential
       - pulseaudio
       - pulseaudio-utils
-      #- mimic
 
   - action: run
     description: Set up user account
     chroot: true
     script: ../scripts/02-setup_mycroft_user.sh
 
-  #- action: run
-    #description: Install mycroft base software
-    #chroot: true
-    #script: ../scripts/92-clone-mycroft.sh
+  - action: run
+    description: Install mycroft base software
+    chroot: true
+    script: ../scripts/92-clone-mycroft.sh
