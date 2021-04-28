@@ -42,10 +42,10 @@ actions:
     chroot: true
     command: fc-cache -f -v
     
-  - action: run
-    description: Setting up WifiConnect
-    chroot: true
-    script: ../scripts/97-wifi-connect.sh
+  #- action: run
+    #description: Setting up WifiConnect
+    #chroot: true
+    #script: ../scripts/97-wifi-connect.sh
     
   - action: apt
     description: Mycroft GUI build and runtime dependencies
@@ -68,12 +68,12 @@ actions:
       - libqt5webview5-dev 
       - qtmultimedia5-dev
       - plasma-workspace-dev
-
-  - action: run
-    description: Set up gui and embedded shell
-    chroot: true
-    script: ../scripts/98-mycroft-gui.sh
     
   - action: overlay
     description: OVOS specific overlay
     source: ../overlays/ovos
+    
+  - action: run
+    description: Set up gui and embedded shell
+    chroot: true
+    script: ../scripts/98-mycroft-gui.sh
