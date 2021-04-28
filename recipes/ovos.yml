@@ -57,6 +57,7 @@ actions:
       - gettext
       - pkg-config
       - qml-module-qtwebengine
+      - qml-module-qtquick-particles2
       - pkg-kde-tools
       - qtbase5-dev
       - qtdeclarative5-dev 
