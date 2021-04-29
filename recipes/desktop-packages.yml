@@ -24,6 +24,7 @@ actions:
       - libkf5wallet-bin
       - kscreen
       - qt5ct
+      - weston
 
   - action: apt
     description: Networking packages

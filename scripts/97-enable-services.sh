@@ -6,3 +6,9 @@
 (systemctl enable mycroft-enclosure.service)
 (systemctl enable mycroft-skills.service)
 (systemctl enable mycroft-gui.service)
+(systemctl enable weston.service)
+
+# Install RPI4 Userland
+mkdir -p /tmp/rpi-userland
+(cd /tmp/rpi-userland && git clone https://github.com/raspberrypi/userland)
+(cd /tmp/rpi-userland/userland && bash build.sh --aarch64)
