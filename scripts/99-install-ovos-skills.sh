@@ -1,4 +1,6 @@
 # Install OVOS Skills
+mkdir -p /home/mycroft/.local/share/mycroft/skills/
+
 (cd /home/mycroft/.local/share/mycroft/skills && git clone https://github.com/OpenVoiceOS/skill-ovos-pairing)
 (cd /home/mycroft/.local/share/mycroft/skills/skill-ovos-pairing && pip3 install -r requirements.txt)
 (cd /home/mycroft/.local/share/mycroft/skills && git clone https://github.com/OpenVoiceOS/skill-ovos-mycroftgui)
