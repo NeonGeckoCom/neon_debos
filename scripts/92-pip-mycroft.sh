@@ -2,7 +2,7 @@
 git clone https://github.com/HelloChatterbox/mycroft-lib ./tmp/mycroft-lib
 
 # Get latest patches
-(cd /tmp/mycroft-lib && wget https://github.com/OpenVoiceOS/OpenVoiceOS/blob/develop/buildroot-external/package/python-mycroft-lib/0001-Add-entry_points-to-install-binaries.patch)
+(cd /tmp/mycroft-lib && wget https://raw.githubusercontent.com/OpenVoiceOS/OpenVoiceOS/develop/buildroot-external/package/python-mycroft-lib/0001-Add-entry_points-to-install-binaries.patch)
 
 # Apply all patches
 (cd /tmp/mycroft-lib && git config user.name "aix")
