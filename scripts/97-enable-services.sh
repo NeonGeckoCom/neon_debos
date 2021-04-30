@@ -7,7 +7,3 @@
 (systemctl enable mycroft-skills.service)
 (systemctl enable mycroft-gui.service)
 (systemctl enable weston.service)
-
-# Install RPI4 Userland
-(cd /tmp && git clone https://github.com/raspberrypi/userland)
-(bash /tmp/userland/buildme.sh --aarch64)

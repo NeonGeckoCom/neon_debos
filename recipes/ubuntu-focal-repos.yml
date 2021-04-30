@@ -27,6 +27,16 @@ actions:
       - software-properties-common
       - linux-firmware
       - kmod
+      
+  - action: run
+    description: Add Waveform gpg key
+    chroot: true
+    command: apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 37CD3FA3298B9F52
+
+  - action: run
+    description: Add Waveform apt repo
+    chroot: true
+    command: echo "deb http://ppa.launchpad.net/waveform/userland/ubuntu {{ $suite }} main" > /etc/apt/sources.list.d/waveform.list
 
   #- action: run
     #description: Add Mycroft-alternatives GPG key

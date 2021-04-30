@@ -69,6 +69,7 @@ actions:
       - libqt5webview5-dev 
       - qtmultimedia5-dev
       - plasma-workspace-dev
+      - raspberrypi-userland
     
   - action: overlay
     description: OVOS specific overlay
