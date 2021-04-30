@@ -9,6 +9,5 @@
 (systemctl enable weston.service)
 
 # Install RPI4 Userland
-mkdir -p /tmp/rpi-userland
 (cd /tmp/rpi-userland && git clone https://github.com/raspberrypi/userland)
-(bash /tmp/rpi-userland/userland/build.sh --aarch64)
+(bash /tmp/rpi-userland/userland/buildme.sh --aarch64)
