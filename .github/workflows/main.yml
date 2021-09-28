@@ -33,11 +33,11 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Install Debos Deps
-        run: sudo apt-get install debos bmap-tools dosfstools e2fsprogs zsync -y
+        run: sudo apt-get install git debos bmap-tools dosfstools e2fsprogs zsync git -y
       
-      - name: Run losetup to check list of loopback devices
-        run: losetup
+      - name: Git clone required debos recipe
+        run: git clone https://github.com/OpenVoiceOS/ovos_debos_dev_edition ovos-debos
       
       # Runs a set of commands using the runners shell
       - name: Run a Debos Recipe
-        run: debos --disable-fakemachine --memory=6G -t architecture:${ARCH} ${RECIPE}.yml
+        run: cd ovos-debos && debos --disable-fakemachine --memory=6G -t architecture:${ARCH} ${RECIPE}.yml
