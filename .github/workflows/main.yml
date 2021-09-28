@@ -35,6 +35,9 @@ jobs:
       - name: Install Debos Deps
         run: sudo apt-get install git bmap-tools dosfstools e2fsprogs zsync -y
         
+      - name: Try Setup Loop Device
+        run:  sudo losetup -f
+        
       - name: Git clone required debos recipe
         run: git clone https://github.com/OpenVoiceOS/ovos_debos_dev_edition ovos-debos
       
