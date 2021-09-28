@@ -33,7 +33,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Install Debos Deps
-        run: sudo apt-get install debos bmap-tools dosfstools e2fsprogs zsync losetup -y
+        run: sudo apt-get install debos bmap-tools dosfstools e2fsprogs zsync -y
       
       - name: Run losetup to check list of loopback devices
         run: losetup
