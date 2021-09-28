@@ -27,6 +27,9 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      
+      - name: Update APT
+        run: sudo apt-get update
 
       # Runs a single command using the runners shell
       - name: Install Debos Deps
