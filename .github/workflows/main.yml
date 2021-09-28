@@ -40,4 +40,4 @@ jobs:
       
       # Runs a set of commands using the runners shell
       - name: Run a Debos Recipe
-        run: cd ovos-debos docker run --rm --user $(id -u) --workdir /recipes --mount "type=bind,source=$(pwd),destination=/recipes" --security-opt label=disable godebos/debos ovos-dev-edition-rpi4.yml --disable-fakemachine -t architecture:arm64 -m 6G
+        run: cd ovos-debos && docker run --rm --user $(id -u) --workdir /recipes --mount "type=bind,source=$(pwd),destination=/recipes" --security-opt label=disable godebos/debos ovos-dev-edition-rpi4.yml --disable-fakemachine -t architecture:arm64 -m 6G
