@@ -15,7 +15,7 @@
 # Add Mycroft helper commands to $PATH
 # echo 'source /opt/mycroft/.mycroftrc' >> /home/$USER/.bashrc
 
-(pip3 install git+https://github.com/HelloChatterbox/HolmesV)
+(pip3 install git+https://github.com/OpenVoiceOS/ovos-core)
 
 mkdir -p /var/log/mycroft
 chown -R 32011:32011 /home/mycroft

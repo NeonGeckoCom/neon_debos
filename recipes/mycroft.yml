@@ -61,6 +61,30 @@ actions:
     chroot: true
     script: ../scripts/02-setup_mycroft_user.sh
 
+    # Mycroft packages
+  - action: apt
+    description: Mycroft packages
+    packages:
+      - mycroft-gui
+      - mycroft-embedded-shell
+      - qml-module-org-kde-lottie
+      - qml-module-qtquick-shapes
+      - qml-module-qt-labs-folderlistmodel
+      - qml-module-qtquick-particles2
+      - qml-module-qtquick-templates2
+      - qml-module-qtquick-xmllistmodel
+      - qml-module-qtquick-localstorage
+      - qml-module-qmltermwidget
+      - qml-module-qttest
+      - qml-module-qtlocation
+      - qml-module-qtpositioning
+      - qml-module-qtwebengine
+      - qml-module-qtwebchannel
+      - qml-module-qtmultimedia
+      - qt5ct
+      - qml-module-qtquick-virtualkeyboard
+      - qtvirtualkeyboard-plugin
+
   - action: run
     description: Install mycroft base software
     chroot: true
