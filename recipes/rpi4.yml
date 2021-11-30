@@ -28,7 +28,7 @@ actions:
 
   - action: download
     description: Download latest version of the nonfree firmware from GitHub
-    url: https://github.com/RPi-Distro/firmware-nonfree/archive/master.tar.gz
+    url: https://github.com/RPi-Distro/firmware-nonfree/archive/buster.tar.gz
     unpack: true
     name: firmwarenonfree
 
@@ -78,7 +78,7 @@ actions:
 
   - action: overlay
     origin: firmwarenonfree
-    source: firmware-nonfree-master
+    source: firmware-nonfree-buster
     destination: /var/tmp
 
   - action: run

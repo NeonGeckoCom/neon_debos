@@ -76,8 +76,3 @@ actions:
   - action: overlay
     description: OVOS specific overlay
     source: ../overlays/ovos
-    
-  - action: run
-    description: Set up gui and embedded shell
-    chroot: true
-    script: ../scripts/98-mycroft-gui.sh
