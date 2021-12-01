@@ -11,14 +11,11 @@ actions:
     description: Base packages
     packages:
       - xauth
-      - kwin-wayland
-      - konsole
 
     # Desktop packages
   - action: apt
     description: Plasma packages
     packages:
-      - plasma-workspace-wayland
       - plasma-pa
       - plasma-widgets-addons
       - libkf5wallet-bin

@@ -55,6 +55,7 @@ actions:
       - build-essential
       - pulseaudio
       - pulseaudio-utils
+      - libpulse-dev
 
   - action: run
     description: Set up user account
@@ -65,6 +66,7 @@ actions:
   - action: apt
     description: Mycroft packages
     packages:
+      - python3-pip
       - git-core
       - g++
       - cmake
