@@ -20,7 +20,7 @@
 
 # Install OVOS Plugin Manager
 (echo "**** Installing OVOS Plugin Manager ****")
-(pip3 install git+https://github.com/OpenVoiceOS/OVOS-plugin-manager)
+(pip3 install git+https://github.com/OpenVoiceOS/OVOS-plugin-manager.git@dev)
 
 # Install OVOS Mimic2 Plugin
 (echo "**** Installing OVOS Mimic-2 Plugin ****")
@@ -56,7 +56,7 @@
 
 # Install OVOS Core
 (echo "**** Installing OVOS CORE ****")
-(pip3 install ovos-core[all])
+(pip3 install ovos-core[all]==0.0.2a1)
 
 mkdir -p /var/log/mycroft
 chown -R 32011:32011 /home/mycroft
