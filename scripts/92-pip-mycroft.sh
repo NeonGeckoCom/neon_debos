@@ -1,21 +1,62 @@
-# Unpack mycroft-core to user home
-# git clone https://github.com/HelloChatterbox/mycroft-lib ./tmp/mycroft-lib
-#
-# Get latest patches
-# (cd /tmp/mycroft-lib && wget https://raw.githubusercontent.com/OpenVoiceOS/OpenVoiceOS/develop/buildroot-external/package/python-mycroft-lib/0001-Add-entry_points-to-install-binaries.patch)
-#
-# Apply all patches
-# (cd /tmp/mycroft-lib && git config user.name "aix")
-# (cd /tmp/mycroft-lib && git config user.email "aix.m@outlook.com")
-# (cd /tmp/mycroft-lib && git am 0001-Add-entry_points-to-install-binaries.patch)
-#
-# Install mycroft core
-# (cd /tmp/mycroft-lib && pip3 install .[all])
+#Install Json Database
+(echo "**** Install Json Database ****")
+(pip install git+https://github.com/HelloChatterbox/json_database)
 
-# Add Mycroft helper commands to $PATH
-# echo 'source /opt/mycroft/.mycroftrc' >> /home/$USER/.bashrc
+# Install & Update OVOS Utils
+(echo "**** Install OVOS Utils****")
+(pip install git+https://github.com/OpenVoiceOS/ovos_utils)
 
-(pip3 install git+https://github.com/OpenVoiceOS/ovos-core)
+# Install & Update OVOS Workshop
+(echo "**** Install OVOS Workshop****")
+(pip install git+https://github.com/OpenVoiceOS/ovos-workshop)
+
+# Install & Update OVOS Local Backend
+(echo "**** Install OVOS Workshop****")
+(pip install git+https://github.com/OpenVoiceOS/OVOS-local-backend)
+
+# Install OVOS Notifications Service
+(echo "**** Installing Notifications Service ****")
+(pip install git+https://github.com/OpenVoiceOS/ovos_notifications_service)
+
+# Install OVOS Plugin Manager
+(echo "**** Installing OVOS Plugin Manager ****")
+(pip install git+https://github.com/OpenVoiceOS/OVOS-plugin-manager)
+
+# Install OVOS Mimic2 Plugin
+(echo "**** Installing OVOS Mimic-2 Plugin ****")
+(pip install git+https://github.com/OpenVoiceOS/ovos-tts-plugin-mimic2)
+
+# Install OVOS Mimic Plugin
+(echo "**** Installing OVOS Mimic Plugin ****")
+(pip install git+https://github.com/OpenVoiceOS/ovos-tts-plugin-mimic)
+
+# Install OVOS VLC Plugin
+(echo "**** Installing OVOS VLC Plugin ****")
+(pip install git+https://github.com/OpenVoiceOS/ovos-vlc-plugin)
+
+# Install OVOS OCP Audio Plugin
+(echo "**** Installing OVOS OCP Audio Plugin ****")
+(pip install git+https://github.com/OpenVoiceOS/ovos-ocp-audio-plugin)
+
+# Install OVOS OCP Audio Plugin
+(echo "**** Installing OVOS Pico TTS Plugin ****")
+(pip install git+https://github.com/OpenVoiceOS/ovos-tts-plugin-pico)
+
+# Install OVOS OCP Audio Plugin
+(echo "**** Installing Neon Larynx TTS Plugin ****")
+(pip install git+https://github.com/NeonGeckoCom/neon-tts-plugin-larynx_server)
+
+# Install OVOS Precise Lite Plugin
+(echo "**** Installing OVOS Precise Lite Plugin ****")
+(pip install git+https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-lite)
+
+# Install OVOS Precise Lite Plugin
+(echo "**** Installing OVOS Pocketspinx Plugin ****")
+(pip install git+https://github.com/OpenVoiceOS/ovos-ww-plugin-pocketsphinx)
+
+# Install OVOS Core
+(echo "**** Installing OVOS CORE ****")
+(pip3 install git+https://github.com/OpenVoiceOS/ovos-core[all])
 
 mkdir -p /var/log/mycroft
 chown -R 32011:32011 /home/mycroft

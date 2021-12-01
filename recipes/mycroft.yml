@@ -65,6 +65,12 @@ actions:
   - action: apt
     description: Mycroft packages
     packages:
+      - git-core
+      - g++
+      - cmake
+      - extra-cmake-modules
+      - gettext
+      - pkg-config
       - mycroft-gui
       - mycroft-embedded-shell
       - qml-module-org-kde-lottie

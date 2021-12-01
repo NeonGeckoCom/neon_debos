@@ -1,0 +1,11 @@
+[Unit]
+Description=Wifi Setup watcher
+Requires=network-manager
+
+[Service]
+Restart=on-failure
+RestartSec=15s
+ExecStart=/usr/bin/sudo /opt/ovos/check_wifi_setup.sh
+
+[Install]
+WantedBy=multi-user.target

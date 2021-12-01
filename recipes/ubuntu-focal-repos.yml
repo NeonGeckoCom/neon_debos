@@ -46,4 +46,4 @@ actions:
   - action: run
     description: Add OVOS repo
     chroot: true
-    command: echo "deb http://ports.openvoiceos.com focal main" > /etc/apt/sources.list.d/ovos.list
+    command: echo "deb [trusted=yes] http://ports.openvoiceos.com/unstable focal main" > /etc/apt/sources.list.d/ovos.list
