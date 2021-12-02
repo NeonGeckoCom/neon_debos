@@ -11,29 +11,6 @@ actions:
     chroot: true
     script: ../scripts/03-setup_locale.sh
 
-  - action: download
-    description: Download Mimic2 Cache
-    url: https://frozenmazegames.se/Mimic2-local-cache.zip
-    unpack: true
-    name: mimic2-cache
-    filename: Mimic2-local-cache.zip
-    unpack: true
-    compression: zip
-
-  - action: run
-    description: Create cache folder
-    chroot: true
-    command: mkdir -p /opt/mycroft/preloaded_cache/Mimic2
-
-  - action: overlay
-    origin: mimic2-cache
-    source: .
-    destination: /opt/mycroft/preloaded_cache/Mimic2
-
-  - action: run
-    description: Install Mimic2 cache
-    chroot: true
-    script: ../scripts/96-set_tts_to_mimic2.sh
   - action: run
     description: remove zfs
     chroot: true

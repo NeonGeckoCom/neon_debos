@@ -17,9 +17,6 @@ actions:
     description: Plasma packages
     packages:
       - plasma-pa
-      - plasma-widgets-addons
-      - libkf5wallet-bin
-      - kscreen
       - qt5ct
       - weston
 

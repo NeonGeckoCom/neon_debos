@@ -22,3 +22,5 @@ mkdir -p /home/mycroft/.local/share/mycroft/skills/
 chown -R 32011:32011 /home/mycroft/.local/share/mycroft/skills/
 chown -R 32011:32011 /home/mycroft/.mycroft
 chown -R 32011:32011 /home/mycroft/
+chmod -R ugo+x /usr/local/sbin
+chmod -R ugo+x /opt/ovos

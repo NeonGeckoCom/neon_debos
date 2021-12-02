@@ -14,7 +14,7 @@ actions:
 {{ if eq $architecture "armhf" }}
     url: https://github.com/forslund/mycroft-desktop-repo/raw/gh-pages/pool/main/m/mimic/mimic_1.3.0.1_armhf.deb
 {{ else }}
-    url: http://frozenmazegames.se/mimic-arm64_1.2.0.2+1559651054-1.deb
+    url: http://downloads.openvoiceos.com/mimic-arm64_1.2.0.2%2B1559651054-1.deb
 {{end}}
     name: mimic
     filename: mimic.deb
@@ -56,6 +56,9 @@ actions:
       - pulseaudio
       - pulseaudio-utils
       - libpulse-dev
+      - wireless-tools
+      - dnsmasq
+      - sox
 
   - action: run
     description: Set up user account

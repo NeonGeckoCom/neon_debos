@@ -52,11 +52,15 @@
 
 # Install OVOS Core
 (echo "**** Installing OVOS CORE ****")
-(pip3 install ovos-core[all]==0.0.2a1)
+(pip3 install https://github.com/OpenVoiceOS/ovos-core/archive/playground/0.0.2.zip#egg=ovos-core[all])
 
 # Install OVOS Plugin Manager
 (echo "**** Installing OVOS Plugin Manager ****")
 (pip3 install https://github.com/openvoiceos/ovos-plugin-manager/archive/dev.zip)
+
+# Install Requests Cache
+(echo "**** Installing Request Cache ****")
+(pip3 install requests_cache)
 
 mkdir -p /var/log/mycroft
 chown -R 32011:32011 /home/mycroft

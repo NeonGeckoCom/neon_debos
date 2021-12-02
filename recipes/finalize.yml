@@ -6,6 +6,15 @@
 architecture: {{ $architecture }}
 
 actions:
+  - action: overlay
+    description: OVOS specific overlay
+    source: ../overlays/ovos-final
+
+  - action: apt
+    description: Mycroft runtime dependencies
+    packages:
+      - resolvconf
+
   - action: filesystem-deploy
     description: Deploying filesystem into image
 
