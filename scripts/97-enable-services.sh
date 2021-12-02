@@ -10,10 +10,9 @@
 (apt purge -y netplan.io)
 (apt install -y network-manager)
 
-(systemctl disabled systemd-resolved)
-(systemctl mask systemd-resolved)
 (systemctl stop systemd-networkd.socket)
 (systemctl disable systemd-networkd.socket)
 (systemctl stop systemd-networkd)
 (systemctl disable systemd-networkd)
+
 (systemctl enable network-manager)

@@ -56,8 +56,6 @@ actions:
       - pulseaudio
       - pulseaudio-utils
       - libpulse-dev
-      - wireless-tools
-      - dnsmasq
       - sox
 
   - action: run
