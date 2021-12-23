@@ -30,10 +30,19 @@ jobs:
 
       - name: Update APT
         run: sudo apt-get update
+        
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+         key: ${{ secrets.OVOS_DOWNLOADS_SYNC_KEY }} 
+         known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
+         
+      - name: Adding Known Hosts
+        run: ssh-keyscan -H ${{ secrets.OVOS_DOWNLOADS_HOST }} >> ~/.ssh/known_hosts
 
       # Runs a single command using the runners shell
       - name: Install Debos Deps
-        run: sudo apt-get install git bmap-tools dosfstools e2fsprogs zsync -y
+        run: sudo apt-get install git bmap-tools dosfstools e2fsprogs zsync rsync -y
 
       - name: Try Setup Loop Device
         run:  sudo losetup -f
@@ -42,5 +51,10 @@ jobs:
         run: git clone https://github.com/OpenVoiceOS/ovos_debos_dev_edition ovos-debos
 
       # Runs a set of commands using the runners shell
-      - name: Run a Debos Recipe
-        run: cd ovos-debos && docker run --rm --tmpfs /scratch:exec --workdir $(pwd) --mount type=bind,source=$(pwd),destination=$(pwd) --group-add=108 --security-opt label=disable -e TMP=/scratch godebos/debos ovos-dev-edition-rpi4.yml -b uml -t architecture:arm64 -m 10G
+      # - name: Run a Debos Recipe
+      #  run: cd ovos-debos && docker run --rm --tmpfs /scratch:exec --workdir $(pwd) --mount type=bind,source=$(pwd),destination=$(pwd) --group-add=108 --security-opt label=disable -e TMP=/scratch godebos/debos ovos-dev-edition-rpi4.yml -b uml -t architecture:arm64 -m 10G
+      - name: Test Deploy
+        run: cd ovos-debos && cat "test-deploy" > test-deploy.txt
+      
+      - name: Deploy Image
+        run: cd ovos-debos && rsync -avz test-deploy.txt ${{ secrets.OVOS_DOWNLOADS_USER }}@${{ secrets.OVOS_DOWNLOADS_HOST }}:/var/www/html/
