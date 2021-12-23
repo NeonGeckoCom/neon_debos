@@ -54,7 +54,7 @@ jobs:
       # - name: Run a Debos Recipe
       #  run: cd ovos-debos && docker run --rm --tmpfs /scratch:exec --workdir $(pwd) --mount type=bind,source=$(pwd),destination=$(pwd) --group-add=108 --security-opt label=disable -e TMP=/scratch godebos/debos ovos-dev-edition-rpi4.yml -b uml -t architecture:arm64 -m 10G
       - name: Test Deploy
-        run: cd ovos-debos && cat "test-deploy" > test-deploy.txt
+        run: echo "test deploy" > $(pwd)/ovos-debos/testdeploy.txt
       
       - name: Deploy Image
-        run: cd ovos-debos && rsync -avz test-deploy.txt ${{ secrets.OVOS_DOWNLOADS_USER }}@${{ secrets.OVOS_DOWNLOADS_HOST }}:/var/www/html/
+        run: rsync -avz $(pwd)/ovos-debos/testdeploy.txt ${{ secrets.OVOS_DOWNLOADS_USER }}@${{ secrets.OVOS_DOWNLOADS_HOST }}:/var/www/html/
