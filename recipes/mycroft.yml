@@ -93,6 +93,7 @@ actions:
       - qt5ct
       - qml-module-qtquick-virtualkeyboard
       - qtvirtualkeyboard-plugin
+      - vocal-fusion-driver
 
   - action: run
     description: Install mycroft base software
