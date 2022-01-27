@@ -18,6 +18,10 @@ mkdir -p /home/mycroft/.local/share/mycroft/skills/
 (cd /home/mycroft/.local/share/mycroft/skills && git clone https://github.com/OpenVoiceOS/skill-ovos-timer skill-ovos-timer.openvoiceos)
 (cd /home/mycroft/.local/share/mycroft/skills/skill-ovos-timer.openvoiceos && pip3 install -r requirements.txt)
 (cd /home/mycroft/.local/share/mycroft/skills && git clone https://github.com/OpenVoiceOS/skill-camera skill-camera.openvoiceos)
+(cd /home/mycroft/.local/share/mycroft/skills && git clone https://github.com/OpenVoiceOS/skill-ovos-notes skill-ovos-notes.openvoiceos)
+(cd /home/mycroft/.local/share/mycroft/skills/skill-ovos-notes.openvoiceos && pip3 install -r requirements.txt)
+
+
 
 chown -R 32011:32011 /home/mycroft/.local/share/mycroft/skills/
 chown -R 32011:32011 /home/mycroft/.mycroft
