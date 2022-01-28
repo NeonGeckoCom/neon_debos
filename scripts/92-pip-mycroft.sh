@@ -34,10 +34,6 @@
 (echo "**** Installing OVOS CORE ****")
 (pip3 install ovos-core==0.0.2a3)
 
-# Install & Update OVOS Local Backend
-(echo "**** Install OVOS Local Backend****")
-(pip3 install git+https://github.com/OpenVoiceOS/OVOS-local-backend)
-
 # Install OVOS Notifications Service
 (echo "**** Installing Notifications Service ****")
 (pip3 install git+https://github.com/OpenVoiceOS/ovos_notifications_service)
@@ -107,6 +103,10 @@
 # Install OVOS Precise Lite Plugin
 (echo "**** Installing OVOS Precise Lite Plugin ****")
 (pip3 install git+https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-lite)
+
+# Install & Update OVOS Local Backend
+(echo "**** Install OVOS Local Backend****")
+(pip3 install git+https://github.com/OpenVoiceOS/OVOS-local-backend)
 
 mkdir -p /var/log/mycroft
 chown -R 32011:32011 /home/mycroft
