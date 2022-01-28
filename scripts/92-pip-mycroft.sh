@@ -15,7 +15,7 @@
 (pip3 install git+https://github.com/OpenVoiceOS/ovos-workshop)
 
 #Install Minimal Core Dependencies Manually
-(echo "**** Install Tflite Runtime ****")
+(echo "**** Install Ovos-Core Deps ****")
 (pip3 install requests>=2.20.0,<2.26.0)
 (pip3 install PyAudio~=0.2.11)
 (pip3 install pyee~=8.1)
