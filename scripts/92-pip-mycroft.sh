@@ -94,10 +94,6 @@
 (echo "**** Installing ovos-speech ****")
 (pip3 install git+https://github.com/OpenVoiceOS/ovos-speech)
 
-# Install OVOS Precise Lite Plugin
-(echo "**** Installing OVOS Precise Lite Plugin ****")
-(pip3 install git+https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-lite)
-
 # Install OVOS PocketSphinx Plugin
 (echo "**** Installing OVOS Pocketspinx Plugin ****")
 (pip3 install git+https://github.com/OpenVoiceOS/ovos-ww-plugin-pocketsphinx)
@@ -105,6 +101,12 @@
 #Install Tflite-Runtime or core does not build
 (echo "**** Install Tflite Runtime ****")
 (pip3 install tflite_runtime)
+(pip3 install tflit)
+(pip3 install sonopy==0.1.2)
+
+# Install OVOS Precise Lite Plugin
+(echo "**** Installing OVOS Precise Lite Plugin ****")
+(pip3 install git+https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-lite)
 
 mkdir -p /var/log/mycroft
 chown -R 32011:32011 /home/mycroft
