@@ -1,7 +1,3 @@
-#Install Wheel
-(echo "**** Install Wheel ****")
-(pip3 install wheel)
-
 #Install Json Database
 (echo "**** Install Json Database ****")
 (pip3 install git+https://github.com/HelloChatterbox/json_database)
