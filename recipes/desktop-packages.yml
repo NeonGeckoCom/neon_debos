@@ -16,9 +16,7 @@ actions:
   - action: apt
     description: Plasma packages
     packages:
-      - plasma-pa
       - qt5ct
-      - weston
 
   - action: apt
     description: Networking packages
@@ -27,4 +25,3 @@ actions:
       - wireless-tools
       - dnsmasq
       - plasma-nm
-      - ubuntu-minimal
