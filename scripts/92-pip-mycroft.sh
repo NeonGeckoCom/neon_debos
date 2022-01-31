@@ -31,8 +31,8 @@
 (pip3 install pyxdg~=0.26)
 
 # Install OVOS Core
-(echo "**** Installing OVOS CORE ****")
-(pip3 install ovos-core==0.0.2a3)
+(echo "**** Installing OVOS CORE Dev Branch ****")
+(pip3 install git+https://github.com/OpenVoiceOS/ovos-core)
 
 # Install OVOS Notifications Service
 (echo "**** Installing Notifications Service ****")
