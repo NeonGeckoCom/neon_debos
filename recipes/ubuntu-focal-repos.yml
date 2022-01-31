@@ -56,4 +56,4 @@ actions:
   - action: run
     description: Add KDE Neon apt repo
     chroot: true
-    command: echo "deb https://archive.neon.kde.org/unstable {{ $suite }} main" > /etc/apt/sources.list.d/neon.list
+    command: echo "deb [trusted=yes] http://archive.neon.kde.org/unstable {{ $suite }} main" > /etc/apt/sources.list.d/neon.list
