@@ -32,6 +32,11 @@ actions:
     description: Install default ovos skills
     chroot: true
     script: ../scripts/99-install-ovos-skills.sh
+
+  - action: run
+    description: Install ovos additional software
+    chroot: true
+    script: ../scripts/92-pip-ovos.sh
     
   - action: run
     description: Create bmap file
