@@ -1,6 +1,6 @@
 # Clean Up Apt Packages
 (echo "**** Clean Up All Apt Cache ****")
-(sudo apt clean)
+(cd /var/cache/apt/ && rm -rf archives/*)
 
 # Clean Up Apt Packages
 (echo "**** Clean Up All Pypi Cache ****")
