@@ -17,6 +17,7 @@ actions:
     description: Plasma packages
     packages:
       - qt5ct
+      - ubuntu-minimal
 
   - action: apt
     description: Networking packages
