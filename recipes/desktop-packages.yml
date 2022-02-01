@@ -18,6 +18,7 @@ actions:
     packages:
       - qt5ct
       - ubuntu-minimal
+      - plasma-pa
 
   - action: apt
     description: Networking packages
