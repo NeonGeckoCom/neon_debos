@@ -34,6 +34,11 @@ actions:
     script: ../scripts/99-install-ovos-skills.sh
 
   - action: run
+    description: Clean APT
+    chroot: true
+    script: ../scripts/90-clean-apt.sh
+
+  - action: run
     description: Install ovos additional software
     chroot: true
     script: ../scripts/92-pip-ovos.sh

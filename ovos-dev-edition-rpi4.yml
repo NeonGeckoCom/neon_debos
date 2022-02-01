@@ -64,12 +64,6 @@ actions:
       image: {{ $image }}
 
   - action: recipe
-    recipe: recipes/load-precise.yml
-    variables:
-      architecture: {{ $architecture }}
-      user: {{ $user }}
-
-  - action: recipe
     recipe: recipes/ovos.yml
     variables:
       architecture: {{ $architecture }}
