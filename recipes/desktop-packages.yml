@@ -12,6 +12,11 @@ actions:
     packages:
       - xauth
 
+  - action: run
+    description: Clean APT
+    chroot: true
+    script: ../scripts/90-clean-apt.sh
+
     # Desktop packages
   - action: apt
     description: Plasma packages
