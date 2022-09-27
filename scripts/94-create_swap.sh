@@ -1,7 +1,7 @@
 #! /bin/env sh
 
 SWAP_FILE="/swapfile"
-fallocate -l 2G ${SWAP_FILE}
+fallocate -l 1G ${SWAP_FILE}
 chmod 600 ${SWAP_FILE}
 mkswap ${SWAP_FILE}
 

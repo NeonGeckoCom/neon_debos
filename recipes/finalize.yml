@@ -6,9 +6,9 @@
 architecture: {{ $architecture }}
 
 actions:
-  - action: overlay
-    description: OVOS specific overlay
-    source: ../overlays/ovos-final
+#  - action: overlay
+#    description: OVOS specific overlay
+#    source: ../overlays/ovos-final
 
   - action: filesystem-deploy
     description: Deploying filesystem into image
@@ -23,12 +23,12 @@ actions:
     chroot: true
     script: ../scripts/94-create_swap.sh
 
-  - action: run
-    description: Create bmap file
-    postprocess: true
-    command: bmaptool create {{ $image }} > {{ $image }}.bmap
+#  - action: run
+#    description: Create bmap file
+#    postprocess: true
+#    command: bmaptool create {{ $image }} > {{ $image }}.bmap
 
   - action: run
     description: Compress image
     postprocess: true
-    command: gzip -f9 {{ $image }} 
+    command: xz --compress --keep {{ $image }}

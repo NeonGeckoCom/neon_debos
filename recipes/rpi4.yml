@@ -1,6 +1,5 @@
 {{- $architecture := or .architecture "arm64" -}}
 {{- $firmware_version := or .firmware_version "master" -}}
-{{ $suite :=  or .suite "focal" }}
 {{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
 
 architecture: {{ $architecture }}
@@ -84,7 +83,7 @@ actions:
   - action: run
     description: Copy broadcom firmware
     chroot: true
-    command: cp -r /var/tmp/brcm/brcmfmac43455-sdio.* /lib/firmware/brcm/
+    command: mkdir -p /lib/firmware/brcm && cp -r /var/tmp/brcm/brcmfmac43455-sdio.* /lib/firmware/brcm/
 
   - action: run
     description: Copy kernel to where bootloader expects it
@@ -99,7 +98,7 @@ actions:
 
   - action: image-partition
     imagename: {{ $image }}
-    imagesize: 15.3GB
+    imagesize: 8GB
     partitiontype: msdos
     mountpoints:
       - mountpoint: /
@@ -123,3 +122,20 @@ actions:
     chroot: true
     command: echo raspberrypi4 > /etc/hostname
 
+  - action: apt
+    packages:
+      - file
+      - gcc
+      - wget
+      - make
+      - patch
+      - build-essential
+      - bc
+      - bison
+      - flex
+      - libssl-dev
+
+  - action: run
+    description: Patch Kernel Headers
+    chroot: true
+    script: ../scripts/01-patch_5_4_raspi_kernel.sh

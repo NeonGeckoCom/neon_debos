@@ -22,7 +22,7 @@ actions:
     description: Plasma packages
     packages:
       - qt5ct
-      - ubuntu-minimal
+#      - ubuntu-minimal
       - plasma-pa
 
   - action: apt
