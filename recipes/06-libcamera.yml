@@ -1,0 +1,38 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{ $suite :=  or .suite "bullseye" }}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: apt
+    description: Base packages
+    packages:
+      - g++
+      - libboost-dev
+      - libgnutls28-dev
+      - openssl
+      - libtiff5-dev
+      - python3-yaml
+      - python3-ply
+      - python3-jinja2
+      - libglib2.0-dev
+      - libssl-dev
+      - meson
+      - ninja-build
+      - pkg-config
+      - qtbase5-dev
+      - libqt5core5a
+      - libqt5gui5
+      - libqt5widgets5
+      - cmake
+      - libboost-program-options-dev
+      - libdrm-dev
+      - libexif-dev
+      - libpng-dev
+      - libegl1-mesa-dev
+      - v4l-utils
+
+  - action: run
+    description: Install Pi Camera Dependencies
+    chroot: true
+    script: ../scripts/06-libcamera.sh

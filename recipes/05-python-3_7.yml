@@ -1,0 +1,26 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{ $suite :=  or .suite "bullseye" }}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: apt
+    description: Base packages
+    packages:
+      - linux-headers-arm64
+      - build-essential
+      - zlib1g-dev
+      - libncurses5-dev
+      - libgdbm-dev
+      - libnss3-dev
+      - libssl-dev
+      - libsqlite3-dev
+      - libreadline-dev
+      - libffi-dev
+      - curl
+      - libbz2-dev
+
+  - action: run
+    description: Make Scripts
+    chroot: true
+    script: ../scripts/05-build_python_3_7.sh

@@ -1,0 +1,31 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $firmware_version := or .firmware_version "master" -}}
+{{ $suite :=  or .suite "focal" }}
+{{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+
+  - action: filesystem-deploy
+    description: Deploying filesystem into image
+
+  - action: run
+    description: Creating ramdisk
+    chroot: true
+    script: ../scripts/99-create_ramdisk.sh
+
+  - action: run
+    description: Creating swap file
+    chroot: true
+    script: ../scripts/99-create_swap.sh
+
+#  - action: run
+#    description: Create bmap file
+#    postprocess: true
+#    command: bmaptool create {{ $image }} > {{ $image }}.bmap
+
+  - action: run
+    description: Compress image
+    postprocess: true
+    command: xz --compress --keep {{ $image }}

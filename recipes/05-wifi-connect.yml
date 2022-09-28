@@ -1,0 +1,22 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{ $suite :=  or .suite "bullseye" }}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: apt
+    description: Base packages
+    packages:
+      - network-manager
+      - iproute2
+      - wpasupplicant
+      - dhcpcd5
+
+  - action: overlay
+    description: wifi-connect overlay
+    source: ../overlays/05-wifi-connect
+
+  - action: run
+    description: Configure WiFi Connect
+    chroot: true
+    script: ../scripts/05-wifi-connect.sh

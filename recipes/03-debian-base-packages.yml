@@ -1,0 +1,29 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{ $suite :=  or .suite "bullseye" }}
+
+architecture: {{ $architecture }}
+actions:
+  - action: apt
+    description: Basic packages
+    packages:
+      - bash-completion
+      - vim
+      - alsa-utils
+      - git
+      - python3
+      - openssh-server
+      - ftp
+      - nano
+      - i2c-tools
+      - rng-tools5
+      - locales
+      - sudo
+      - systemd-sysv
+      - debconf
+      - systemd-resolved
+      - psmisc
+      - cmake
+  - action: run
+    description: Build Userland
+    chroot: true
+    script: ../scripts/03-build_userland.sh
