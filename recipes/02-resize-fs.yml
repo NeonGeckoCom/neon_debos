@@ -1,0 +1,20 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $firmware_version := or .firmware_version "master" -}}
+{{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: overlay
+    description: Add Resize FS root overlay
+    source: ../overlays/02-resize-fs
+    destination: /
+
+  - action: apt
+    packages:
+      - systemd
+
+  - action: run
+    description: Enable service to resize FS
+    chroot: true
+    script: ../scripts/02-resize-fs.sh
