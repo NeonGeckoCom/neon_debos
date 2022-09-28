@@ -10,7 +10,11 @@ actions:
       - network-manager
       - iproute2
       - wpasupplicant
-      - dhcpcd5
+      - net-tools
+      - cloud-guest-utils
+      - wireless-tools
+      - dnsmasq
+      - policykit-1
 
   - action: overlay
     description: wifi-connect overlay

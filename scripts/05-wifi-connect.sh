@@ -31,14 +31,16 @@
 systemctl disable systemd-networkd.socket
 systemctl disable systemd-networkd
 systemctl disable dnsmasq
-systemctl disable dhcpcd
 
 systemctl enable wifi-setup.service
 
 # Add wifi-connect binary
 chmod -R ugo+x /usr/local/sbin
 chmod -R ugo+x /opt/neon
+
+# Ensure Group Permissions
 chown root:netdev /usr/bin/nmcli
+usermod -aG netdev root
 
 # TODO: Move SSH to separate step
 # Patch SSH service

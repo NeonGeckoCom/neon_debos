@@ -1,5 +1,5 @@
 [Allow netdev users to modify all network states and settings]
-Identity=unix-group:netdev;unix-group:sudo
+Identity=unix-group:netdev;unix-group:sudo;unix-group:root
 Action=org.freedesktop.NetworkManager.*
 ResultAny=yes
 ResultInactive=yes

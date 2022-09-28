@@ -1,5 +1,6 @@
 #!/bin/bash
 source_dir="/home/$USER/neon_debos"
+sudo chmod ugo+x "${source_dir}/scripts/"*
 docker run --rm \
 --device /dev/kvm \
 --workdir /image_build \

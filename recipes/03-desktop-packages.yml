@@ -19,16 +19,16 @@ actions:
 
     # Desktop packages
   - action: apt
-    description: Plasma packages
-    packages:
-      - qt5ct
-#      - ubuntu-minimal
-      - plasma-pa
-
-  - action: apt
     description: Networking packages
     packages:
       - network-manager
       - wireless-tools
       - dnsmasq
+
+  - action: apt
+    description: Plasma packages
+    packages:
+      - qt5ct
+#      - ubuntu-minimal
+      - plasma-pa
       - plasma-nm

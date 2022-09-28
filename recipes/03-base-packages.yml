@@ -19,3 +19,7 @@ actions:
       - nano
       - i2c-tools
       - rng-tools5
+      - sudo
+      - systemd-sysv
+      - debconf
+      - systemd-resolved

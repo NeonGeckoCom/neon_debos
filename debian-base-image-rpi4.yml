@@ -36,8 +36,7 @@ actions:
       image: {{ $image }}
 
   - action: recipe
-    recipe: recipes/03-debian-base-packages.yml
-
+    recipe: recipes/03-build-userland.yml
 
   - action: recipe
     recipe: recipes/03-desktop-packages.yml
@@ -79,16 +78,24 @@ actions:
 #      suite: {{ $suite }}
 #      image: {{ $image }}
 
-#  - action: recipe
-#    recipe: recipes/06-libcamera.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#      firmware_version: {{ $firmware_version }}
-#      suite: {{ $suite }}
-#      image: {{ $image }}
+  - action: recipe
+    recipe: recipes/06-libcamera.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
 
   - action: recipe
     recipe: recipes/11-ovos-font.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/20-sj201.yml
     variables:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}

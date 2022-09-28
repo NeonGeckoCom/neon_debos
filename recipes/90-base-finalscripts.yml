@@ -6,6 +6,12 @@
 architecture: {{ $architecture }}
 
 actions:
+
+  - action: apt
+    description: Basic packages
+    packages:
+      - locales
+
   - action: run
     description: Set up system locale
     chroot: true

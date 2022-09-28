@@ -7,7 +7,7 @@ architecture: {{ $architecture }}
 actions:
   - action: overlay
     description: Add Resize FS root overlay
-    source: ../overlays/02-resize-fs
+    source: ../overlays/03-resize-fs
     destination: /
 
   - action: apt
@@ -17,4 +17,4 @@ actions:
   - action: run
     description: Enable service to resize FS
     chroot: true
-    script: ../scripts/02-resize-fs.sh
+    script: ../scripts/03-resize-fs.sh
