@@ -24,7 +24,7 @@ actions:
 #    description: Create bmap file
 #    postprocess: true
 #    command: bmaptool create {{ $image }} > {{ $image }}.bmap
-
+# TODO: Pishrink
 #  - action: run
 #    description: Compress image
 #    postprocess: true

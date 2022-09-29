@@ -32,22 +32,6 @@ actions:
       image: {{ $image }}
 
   - action: recipe
-    recipe: recipes/03-desktop-packages.yml
-    variables:
-      architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
-      suite: {{ $suite }}
-      image: {{ $image }}
-
-  - action: recipe
-    recipe: recipes/03-gstreamer-packages.yml
-    variables:
-      architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
-      suite: {{ $suite }}
-      image: {{ $image }}
-
-  - action: recipe
     recipe: recipes/04-base-overlay.yml
     variables:
       architecture: {{ $architecture }}

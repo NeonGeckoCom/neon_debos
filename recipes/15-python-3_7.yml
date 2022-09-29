@@ -5,7 +5,7 @@ architecture: {{ $architecture }}
 
 actions:
   - action: apt
-    description: Base packages
+    description: Python Build Dependencies
     packages:
       - linux-headers-arm64
       - build-essential
@@ -21,6 +21,6 @@ actions:
       - libbz2-dev
 
   - action: run
-    description: Make Scripts
+    description: Build Python 3.7
     chroot: true
-    script: ../scripts/05-build_python_3_7.sh
+    script: ../scripts/15-build_python_3_7.sh

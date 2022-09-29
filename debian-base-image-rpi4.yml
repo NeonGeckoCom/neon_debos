@@ -23,7 +23,7 @@ actions:
       image: {{ $image }}
 
   - action: recipe
-    recipe: recipes/02-resize-fs.yml
+    recipe: recipes/03-resize-fs.yml
     variables:
       architecture: {{ $architecture }}
 
@@ -37,22 +37,6 @@ actions:
 
   - action: recipe
     recipe: recipes/03-build-userland.yml
-
-  - action: recipe
-    recipe: recipes/03-desktop-packages.yml
-    variables:
-      architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
-      suite: {{ $suite }}
-      image: {{ $image }}
-
-  - action: recipe
-    recipe: recipes/03-gstreamer-packages.yml
-    variables:
-      architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
-      suite: {{ $suite }}
-      image: {{ $image }}
 
   - action: recipe
     recipe: recipes/04-base-overlay.yml
@@ -70,14 +54,6 @@ actions:
       suite: {{ $suite }}
       image: {{ $image }}
 
-#  - action: recipe
-#    recipe: recipes/05-python-3_7.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#      firmware_version: {{ $firmware_version }}
-#      suite: {{ $suite }}
-#      image: {{ $image }}
-
   - action: recipe
     recipe: recipes/06-libcamera.yml
     variables:
@@ -88,6 +64,14 @@ actions:
 
   - action: recipe
     recipe: recipes/11-ovos-font.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/15-python-3_7.yml
     variables:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}

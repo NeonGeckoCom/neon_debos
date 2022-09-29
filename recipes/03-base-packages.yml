@@ -23,3 +23,41 @@ actions:
       - systemd-sysv
       - debconf
       - systemd-resolved
+      - ntp
+
+  # Desktop packages
+  - action: apt
+    description: Base packages
+    packages:
+      - xauth
+
+  - action: run
+    description: Clean APT
+    chroot: true
+    script: ../scripts/90-clean-apt.sh
+
+    # Desktop packages
+  - action: apt
+    description: Networking packages
+    packages:
+      - network-manager
+      - wireless-tools
+      - dnsmasq
+
+  - action: apt
+    description: Plasma packages
+    packages:
+      - qt5ct
+      #      - ubuntu-minimal
+      - plasma-pa
+      - plasma-nm
+
+  - action: apt
+    description: GStreamer packages
+    packages:
+      - gstreamer1.0-plugins-base
+      - gstreamer1.0-plugins-good
+      - gstreamer1.0-plugins-bad
+      - gstreamer1.0-plugins-ugly
+      - gstreamer1.0-libav
+      - libqt5multimedia5-plugins
