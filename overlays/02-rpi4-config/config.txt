@@ -22,4 +22,14 @@ max_framebuffers=2
 arm_64bit=1
 
 [all]
-gpu_mem=320
+# Enable Camera Support
+start_x=1
+
+# Spec GPU Memory
+gpu_mem=256
+gpu_mem_256=128
+gpu_mem_512=128
+gpu_mem_1024=128
+
+# Disable rainbow splash screen
+disable_splash=1
