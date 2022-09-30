@@ -71,6 +71,14 @@ actions:
       image: {{ $image }}
 
   - action: recipe
+    recipe: recipes/12-ovos-gui-dependencies.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
     recipe: recipes/15-python-3_7.yml
     variables:
       architecture: {{ $architecture }}

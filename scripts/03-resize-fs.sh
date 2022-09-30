@@ -27,5 +27,8 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+# Set to exit on error
+set -Ee
+
 chmod -R ugo+x /opt/neon
 systemctl enable resize_fs.service

@@ -27,12 +27,15 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+# Set to exit on error
+set -Ee
+
 CFLAGS="-fcommon" pip install smbus smbus2 spidev rpi.gpio
 
 # Determine kernel with build directory
 # TODO: Better way to detect appropriate kernel
 if [ -d /lib/modules/5.4.51-v8-raspi2 ]; then
-    kernel=/lib/modules/5.4.51-v8-raspi2
+    kernel=5.4.51-v8-raspi2
 elif [ "$(ls -1 /lib/modules | wc -l)" -gt 1 ]; then
     kernels=($(ls /lib/modules))
     echo "Looking for kernel with build dir in ${kernels[*]}"

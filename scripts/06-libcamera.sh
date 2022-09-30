@@ -27,6 +27,9 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+# Set to exit on error
+set -Ee
+
 # Clone and build libcamera
 git clone https://github.com/raspberrypi/libcamera.git
 cd libcamera || exit 10
@@ -52,6 +55,7 @@ cd libcamera-apps || exit 10
 mkdir build
 cd build || exit 10
 cmake .. -DENABLE_DRM=1 -DENABLE_X11=0 -DENABLE_QT=1 -DENABLE_OPENCV=0 -DENABLE_TFLITE=0
+make -j
 make install
 cd ../..
 rm -rf libcamera-apps

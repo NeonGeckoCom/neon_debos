@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Set to exit on error
+set -Ee
+
 export HEADER_DIR=/usr/src/linux-headers-5.4.51-v8-raspi2
 
 cd $HEADER_DIR || exit 2

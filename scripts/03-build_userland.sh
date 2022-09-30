@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# Set to exit on error
+set -Ee
+
 git clone https://github.com/raspberrypi/userland
 cd userland || exit 10
 ./buildme --aarch64

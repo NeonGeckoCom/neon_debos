@@ -1,4 +1,7 @@
-#! /usr/bin/env bash
+#!/bin/bash
+
+# Set to exit on error
+set -Ee
 
 ROOT_DEV=${ROOT_DEV:-"/dev/mmcblk0p2"}
 

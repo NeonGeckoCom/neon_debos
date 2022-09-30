@@ -27,6 +27,9 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+# Set to exit on error
+set -Ee
+
 # Setup all the services
 systemctl disable systemd-networkd.socket
 systemctl disable systemd-networkd

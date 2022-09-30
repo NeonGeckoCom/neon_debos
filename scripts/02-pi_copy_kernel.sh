@@ -1,5 +1,8 @@
 #!/bin/sh -x
 
+# Set to exit on error
+set -Ee
+
 cd /boot
 
 if [ $1 = "armhf" ]; then
