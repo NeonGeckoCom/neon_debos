@@ -95,6 +95,10 @@ actions:
     chroot: true
     script: ../scripts/02-set_root_fs.sh
 
+  - action: run
+    description: Define Default Groups
+    chroot: true
+    script: ../scripts/02-create-groups.sh
 
   - action: image-partition
     imagename: {{ $image }}

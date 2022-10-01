@@ -11,6 +11,7 @@ actions:
       - build-essential
       - zlib1g-dev
       - libncurses5-dev
+      - libncursesw5-dev
       - libgdbm-dev
       - libnss3-dev
       - libssl-dev
@@ -18,7 +19,11 @@ actions:
       - libreadline-dev
       - libffi-dev
       - curl
+      - wget
+      - llvm
       - libbz2-dev
+      - xz-utils
+      - tk-dev
 
   - action: run
     description: Build Python 3.7

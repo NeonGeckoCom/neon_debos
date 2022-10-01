@@ -1,0 +1,19 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{ $suite :=  or .suite "bullseye" }}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: apt
+    description: Base packages
+    packages:
+      - fbi
+
+  - action: overlay
+    description: Boot Screen Overlay
+    source: ../overlays/07-splash-screen
+
+  - action: run
+    description: Configure Splash Screen
+    chroot: true
+    script: ../scripts/07-splash-screen.sh
