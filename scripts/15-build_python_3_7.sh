@@ -9,7 +9,7 @@ tar -xf Python-3.7.14.tar.xz
 rm Python-3.7.14.tar.xz
 cd Python-3.7.14 || exit 10
 ./configure --enable-optimizations && echo "Configure complete"
-make -j2 && echo "make complete"
+make && echo "make complete"
 echo ">>>make finished"
 make altinstall && echo "install complete"
 echo ">>>altinstall finished"

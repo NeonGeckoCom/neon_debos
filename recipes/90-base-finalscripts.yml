@@ -12,6 +12,11 @@ actions:
     packages:
       - locales
 
+  - action: overlay
+    description: Locale overlay
+    source: ../overlays/90-locales
+    destination: /
+
   - action: run
     description: Set up system locale
     chroot: true
