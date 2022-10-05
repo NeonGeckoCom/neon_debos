@@ -1,3 +1,19 @@
+# # armstub8-gic stub for Pi4s with older firmware
+# armstub=armstub8-gic.bin
+# enable_gic=1
+
+[pi4]
+dtoverlay=vc4-fkms-v3d
+max_framebuffers=2
+arm_64bit=1
+arm_boost=1
+
+[all]
+dtparam=i2c_arm=on
+
+# Enable Camera Support
+start_x=1
+
 # Set 'force_turbo=1' to disable dynamic overclocking and enable overclocking always
 force_turbo=0
 
@@ -11,19 +27,8 @@ hdmi_ignore_cec_init=1
 # Enable audio (loads snd_bcm2835)
 dtparam=audio=on
 
-# armstub8-gic stub for Pi4s with older firmware
-armstub=armstub8-gic.bin
-enable_gic=1
-
-[pi4]
-dtoverlay=vc4-fkms-v3d
-dtparam=i2c_arm=on
-max_framebuffers=2
-arm_64bit=1
-
-[all]
-# Enable Camera Support
-start_x=1
+# Enable SPI for SJ201 Flashing
+dtparam=spi=on
 
 # Spec GPU Memory
 gpu_mem=256

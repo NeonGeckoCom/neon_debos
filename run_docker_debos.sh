@@ -7,8 +7,8 @@ docker run --rm -d \
 --mount type=bind,source="${source_dir}",destination=/image_build \
 --group-add=108 \
 --security-opt label=disable \
--t debos \
+--name neon_debos \
 godebos/debos debian-base-image-rpi4.yml -t architecture:arm64 -m 12G -c 6 && \
-docker logs -f debos
+docker logs -f neon_debos
 
 #sudo chown $USER:$USER "${source_dir}"/*
