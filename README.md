@@ -1,36 +1,23 @@
-# OVOS devices
-
-This repo contains [debos](https://github.com/go-debos/debos) recipes for building base images for .
+# Embedded device images
+This repo contains [debos](https://github.com/go-debos/debos) recipes for building base images for embedded voice assistant
+devices. Images generated here are intended to include all dependencies, drivers, and OS-level configuration that an assistant
+device might need, such as Camera Drivers, wifi-connect, QT packages, Vocal Fusion Drivers, etc.
 
 ## Available recipes
+- debian-base-image-rpi4.yml: Debian Bookworm image with updated RPi kernel, RPi userland binaries, libcamera, 
+  wifi-connect, SJ-201/Vocalfusion drivers, and a Splash Screen.
 
-- ovos-dev-edition-rpi4.yml: Open Voice OS image based on Ubuntu 20.04. This aims to be a development edition cutting edge build aimed at developers.
+## Repository Structure
+Each directory contains numbered files or directories; earlier numbers correspond to earlier build stages, and 
+associate files/directories between the top-level `overlays`, `recipes`, and `scripts` directories.
+
+Top-level `yml` files specify recipes for building images for a particular combination of base OS and platform.
+
+- The `overlays` directory contains image root FS overlays.
+- The `recipes` directory contains go-debos recipes.
+- The `scripts` directory contains shell scripts that run in the image.
 
 ## Build instructions
+To build a default image, use the included `run_docker_debos.sh` shell script.
 
-This will detail the build instructions using the debos docker, if you wish instructions for running debos natively can be found in the [official readme](https://github.com/go-debos/debos#sypnosis)
-
-
-Fetch the debos docker container
-
-```
-docker pull godebos/debos
-```
-
-The docker needs some special access so the docker commandline becomes
-
-```sh
-docker run --rm --device /dev/kvm --user $(id -u) \
-           --group-add=$(getent group kvm | cut -d : -f 3) \
-           --workdir /recipes \
-           --mount "type=bind,source=$(pwd),destination=/recipes" \
-           --security-opt label=disable godebos/debos \
-           -e ROOT_DEV:/dev/sda2 \
-           RECIPE \
-           -m 7450M
-```
-
-Where:
-- `/dev/sda2` defines the root device, in this case booting from USB
-- `RECIPE` is one of the listed recipes above (ex mycroft-mark-2-rpi4-ubuntu.yml)
-- `-m` flag defines memory limit allocated to the Docker container
+Instructions for running debos natively can be found in the [official readme](https://github.com/go-debos/debos#sypnosis).
