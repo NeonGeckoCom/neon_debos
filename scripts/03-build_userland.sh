@@ -9,5 +9,8 @@ cd userland || exit 10
 cd ..
 rm -r userland
 ln -s /opt/vc/bin/* /usr/bin/
-ln -s /opt/vc/lib/* /usr/lib/
+for file in /opt/vc/lib/*; do
+    ln -s "${file}" /usr/lib/ && echo "Linked ${file}" || echo "File exists, ignoring ${file}"
+done
+rm -rf /boot/overlays
 ln -s /boot/firmware/overlays /boot/overlays

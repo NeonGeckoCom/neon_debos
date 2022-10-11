@@ -9,13 +9,21 @@ arm_64bit=1
 arm_boost=1
 
 [all]
+
+# Enable audio (loads snd_bcm2835)
+dtparam=audio=on
+
+# Enable I2C interfaces on the GPIO header
 dtparam=i2c_arm=on
+
+# Enable SPI for SJ201 Flashing
+dtparam=spi=on
 
 # Enable Camera Support
 start_x=1
 
 # Set 'force_turbo=1' to disable dynamic overclocking and enable overclocking always
-force_turbo=0
+force_turbo=1
 
 # have a properly sized image
 disable_overscan=1
@@ -24,11 +32,7 @@ disable_overscan=1
 # hdmi_drive=2
 hdmi_ignore_cec_init=1
 
-# Enable audio (loads snd_bcm2835)
-dtparam=audio=on
 
-# Enable SPI for SJ201 Flashing
-dtparam=spi=on
 
 # Spec GPU Memory
 gpu_mem=256

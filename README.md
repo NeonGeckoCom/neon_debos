@@ -1,6 +1,6 @@
 # OVOS devices
 
-This repo contains [debos](https://github.com/go-debos/debos) recipes for building Open Voice OS development installation images.
+This repo contains [debos](https://github.com/go-debos/debos) recipes for building base images for .
 
 ## Available recipes
 

@@ -1,5 +1,7 @@
 #!/bin/bash
 source_dir="/home/$USER/neon_debos"
+timestamp=$(date '+%Y-%m-%d_%H_%M')
+image="debian-base-image-rpi4"
 sudo chmod ugo+x "${source_dir}/scripts/"*
 docker run --rm -d \
 --device /dev/kvm \
@@ -8,7 +10,7 @@ docker run --rm -d \
 --group-add=108 \
 --security-opt label=disable \
 --name neon_debos \
-godebos/debos debian-base-image-rpi4.yml -t architecture:arm64 -m 12G -c 6 && \
+godebos/debos "${image}.yml" -t architecture:arm64 -t image:"${image}_${timestamp}.img" -m 12G -c 6 && \
 docker logs -f neon_debos
 
 #sudo chown $USER:$USER "${source_dir}"/*

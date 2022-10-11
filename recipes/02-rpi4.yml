@@ -11,12 +11,17 @@ actions:
 {{ if eq $architecture "armhf" }}
     url: http://bshah.in/linux-pi4-armhf.zip
 {{ else }}
-    url: http://downloads.openvoiceos.com/linux-pi4-5.4-arm64.zip
+    url: https://2222.us/app/files/neon_images/pi/linux-pi4-5.15-arm64.zip
 {{ end }}
     name: kernel
     filename: kernel.zip
     unpack: true
     compression: zip
+
+  - action: overlay
+    origin: kernel
+    source: .
+    destination: /var/tmp/
 
   # Download all needed proprietary stuff first
   - action: download
@@ -31,11 +36,6 @@ actions:
     unpack: true
     name: firmwarenonfree
 
-  - action: overlay
-    origin: kernel
-    source: .
-    destination: /var/tmp/
-
   # add firmware
   - action: overlay
     origin: firmware
@@ -45,6 +45,19 @@ actions:
   - action: run
     chroot: true
     command: rm -rvf /boot/firmware/kernel*.img /boot/firmware/*.dtb /boot/firmware/overlays
+
+  - action: apt
+    packages:
+      - file
+      - gcc
+      - wget
+      - make
+      - patch
+      - build-essential
+      - bc
+      - bison
+      - flex
+      - libssl-dev
 
   - action: run
     origin: kernel
@@ -62,13 +75,10 @@ actions:
     command: mkdir -p /boot/firmware/overlays && cp -v /usr/lib/linux-image-*/broadcom/*.dtb /boot/firmware && cp -v /usr/lib/linux-image-*/overlays/* /boot/firmware/overlays/
 {{ end }}
 
-  - action: overlay
-{{ if eq $architecture "armhf" }}
-    source: ../overlays/02-rpi4-config-armhf
-{{ else }}
-    source: ../overlays/02-rpi4-config
-{{ end }}
-    destination: /boot/firmware
+  - action: run
+    description: Get and Install Kernel Packages
+    chroot: true
+    script: ../scripts/02-get_raspi_kernel.sh
 
   - action: overlay
     description: Add Raspberry Pi 4 root overlay
@@ -126,20 +136,7 @@ actions:
     chroot: true
     command: echo raspberrypi4 > /etc/hostname
 
-  - action: apt
-    packages:
-      - file
-      - gcc
-      - wget
-      - make
-      - patch
-      - build-essential
-      - bc
-      - bison
-      - flex
-      - libssl-dev
-
-  - action: run
-    description: Patch Kernel Headers
-    chroot: true
-    script: ../scripts/02-patch_5_4_raspi_kernel.sh
+#  - action: run
+#    description: Patch Kernel Headers
+#    chroot: true
+#    script: ../scripts/02-patch_5_4_raspi_kernel.sh
