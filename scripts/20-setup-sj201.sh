@@ -67,6 +67,9 @@ sed -ie "s|\$(shell uname -r)|${kernel}|g" Makefile
 make all || exit 2
 mkdir -p "/lib/modules/${kernel}/kernel/drivers/vocalfusion"
 cp vocalfusion* "/lib/modules/${kernel}/kernel/drivers/vocalfusion" || exit 2
+cd ../..
+rm -rf vocalfusiondriver
+
 depmod ${kernel} -a
 # `modinfo -k ${kernel} vocalfusion-soundcard` should show the module info now
 
