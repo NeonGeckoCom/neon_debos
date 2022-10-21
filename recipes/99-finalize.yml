@@ -15,10 +15,15 @@ actions:
     chroot: true
     script: ../scripts/99-create_ramdisk.sh
 
+  - action: overlay
+    description: swapfile automation overlay
+    source: ../overlays/99-create-swap
+    destination: /
+
   - action: run
-    description: Creating swap file
+    description: Enabling swap file service
     chroot: true
-    script: ../scripts/99-create_swap.sh
+    script: ../scripts/99-enable_swap.sh
 
 #  - action: run
 #    description: Create bmap file
