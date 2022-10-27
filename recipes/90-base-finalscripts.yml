@@ -1,0 +1,34 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $firmware_version := or .firmware_version "master" -}}
+{{ $suite :=  or .suite "focal" }}
+{{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+
+  - action: apt
+    description: Basic packages
+    packages:
+      - locales
+
+  - action: overlay
+    description: Locale overlay
+    source: ../overlays/90-locales
+    destination: /
+
+  - action: run
+    description: Set up system locale
+    chroot: true
+    script: ../scripts/90-setup_locale.sh
+
+  - action: run
+    description: remove zfs
+    chroot: true
+    script: ../scripts/90-zfs.sh
+
+  - action: run
+    description: Clean APT
+    chroot: true
+    script: ../scripts/90-clean-apt.sh
+

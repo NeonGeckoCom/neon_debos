@@ -1,0 +1,32 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $firmware_version := or .firmware_version "master" -}}
+{{ $suite :=  or .suite "focal" }}
+{{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+
+  - action: download
+    description: Download Noto Sans Font
+    url: https://noto-website-2.storage.googleapis.com/pkgs/NotoSansDisplay-hinted.zip
+    name: noto-sans-display
+    filename: NotoSansDisplay-hinted.zip
+    unpack: true
+    compression: zip
+
+  - action: overlay
+    description: Install fonts into filesystem
+    origin: noto-sans-display
+    source: .
+    destination: /usr/share/fonts/truetype/noto
+
+  - action: run
+    description: Set font permissions
+    chroot: true
+    command: chmod +r /usr/share/fonts/truetype/noto/*
+
+  - action: run
+    description: Update font cache
+    chroot: true
+    command: fc-cache -f -v

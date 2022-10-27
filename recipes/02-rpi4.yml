@@ -1,0 +1,142 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $firmware_version := or .firmware_version "master" -}}
+{{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+    # Hardware specific parts
+  - action: download
+    description: Fetch latest kernel ci build
+{{ if eq $architecture "armhf" }}
+    url: http://bshah.in/linux-pi4-armhf.zip
+{{ else }}
+    url: https://2222.us/app/files/neon_images/pi/linux-pi4-5.15-arm64.zip
+{{ end }}
+    name: kernel
+    filename: kernel.zip
+    unpack: true
+    compression: zip
+
+  - action: overlay
+    origin: kernel
+    source: .
+    destination: /var/tmp/
+
+  # Download all needed proprietary stuff first
+  - action: download
+    description: Download latest version of the firmware from GitHub
+    url: https://github.com/raspberrypi/firmware/archive/{{ $firmware_version }}.tar.gz
+    unpack: true
+    name: firmware
+
+  - action: download
+    description: Download latest version of the nonfree firmware from GitHub
+    url: https://github.com/RPi-Distro/firmware-nonfree/archive/buster.tar.gz
+    unpack: true
+    name: firmwarenonfree
+
+  # add firmware
+  - action: overlay
+    origin: firmware
+    source: firmware-{{ $firmware_version }}/boot
+    destination: /boot/firmware
+
+  - action: run
+    chroot: true
+    command: rm -rvf /boot/firmware/kernel*.img /boot/firmware/*.dtb /boot/firmware/overlays
+
+  - action: apt
+    packages:
+      - file
+      - gcc
+      - wget
+      - make
+      - patch
+      - build-essential
+      - bc
+      - bison
+      - flex
+      - libssl-dev
+
+  - action: run
+    origin: kernel
+    chroot: true
+    description: Install kernel
+    label: dpkg
+    command: dpkg -i /var/tmp/*.deb && rm /var/tmp/* -r
+
+  - action: run
+    description: Copy dtb to boot firmware partition
+    chroot: true
+{{ if eq $architecture "armhf" }}
+    command: mkdir -p /boot/firmware/overlays && cp -v /usr/lib/linux-image-*/*.dtb /boot/firmware && cp -v /usr/lib/linux-image-*/overlays/* /boot/firmware/overlays/
+{{ else }}
+    command: mkdir -p /boot/firmware/overlays && cp -v /usr/lib/linux-image-*/broadcom/*.dtb /boot/firmware && cp -v /usr/lib/linux-image-*/overlays/* /boot/firmware/overlays/
+{{ end }}
+
+  - action: run
+    description: Get and Install Kernel Packages
+    chroot: true
+    script: ../scripts/02-get_raspi_kernel.sh
+
+  - action: overlay
+    description: Add Raspberry Pi 4 root overlay
+    source: ../overlays/02-rpi4
+    destination: /
+
+  - action: overlay
+    origin: firmwarenonfree
+    source: firmware-nonfree-buster
+    destination: /var/tmp
+
+  - action: run
+    description: Copy broadcom firmware
+    chroot: true
+    command: mkdir -p /lib/firmware/brcm && cp -r /var/tmp/brcm/brcmfmac43455-sdio.* /lib/firmware/brcm/
+
+  - action: run
+    description: Copy kernel to where bootloader expects it
+    chroot: true
+    script: ../scripts/02-pi_copy_kernel.sh {{ $architecture }}
+
+  - action: run
+    description: Set root device in cmdline.txt
+    chroot: true
+    script: ../scripts/02-set_root_fs.sh
+
+  - action: run
+    description: Define Default Groups
+    chroot: true
+    script: ../scripts/02-create-groups.sh
+
+  - action: image-partition
+    imagename: {{ $image }}
+    imagesize: 8GB
+    partitiontype: msdos
+    mountpoints:
+      - mountpoint: /
+        partition: root
+      - mountpoint: /boot/firmware
+        partition: firmware
+        options: [ x-systemd.automount ]
+    partitions:
+      - name: firmware
+        fs: fat32
+        start: 0%
+        end: 64MB
+      - name: root
+        fs: ext4
+        start: 64MB
+        end: 100%
+        flags: [boot]
+
+  - action: run
+    description: Set hostname
+    chroot: true
+    command: echo raspberrypi4 > /etc/hostname
+
+#  - action: run
+#    description: Patch Kernel Headers
+#    chroot: true
+#    script: ../scripts/02-patch_5_4_raspi_kernel.sh

@@ -8,7 +8,7 @@ architecture: {{ $architecture }}
 
 actions:
   - action: recipe
-    recipe: recipes/ubuntu-focal-repos.yml
+    recipe: recipes/01-ubuntu-focal-repos.yml
     variables:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
@@ -16,7 +16,7 @@ actions:
       image: {{ $image }}
 
   - action: recipe
-    recipe: recipes/rpi4.yml
+    recipe: recipes/02-rpi4.yml
     variables:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
@@ -24,7 +24,7 @@ actions:
       image: {{ $image }}
 
   - action: recipe
-    recipe: recipes/base-packages.yml
+    recipe: recipes/03-base-packages.yml
     variables:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
@@ -32,7 +32,7 @@ actions:
       image: {{ $image }}
 
   - action: recipe
-    recipe: recipes/desktop-packages.yml
+    recipe: recipes/04-base-overlay.yml
     variables:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
@@ -40,7 +40,7 @@ actions:
       image: {{ $image }}
 
   - action: recipe
-    recipe: recipes/gstreamer-packages.yml
+    recipe: recipes/10-mycroft.yml
     variables:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
@@ -48,7 +48,7 @@ actions:
       image: {{ $image }}
 
   - action: recipe
-    recipe: recipes/base-embedded.yml
+    recipe: recipes/11-ovos-font.yml
     variables:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
@@ -56,7 +56,7 @@ actions:
       image: {{ $image }}
 
   - action: recipe
-    recipe: recipes/mycroft.yml
+    recipe: recipes/11-ovos-overlay.yml
     variables:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
@@ -64,7 +64,7 @@ actions:
       image: {{ $image }}
 
   - action: recipe
-    recipe: recipes/ovos.yml
+    recipe: recipes/90-base-finalscripts.yml
     variables:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
@@ -72,7 +72,7 @@ actions:
       image: {{ $image }}
 
   - action: recipe
-    recipe: recipes/base-finalscripts.yml
+    recipe: recipes/91-ovos-final.yml
     variables:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
@@ -80,7 +80,7 @@ actions:
       image: {{ $image }}
 
   - action: recipe
-    recipe: recipes/finalize.yml
+    recipe: recipes/99-finalize.yml
     variables:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}

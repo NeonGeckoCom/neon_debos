@@ -1,0 +1,64 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $firmware_version := or .firmware_version "master" -}}
+{{ $suite :=  or .suite "focal" }}
+{{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: apt
+    description: Basic packages
+    packages:
+      - bash-completion
+      - vim
+      - alsa-utils
+      - git
+      - python3
+      - openssh-server
+      - ftp
+      - nano
+      - i2c-tools
+      - rng-tools5
+      - sudo
+      - systemd-sysv
+      - debconf
+      - systemd-resolved
+      - ntp
+      - libjack-dev
+
+  # Desktop packages
+  - action: apt
+    description: Base packages
+    packages:
+      - xauth
+
+  - action: run
+    description: Clean APT
+    chroot: true
+    script: ../scripts/90-clean-apt.sh
+
+    # Desktop packages
+  - action: apt
+    description: Networking packages
+    packages:
+      - network-manager
+      - wireless-tools
+      - dnsmasq
+
+  - action: apt
+    description: Plasma packages
+    packages:
+      - qt5ct
+      #      - ubuntu-minimal
+      - plasma-pa
+      - plasma-nm
+
+  - action: apt
+    description: GStreamer packages
+    packages:
+      - gstreamer1.0-plugins-base
+      - gstreamer1.0-plugins-good
+      - gstreamer1.0-plugins-bad
+      - gstreamer1.0-plugins-ugly
+      - gstreamer1.0-libav
+      - libqt5multimedia5-plugins

@@ -1,0 +1,28 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $firmware_version := or .firmware_version "master" -}}
+{{ $suite :=  or .suite "focal" }}
+{{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: apt
+    description: SJ201 Dependencies
+    packages:
+      - gcc
+      - make
+      - python3-pip
+      - python3-dev
+      - i2c-tools
+      - pulseaudio
+      - pulseaudio-module-zeroconf
+      - alsa-utils
+      - git
+  - action: overlay
+    description: SJ201 and Pulse Audio overlay
+    source: ../overlays/20-sj201
+    destination: /
+  - action: run
+    description: Build and Install SJ201 VF driver
+    chroot: true
+    script: ../scripts/20-setup-sj201.sh

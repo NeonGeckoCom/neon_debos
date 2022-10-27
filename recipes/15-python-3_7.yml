@@ -1,0 +1,31 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{ $suite :=  or .suite "bullseye" }}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: apt
+    description: Python Build Dependencies
+    packages:
+      - linux-headers-arm64
+      - build-essential
+      - zlib1g-dev
+      - libncurses5-dev
+      - libncursesw5-dev
+      - libgdbm-dev
+      - libnss3-dev
+      - libssl-dev
+      - libsqlite3-dev
+      - libreadline-dev
+      - libffi-dev
+      - curl
+      - wget
+      - llvm
+      - libbz2-dev
+      - xz-utils
+      - tk-dev
+
+  - action: run
+    description: Build Python 3.7
+    chroot: true
+    script: ../scripts/15-build_python_3_7.sh

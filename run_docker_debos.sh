@@ -1,3 +1,16 @@
 #!/bin/bash
+source_dir="/home/$USER/neon_debos"
+timestamp=$(date '+%Y-%m-%d_%H_%M')
+image="debian-base-image-rpi4"
+sudo chmod ugo+x "${source_dir}/scripts/"*
+docker run --rm -d \
+--device /dev/kvm \
+--workdir /image_build \
+--mount type=bind,source="${source_dir}",destination=/image_build \
+--group-add=108 \
+--security-opt label=disable \
+--name neon_debos \
+godebos/debos "${image}.yml" -t architecture:arm64 -t image:"${image}_${timestamp}.img" -m 12G -c 6 && \
+docker logs -f neon_debos
 
-docker run --rm --device /dev/kvm --workdir /ovos_debos_dev_edition --mount type=bind,source=/home/$USER/ovos_debos_dev_edition,destination=/ovos_debos_dev_edition --group-add=108 --security-opt label=disable godebos/debos ovos-dev-edition-rpi4.yml -t architecture:arm64 -m 10G -c 6
+#sudo chown $USER:$USER "${source_dir}"/*

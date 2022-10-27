@@ -1,0 +1,27 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $firmware_version := or .firmware_version "master" -}}
+{{ $suite :=  or .suite "focal" }}
+{{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+
+  - action: run
+    description: Enable mycroft services
+    chroot: true
+    script: ../scripts/91-enable-services.sh
+
+  - action: run
+    description: Install default ovos skills
+    chroot: true
+    script: ../scripts/91-install-ovos-skills.sh
+
+  - action: run
+    description: Install ovos additional software
+    chroot: true
+    script: ../scripts/91-pip-ovos.sh
+
+  - action: overlay
+    description: OVOS specific overlay
+    source: ../overlays/91-ovos-final

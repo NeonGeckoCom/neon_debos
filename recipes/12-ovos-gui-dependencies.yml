@@ -1,0 +1,147 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $firmware_version := or .firmware_version "master" -}}
+{{ $suite :=  or .suite "focal" }}
+{{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: apt
+    description: GUI Dependencies
+    packages:
+      - git-core
+      - g++
+      - cmake
+      - extra-cmake-modules
+      - gettext
+      - pkg-config
+      - qml-module-qtwebengine
+      - pkg-kde-tools
+      - qtbase5-dev
+      - qtdeclarative5-dev
+      - libkf5kio-dev
+      - libqt5websockets5-dev
+      - libkf5i18n-dev
+      - libkf5notifications-dev
+      - libkf5plasma-dev
+      - libqt5webview5-dev
+      - qtmultimedia5-dev
+      - gstreamer1.0-plugins-bad
+      - gstreamer1.0-plugins-ugly
+      - gstreamer1.0-libav
+      - qml-module-qtwayland-compositor
+      - libqt5multimedia5-plugins
+      - qml-module-qtmultimedia
+      - plasma-pa
+      - xorg
+      - qtwayland5
+      - qml-module-qtwebchannel
+      - qml-module-qt-labs-folderlistmodel
+      - qt5ct
+      - qml-module-qtquick-shapes
+      - qml-module-qtquick-particles2
+      - qml-module-qtquick-templates2
+      - qml-module-qtquick-xmllistmodel
+      - qml-module-qtquick-localstorage
+      - qml-module-qmltermwidget
+      - qml-module-qttest
+      - qml-module-qtlocation
+      - qml-module-qtpositioning
+      - qml-module-qtgraphicaleffects
+      - qml-module-qtqml-models2
+      - kirigami2-dev
+      - breeze-icon-theme
+      - kdeconnect
+      - qml-module-qtquick-virtualkeyboard
+      - libinput-tools
+      - libqt5virtualkeyboard5-dev
+
+  - action: apt
+    description: Keyboard Build Dependencies
+    packages:
+      - libqt5svg5-dev
+      - qt5-qmake
+      - qtbase5-dev
+      - libqt5quick5
+      - libxcb-xfixes0-dev
+      - qtbase5-private-dev
+      - libqt5virtualkeyboard5-dev
+      - autoconf
+      - automake
+      - autopoint
+      - autotools-dev
+      - debhelper
+      - dh-autoreconf
+      - dh-strip-nondeterminism
+      - dwz
+      - hunspell-en-gb
+      - intltool-debian
+      - libarchive-zip-perl
+      - libclang1-14
+      - libdebhelper-perl
+      - libfile-stripnondeterminism-perl
+      - libhunspell-dev
+      - libqt5help5
+      - libsub-override-perl
+      - libtool
+      - po-debconf
+      - qdoc-qt5
+      - qhelpgenerator-qt5
+      - qtattributionsscanner-qt5
+      - qtbase5-doc-html
+      - qtquickcontrols2-5-dev
+      - xvfb
+      - libx11-xcb-dev
+      - libxcb-composite0-dev
+      - libxcb-cursor-dev
+      - libxcb-cursor0
+      - libxcb-damage0-dev
+      - libxcb-dpms0
+      - libxcb-dpms0-dev
+      - libxcb-dri2-0-dev
+      - libxcb-dri3-dev
+      - libxcb-ewmh-dev
+      - libxcb-ewmh2
+      - libxcb-glx0-dev
+      - libxcb-icccm4-dev
+      - libxcb-image0-dev
+      - libxcb-imdkit-dev
+      - libxcb-imdkit1
+      - libxcb-keysyms1-dev
+      - libxcb-present-dev
+      - libxcb-randr0-dev
+      - libxcb-record0-dev
+      - libxcb-render-util0-dev
+      - libxcb-res0-dev
+      - libxcb-screensaver0
+      - libxcb-screensaver0-dev
+      - libxcb-shm0-dev
+      - libxcb-sync-dev
+      - libxcb-util-dev
+      - libxcb-util0-dev
+      - libxcb-xf86dri0
+      - libxcb-xf86dri0-dev
+      - libxcb-xinerama0-dev
+      - libxcb-xinput-dev
+      - libxcb-xkb-dev
+      - libxcb-xrm-dev
+      - libxcb-xrm0
+      - libxcb-xtest0
+      - libxcb-xtest0-dev
+      - libxcb-xv0
+      - libxcb-xv0-dev
+      - libxcb-xvmc0
+      - libxcb-xvmc0-dev
+      - libxfixes-dev
+      - libxi-dev
+      - libxkbcommon-x11-dev
+      - libxrender-dev
+
+  - action: overlay
+    description: qtvirtualkeyboard patch
+    source: ../overlays/12-qtvirtualkeyboard-patch
+
+  - action: run
+    description: Build Keyboard
+    chroot: true
+    script: ../scripts/12-build-qtvirtualkeyboard.sh
