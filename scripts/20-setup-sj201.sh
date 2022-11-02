@@ -30,7 +30,8 @@
 # Set to exit on error
 set -Ee
 
-CFLAGS="-fcommon" pip install smbus smbus2 spidev rpi.gpio
+pip install wheel
+pip install sj201-interface
 
 # Determine kernel with build directory
 # TODO: Better way to detect appropriate kernel

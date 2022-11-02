@@ -18,6 +18,7 @@ actions:
       - pulseaudio-module-zeroconf
       - alsa-utils
       - git
+      - portaudio19-dev
   - action: overlay
     description: SJ201 and Pulse Audio overlay
     source: ../overlays/20-sj201
