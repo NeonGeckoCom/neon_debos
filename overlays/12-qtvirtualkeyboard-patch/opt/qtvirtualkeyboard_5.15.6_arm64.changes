@@ -1,0 +1,34 @@
+Format: 1.8
+Date: Wed, 02 Nov 2022 16:40:34 -0700
+Source: qtvirtualkeyboard
+Binary: qtvirtualkeyboard qtvirtualkeyboard-dbgsym
+Architecture: source arm64
+Version: 5.15.6
+Distribution: unstable
+Urgency: medium
+Maintainer: Daniel McKnight <daniel@neongecko.com>
+Changed-By: Daniel McKnight <daniel@neongecko.com>
+Description:
+ qtvirtualkeyboard - Patched qtvirtualkeyboard for ovos embedded shell
+Changes:
+ qtvirtualkeyboard (5.15.6) unstable; urgency=medium
+ .
+   * Initial release.
+Checksums-Sha1:
+ d4a736fd41d35b37389cd4760eacee5156961b70 542 qtvirtualkeyboard_5.15.6.dsc
+ 887a2745c01fa08dd8e67eb380384d86373e94cc 32555380 qtvirtualkeyboard_5.15.6.tar.gz
+ 1935aec7bc88f3dd49a04c9115f9af166e073500 15101668 qtvirtualkeyboard-dbgsym_5.15.6_arm64.deb
+ 5610817e73dae33b5467ff719bd6cae65f75bb05 4529 qtvirtualkeyboard_5.15.6_arm64.buildinfo
+ b8c3da875decef89b5dbf78fc4cfae9e6cc030c2 2185460 qtvirtualkeyboard_5.15.6_arm64.deb
+Checksums-Sha256:
+ 311ded61ba2bafaf45414ee1e28594e21f6b576fd681a63af2f094ee69cd300f 542 qtvirtualkeyboard_5.15.6.dsc
+ 1f7cd8c131822cc9df9a117ee83311d1cce4f39a04125e4133b97370e7ffefa2 32555380 qtvirtualkeyboard_5.15.6.tar.gz
+ a67d1d6c13a996791cb082280e66583bc6693f1f745db5eabef309df3bf35d14 15101668 qtvirtualkeyboard-dbgsym_5.15.6_arm64.deb
+ 630861bb81b7f518f21cc4048457bcb11dc43a64dbefab2018b2fe114af57a7a 4529 qtvirtualkeyboard_5.15.6_arm64.buildinfo
+ 127aa1add0dbaa323720c41e768c7756e3fcb4749d968727f3cb35043ccb04d0 2185460 qtvirtualkeyboard_5.15.6_arm64.deb
+Files:
+ f5b5775a2d266a33403678fdac454bdb 542 - - qtvirtualkeyboard_5.15.6.dsc
+ c365eaa8a3c95f3ff66894cf3bbfda80 32555380 - - qtvirtualkeyboard_5.15.6.tar.gz
+ 94d3caa7686420f96099685a510a4a22 15101668 debug optional qtvirtualkeyboard-dbgsym_5.15.6_arm64.deb
+ 1d5f64e706a9b71bbf3fbc63827ce3f1 4529 - - qtvirtualkeyboard_5.15.6_arm64.buildinfo
+ b0636e9a521dca2621e23fce4e441508 2185460 - - qtvirtualkeyboard_5.15.6_arm64.deb
