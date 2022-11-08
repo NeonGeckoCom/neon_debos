@@ -38,5 +38,7 @@ xvf3510-flash --direct /usr/lib/firmware/xvf3510/app_xvf3510_int_spi_boot_v4_1_0
 sj201 init-ti-amp
 # Reset LEDs
 sj201 reset-led green
-# Reset fan speed
+
+# TODO: Should we skip fan init and just wait for PHAL to take over?
+# Reset fan speed (NOTE: R10 will ramp to 100% after this)
 sj201 set-fan-speed 30
