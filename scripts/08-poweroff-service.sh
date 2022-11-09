@@ -29,3 +29,4 @@
 
 # Make poweroff script executable
 chmod ugo+x /opt/neon/poweroff.sh
+systemctl enable poweroff.service
