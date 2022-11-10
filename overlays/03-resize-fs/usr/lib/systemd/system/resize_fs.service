@@ -1,6 +1,7 @@
 [Unit]
 Description=Resize Root Partition
 ConditionPathExists=/opt/neon/resize_fs
+Before=splashscreen.service
 
 [Service]
 Type=oneshot

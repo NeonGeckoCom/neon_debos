@@ -1,0 +1,19 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{ $suite :=  or .suite "bullseye" }}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: apt
+    description: Base packages
+    packages:
+      - fbi
+
+  - action: overlay
+    description: Poweroff Service Overlay
+    source: ../overlays/08-poweroff-service
+
+  - action: run
+    description: Configure Poweroff Service
+    chroot: true
+    script: ../scripts/08-poweroff-service.sh

@@ -71,6 +71,14 @@ actions:
       image: {{ $image }}
 
   - action: recipe
+    recipe: recipes/08-poweroff-service.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
     recipe: recipes/11-ovos-font.yml
     variables:
       architecture: {{ $architecture }}
