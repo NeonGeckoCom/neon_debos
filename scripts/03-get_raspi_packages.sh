@@ -27,17 +27,21 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# Get built RPi kernels from raspberrypi archives
-
 # Set to exit on error
 set -Ee
 
-kernel_version="1.20220308~buster-1"
-
-wget http://archive.raspberrypi.org/debian/pool/main/r/raspberrypi-firmware/raspberrypi-kernel_${kernel_version}_arm64.deb
-wget http://archive.raspberrypi.org/debian/pool/main/r/raspberrypi-firmware/raspberrypi-kernel-headers_${kernel_version}_arm64.deb
-wget http://archive.raspberrypi.org/debian/pool/main/r/raspberrypi-firmware/linux-libc-dev_${kernel_version}_arm64.deb
-wget http://archive.raspberrypi.org/debian/pool/main/r/raspberrypi-firmware/raspberrypi-bootloader_${kernel_version}_arm64.deb
-dpkg -i ./*.deb
+wget http://archive.raspberrypi.org/debian/pool/main/r/raspberrypi-firmware/raspberrypi-bootloader_1.20221104-1_arm64.deb
+wget http://archive.raspberrypi.org/debian/pool/main/r/raspberrypi-userland/libraspberrypi0_2+git20220324~090146+c4fd1b8-1_arm64.deb
+wget http://archive.raspberrypi.org/debian/pool/main/r/raspberrypi-userland/libraspberrypi-dev_2+git20220324~090146+c4fd1b8-1_arm64.deb
+wget http://archive.raspberrypi.org/debian/pool/main/r/raspberrypi-userland/libraspberrypi-bin_2+git20220324~090146+c4fd1b8-1_arm64.deb
+dpkg -i ./raspberrypi-bootloader_1.20221104-1_arm64.deb
+dpkg -i ./libraspberrypi0*.deb
+dpkg -i ./libraspberrypi-dev*.deb
+dpkg -i ./libraspberrypi-bin*.deb
 rm ./*.deb
-echo "Kernel installation complete"
+
+# TODO: Are below necessary
+rm -rf /boot/overlays
+ln -s /boot/firmware/overlays /boot/overlays
+
+echo "libraspberrypi installation complete"

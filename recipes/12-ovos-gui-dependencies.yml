@@ -43,7 +43,8 @@ actions:
       - qml-module-qtquick-templates2
       - qml-module-qtquick-xmllistmodel
       - qml-module-qtquick-localstorage
-      - qml-module-qmltermwidget
+      - qml-module-termwidget
+      - qmltermwidget-common
       - qml-module-qttest
       - qml-module-qtlocation
       - qml-module-qtpositioning

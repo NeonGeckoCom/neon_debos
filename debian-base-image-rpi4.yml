@@ -36,7 +36,7 @@ actions:
       image: {{ $image }}
 
   - action: recipe
-    recipe: recipes/03-build-userland.yml
+    recipe: recipes/03-get-raspi-packages.yml
 
   - action: recipe
     recipe: recipes/04-base-overlay.yml

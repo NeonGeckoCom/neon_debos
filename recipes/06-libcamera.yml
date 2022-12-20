@@ -31,6 +31,8 @@ actions:
       - libpng-dev
       - libegl1-mesa-dev
       - v4l-utils
+      - apt-transport-https
+      - software-properties-common
 
   - action: run
     description: Install Pi Camera Dependencies

@@ -35,7 +35,9 @@ pip install sj201-interface
 
 # Determine kernel with build directory
 # TODO: Better way to detect appropriate kernel
-if [ -d /lib/modules/5.15.61-v8+ ]; then
+if [ -d /lib/modules/5.15.72-v8+ ]; then
+    kernel=5.15.72-v8+
+elif [ -d /lib/modules/5.15.61-v8+ ]; then
     kernel=5.15.61-v8+
 elif [ -d /lib/modules/5.10.103-v8+ ]; then
     kernel=5.10.103-v8+
