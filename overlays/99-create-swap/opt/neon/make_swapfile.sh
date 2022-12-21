@@ -13,7 +13,7 @@ fi
 # Check memory info to optionally create/enable swapfile
 mem_arr=($(grep ^MemTotal /proc/meminfo))
 mem=${mem_arr[1]}
-min_mem=1840120  # 2GB Pi Memory
+min_mem=2097153  # 2GiB + 1B
 
 
 if [ "${mem}" -le "${min_mem}" ]; then
