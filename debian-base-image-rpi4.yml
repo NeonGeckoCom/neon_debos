@@ -111,6 +111,14 @@ actions:
       image: {{ $image }}
 
   - action: recipe
+    recipe: recipes/30-autofs.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
     recipe: recipes/90-base-finalscripts.yml
     variables:
       architecture: {{ $architecture }}
