@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Set default configurations
+PULSE_SYSTEM=/etc/pulse/pulseaudio-system.pa
+PULSE_DAEMON=/etc/pulse/pulseaudio-daemon.conf
+
+if [ "$(sj201 get-revision)" != "" ]; then
+  echo "Configure SJ201 Audio"
+  prefix="sj201-"
+fi
+
+if [ ${prefix} ]; then
+  PULSE_SYSTEM="${prefix}system.pa"
+  PULSE_DAEMON="${prefix}daemon.conf"
+fi
+
+if [ -f /etc/pulse/default.pa ] ; then
+    rm /etc/pulse/default.pa
+fi
+if [ -f /etc/pulse/daemon.conf ] ; then
+    rm /etc/pulse/daemon.conf
+fi
+
+ln -s "${PULSE_SYSTEM}" /etc/pulse/system.pa
+ln -s "${PULSE_DAEMON}" /etc/pulse/daemon.conf

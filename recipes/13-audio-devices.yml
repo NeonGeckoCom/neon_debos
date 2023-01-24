@@ -1,0 +1,19 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $firmware_version := or .firmware_version "master" -}}
+{{ $suite :=  or .suite "focal" }}
+{{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: apt
+    description: Audio Dependencies
+    packages:
+      - pulseaudio
+      - pulseaudio-module-zeroconf
+      - alsa-utils
+      - portaudio19-dev
+  - action: overlay
+    description: Pulse and ALSA Audio overlay
+    source: ../overlays/13-audio-devices
+    destination: /
