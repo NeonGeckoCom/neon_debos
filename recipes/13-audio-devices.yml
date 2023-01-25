@@ -17,3 +17,7 @@ actions:
     description: Pulse and ALSA Audio overlay
     source: ../overlays/13-audio-devices
     destination: /
+  - action: run
+    description: Enable configure-audio service
+    chroot: true
+    script: ../scripts/13-audio-devices.sh
