@@ -1,0 +1,11 @@
+[Unit]
+Description=Audio Configuration Service
+Before=pulseaudio.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/configure-audio
+
+[Install]
+WantedBy=multi-user.target
+WantedBy=pulseaudio.service

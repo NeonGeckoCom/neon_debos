@@ -30,60 +30,21 @@
 # Set to exit on error
 set -Ee
 
-pip install wheel
-pip install sj201-interface
+# Configure user permissions
+#usermod -aG bluetooth pulse
+usermod -aG pulse root
+usermod -aG pulse-access root
+usermod -aG gpio root
 
-# Determine kernel with build directory
-# TODO: Better way to detect appropriate kernel
-if [ -d /lib/modules/5.15.72-v8+ ]; then
-    kernel=5.15.72-v8+
-elif [ -d /lib/modules/5.15.61-v8+ ]; then
-    kernel=5.15.61-v8+
-elif [ -d /lib/modules/5.10.103-v8+ ]; then
-    kernel=5.10.103-v8+
-elif [ -d /lib/modules/5.4.51-v8-raspi2 ]; then
-    kernel=5.4.51-v8-raspi2
-elif [ "$(ls -1 /lib/modules | wc -l)" -gt 1 ]; then
-    kernels=($(ls /lib/modules))
-    echo "Looking for kernel with build dir in ${kernels[*]}"
-    for k in "${kernels[@]}"; do
-        if [ -d "/lib/modules/${k}/build" ]; then
-            kernel="${k}"
-            echo "Selected kernel ${kernel}"
-            break
-        fi
-    done
-    if [ -z ${kernel} ]; then
-        echo "No build files available. Picking kernel=${kernels[0]}"
-        kernel=${kernels[0]}
-    fi
-else
-    kernel=$(ls /lib/modules)
-    echo "Only one kernel available: ${kernel}"
-fi
-#kernel="5.4.0-1052-raspi"
-
-# Build and load VocalFusion Driver
-git clone https://github.com/OpenVoiceOS/vocalfusiondriver
-cd vocalfusiondriver/driver || exit 10
-sed -ie "s|\$(shell uname -r)|${kernel}|g" Makefile
-make all || exit 2
-mkdir -p "/lib/modules/${kernel}/kernel/drivers/vocalfusion"
-cp vocalfusion* "/lib/modules/${kernel}/kernel/drivers/vocalfusion" || exit 2
-cd ../..
-rm -rf vocalfusiondriver
-
-depmod ${kernel} -a
-# `modinfo -k ${kernel} vocalfusion-soundcard` should show the module info now
+# Disable userspace pulseaudio services
+systemctl --global disable pulseaudio.service pulseaudio.socket
 
 # Ensure execute permissions
-chmod -R ugo+x /usr/bin
-chmod -R ugo+x /usr/sbin
-chmod ugo+x /opt/neon/configure_sj201_on_boot.sh
+chmod -R ugo+x /usr/libexec
 
 
 # Enable system services
-systemctl enable sj201.service
-systemctl enable sj201-shutdown.service
+systemctl enable pulseaudio.service
+systemctl enable configure-audio.service
 
 echo "SJ201 Setup Complete"
