@@ -30,7 +30,13 @@
 # Set to exit on error
 set -Ee
 
-export HEADER_DIR=/usr/src/linux-headers-5.15.72-v8+
+if [ -d /usr/src/linux-headers-5.15.72-v8+ ]; then
+  export HEADER_DIR=/usr/src/linux-headers-5.15.72-v8+
+elif [ -d /usr/src/linux-headers-5.15.92-v8+ ]; then
+  export HEADER_DIR=/usr/src/linux-headers-5.15.92-v8+
+else
+  exit 3
+fi
 
 find "$HEADER_DIR/scripts" -type f | while read i; do if file -b $i | egrep -q "^ELF.*x86-64"; then rm "$i"; fi; done
 cd $HEADER_DIR/scripts || exit 2
