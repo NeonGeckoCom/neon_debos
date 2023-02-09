@@ -27,25 +27,36 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# Set to exit on error
-set -Ee
+sudo apt install -y git bc bison flex libssl-dev make libc6-dev libncurses5-dev\
+    crossbuild-essential-arm64 libncurses5-dev binutils
 
-if [ -d /usr/src/linux-headers-5.15.72-v8+ ]; then
-  export HEADER_DIR=/usr/src/linux-headers-5.15.72-v8+
-elif [ -d /usr/src/linux-headers-5.15.92-v8+ ]; then
-  export HEADER_DIR=/usr/src/linux-headers-5.15.92-v8+
-else
-  exit 3
-fi
+git clone --depth=1 https://github.com/raspberrypi/linux -b rpi-5.15.y
+cd linux || exit 10
+export KERNEL=kernel8
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- bcm2711_defconfig
+mv .config .config.old
+cp ../.config .config
+make -j4 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- deb-pkg
+cd .. || exit 10
+rm -rf linux
+for file in *.deb; do
+  kernel_ver=${file%_*}
+  kernel_ver=${kernel_ver##*_}
+  kernel_ver=${kernel_ver%-*}
+  kernel_dir="rpi4_${kernel_ver}_arm64"
+  mkdir "${kernel_dir}"
+  work_dir="${file%.*}"
+  mkdir "${work_dir}"
+  ar x --output "${work_dir}" "${file}"
+#  mv "${file}" "${file}.old"
+  unzstd "${work_dir}/control.tar.zst" -o "${work_dir}/control.tar"
+  unzstd "${work_dir}/data.tar.zst" -o "${work_dir}/data.tar"
+  rm "${work_dir}"/*.zst
+  xz --compress "${work_dir}/control.tar"
+  xz --compress "${work_dir}/data.tar"
+  ar -m -c -a sdsd "${kernel_dir}/${file}" "${work_dir}/debian-binary" "${work_dir}/control.tar.xz" "${work_dir}/data.tar.xz"
+  rm -r "${work_dir}"
+done
 
-find "$HEADER_DIR/scripts" -type f | while read i; do if file -b $i | egrep -q "^ELF.*x86-64"; then rm "$i"; fi; done
-cd $HEADER_DIR/scripts || exit 2
-gcc kallsyms.c -o "$HEADER_DIR/scripts/kallsyms"
-gcc recordmcount.c -o "$HEADER_DIR/scripts/recordmcount"
-gcc unifdef.c -o "$HEADER_DIR/scripts/unifdef"
-gcc ./basic/fixdep.c -o "$HEADER_DIR/scripts/basic/fixdep"
-gcc extract-cert.c -o "$HEADER_DIR/scripts/extract-cert" -lssl -lcrypto
-gcc ./mod/modpost.c ./mod/file2alias.c ./mod/sumversion.c -o "$HEADER_DIR/scripts/mod/modpost"
-gcc ./mod/mk_elfconfig.c -o "$HEADER_DIR/scripts/mod/mk_elfconfig"
-gcc  -I../include asn1_compiler.c -o "$HEADER_DIR/scripts/asn1_compiler"
-gcc ./genksyms/genksyms.c ./genksyms/parse.tab.c ./genksyms/lex.lex.c -o "$HEADER_DIR/scripts/genksyms/genksyms"
+zip -j "${kernel_dir}.zip" "${kernel_dir}/*"
+rm -r "${kernel_dir}"
