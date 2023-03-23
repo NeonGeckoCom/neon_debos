@@ -47,4 +47,4 @@ chmod -R ugo+x /usr/libexec
 systemctl enable pulseaudio.service
 systemctl enable configure-audio.service
 
-echo "SJ201 Setup Complete"
+echo "Pulseaudio Setup Complete"

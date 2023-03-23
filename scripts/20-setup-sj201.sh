@@ -30,8 +30,8 @@
 # Set to exit on error
 set -Ee
 
-pip install wheel
-pip install sj201-interface
+pip3.10 install wheel
+pip3.10 install sj201-interface
 
 # Determine kernel with build directory
 # TODO: Better way to detect appropriate kernel

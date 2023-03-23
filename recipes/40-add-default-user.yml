@@ -1,0 +1,22 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $firmware_version := or .firmware_version "master" -}}
+{{ $suite :=  or .suite "focal" }}
+{{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: apt
+    description: Install System Dependencies
+    packages:
+      - lsb-release
+      - cloud-guest-utils
+  - action: overlay
+    description: Default User Overlay
+    source: ../overlays/40-default-user
+    destination: /
+  - action: run
+    description: Configure Default User
+    chroot: true
+    script: ../scripts/40-configure-default-user.sh
+    # TODO: Refactor script to handle a configured username

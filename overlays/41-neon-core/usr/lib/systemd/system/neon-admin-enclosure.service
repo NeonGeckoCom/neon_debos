@@ -1,0 +1,18 @@
+[Unit]
+Description=Neon Admin Enclosure
+PartOf=neon.service
+After=neon-bus.service
+LogNamespace=neon
+
+[Service]
+Type=notify
+TimeoutStartSec=300
+TimeoutStopSec=30
+Restart=always
+User=root
+EnvironmentFile=/etc/neon/neon_env.conf
+WorkingDirectory=/opt/neon
+ExecStart=/usr/libexec/neon-admin-enclosure.py
+
+[Install]
+WantedBy=neon.service

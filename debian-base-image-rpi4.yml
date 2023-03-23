@@ -47,7 +47,7 @@ actions:
       image: {{ $image }}
 
   - action: recipe
-    recipe: recipes/05-wifi-connect.yml
+    recipe: recipes/05-setup-networking.yml
     variables:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}

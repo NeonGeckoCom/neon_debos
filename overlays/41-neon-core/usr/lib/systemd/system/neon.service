@@ -1,0 +1,13 @@
+[Unit]
+Description=Neon A.I. Software stack.
+After=pulseaudio.service
+After=gui-shell.service
+LogNamespace=neon
+
+[Service]
+Type=oneshot
+ExecStart=/bin/true
+RemainAfterExit=yes
+
+[Install]
+WantedBy=default.target

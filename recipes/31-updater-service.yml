@@ -1,0 +1,16 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $firmware_version := or .firmware_version "master" -}}
+{{ $suite :=  or .suite "focal" }}
+{{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: overlay
+    description: Neon Update Service Overlay
+    source: ../overlays/31-updater-service
+    destination: /
+  - action: run
+    description: Install and Enable Neon Update Service
+    chroot: true
+    script: ../scripts/31-enable-updater-service.sh

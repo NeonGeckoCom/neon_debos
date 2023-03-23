@@ -1,0 +1,16 @@
+[Unit]
+Description=Neon First boot run script
+Before=neon.service
+After=sj201.service
+After=make_swapfile.service
+ConditionPathExists=/opt/neon/firstboot
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+User=root
+ExecStart=/opt/neon/first_boot.sh
+
+[Install]
+WantedBy=multi-user.target
+WantedBy=neon.service

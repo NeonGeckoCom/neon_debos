@@ -1,0 +1,10 @@
+[Unit]
+Description=Update screen
+Conflicts=gui-shell.service
+Conflicts=splashscreen.service
+
+[Service]
+EnvironmentFile=/etc/neon/update.conf
+ExecStart=/usr/bin/fbi -d /dev/fb0 --noverbose -a $UPDATE_SCREEN
+StandardInput=tty
+StandardOutput=tty

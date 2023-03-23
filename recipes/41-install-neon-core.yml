@@ -1,0 +1,36 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $firmware_version := or .firmware_version "master" -}}
+{{ $suite :=  or .suite "focal" }}
+{{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: apt
+    description: Install Core Dependencies
+    packages:
+      - curl
+      - sox
+      - gcc
+      - libfann-dev
+      - swig
+      - libssl-dev
+      - portaudio19-dev
+      - git
+      - libpulse-dev
+      - espeak-ng
+      - g++
+      - wireless-tools
+      - plasma-nm
+      - unzip
+      - ffmpeg
+      - make
+  - action: overlay
+    description: Neon Core Overlay
+    source: ../overlays/41-neon-core
+    destination: /
+  - action: run
+    description: Install Neon Core
+    chroot: true
+    script: ../scripts/41-install-neon-core.sh
+    # TODO: Refactor script and overlay to handle a configured username

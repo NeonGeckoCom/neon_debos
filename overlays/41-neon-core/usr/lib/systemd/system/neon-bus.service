@@ -1,0 +1,18 @@
+[Unit]
+Description=Neon Message Bus
+PartOf=neon.service
+After=neon.service
+After=neon-logs.service
+LogNamespace=neon
+
+[Service]
+Type=notify
+TimeoutStartSec=300
+TimeoutStopSec=30
+Restart=always
+User=neon
+WorkingDirectory=/opt/neon
+ExecStart=/usr/libexec/neon-messagebus.py
+
+[Install]
+WantedBy=neon.service

@@ -1,0 +1,17 @@
+[Unit]
+Description=OVOS Dashboard Service
+After=network.target
+Requires=dbus.socket
+
+[Service]
+Type=simple
+BusName=com.openvoiceos.ovos-dashboard
+Environment=SIMPLELOGIN_USERNAME="neon"
+Environment=SIMPLELOGIN_PASSWORD=%i
+Environment=MYCROFT_SKILLS_LOCATION=%h/.config/neon/skills/
+WorkingDirectory=/usr/local/share/ovos-dashboard
+ExecStart=/home/neon/venv/bin/python /usr/local/share/ovos-dashboard/app.py --serve-in-foreground
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

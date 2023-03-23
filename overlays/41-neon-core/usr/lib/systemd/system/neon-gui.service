@@ -1,0 +1,20 @@
+[Unit]
+Description=Neon GUI Listener
+PartOf=neon.service
+After=neon.service
+After=neon-bus.service
+Before=neon-skills.service
+Before=neon-enclosure.service
+LogNamespace=neon
+
+[Service]
+Type=notify
+TimeoutStartSec=300
+TimeoutStopSec=30
+Restart=always
+User=neon
+WorkingDirectory=/opt/neon
+ExecStart=/usr/libexec/neon-gui.py
+
+[Install]
+WantedBy=neon.service
