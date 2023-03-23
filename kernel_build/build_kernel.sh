@@ -54,9 +54,11 @@ for file in *.deb; do
   rm "${work_dir}"/*.zst
   xz --compress "${work_dir}/control.tar"
   xz --compress "${work_dir}/data.tar"
-  ar -m -c -a sdsd "${kernel_dir}/${file}" "${work_dir}/debian-binary" "${work_dir}/control.tar.xz" "${work_dir}/data.tar.xz"
+  ar -m -c -a sdsd "${kernel_dir}/${file}" "${work_dir}/debian-binary" "${work_dir}/control.tar.xz" "${work_dir}/data.tar.xz" && echo "Wrote patched ${kernel_dir}/${file}"
   rm -r "${work_dir}"
 done
-
-zip -j "${kernel_dir}.zip" "${kernel_dir}/*"
+echo "Compressing ${kernel_dir}"
+zip -j -r "${kernel_dir}.zip" "${kernel_dir}" || exit 2
 rm -r "${kernel_dir}"
+rm linux-upstream_*
+rm ./*.deb
