@@ -1,0 +1,84 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $firmware_version := or .firmware_version "master" -}}
+{{ $suite :=  or .suite "focal" }}
+{{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+
+  - action: image-partition
+    imagename: {{ $image }}
+    imagesize: 3GB
+    partitiontype: msdos
+    diskid: 1242d180
+    mountpoints:
+      - mountpoint: /boot/firmware
+        partition: firmware
+        options: [ x-systemd.automount ]
+    partitions:
+      - name: firmware
+        fs: fat32
+        start: 0%
+        end: 64MB
+      - name: root
+        fs: ext4
+        start: 64MB
+        end: 2624MB
+        flags: [boot]
+      - name: user
+        fs: ext4
+        start: 2624
+        end: 100%
+
+#  - action: overlay
+#    description: swapfile automation overlay
+#    source: ../overlays/99-create-swap
+#    destination: /
+#
+#  - action: run
+#    description: Enabling swap file service
+#    chroot: true
+#    script: ../scripts/99-enable_swap.sh
+
+  - action: apt
+    description: Install SquashFS
+    packages:
+      - squashfs-tools
+      - parted
+
+  - action: overlay
+    description: squashFS boot overlay
+    source: ../overlays/99-squashfs
+    destination: /
+
+  - action: run
+    description: Prepare SquashFS
+    chroot: true
+    script: ../scripts/99-prepare-squashfs.sh
+
+  - action: run
+    description: Compress SquashFS
+    chroot: true
+    command: mksquashfs / /root.squashfs -noappend -e /proc/* -e /sys/* -e /dev/* -e /tmp/*
+
+  - action: run
+    description: Copy squashFS to host
+    chroot: false
+    command: |
+      mv "${ROOTDIR}/root.squashfs" "/scratch/mnt/root.squashfs"
+
+  - action: filesystem-deploy
+    description: Deploying filesystem into image
+    setup-kernel-cmdline: false
+    setup-fstab: false
+  - action: raw
+    description: Write SquashFS partition
+    origin: filesystem
+    source: root.squashfs
+    partition: root
+
+  - action: run
+    description: Compress image
+    postprocess: true
+    command: xz --compress -T0 --keep {{ $image }}

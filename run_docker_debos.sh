@@ -10,7 +10,7 @@ docker run --rm -d \
 --group-add=108 \
 --security-opt label=disable \
 --name neon_debos \
-godebos/debos "${image}.yml" -t architecture:arm64 -t image:"${image}_${timestamp}.img" -m 12G -c 4 && \
+godebos/debos "${image}.yml" -t architecture:arm64 -t image:"${image}_${timestamp}.img" -m 24G -c 4 && \
 docker logs -f neon_debos
 
 #sudo chown $USER:$USER "${source_dir}"/*

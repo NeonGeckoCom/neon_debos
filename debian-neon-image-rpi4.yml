@@ -191,7 +191,7 @@ actions:
       image: {{ $image }}
 
   - action: recipe
-    recipe: recipes/99-finalize.yml
+    recipe: recipes/99-finalize_squashfs.yml
     variables:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
