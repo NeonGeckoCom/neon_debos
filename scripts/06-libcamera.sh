@@ -43,7 +43,7 @@ git clone https://github.com/anholt/libepoxy.git
 cd libepoxy || exit 10
 mkdir _build
 cd _build || exit 10
-meson
+meson setup
 ninja
 ninja install
 cd ../..

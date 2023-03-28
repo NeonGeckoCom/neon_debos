@@ -115,4 +115,7 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+PATH=/usr/sbin:/usr/local/sbin:${PATH}
+
 . /home/neon/venv/bin/activate

@@ -6,7 +6,7 @@ PULSE_DAEMON=/etc/pulse/pulseaudio-daemon.conf
 
 rev=$(sj201 get-revision)
 
-if [[ $? == 1 && "${rev}" != "" ]]; then
+if [[ $? == 1 && "${rev}" != "0" ]]; then
   echo "Configure SJ201 Audio"
   prefix="sj201-"
 fi

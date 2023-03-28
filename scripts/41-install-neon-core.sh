@@ -92,6 +92,9 @@ chmod +x /usr/sbin/*
 chmod +x /usr/bin/*
 chmod +x /usr/libexec/*
 
+# Disable wifi-connect
+systemctl disable wifi-setup.service
+
 # Enable services
 systemctl enable neon.service
 systemctl enable neon-admin-enclosure.service
