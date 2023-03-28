@@ -31,3 +31,5 @@
 sj201 reset-led red
 # Set fan speed to 0
 sj201 set-fan-speed 0
+# Check for reset signal
+bash /opt/neon/check_mark2_reset.sh

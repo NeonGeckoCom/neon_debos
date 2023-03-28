@@ -31,7 +31,7 @@
 set -Ee
 
 pip3.10 install wheel
-pip3.10 install sj201-interface
+pip3.10 install sj201-interface==0.0.3a0
 
 # Determine kernel with build directory
 # TODO: Better way to detect appropriate kernel

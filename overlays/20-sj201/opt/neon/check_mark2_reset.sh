@@ -27,21 +27,10 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# This needs to run as root
 
-# Check for button press signalling reset
-bash /opt/neon/check_mark2_reset.sh
-
-# Enable Driver Overlay
-dtoverlay xvf3510
-
-# Flash xmos firmware
-xvf3510-flash --direct /usr/lib/firmware/xvf3510/app_xvf3510_int_spi_boot_v4_1_0.bin
-# Init TI Amp
-sj201 init-ti-amp
-# Reset LEDs
-sj201 reset-led green
-
-# TODO: Should we skip fan init and just wait for PHAL to take over?
-# Reset fan speed (NOTE: R10 will ramp to 100% after this)
-sj201 set-fan-speed 30
+if [ "$(cat /sys/class/gpio/gpio24/value)" == "0" ]; then
+  echo "Reset Requested"
+  sj201 reset-led white
+  touch /opt/neon/signal_reset_device
+  shutdown -r now
+fi
