@@ -58,9 +58,9 @@ actions:
     script: ../scripts/99-prepare-squashfs.sh
 
   - action: run
-    description: Compress SquashFS
+    description: Create SquashFS
     chroot: true
-    command: mksquashfs / /root.squashfs -noappend -e /proc/* -e /sys/* -e /dev/* -e /tmp/*
+    command: mksquashfs / /root.squashfs -noappend -regex -e proc/.* -e sys/.* -e dev/.* -e tmp/.* -e .*\.squashfs
 
   - action: run
     description: Copy squashFS to host
