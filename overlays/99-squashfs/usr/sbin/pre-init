@@ -17,6 +17,8 @@ PATH=/sbin:/bin:/usr/sbin:/usr/bin
 # Mount special directories
 /bin/mount -t proc proc /proc
 /bin/mount -t sysfs sysfs /sys
+/bin/mount -o size=10M,rw,nodev,nosuid -t tmpfs tmpfs /tmp
+
 grep -w "/dev" /proc/mounts >/dev/null || /bin/mount -t devtmpfs none /dev
 
 # Parse cmdline.txt for root mount params
@@ -57,6 +59,8 @@ if [ ! -d /media/rfs/rw/upperdir ]; then
   log "Performing drive FS init"
   /bin/bash /opt/neon/prepare_fs.sh
 fi
+
+/bin/umount /tmp
 
 if [ -n "${SWAP_PARTITION:-''}" ]; then
   swapon "${SWAP_PARTITION}" || log "No swap partition available"

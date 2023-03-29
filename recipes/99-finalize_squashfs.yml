@@ -46,6 +46,7 @@ actions:
     packages:
       - squashfs-tools
       - parted
+      - cloud-guest-utils
 
   - action: overlay
     description: squashFS boot overlay
