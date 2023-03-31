@@ -84,6 +84,7 @@ chmod ugo+x /opt/neon/configure_sj201_on_boot.sh
 
 # Enable system services
 systemctl enable sj201.service
+systemctl enable sj201-reset.service
 systemctl enable sj201-shutdown.service
 
 echo "SJ201 Setup Complete"

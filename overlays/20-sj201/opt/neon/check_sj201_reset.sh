@@ -28,7 +28,7 @@
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-if [ "$(cat /sys/class/gpio/gpio24/value)" == "0" ]; then
+if [[ "$(cat /sys/class/gpio/gpio24/value)" == "0" && "$(cat /sys/class/gpio/gpio23/value)" == "0" ]]; then
   echo "Reset Requested"
   sj201 reset-led white
   touch /opt/neon/signal_reset_device
