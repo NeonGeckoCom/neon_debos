@@ -69,8 +69,8 @@ fi
 # Check for device reset
 if [ -f /media/rfs/rw/upperdir/opt/neon/signal_reset_device ]; then
   log "Removing user overlay files"
+  /usr/bin/fbi -1 -t 5 -d /dev/fb0 --noverbose -a /media/rfs/ro/opt/neon/factory_reset.png
   rm -rf /media/rfs/rw/upperdir/*
-  /usr/bin/fbi -t 5 -d /dev/fb0 --noverbose -a /media/rfs/ro/opt/neon/factory_reset.png
 fi
 
 # Mount overlayfs to /mnt

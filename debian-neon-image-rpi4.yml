@@ -22,10 +22,10 @@ actions:
       suite: {{ $suite }}
       image: {{ $image }}
 
-  - action: recipe
-    recipe: recipes/03-resize-fs.yml
-    variables:
-      architecture: {{ $architecture }}
+#  - action: recipe
+#    recipe: recipes/03-resize-fs.yml
+#    variables:
+#      architecture: {{ $architecture }}
 
   - action: recipe
     recipe: recipes/03-base-packages.yml
