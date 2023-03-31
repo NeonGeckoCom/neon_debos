@@ -3,7 +3,6 @@ Description=Neon Audio Service
 PartOf=neon.service
 After=neon.service
 After=neon-bus.service
-LogNamespace=neon
 
 [Service]
 Type=notify
@@ -13,6 +12,7 @@ Restart=always
 User=neon
 WorkingDirectory=/opt/neon
 ExecStart=/usr/libexec/neon-audio.py
+LogNamespace=neon
 
 [Install]
 WantedBy=neon.service

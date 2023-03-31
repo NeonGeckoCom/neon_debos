@@ -4,7 +4,6 @@ PartOf=neon.service
 After=neon.service
 After=neon-bus.service
 After=neon-gui.service
-LogNamespace=neon
 
 [Service]
 Type=notify
@@ -15,6 +14,7 @@ User=neon
 EnvironmentFile=/etc/neon/neon_env.conf
 WorkingDirectory=/opt/neon
 ExecStart=/usr/libexec/neon-enclosure.py
+LogNamespace=neon
 
 [Install]
 WantedBy=neon.service

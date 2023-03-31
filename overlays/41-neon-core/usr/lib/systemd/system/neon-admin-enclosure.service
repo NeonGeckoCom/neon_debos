@@ -2,7 +2,6 @@
 Description=Neon Admin Enclosure
 PartOf=neon.service
 After=neon-bus.service
-LogNamespace=neon
 
 [Service]
 Type=notify
@@ -13,6 +12,7 @@ User=root
 EnvironmentFile=/etc/neon/neon_env.conf
 WorkingDirectory=/opt/neon
 ExecStart=/usr/libexec/neon-admin-enclosure.py
+LogNamespace=neon
 
 [Install]
 WantedBy=neon.service
