@@ -60,8 +60,8 @@ load-module module-combine-sink sink_name=CombinedOutput
 # The ASR channel will subtract active output and isolate input voice audio
 # https://github.com/xmos/vocalfusion-rpi-setup/blob/master/resources/asoundrc_vf_xvf3510_int
 # https://www.xmos.ai/download/XVF3510-INT-Datasheet(4.1).pdf
-load-module module-remap-source source_name=VF_ASR source_properties="device.description='VocalFusion ASR recording'" master=alsa_input.platform-asoc-simple-card.0.xvf3510-2mic remix=no master_channel_map=front-left channel_map=mono
-load-module module-remap-source source_name=VF_Comms source_properties="device.description='VocalFusion Comms recording'" master=alsa_input.platform-asoc-simple-card.0.xvf3510-2mic remix=no master_channel_map=front-right channel_map=mono
+load-module module-remap-source source_name=VF_ASR source_properties="device.description='VocalFusion ASR recording'" master=alsa_input.platform-asoc-simple-card.0.xvf3510-2mic remix=no master_channel_map=front-right channel_map=mono
+load-module module-remap-source source_name=VF_Comms source_properties="device.description='VocalFusion Comms recording'" master=alsa_input.platform-asoc-simple-card.0.xvf3510-2mic remix=no master_channel_map=front-left channel_map=mono
 set-default-source VF_ASR
 set-default-sink CombinedOutput
 
