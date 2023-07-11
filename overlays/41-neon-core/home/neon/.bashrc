@@ -117,5 +117,6 @@ if ! shopt -oq posix; then
 fi
 
 PATH=/usr/sbin:/usr/local/sbin:${PATH}
-
+export OVOS_CONFIG_FILENAME="neon.yaml"
+export OVOS_CONFIG_BASE_FOLDER="neon"
 . /home/neon/venv/bin/activate

@@ -1,9 +1,7 @@
 [Unit]
 Description=Neon Enclosure
 PartOf=neon.service
-After=neon.service
 After=neon-bus.service
-After=neon-gui.service
 
 [Service]
 Type=notify

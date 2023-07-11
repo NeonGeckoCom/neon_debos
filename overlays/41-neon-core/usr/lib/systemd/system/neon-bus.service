@@ -1,7 +1,6 @@
 [Unit]
 Description=Neon Message Bus
 PartOf=neon.service
-After=neon.service
 After=neon-logs.service
 
 [Service]
@@ -10,6 +9,7 @@ TimeoutStartSec=300
 TimeoutStopSec=30
 Restart=always
 User=neon
+EnvironmentFile=/etc/neon/neon_env.conf
 WorkingDirectory=/opt/neon
 ExecStart=/usr/libexec/neon-messagebus.py
 LogNamespace=neon

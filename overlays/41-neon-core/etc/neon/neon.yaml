@@ -110,7 +110,7 @@ PHAL:
       enabled: true
 ready_settings:
   - skills
-  - speech
+  - voice
   - audio
   - gui_service
   - internet
