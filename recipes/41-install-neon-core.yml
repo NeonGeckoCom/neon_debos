@@ -2,6 +2,7 @@
 {{- $firmware_version := or .firmware_version "master" -}}
 {{ $suite :=  or .suite "focal" }}
 {{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
+{{- $neon_core := or .neon_core "master" -}}
 
 architecture: {{ $architecture }}
 
@@ -32,5 +33,5 @@ actions:
   - action: run
     description: Install Neon Core
     chroot: true
-    script: ../scripts/41-install-neon-core.sh
+    script: ../scripts/41-install-neon-core.sh {{ $neon_core }}
     # TODO: Refactor script and overlay to handle a configured username

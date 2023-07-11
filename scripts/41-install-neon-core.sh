@@ -30,6 +30,8 @@
 BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "${BASE_DIR}" || exit 10
 
+CORE_REF="${1:-dev}"
+
 # install mimic
 curl https://forslund.github.io/mycroft-desktop-repo/mycroft-desktop.gpg.key | apt-key add - 2> /dev/null && \
 echo "deb http://forslund.github.io/mycroft-desktop-repo bionic main" | tee /etc/apt/sources.list.d/mycroft-desktop.list
@@ -47,7 +49,7 @@ pip install --upgrade pip wheel
 # Install core and skills
 #pip install https://github.com/mozilla/DeepSpeech/releases/download/v0.9.3/deepspeech-0.9.3-cp37-cp37m-linux_aarch64.whl
 export NEON_IN_SETUP="true"
-pip install "git+https://github.com/neongeckocom/neoncore@${CORE_REF:-dev}#egg=neon_core[core_modules,skills_required,skills_essential,skills_default,skills_extended,pi]" || exit 11
+pip install "git+https://github.com/neongeckocom/neoncore@${CORE_REF}#egg=neon_core[core_modules,skills_required,skills_essential,skills_default,skills_extended,pi]" || exit 11
 echo "Core Installed"
 neon-install-default-skills && echo "Default git skills installed" || exit 2
 

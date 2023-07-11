@@ -1,13 +1,14 @@
 {{- $architecture := or .architecture "arm64" -}}
 {{- $firmware_version := or .firmware_version "master" -}}
 {{ $suite :=  or .suite "bookworm" }}
-{{- $image := or .image "debian-base-image-rpi4.img" -}}
+{{- $image := or .image "debian-neon-image-rpi4.img" -}}
+{{- $neon_core := or .neon_core "master" -}}
 
 architecture: {{ $architecture }}
 
 actions:
   - action: recipe
-    recipe: recipes/01-debian-bullseye-base.yml
+    recipe: recipes/01-debian-base.yml
     variables:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
@@ -165,14 +166,7 @@ actions:
       firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
       image: {{ $image }}
-
-  - action: recipe
-    recipe: recipes/42-install-ovos-dashboard.yml
-    variables:
-      architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
-      suite: {{ $suite }}
-      image: {{ $image }}
+      neon_core: {{ $neon_core }}
 
   - action: recipe
     recipe: recipes/45-reset-service.yml

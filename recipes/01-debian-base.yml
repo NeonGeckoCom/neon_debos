@@ -8,7 +8,7 @@ actions:
     suite: {{ $suite }}
     components:
       - main
-    mirror: http://deb.debian.org/debian
+    mirror: https://deb.debian.org/debian
     variant: minbase
 
   - action: apt
