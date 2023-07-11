@@ -33,7 +33,7 @@ set -Ee
 # Clone and build libcamera
 git clone https://github.com/raspberrypi/libcamera.git
 cd libcamera || exit 10
-meson build --buildtype=release -Dpipelines=raspberrypi -Dipas=raspberrypi -Dv4l2=true -Dtest=false -Dlc-compliance=disabled -Dcam=disabled -Dqcam=disabled -Ddocumentation=disabled
+meson setup build -Dv4l2=true -Dtest=false -Dlc-compliance=disabled -Dcam=disabled -Dqcam=disabled -Ddocumentation=disabled
 ninja -C build install
 cd ..
 rm -rf libcamera
