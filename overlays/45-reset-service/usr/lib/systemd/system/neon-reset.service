@@ -1,0 +1,7 @@
+[Unit]
+Description=Neon Reset
+
+[Service]
+Type=oneshot
+User=root
+ExecStart=/opt/neon/reset

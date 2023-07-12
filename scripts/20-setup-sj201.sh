@@ -30,8 +30,8 @@
 # Set to exit on error
 set -Ee
 
-pip install wheel
-pip install sj201-interface
+pip3.10 install wheel
+pip3.10 install sj201-interface==0.0.3a0
 
 # Determine kernel with build directory
 # TODO: Better way to detect appropriate kernel
@@ -84,6 +84,7 @@ chmod ugo+x /opt/neon/configure_sj201_on_boot.sh
 
 # Enable system services
 systemctl enable sj201.service
+systemctl enable sj201-reset.service
 systemctl enable sj201-shutdown.service
 
 echo "SJ201 Setup Complete"

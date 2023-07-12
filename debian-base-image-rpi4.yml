@@ -7,7 +7,7 @@ architecture: {{ $architecture }}
 
 actions:
   - action: recipe
-    recipe: recipes/01-debian-bullseye-base.yml
+    recipe: recipes/01-debian-base.yml
     variables:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
@@ -47,7 +47,7 @@ actions:
       image: {{ $image }}
 
   - action: recipe
-    recipe: recipes/05-wifi-connect.yml
+    recipe: recipes/05-setup-networking.yml
     variables:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}

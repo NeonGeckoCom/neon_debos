@@ -31,3 +31,6 @@
 sj201 reset-led red
 # Set fan speed to 0
 sj201 set-fan-speed 0
+# Check for reset signal
+sleep 2  # Allow some time for a user to press the buttons to trigger a reset
+bash /opt/neon/check_sj201_reset.sh

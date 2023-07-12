@@ -39,6 +39,5 @@ sj201 init-ti-amp
 # Reset LEDs
 sj201 reset-led green
 
-# TODO: Should we skip fan init and just wait for PHAL to take over?
-# Reset fan speed (NOTE: R10 will ramp to 100% after this)
-sj201 set-fan-speed 30
+# Reset fan speed (NOTE: R10 will always default to 100%)
+sj201 set-fan-speed 100

@@ -11,8 +11,6 @@ actions:
     packages:
       - gcc
       - make
-      - python3-pip
-      - python3-dev
       - i2c-tools
       - pulseaudio
       - pulseaudio-module-zeroconf
@@ -20,7 +18,7 @@ actions:
       - git
       - portaudio19-dev
   - action: overlay
-    description: SJ201 and Pulse Audio overlay
+    description: SJ201 overlay
     source: ../overlays/20-sj201
     destination: /
   - action: run

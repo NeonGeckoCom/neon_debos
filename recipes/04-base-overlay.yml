@@ -7,5 +7,5 @@ architecture: {{ $architecture }}
 
 actions:
   - action: overlay
-    description: OVOS specific overlay
+    description: Assistant-specific overlay
     source: ../overlays/04-base-embedded

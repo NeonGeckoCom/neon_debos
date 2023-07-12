@@ -17,6 +17,11 @@ Top-level `yml` files specify recipes for building images for a particular combi
 - The `recipes` directory contains go-debos recipes.
 - The `scripts` directory contains shell scripts that run in the image.
 
+
+Within each directory, files are indexed roughly in the order they are indended
+to be run in, so a recipe starting with `03` should run before `04`. Not all
+recipes are used for all builds. 
+
 ## Build instructions
 To build a default image, use the included `run_docker_debos.sh` shell script.
 

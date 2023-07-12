@@ -1,0 +1,12 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $firmware_version := or .firmware_version "master" -}}
+{{ $suite :=  or .suite "focal" }}
+{{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: overlay
+    description: Overlay HomeAssistant Shortcut
+    source: ../overlays/33-homeassistant
+    destination: /

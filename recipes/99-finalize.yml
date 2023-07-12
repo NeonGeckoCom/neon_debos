@@ -7,6 +7,27 @@ architecture: {{ $architecture }}
 
 actions:
 
+  - action: image-partition
+    imagename: {{ $image }}
+    imagesize: 8GB
+    partitiontype: msdos
+    mountpoints:
+      - mountpoint: /
+        partition: root
+      - mountpoint: /boot/firmware
+        partition: firmware
+        options: [ x-systemd.automount ]
+    partitions:
+      - name: firmware
+        fs: fat32
+        start: 0%
+        end: 64MB
+      - name: root
+        fs: ext4
+        start: 64MB
+        end: 100%
+        flags: [boot]
+
   - action: filesystem-deploy
     description: Deploying filesystem into image
 

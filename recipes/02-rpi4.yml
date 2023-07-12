@@ -7,7 +7,7 @@ architecture: {{ $architecture }}
 actions:
     # Hardware specific parts
   - action: download
-    description: Fetch latest kernel ci build
+    description: Fetch latest kernel build
 {{ if eq $architecture "armhf" }}
     url: http://bshah.in/linux-pi4-armhf.zip
 {{ else }}
@@ -114,27 +114,6 @@ actions:
     description: Define Default Groups
     chroot: true
     script: ../scripts/02-create-groups.sh
-
-  - action: image-partition
-    imagename: {{ $image }}
-    imagesize: 8GB
-    partitiontype: msdos
-    mountpoints:
-      - mountpoint: /
-        partition: root
-      - mountpoint: /boot/firmware
-        partition: firmware
-        options: [ x-systemd.automount ]
-    partitions:
-      - name: firmware
-        fs: fat32
-        start: 0%
-        end: 64MB
-      - name: root
-        fs: ext4
-        start: 64MB
-        end: 100%
-        flags: [boot]
 
   - action: run
     description: Set hostname

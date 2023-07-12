@@ -1,0 +1,13 @@
+[Unit]
+Description=Neon Log Archival
+PartOf=neon.service
+Before=neon-bus.service
+
+[Service]
+Type=oneshot
+User=neon
+WorkingDirectory=/opt/neon
+ExecStart=/bin/bash /opt/neon/archive_logs.sh
+
+[Install]
+WantedBy=neon.service

@@ -1,0 +1,92 @@
+#!/bin/bash
+
+log() {
+  echo "${1}"
+}
+
+fatal() {
+  echo "${1}"
+  exit 2
+}
+
+set -euo pipefail
+
+# Define PATH for this script
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+
+# Mount special directories
+/bin/mount -t proc proc /proc
+/bin/mount -t sysfs sysfs /sys
+/bin/mount -o size=10M,rw,nodev,nosuid -t tmpfs tmpfs /tmp
+
+grep -w "/dev" /proc/mounts >/dev/null || /bin/mount -t devtmpfs none /dev
+
+# Parse cmdline.txt for root mount params
+[ -z "${CMDLINE+x}" ] && CMDLINE=$(cat /proc/cmdline)
+for arg in $CMDLINE; do
+	optarg=$(expr "x${arg}" : 'x[^=]*=\(.*\)' || echo '')
+	case $arg in
+		root=*)
+			ROOT_RODEVICE=${optarg} ;;
+		rootfstype=*)
+			ROOT_ROFSTYPE=${optarg} ;;
+	  writable=*)
+	    ROOT_RWDEVICE=${optarg} ;;
+	  swap=*)
+	    SWAP_PARTITION=${optarg}
+	esac
+done
+
+# Mount RO FS
+ROOT_ROMOUNTPARAMS="-t ${ROOT_ROFSTYPE} -o noatime,nodiratime ${ROOT_RODEVICE}"
+if ! /bin/mount "${ROOT_ROMOUNTPARAMS}" /media/rfs/ro 2>/dev/null && \
+	[ "x-o bind /" == "x${ROOT_ROMOUNTPARAMS}" ] || \
+	log "Could not mount ${ROOT_RODEVICE}, bind mounting..." && \
+	! /bin/mount -o bind / /media/rfs/ro; then
+	fatal "Could not mount read-only rootfs"
+fi
+
+if ! /bin/mount -o remount,ro /media/rfs/ro; then
+	fatal "Could not remount read-only rootfs as read only"
+fi
+
+# Mount RW FS
+if ! /bin/mount "${ROOT_RWDEVICE}" /media/rfs/rw -t auto -o relatime,nosuid,nodev ; then
+	fatal "Could not mount read-write rootfs"
+fi
+
+if [ ! -d /media/rfs/rw/upperdir ]; then
+  log "Performing drive FS init"
+  /bin/bash /opt/neon/prepare_fs.sh
+fi
+
+/bin/umount /tmp
+
+if [ -n "${SWAP_PARTITION:-''}" ]; then
+  swapon "${SWAP_PARTITION}" || log "No swap partition available"
+fi
+
+# Check for device reset
+if [ -f /media/rfs/rw/upperdir/opt/neon/signal_reset_device ]; then
+  log "Removing user overlay files"
+  /usr/bin/fbi -1 -t 5 -d /dev/fb0 --noverbose -a /media/rfs/ro/opt/neon/factory_reset.png
+  rm -rf /media/rfs/rw/upperdir/*
+fi
+
+# Mount overlayfs to /mnt
+mkdir -p /media/rfs/rw/upperdir /media/rfs/rw/work
+/bin/mount -t overlay overlay -o lowerdir=/media/rfs/ro,upperdir=/media/rfs/rw/upperdir,workdir=/media/rfs/rw/work /mnt
+
+# Remount partitions in overlayfs
+mkdir -p /mnt/media/rfs/ro /mnt/media/rfs/rw
+/bin/mount -n --move /media/rfs/ro /mnt/media/rfs/ro
+/bin/mount -n --move /media/rfs/rw /mnt/media/rfs/rw
+
+# Remount special paths to overlayfs
+/bin/mount -n --move /proc /mnt/proc
+/bin/mount -n --move /sys /mnt/sys
+/bin/mount -n --move /dev /mnt/dev
+
+# chroot and init OS
+cd /mnt
+exec chroot /mnt /sbin/init || fatal "Couldn't chroot, dropping to shell"

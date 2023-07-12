@@ -1,0 +1,18 @@
+[Unit]
+Description=Neon Skills
+PartOf=neon.service
+After=neon-bus.service
+
+[Service]
+Type=notify
+TimeoutStartSec=600
+TimeoutStopSec=60
+Restart=always
+User=neon
+EnvironmentFile=/etc/neon/neon_env.conf
+WorkingDirectory=/opt/neon
+ExecStart=/usr/libexec/neon-skills.py
+LogNamespace=neon
+
+[Install]
+WantedBy=neon.service

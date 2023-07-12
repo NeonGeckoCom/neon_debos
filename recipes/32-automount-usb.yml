@@ -1,0 +1,17 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $firmware_version := or .firmware_version "master" -}}
+{{ $suite :=  or .suite "focal" }}
+{{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: apt
+    description: Install Autofs
+    packages:
+      - autofs
+
+  - action: overlay
+    description: Automount USB Config
+    source: ../overlays/32-automount-usb
+    destination: /

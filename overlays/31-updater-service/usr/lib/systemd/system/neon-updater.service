@@ -1,0 +1,8 @@
+[Unit]
+Description=Neon Updater
+
+[Service]
+Type=oneshot
+User=root
+EnvironmentFile=/etc/neon/versions.conf
+ExecStart=/opt/neon/update $NEON_CORE_REF
