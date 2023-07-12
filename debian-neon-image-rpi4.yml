@@ -193,6 +193,15 @@ actions:
       image: {{ $image }}
 
   - action: recipe
+    recipe: recipes/98-add_metadata.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+      neon_core: {{ $neon_core }}
+
+  - action: recipe
     recipe: recipes/99-finalize_squashfs.yml
     variables:
       architecture: {{ $architecture }}
