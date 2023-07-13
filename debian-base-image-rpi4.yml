@@ -103,7 +103,7 @@ actions:
       image: {{ $image }}
 
   - action: recipe
-    recipe: recipes/15-python-3_7.yml
+    recipe: recipes/16-python-3_10.yml
     variables:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
