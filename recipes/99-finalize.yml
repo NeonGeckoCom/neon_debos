@@ -9,7 +9,7 @@ actions:
 
   - action: image-partition
     imagename: {{ $image }}
-    imagesize: 8GB
+    imagesize: 7GB
     partitiontype: msdos
     mountpoints:
       - mountpoint: /
@@ -21,10 +21,10 @@ actions:
       - name: firmware
         fs: fat32
         start: 0%
-        end: 64MB
+        end: 128MB
       - name: root
         fs: ext4
-        start: 64MB
+        start: 128MB
         end: 100%
         flags: [boot]
 

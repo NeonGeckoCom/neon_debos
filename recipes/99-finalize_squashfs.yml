@@ -20,15 +20,15 @@ actions:
       - name: firmware
         fs: fat32
         start: 0%
-        end: 64MB
+        end: 128MB
       - name: root
         fs: ext4
-        start: 64MB
-        end: 2624MB
+        start: 128MB
+        end: 2688MB
         flags: [boot]
       - name: user
         fs: ext4
-        start: 2624
+        start: 2688
         end: 100%
 
 #  - action: overlay
