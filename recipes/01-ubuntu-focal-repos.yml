@@ -1,7 +1,6 @@
 {{- $architecture := or .architecture "arm64" -}}
 {{- $firmware_version := or .firmware_version "master" -}}
 {{ $suite :=  or .suite "focal" }}
-{{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
 
 architecture: {{ $architecture }}
 
@@ -37,23 +36,3 @@ actions:
     description: Add Waveform apt repo
     chroot: true
     command: echo "deb http://ppa.launchpad.net/waveform/userland/ubuntu {{ $suite }} main" > /etc/apt/sources.list.d/waveform.list
-
-#  - action: run
-#    description: Add OVOS GPG key
-#    chroot: true
-#    command: apt-key adv --keyserver keyserver.ubuntu.com --recv-keys "D006 5878 5991 55E4 7277  AF20 760B 60C7 8861 9B80"
-
-#  - action: run
-#    description: Add OVOS repo
-#    chroot: true
-#    command: echo "deb [trusted=yes] http://ports.openvoiceos.com/unstable focal main" > /etc/apt/sources.list.d/ovos.list
-
-  #- action: run
-  #  description: Add KDE Neon gpg key
-  #  chroot: true
-  #  command: apt-key adv --keyserver keyserver.ubuntu.com --recv-keys '444D ABCF 3667 D028 3F89  4EDD E6D4 7362 5575 1E5D'
-
-  #- action: run
-  #  description: Add KDE Neon apt repo
-  #  chroot: true
-  #  command: echo "deb [trusted=yes] http://archive.neon.kde.org/unstable {{ $suite }} main" > /etc/apt/sources.list.d/neon.list

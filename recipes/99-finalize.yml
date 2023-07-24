@@ -1,14 +1,14 @@
 {{- $architecture := or .architecture "arm64" -}}
 {{- $firmware_version := or .firmware_version "master" -}}
 {{ $suite :=  or .suite "focal" }}
-{{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
+{{- $image := or .image "ovos-dev-edition-rpi4" -}}
 
 architecture: {{ $architecture }}
 
 actions:
 
   - action: image-partition
-    imagename: {{ $image }}
+    imagename: output/{{ $image }}.img
     imagesize: 7GB
     partitiontype: msdos
     mountpoints:
@@ -54,4 +54,4 @@ actions:
   - action: run
     description: Compress image
     postprocess: true
-    command: xz --compress -T0 --keep {{ $image }}
+    command: xz --compress -T0 --keep output/{{ $image }}.img

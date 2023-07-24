@@ -1,7 +1,6 @@
 {{- $architecture := or .architecture "arm64" -}}
 {{- $firmware_version := or .firmware_version "master" -}}
 {{ $suite :=  or .suite "focal" }}
-{{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
 {{- $neon_core := or .neon_core "master" -}}
 
 architecture: {{ $architecture }}
