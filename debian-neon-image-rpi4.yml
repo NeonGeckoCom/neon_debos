@@ -202,7 +202,15 @@ actions:
       neon_core: {{ $neon_core }}
 
   - action: recipe
-    recipe: recipes/99-finalize_squashfs.yml
+    recipe: recipes/99-backup-image.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/99-finalize.yml
     variables:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}

@@ -13,6 +13,7 @@ actions:
     variant: minbase
 
   - action: apt
+    description: Install apt dependencies
     packages:
       - gnupg
       - wget
