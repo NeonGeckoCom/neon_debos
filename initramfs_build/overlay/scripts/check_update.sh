@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # NEON AI (TM) SOFTWARE, Software Development Kit & Application Framework
 # All trademark and other rights reserved by their respective owners
 # Copyright 2008-2022 Neongecko.com Inc.
@@ -27,15 +27,20 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-unmkinitramfs initrd.img initramfs_dir && echo "Extracted initrd.img"
-cp -r overlay/* initramfs_dir/
-chmod +x initramfs_dir/scripts/* && echo "Added scripts"
-chmod +x initramfs_dir/init && echo "Applied custom init"
+UPDATE_FILE=${1}
+ROOT_FILE=${2}
+BACKUP_FILE=${3:-""}
 
-cd initramfs_dir || exit 10
-find . | cpio -o -H newc -R root:root -F ../initramfs.cpio
-cd .. || exit 10
-zstd -z initramfs.cpio
-rm initramfs.cpio
-rm -r initramfs_dir
-mv initramfs.cpio.zst initramfs && echo "Generated initramfs"
+if [ ! -f "${UPDATE_FILE}" ]; then
+  echo "no update (${UPDATE_FILE})"
+  exit 0
+elif [ -n "${BACKUP_FILE}" ]; then
+  echo "backup existing image"
+  mv "${ROOT_FILE}" "${BACKUP_FILE}"
+fi
+
+echo "applying updated rootfs"
+mv "${UPDATE_FILE}" "${ROOT_FILE}"
+
+# TODO: Cleanup overlay
+echo "update complete"

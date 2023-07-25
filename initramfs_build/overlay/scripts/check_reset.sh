@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # NEON AI (TM) SOFTWARE, Software Development Kit & Application Framework
 # All trademark and other rights reserved by their respective owners
 # Copyright 2008-2022 Neongecko.com Inc.
@@ -27,15 +27,13 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-unmkinitramfs initrd.img initramfs_dir && echo "Extracted initrd.img"
-cp -r overlay/* initramfs_dir/
-chmod +x initramfs_dir/scripts/* && echo "Added scripts"
-chmod +x initramfs_dir/init && echo "Applied custom init"
+WRITABLE_PATH=${1}
+SIGNAL_FILE="${WRITABLE_PATH}/upperdir/opt/neon/signal_reset_device"
 
-cd initramfs_dir || exit 10
-find . | cpio -o -H newc -R root:root -F ../initramfs.cpio
-cd .. || exit 10
-zstd -z initramfs.cpio
-rm initramfs.cpio
-rm -r initramfs_dir
-mv initramfs.cpio.zst initramfs && echo "Generated initramfs"
+if [ -f "${SIGNAL_FILE}" ]; then
+  echo "reset requested"
+  rm -rf "${WRITABLE_PATH}/upperdir"
+  rm -rf "${WRITABLE_PATH}/workdir"
+  rm -rf "/swapfile"
+fi
+

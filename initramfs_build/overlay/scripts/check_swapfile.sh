@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # NEON AI (TM) SOFTWARE, Software Development Kit & Application Framework
 # All trademark and other rights reserved by their respective owners
 # Copyright 2008-2022 Neongecko.com Inc.
@@ -27,15 +27,27 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-unmkinitramfs initrd.img initramfs_dir && echo "Extracted initrd.img"
-cp -r overlay/* initramfs_dir/
-chmod +x initramfs_dir/scripts/* && echo "Added scripts"
-chmod +x initramfs_dir/init && echo "Applied custom init"
+SWAP_FILE="${1}"
 
-cd initramfs_dir || exit 10
-find . | cpio -o -H newc -R root:root -F ../initramfs.cpio
-cd .. || exit 10
-zstd -z initramfs.cpio
-rm initramfs.cpio
-rm -r initramfs_dir
-mv initramfs.cpio.zst initramfs && echo "Generated initramfs"
+# Check for existing swapfile
+if [ -f "${SWAP_FILE}" ]; then
+  echo "${SWAP_FILE} already exists"
+  exit 0
+fi
+
+# Check memory info to optionally create/enable swapfile
+mem=$(grep ^MemTotal /proc/meminfo | cut -d' ' -f 9)
+
+min_mem=2097153  # 2GiB + 1B
+
+
+if [ "${mem}" -le "${min_mem}" ]; then
+  echo "Creating swapfile"
+  fallocate -l 1G "${SWAP_FILE}"
+  chmod 600 "${SWAP_FILE}"
+  mkswap "${SWAP_FILE}"
+#  echo "${SWAP_FILE} none swap sw 0 0" >> /etc/fstab
+#  swapon "${SWAP_FILE}"
+else
+  echo "Skip swapfile creation. ${mem} > ${min_mem}"
+fi

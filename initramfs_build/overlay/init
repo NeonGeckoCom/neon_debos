@@ -56,6 +56,9 @@ export ROOT=
 export ROOTDELAY=
 export ROOTFLAGS=
 export ROOTFSTYPE=
+export ROOT_RWDEVICE=
+export ROOT_ROPATH=
+export ROOT_RWPATH=
 export IP=
 export DEVICE=
 export BOOT=
@@ -101,7 +104,16 @@ for x in $(cat /proc/cmdline); do
 		ROOTFLAGS="-o ${x#rootflags=}"
 		;;
   writable=*)
-    ROOT_RWDEVICE=""${x#writable=}""
+    ROOT_RWDEVICE="${x#writable=}"
+    ;;
+  root_readonly=*)
+    ROOT_ROPATH="${x#root_readonly=}"
+    ;;
+  root_writable=*)
+    ROOT_RWPATH="${x#root_writable=}"
+    ;;
+  root_backup=*)
+    ROOT_BUPATH="${x#root_backup=}"
     ;;
 	rootfstype=*)
 		ROOTFSTYPE="${x#rootfstype=}"
@@ -266,23 +278,75 @@ nfs_bottom
 local_bottom
 
 maybe_break bottom
-[ "$quiet" != "y" ] && log_begin_msg "Running /scripts/init-bottom"
-# We expect udev's init-bottom script to move /dev to ${rootmnt}/dev
-
-run_scripts /scripts/init-bottom
-[ "$quiet" != "y" ] && log_end_msg
-
-# Move /run to the root
-mkdir ${rootmnt}/run
-mount -n -o move /run ${rootmnt}/run
 
 validate_init() {
 	run-init -n "${rootmnt}" "${1}"
 }
 
 # Custom SquashFS Handling
-if [ -n "${ROOT_RWDEVICE}" ]; then
-  echo "configuring chroot"
+if [ -n "${ROOT_ROPATH}" ]; then
+  echo "configuring squashFS file: ${ROOT_ROPATH}"
+
+  mount -o remount,rw ${rootmnt}
+
+  # Mount read-write FS
+  mkdir -p /media/rw
+  if [ -n "${ROOT_RWPATH}" ]; then
+    echo "configuring RW path: ${ROOT_RWPATH}"
+    [ -d "${rootmnt}/${ROOT_RWPATH}" ] || mkdir -p "${rootmnt}/${ROOT_RWPATH}"
+    mount --bind "${rootmnt}/${ROOT_RWPATH}" /media/rw -o relatime,nosuid,nodev
+  elif [ -n "${ROOT_RWDEVICE}" ]; then
+    mount "${ROOT_RWDEVICE}" /media/rw -t auto -o relatime,nosuid,nodev
+  else
+    echo "No RW Device configured!"
+    exit 10
+  fi
+
+  if [ -n "${ROOT_BUPATH}" ]; then
+    scripts/check_update.sh "/media/rw/upperdir/opt/neon/update.squashfs" "${rootmnt}/${ROOT_ROPATH}" "${rootmnt}/${ROOT_BUPATH}"
+  else
+    scripts/check_update.sh "/media/rw/upperdir/opt/neon/update.squashfs" "${rootmnt}/${ROOT_ROPATH}"
+  fi
+
+  sleep 10
+  scripts/check_reset.sh "/media/rw"
+  sleep 10
+  # Mount read-only FS
+  mkdir -p /media/ro
+  mount -t "squashfs" -o noatime,nodiratime "${rootmnt}/${ROOT_ROPATH}" /media/ro
+  mount -o remount,ro /media/ro
+
+  # Optionally Create and mount swapfile
+  scripts/check_swapfile.sh "${rootmnt}/swapfile"
+  sleep 5
+  if [ -f "${rootmnt}/swapfile" ]; then
+    echo "mounting swapfile"
+    touch /swapfile
+    mount --bind ${rootmnt}/swapfile /swapfile
+  fi
+  echo "swapfile handled"
+
+  # Define remaining paths and build overlayFS
+  mkdir -p /media/rw/work /media/rw/upperdir
+  mount -t overlay overlay -o lowerdir=/media/ro,upperdir=/media/rw/upperdir,workdir=/media/rw/work ${rootmnt}
+
+  [ "$quiet" != "y" ] && log_begin_msg "Running /scripts/init-bottom"
+  # We expect udev's init-bottom script to move /dev to ${rootmnt}/dev
+  [ -d "${rootmnt}/dev" ] || mkdir "${rootmnt}/dev"  # Ensure new directory exists
+  run_scripts /scripts/init-bottom
+  [ "$quiet" != "y" ] && log_end_msg
+  # Move /run to the root
+  mount -n -o move /run ${rootmnt}/run
+
+  # Remount partitions in overlayfs
+  mkdir -p ${rootmnt}/media/ro ${rootmnt}/media/rw
+  mount -n --move /media/ro ${rootmnt}/media/ro
+  mount -n --move /media/rw ${rootmnt}/media/rw
+
+  init="/sbin/init"
+
+elif [ -n "${ROOT_RWDEVICE}" ]; then  # TODO: Deprecate? this was never deployed
+  echo "configuring squashFS partition"
 
   # Mount read-only FS
   mkdir -p /media/ro
@@ -302,21 +366,27 @@ if [ -n "${ROOT_RWDEVICE}" ]; then
   /bin/mount -n --move /media/ro ${rootmnt}/media/ro
   /bin/mount -n --move /media/rw ${rootmnt}/media/rw
   init="/sbin/init"
+else
+  [ "$quiet" != "y" ] && log_begin_msg "Running /scripts/init-bottom"
+  # We expect udev's init-bottom script to move /dev to ${rootmnt}/dev
+  [ -d "${rootmnt}/dev" ] || mkdir "${rootmnt}/dev"  # Ensure new directory exists
+  run_scripts /scripts/init-bottom
+  [ "$quiet" != "y" ] && log_end_msg
+  # Move /run to the root
+  mount -n -o move /run ${rootmnt}/run
 
-# Check init is really there
-elif ! validate_init "$init"; then
-	echo "Target filesystem doesn't have requested ${init}."
-	init=
-	for inittest in /sbin/init /etc/init /bin/init /bin/sh; do
-		if validate_init "${inittest}"; then
-			init="$inittest"
-			break
-		fi
-	done
+  # Check init is really there
+  if ! validate_init "$init"; then
+    echo "Target filesystem doesn't have requested ${init}."
+    init=
+    for inittest in /sbin/init /etc/init /bin/init /bin/sh; do
+      if validate_init "${inittest}"; then
+        init="$inittest"
+        break
+      fi
+    done
+  fi
 fi
-# TODO: Check for FS init
-# TODO: Check for swap
-# TODO: Check for update
 
 # No init on rootmount
 if [ -z "${init}" ] ; then
@@ -334,6 +404,8 @@ unset ROOTFLAGS
 unset ROOTFSTYPE
 unset ROOTDELAY
 unset ROOT
+unset ROOT_ROPATH
+unset ROOT_RWPATH
 unset IP
 unset BOOT
 unset BOOTIF
@@ -354,11 +426,12 @@ unset fsckfix
 unset starttime
 
 # Move virtual filesystems over to the real filesystem
+[ -d "${rootmnt}/sys" ] || mkdir "${rootmnt}/sys"
+[ -d "${rootmnt}/proc" ] || mkdir "${rootmnt}/proc"
+[ -f "${rootmnt}/swapfile" ] || touch "${rootmnt}/swapfile"
 mount -n -o move /sys ${rootmnt}/sys
 mount -n -o move /proc ${rootmnt}/proc
-mount -n --move /dev ${rootmnt}/dev
-
-sleep 2
+mount -n -o move /swapfile ${rootmnt}/swapfile
 
 # Chain to real filesystem
 # shellcheck disable=SC2086,SC2094
