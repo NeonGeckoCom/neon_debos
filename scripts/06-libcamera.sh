@@ -55,7 +55,8 @@ cd libcamera-apps || exit 10
 meson setup build -Denable_libav=true -Denable_drm=true -Denable_egl=true -Denable_qt=true -Denable_opencv=false -Denable_tflite=false
 meson compile -C build
 meson install -C build
-ldconfig # this is only necessary on the first build
+ldconfig
+cd .. || exit 10
 rm -rf libcamera-apps
 
 echo "Camera dependencies installed"
