@@ -308,9 +308,7 @@ if [ -n "${ROOT_ROPATH}" ]; then
     scripts/check_update.sh "/media/rw/upperdir/opt/neon/update.squashfs" "${rootmnt}/${ROOT_ROPATH}"
   fi
 
-  sleep 10
   scripts/check_reset.sh "/media/rw"
-  sleep 10
   # Mount read-only FS
   mkdir -p /media/ro
   mount -t "squashfs" -o noatime,nodiratime "${rootmnt}/${ROOT_ROPATH}" /media/ro
@@ -318,7 +316,6 @@ if [ -n "${ROOT_ROPATH}" ]; then
 
   # Optionally Create and mount swapfile
   scripts/check_swapfile.sh "${rootmnt}/swapfile"
-  sleep 5
   if [ -f "${rootmnt}/swapfile" ]; then
     echo "mounting swapfile"
     touch /swapfile
