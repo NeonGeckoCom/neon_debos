@@ -9,4 +9,4 @@ actions:
   - action: run
     description: Enable shell login as admin
     chroot: true
-    script: ../scripts/98-admin-login.sh
+    script: ../scripts/96-admin-login.sh

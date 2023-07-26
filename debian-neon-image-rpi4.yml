@@ -193,7 +193,7 @@ actions:
       image: {{ $image }}
 
   - action: recipe
-    recipe: recipes/98-add_metadata.yml
+    recipe: recipes/95-add_metadata.yml
     variables:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
@@ -202,7 +202,7 @@ actions:
       neon_core: {{ $neon_core }}
 
   - action: recipe
-    recipe: recipes/99-backup-image.yml
+    recipe: recipes/98-backup-image.yml
     variables:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}

@@ -15,4 +15,4 @@ actions:
   - action: run
     description: Add metadata file to image
     chroot: true
-    script: ../scripts/98-get_metadata.py {{ $neon_core }} {{ $image }} {{ $architecture }}
+    script: ../scripts/95-get_metadata.py {{ $neon_core }} {{ $image }} {{ $architecture }}

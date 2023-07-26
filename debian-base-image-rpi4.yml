@@ -127,7 +127,7 @@ actions:
       image: {{ $image }}
 
 #  - action: recipe
-#    recipe: recipes/98-admin-login.yml
+#    recipe: recipes/96-admin-login.yml
 #    variables:
 #      architecture: {{ $architecture }}
 #      firmware_version: {{ $firmware_version }}
@@ -135,7 +135,7 @@ actions:
 #      image: {{ $image }}
 
   - action: recipe
-    recipe: recipes/99-backup-image.yml
+    recipe: recipes/98-backup-image.yml
     variables:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
