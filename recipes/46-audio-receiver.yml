@@ -1,0 +1,16 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $firmware_version := or .firmware_version "master" -}}
+{{ $suite :=  or .suite "focal" }}
+{{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: apt
+    description: Audio Receiver Dependencies
+    packages:
+      - raspotify
+  - action: run
+    description: Provide default Spotify device name
+    chroot: true
+    script: ../scripts/46-audio-receiver.sh
