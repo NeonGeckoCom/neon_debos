@@ -31,6 +31,7 @@ image=${1}
 root_dir=${2}
 mv "${root_dir}/boot/firmware" "/image_build/output/firmware"
 rm -rf "${root_dir:?}"/*
-cp "/image_build/output/${image}.squashfs" "${root_dir}/neon.squashfs" && echo "added ${image} as neon.squashfs"
+mkdir "${root_dir}/root"
+cp "/image_build/output/${image}.squashfs" "${root_dir}/root/neon.squashfs" && echo "added ${image} as neon.squashfs"
 mkdir "${root_dir}/boot"
 mv "/image_build/output/firmware" "${root_dir}/boot/firmware" && echo "restored firmware"

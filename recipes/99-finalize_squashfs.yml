@@ -13,7 +13,7 @@ actions:
     partitiontype: msdos
     diskid: 1242d180
     mountpoints:
-      - mountpoint: /
+      - mountpoint: /root
         partition: root
       - mountpoint: /boot/firmware
         partition: firmware

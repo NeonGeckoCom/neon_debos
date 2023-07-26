@@ -50,7 +50,7 @@ set -Ee
 #rm -rf libepoxy
 
 # Clone and build libcamera-apps
-git clone https://github.com/raspberrypi/libcamera-apps.git
+git clone https://github.com/raspberrypi/libcamera-apps.git -b v1.2.1
 cd libcamera-apps || exit 10
 meson setup build -Denable_libav=true -Denable_drm=true -Denable_egl=true -Denable_qt=true -Denable_opencv=false -Denable_tflite=false
 meson compile -C build

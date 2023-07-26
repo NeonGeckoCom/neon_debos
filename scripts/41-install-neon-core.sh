@@ -44,8 +44,6 @@ rm -rf /var/cache/apt/archives/*
 # Configure venv for deepspeech compat.
 python3.10 -m venv "/home/neon/venv" || exit 10
 . /home/neon/venv/bin/activate
-pip install --upgrade pip wheel "cython<3.0.0"  # TODO: cython patching https://github.com/yaml/pyyaml/issues/724
-pip install --no-build-isolation pyyaml~=5.4  # TODO: patching https://github.com/yaml/pyyaml/issues/724
 
 # Install core and skills
 export NEON_IN_SETUP="true"
