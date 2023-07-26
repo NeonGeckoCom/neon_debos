@@ -1,6 +1,5 @@
 {{- $architecture := or .architecture "arm64" -}}
 {{- $firmware_version := or .firmware_version "master" -}}
-{{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
 
 architecture: {{ $architecture }}
 
@@ -30,12 +29,6 @@ actions:
     unpack: true
     name: firmware
 
-  - action: download
-    description: Download latest version of the nonfree firmware from GitHub
-    url: https://github.com/RPi-Distro/firmware-nonfree/archive/buster.tar.gz
-    unpack: true
-    name: firmwarenonfree
-
   # add firmware
   - action: overlay
     origin: firmware
@@ -58,6 +51,8 @@ actions:
       - bison
       - flex
       - libssl-dev
+      - firmware-brcm80211
+      - rpi.gpio-common
 
   - action: run
     origin: kernel
@@ -79,16 +74,6 @@ actions:
     description: Add Raspberry Pi 4 root overlay
     source: ../overlays/02-rpi4
     destination: /
-
-  - action: overlay
-    origin: firmwarenonfree
-    source: firmware-nonfree-buster
-    destination: /var/tmp
-
-  - action: run
-    description: Copy broadcom firmware
-    chroot: true
-    command: mkdir -p /lib/firmware/brcm && cp -r /var/tmp/brcm/brcmfmac43455-sdio.* /lib/firmware/brcm/
 
   - action: run
     description: Copy kernel to where bootloader expects it

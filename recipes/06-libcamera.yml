@@ -14,25 +14,27 @@ actions:
       - libtiff5-dev
       - python3-yaml
       - python3-ply
-      - python3-jinja2
+#      - python3-jinja2
       - libglib2.0-dev
       - libssl-dev
       - meson
-      - ninja-build
+#      - ninja-build
       - pkg-config
       - qtbase5-dev
       - libqt5core5a
       - libqt5gui5
       - libqt5widgets5
-      - cmake
+#      - cmake
       - libboost-program-options-dev
       - libdrm-dev
       - libexif-dev
       - libpng-dev
       - libegl1-mesa-dev
       - v4l-utils
-      - apt-transport-https
+#      - apt-transport-https
       - software-properties-common
+      - libcamera-dev
+      - libepoxy-dev
 
   - action: run
     description: Install Pi Camera Dependencies

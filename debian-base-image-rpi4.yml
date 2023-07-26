@@ -1,7 +1,7 @@
 {{- $architecture := or .architecture "arm64" -}}
 {{- $firmware_version := or .firmware_version "master" -}}
 {{ $suite :=  or .suite "bookworm" }}
-{{- $image := or .image "debian-base-image-rpi4.img" -}}
+{{- $image := or .image "debian-base-image-rpi4" -}}
 
 architecture: {{ $architecture }}
 
@@ -127,7 +127,7 @@ actions:
       image: {{ $image }}
 
 #  - action: recipe
-#    recipe: recipes/98-admin-login.yml
+#    recipe: recipes/96-admin-login.yml
 #    variables:
 #      architecture: {{ $architecture }}
 #      firmware_version: {{ $firmware_version }}
@@ -135,7 +135,15 @@ actions:
 #      image: {{ $image }}
 
   - action: recipe
-    recipe: recipes/99-finalize.yml
+    recipe: recipes/98-backup-image.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/99-finalize_squashfs.yml
     variables:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}

@@ -47,7 +47,6 @@ python3.10 -m venv "/home/neon/venv" || exit 10
 pip install --upgrade pip wheel
 
 # Install core and skills
-#pip install https://github.com/mozilla/DeepSpeech/releases/download/v0.9.3/deepspeech-0.9.3-cp37-cp37m-linux_aarch64.whl
 export NEON_IN_SETUP="true"
 pip install "git+https://github.com/neongeckocom/neoncore@${CORE_REF}#egg=neon_core[core_modules,skills_required,skills_essential,skills_default,skills_extended,pi]" || exit 11
 echo "Core Installed"

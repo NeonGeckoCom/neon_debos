@@ -1,0 +1,19 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $image := or .image "ovos-dev-edition-rpi4" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: apt
+    description: Install SquashFS
+    packages:
+      - squashfs-tools
+  - action: run
+    description: Create SquashFS backup
+    chroot: true
+    command: mksquashfs / /backup.squashfs -noappend -regex -e proc/.* -e sys/.* -e dev/.* -e tmp/.* -e .*\.squashfs
+  - action: run
+    description: Copy squashFS to host
+    chroot: false
+    command: |
+      mv "${ROOTDIR}/backup.squashfs" "/image_build/output/{{ $image }}.squashfs"
