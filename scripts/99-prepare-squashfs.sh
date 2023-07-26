@@ -27,10 +27,10 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# Make pre-init and reset handlers executable
-chmod ugo+x /usr/sbin/*
-chmod ugo+x /opt/neon/*.sh
-
-# Prepare mountpoints
-mkdir -p /media/rfs/ro
-mkdir /media/rfs/rw
+image=${1}
+root_dir=${2}
+mv "${root_dir}/boot/firmware" "/image_build/output/firmware"
+rm -rf "${root_dir:?}"/*
+cp "/image_build/output/${image}.squashfs" "${root_dir}/neon.squashfs" && echo "added ${image} as neon.squashfs"
+mkdir "${root_dir}/boot"
+mv "/image_build/output/firmware" "${root_dir}/boot/firmware" && echo "restored firmware"

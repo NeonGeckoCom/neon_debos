@@ -13,6 +13,8 @@ actions:
     partitiontype: msdos
     diskid: 1242d180
     mountpoints:
+      - mountpoint: /
+        partition: root
       - mountpoint: /boot/firmware
         partition: firmware
         options: [ x-systemd.automount ]
@@ -24,11 +26,6 @@ actions:
       - name: root
         fs: ext4
         start: 128MB
-        end: 2688MB
-        flags: [boot]
-      - name: user
-        fs: ext4
-        start: 2688
         end: 100%
 
 #  - action: overlay
@@ -41,43 +38,42 @@ actions:
 #    chroot: true
 #    script: ../scripts/99-enable_swap.sh
 
-  - action: apt
-    description: Install SquashFS
-    packages:
-      - squashfs-tools
-      - parted
-      - cloud-guest-utils
+#  - action: apt
+#    description: Install SquashFS
+#    packages:
+#      - squashfs-tools
+#      - parted
+#      - cloud-guest-utils
 
-  - action: overlay
-    description: squashFS boot overlay
-    source: ../overlays/99-squashfs
-    destination: /
+#  - action: overlay
+#    description: squashFS boot overlay
+#    source: ../overlays/99-squashfs
+#    destination: /
+
+#  - action: run
+#    description: Prepare SquashFS
+#    chroot: true
+#    script: ../scripts/99-prepare-squashfs.sh
+#
+#  - action: run
+#    description: Create SquashFS
+#    chroot: true
+#    command: mksquashfs / /root.squashfs -noappend -regex -e proc/.* -e sys/.* -e dev/.* -e tmp/.* -e .*\.squashfs
 
   - action: run
-    description: Prepare SquashFS
-    chroot: true
-    script: ../scripts/99-prepare-squashfs.sh
-
-  - action: run
-    description: Create SquashFS
-    chroot: true
-    command: mksquashfs / /root.squashfs -noappend -regex -e proc/.* -e sys/.* -e dev/.* -e tmp/.* -e .*\.squashfs
-
-  - action: run
-    description: Copy squashFS to host
+    description: Copy squashFS to image
     chroot: false
-    command: |
-      mv "${ROOTDIR}/root.squashfs" "/scratch/mnt/root.squashfs"
+    script: ../scripts/99-prepare-squashfs.sh "{{ $image }}" "${ROOTDIR}"
 
   - action: filesystem-deploy
     description: Deploying filesystem into image
     setup-kernel-cmdline: false
     setup-fstab: false
-  - action: raw
-    description: Write SquashFS partition
-    origin: filesystem
-    source: root.squashfs
-    partition: root
+#  - action: raw
+#    description: Write SquashFS partition
+#    origin: filesystem
+#    source: root.squashfs
+#    partition: root
 
   - action: run
     description: Compress image
