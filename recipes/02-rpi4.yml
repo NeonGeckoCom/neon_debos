@@ -4,24 +4,6 @@
 architecture: {{ $architecture }}
 
 actions:
-    # Hardware specific parts
-  - action: download
-    description: Fetch latest kernel build
-{{ if eq $architecture "armhf" }}
-    url: http://bshah.in/linux-pi4-armhf.zip
-{{ else }}
-    url: https://2222.us/app/files/neon_images/pi/rpi4_5.15.92-v8+_arm64.zip
-{{ end }}
-    name: kernel
-    filename: kernel.zip
-    unpack: true
-    compression: zip
-
-  - action: overlay
-    origin: kernel
-    source: .
-    destination: /var/tmp/
-
   # Download all needed proprietary stuff first
   - action: download
     description: Download latest version of the firmware from GitHub
@@ -54,6 +36,11 @@ actions:
       - firmware-brcm80211
       - rpi.gpio-common
 
+  - action: overlay
+    description: Add Raspberry Pi 4 root overlay
+    source: ../overlays/02-rpi4
+    destination: /
+
   - action: run
     origin: kernel
     chroot: true
@@ -69,11 +56,6 @@ actions:
 {{ else }}
     command: mkdir -p /boot/firmware/overlays && cp -v /usr/lib/linux-image-*/broadcom/*.dtb /boot/firmware && cp -v /usr/lib/linux-image-*/overlays/* /boot/firmware/overlays/
 {{ end }}
-
-  - action: overlay
-    description: Add Raspberry Pi 4 root overlay
-    source: ../overlays/02-rpi4
-    destination: /
 
   - action: run
     description: Copy kernel to where bootloader expects it
