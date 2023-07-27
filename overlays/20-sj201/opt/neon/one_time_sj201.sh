@@ -27,23 +27,10 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# This needs to run as root
-
-# Enable Driver Overlay
-dtoverlay xvf3510
-
-# Flash xmos firmware
-xvf3510-flash --direct /usr/lib/firmware/xvf3510/app_xvf3510_int_spi_boot_v4_1_0.bin
-# Init TI Amp
-sj201 init-ti-amp
-# Reset LEDs
-sj201 reset-led green
-
-# Reset fan speed (NOTE: R10 will always default to 100%)
-sj201 set-fan-speed 100
-
-if [ -f /opt/neon/do_sj201_config ]; then
-  echo "Performing one-time sj201 init"
-  bash /opt/neon/one_time_sj201.sh
-  rm /opt/neon/do_sj201_config
+# Check if GPIO Fan shutdown service is required
+rev=$(sj201 get-revision)
+if [ "${rev}" == '10' ]; then
+  mount_firmware
+  echo "gpio=13=pu" >> /opt/neon/firmware/config.txt
+  unmount_firmware
 fi
