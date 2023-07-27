@@ -11,6 +11,7 @@ actions:
     packages:
       - raspotify # Spotify
       - uxplay # AirPlay
+      - kdeconnect # KDE Connect
   - action: overlay
     description: OVOS specific overlay
     source: ../overlays/46-audio-receiver
