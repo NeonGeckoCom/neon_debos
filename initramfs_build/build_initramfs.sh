@@ -38,4 +38,4 @@ cd .. || exit 10
 zstd -z initramfs.cpio
 rm initramfs.cpio
 rm -r initramfs_dir
-mv initramfs.cpio.zst initramfs && echo "Generated initramfs"
+mv initramfs.cpio.zst ../overlays/02-rpi4/boot/firmware/initramfs && echo "Generated initramfs"
