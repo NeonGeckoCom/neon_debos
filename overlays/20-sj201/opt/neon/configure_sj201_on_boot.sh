@@ -41,3 +41,9 @@ sj201 reset-led green
 
 # Reset fan speed (NOTE: R10 will always default to 100%)
 sj201 set-fan-speed 100
+
+if [ -f /opt/neon/do_sj201_config ]; then
+  echo "Performing one-time sj201 init"
+  bash /opt/neon/one_time_sj201.sh
+  rm /opt/neon/do_sj201_config
+fi

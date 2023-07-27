@@ -425,10 +425,14 @@ unset starttime
 # Move virtual filesystems over to the real filesystem
 [ -d "${rootmnt}/sys" ] || mkdir "${rootmnt}/sys"
 [ -d "${rootmnt}/proc" ] || mkdir "${rootmnt}/proc"
-[ -f "${rootmnt}/swapfile" ] || touch "${rootmnt}/swapfile"
 mount -n -o move /sys ${rootmnt}/sys
 mount -n -o move /proc ${rootmnt}/proc
-mount -n -o move /swapfile ${rootmnt}/swapfile
+
+# If a swapfile exists, remount it in the new root
+if [ -f /swapfile ]; then
+  [ -f "${rootmnt}/swapfile" ] || touch "${rootmnt}/swapfile"
+  mount -n -o move /swapfile ${rootmnt}/swapfile
+fi
 
 # Chain to real filesystem
 # shellcheck disable=SC2086,SC2094

@@ -19,3 +19,4 @@ godebos/debos "${image}" -t architecture:arm64 -t image:"${image%.*}_${timestamp
 docker logs -f neon_debos
 echo "completed ${timestamp}"
 echo "${pass}" | sudo -S chown $USER:$USER "${source_dir}/output/${image%.*}_${timestamp}"*
+echo -e "\n"
