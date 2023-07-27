@@ -1,0 +1,11 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{ $suite :=  or .suite "focal" }}
+
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: overlay
+    description: Firmware update overlay
+    source: ../overlays/18-firmware-updates
+    destination: /
