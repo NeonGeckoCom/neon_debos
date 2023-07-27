@@ -23,11 +23,6 @@ actions:
       suite: {{ $suite }}
       image: {{ $image }}
 
-#  - action: recipe
-#    recipe: recipes/03-resize-fs.yml
-#    variables:
-#      architecture: {{ $architecture }}
-
   - action: recipe
     recipe: recipes/03-base-packages.yml
     variables:
@@ -102,6 +97,16 @@ actions:
       firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
       image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/14-mount-firmware.yml
+    variables:
+      architecture: {{ $architecture }}
+
+  - action: recipe
+    recipe: recipes/15-firmware-updates.yml
+    variables:
+      architecture: {{ $architecture }}
 
   - action: recipe
     recipe: recipes/16-python-3_10.yml

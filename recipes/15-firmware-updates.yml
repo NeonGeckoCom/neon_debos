@@ -7,5 +7,5 @@ architecture: {{ $architecture }}
 actions:
   - action: overlay
     description: Firmware update overlay
-    source: ../overlays/18-firmware-updates
+    source: ../overlays/15-firmware-updates
     destination: /
