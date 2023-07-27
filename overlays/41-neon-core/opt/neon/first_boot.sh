@@ -36,12 +36,6 @@ date -s "1 JAN 1970 00:00:00"
 # disable wifi power management
 #iwconfig wlan0 power off
 
-# Check if GPIO Fan shutdown service is required
-rev=$(sj201 get-revision)
-if [ "${rev}" == '10' ]; then
-    echo "gpio=13=pu" >> /boot/firmware/config.txt
-fi
-
 rm /opt/neon/firstboot
 
 # clean bash history
