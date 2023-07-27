@@ -1,0 +1,15 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{ $suite :=  or .suite "focal" }}
+
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: overlay
+    description: Mount firmware overlay
+    source: ../overlays/15-mount-firmware
+    destination: /
+  - action: run
+    description: Configure scripts to mount firmware partition
+    chroot: true
+    command: chmod ugo+x /usr/sbin
