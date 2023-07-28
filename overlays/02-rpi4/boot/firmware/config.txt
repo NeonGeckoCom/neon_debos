@@ -19,6 +19,9 @@ dtparam=i2c_arm=on
 # Enable SPI for SJ201 Flashing
 dtparam=spi=on
 
+#enable BT
+dtparam=krnbt=on
+
 # Enable Camera Support
 start_x=1
 

@@ -12,10 +12,12 @@ actions:
       - raspotify # Spotify
       - uxplay # AirPlay
       - kdeconnect # KDE Connect
+      - bluez # Bluetooth
+      - pulseaudio-module-bluetooth # PulseAudio Bluetooth Module
   - action: overlay
     description: OVOS specific overlay
     source: ../overlays/46-audio-receiver
   - action: run
-    description: Provide default Spotify device name and enable UxPlay service
+    description: Provide default Spotify device name, enable UxPlay service, enable KDE Connect service, enable Bluetooth service
     chroot: true
     script: ../scripts/46-audio-receiver.sh
