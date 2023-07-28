@@ -303,9 +303,9 @@ if [ -n "${ROOT_ROPATH}" ]; then
   fi
 
   if [ -n "${ROOT_BUPATH}" ]; then
-    scripts/check_update.sh "/media/rw/upperdir/opt/neon/update.squashfs" "${rootmnt}/${ROOT_ROPATH}" "${rootmnt}/${ROOT_BUPATH}"
+    scripts/check_update.sh "/media/rw/upperdir/" "/media/rw/upperdir/opt/neon/update.squashfs" "${rootmnt}/${ROOT_ROPATH}" "${rootmnt}/${ROOT_BUPATH}"
   else
-    scripts/check_update.sh "/media/rw/upperdir/opt/neon/update.squashfs" "${rootmnt}/${ROOT_ROPATH}"
+    scripts/check_update.sh "/media/rw/upperdir/" "/media/rw/upperdir/opt/neon/update.squashfs" "${rootmnt}/${ROOT_ROPATH}"
   fi
 
   scripts/check_reset.sh "/media/rw"

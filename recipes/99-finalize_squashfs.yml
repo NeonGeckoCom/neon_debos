@@ -9,7 +9,7 @@ actions:
 
   - action: image-partition
     imagename: output/{{ $image }}.img
-    imagesize: 3GB
+    imagesize: 3.5GB
     partitiontype: msdos
     diskid: 1242d180
     mountpoints:
@@ -22,10 +22,10 @@ actions:
       - name: firmware
         fs: fat32
         start: 0%
-        end: 128MB
+        end: 256MB
       - name: root
         fs: ext4
-        start: 128MB
+        start: 256MB
         end: 100%
 
   - action: run

@@ -27,20 +27,36 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-UPDATE_FILE=${1}
-ROOT_FILE=${2}
-BACKUP_FILE=${3:-""}
+ROOT_PATH=${1}
+UPDATE_FILE=${2}
+ROOT_FILE=${3}
+BACKUP_FILE=${4:-""}
 
+# Validate update and optionally create backup
 if [ ! -f "${UPDATE_FILE}" ]; then
-  echo "no update (${UPDATE_FILE})"
+  echo "No update (${UPDATE_FILE})"
   exit 0
 elif [ -n "${BACKUP_FILE}" ]; then
-  echo "backup existing image"
-  mv "${ROOT_FILE}" "${BACKUP_FILE}"
+  mv "${ROOT_FILE}" "${BACKUP_FILE}" && echo "Backed up existing image"
 fi
 
-echo "applying updated rootfs"
-mv "${UPDATE_FILE}" "${ROOT_FILE}"
+# Apply update
+mv "${UPDATE_FILE}" "${ROOT_FILE}" && echo "Applied updated rootfs"
 
-# TODO: Cleanup overlay
-echo "update complete"
+# Clean up overlayFS changes
+[ -d /backup/etc/NetworkManager ] || mkdir -p /backup/etc/NetworkManager
+[ -d /backup/home ] || mkdir -p /backup/home
+echo "Backing up overlay files"
+mv "${ROOT_PATH}/etc/NetworkManager/system-connections" /backup/etc/NetworkManager/
+mv "${ROOT_PATH}/etc/shadow" /backup/etc/shadow
+mv "${ROOT_PATH}/etc/machine-id" /backup/etc/machine-id
+mv "${ROOT_PATH}/home/neon" /backup/home/ && rm -rf /backup/home/neon/venv
+mv "${ROOT_PATH}/var" /backup/
+mv "${ROOT_PATH}/root" /backup/
+echo "Backed up relevant overlay"
+
+rm -rf "${ROOT_PATH:?}/"* && echo "Removed overlay"
+mv /backup/* "${ROOT_PATH}/" && echo "Restored overlay"
+
+echo "Update complete"
+sleep 3

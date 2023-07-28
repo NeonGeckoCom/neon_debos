@@ -31,6 +31,9 @@ listener:
     module: ovos-vad-plugin-silero
   mute_during_output: false
   instant_listen: true
+  speech_begin: 0.5
+  silence_end: 0.9
+  utterance_chunks_to_rewind: 1
 hotwords:
   wake_up:
     active: false
@@ -143,7 +146,7 @@ logs:
     info: []
     debug: []
 debug: False
-
+system_unit: imperial
 system:
   protected_keys:
     remote:
