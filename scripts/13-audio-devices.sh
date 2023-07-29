@@ -31,7 +31,7 @@
 set -Ee
 
 # Configure user permissions
-#usermod -aG bluetooth pulse
+usermod -aG bluetooth pulse
 usermod -aG pulse root
 usermod -aG pulse-access root
 usermod -aG gpio root

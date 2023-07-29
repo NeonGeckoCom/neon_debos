@@ -188,6 +188,14 @@ actions:
       image: {{ $image }}
 
   - action: recipe
+    recipe: recipes/46-audio-receiver.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
     recipe: recipes/70-developer-extras.yml
     variables:
       architecture: {{ $architecture }}
