@@ -90,8 +90,10 @@ if __name__ == "__main__":
     data = get_project_meta(core_ref)
     data["base_os"] = {
         "name": image_name.split('_', 1)[0],
+        "time": image_name.split('_', 1)[1],
         "arch": architecture
     }
     os.makedirs("/opt/neon", exist_ok=True)
     with open("/opt/neon/build_info.json", "w+") as f:
         json.dump(data, f)
+        f.write('\n')

@@ -34,3 +34,5 @@ actions:
     chroot: true
     script: ../scripts/41-install-neon-core.sh {{ $neon_core }}
     # TODO: Refactor script and overlay to handle a configured username
+
+    # TODO: Get config overlay from NeonCore repository
