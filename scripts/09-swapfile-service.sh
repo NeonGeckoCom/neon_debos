@@ -27,27 +27,4 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# Set to exit on error
-set -Ee
-
-# Setup all the services
-systemctl disable systemd-networkd.socket
-systemctl disable systemd-networkd
-systemctl disable dnsmasq
-
-systemctl enable wifi-setup.service
-
-# Add wifi-connect binary
-chmod -R ugo+x /usr/local/sbin
-chmod -R ugo+x /opt/neon
-
-# Ensure Group Permissions
-chown root:netdev /usr/bin/nmcli
-usermod -aG netdev root
-
-# Patch SSH service
-# TODO: Consider doing this on first run so devices have unique keys
-cd /etc/ssh || exit 10
-ssh-keygen -A
-
-echo "Network Setup Complete"
+systemctl enable mount_swapfile.service
