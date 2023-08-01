@@ -1,0 +1,1 @@
+ACTION=="add", SUBSYSTEM=="input", ATTRS{name}=="*Bluetooth Audio*", RUN+="/usr/local/bin/a2dp.sh %k"

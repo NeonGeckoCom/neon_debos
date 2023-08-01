@@ -4,3 +4,4 @@ pactl load-module module-bluetooth-policy
 systemctl enable uxplay.service
 systemctl enable kdeconnect.service
 systemctl enable bluetooth.service
+systemctl enable bluetooth-agent
