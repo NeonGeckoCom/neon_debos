@@ -7,4 +7,3 @@ systemctl enable uxplay.service
 systemctl enable raspotify.service
 systemctl enable kdeconnect.service
 systemctl enable bluetooth.service
-systemctl enable bluetooth-agent
