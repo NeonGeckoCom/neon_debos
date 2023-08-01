@@ -9,7 +9,6 @@ actions:
   - action: apt
     description: Audio Receiver Dependencies
     packages:
-      - raspotify # Spotify
       - uxplay # AirPlay
       - kdeconnect # KDE Connect
       - bluez # Bluetooth
