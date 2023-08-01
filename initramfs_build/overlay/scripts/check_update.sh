@@ -55,8 +55,7 @@ mv "${ROOT_PATH}/var" /backup/
 mv "${ROOT_PATH}/root" /backup/
 echo "Backed up relevant overlay"
 
-rm -rf "${ROOT_PATH:?}/"* && echo "Removed overlay"
-mv /backup/* "${ROOT_PATH}/" && echo "Restored overlay"
+rm -rf "${ROOT_PATH:?}/"* && echo "Removed old overlay"
+mv /backup/* "${ROOT_PATH}/" && echo "Restored valid overlay"
 
 echo "Update complete"
-sleep 3
