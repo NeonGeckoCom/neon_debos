@@ -12,6 +12,7 @@ actions:
       - uxplay # AirPlay
       - kdeconnect # KDE Connect
       - "bluez*" # Bluetooth
+      - bluez-tools
       - pulseaudio-module-bluetooth # PulseAudio Bluetooth Module
   - action: overlay
     description: OVOS specific overlay

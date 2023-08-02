@@ -12,5 +12,3 @@ systemctl enable uxplay.service
 systemctl enable kdeconnect.service
 systemctl enable bluetooth.service
 systemctl enable raspotify.service
-# Start Bluetooth services
-echo -e 'power on\pairable on\ndiscoverable on\nscan on\nagent on\ndefault-agent\nexit' | bluetoothctl
