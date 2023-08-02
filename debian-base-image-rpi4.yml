@@ -74,6 +74,11 @@ actions:
       image: {{ $image }}
 
   - action: recipe
+    recipe: recipes/09-swap.yml
+    variables:
+      architecture: {{ $architecture }}
+
+  - action: recipe
     recipe: recipes/11-ovos-font.yml
     variables:
       architecture: {{ $architecture }}

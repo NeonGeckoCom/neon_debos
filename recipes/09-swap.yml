@@ -1,0 +1,19 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{ $suite :=  or .suite "bullseye" }}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: apt
+    description: Zram packages
+    packages:
+      - zram-tools
+
+  - action: overlay
+    description: Swap Overlay
+    source: ../overlays/09-swap
+
+  - action: run
+    description: Configure Swapfile
+    chroot: true
+    script: ../scripts/09-swapfile-service.sh
