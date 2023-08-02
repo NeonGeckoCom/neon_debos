@@ -5,7 +5,7 @@ After=network.target
 
 [Service]
 User=neon
-Environment="XDG_RUNTIME_DIR=/run/user/$(id -u neon)"
+Environment="XDG_RUNTIME_DIR=/run/user/1004"
 ExecStart=/usr/lib/aarch64-linux-gnu/libexec/kdeconnectd --platform offscreen
 Restart=on-failure
 RestartSec=5s
