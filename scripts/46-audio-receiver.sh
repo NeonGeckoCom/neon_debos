@@ -1,5 +1,5 @@
 # Raspotify installation script
-apt-get -y install curl && curl -sL https://dtcooper.github.io/raspotify/install.sh
+apt-get -y install curl && curl -sL https://dtcooper.github.io/raspotify/install.sh -o install.sh
 ## Sudo causes issues in build VM, so strip it out
 sed -i '/SUDO="sudo"/c\SUDO=""' install.sh
 sh install.sh
