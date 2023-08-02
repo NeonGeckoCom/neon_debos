@@ -20,6 +20,10 @@ actions:
     description: wifi-connect overlay
     source: ../overlays/05-wifi-connect
 
+  - action: overlay
+    description: ssh overlay
+    source: ../overlays/05-ssh
+
   - action: run
     description: Configure Networking
     chroot: true

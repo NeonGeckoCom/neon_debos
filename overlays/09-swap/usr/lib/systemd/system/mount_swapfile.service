@@ -1,0 +1,10 @@
+[Unit]
+Description=Create Swapfile
+ConditionPathExists=/swapfile
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/swapon -p 50 /swapfile
+
+[Install]
+WantedBy=multi-user.target
