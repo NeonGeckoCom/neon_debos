@@ -38,4 +38,7 @@ cd .. || exit 10
 zstd -z initramfs.cpio
 rm initramfs.cpio
 rm -r initramfs_dir
-mv initramfs.cpio.zst ../overlays/02-rpi4/boot/firmware/initramfs && echo "Generated initramfs"
+output_path="../overlays/02-rpi4/boot/firmware/initramfs"
+mv initramfs.cpio.zst "${output_path}" && echo "Generated initramfs"
+md5=$(md5sum "${output_path}" | cut -d' ' -f1)
+echo "${md5}" > "${output_path}.md5"

@@ -26,7 +26,7 @@
 # LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
+import hashlib
 import json
 import os
 import pytz
@@ -83,6 +83,17 @@ def get_project_meta(core_branch="dev"):
     return meta
 
 
+def get_initramfs_metadata():
+    initramfs_path = "/boot/firmware/initramfs"
+    if not os.path.isfile(initramfs_path):
+        return dict()
+    else:
+        with open(initramfs_path, 'rb') as f:
+            md5_hash = hashlib.md5(f.read()).hexdigest()
+        return {"path": initramfs_path,
+                "md5": md5_hash}
+
+
 if __name__ == "__main__":
     core_ref = argv[1]
     image_name = argv[2]
@@ -93,6 +104,7 @@ if __name__ == "__main__":
         "time": image_name.split('_', 1)[1],
         "arch": architecture
     }
+    data["initramfs"] = get_initramfs_metadata()
     os.makedirs("/opt/neon", exist_ok=True)
     with open("/opt/neon/build_info.json", "w+") as f:
         json.dump(data, f)
