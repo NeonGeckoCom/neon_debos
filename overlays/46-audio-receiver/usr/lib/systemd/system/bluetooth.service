@@ -6,10 +6,6 @@ ConditionPathIsDirectory=/sys/class/bluetooth
 [Service]
 Type=dbus
 BusName=org.bluez
-ExecStartPre=/usr/bin/bt-adapter -s Powered on
-ExecStartPre=/usr/bin/bt-adapter -s Discoverable on
-ExecStartPre=/usr/bin/hciconfig hci0 piscan
-ExecStartPre=/usr/local/bin/bluetooth-agent.sh
 ExecStart=/usr/libexec/bluetooth/bluetoothd -E
 NotifyAccess=main
 WatchdogSec=10
