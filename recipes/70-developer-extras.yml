@@ -1,0 +1,12 @@
+{{- $architecture := or .architecture "arm64" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: apt
+    description: Install Extra Development Packages
+    packages:
+      - less
+      - iputils-ping
+      - htop
+      - iotop
