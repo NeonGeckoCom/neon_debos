@@ -1,7 +1,6 @@
 {{- $architecture := or .architecture "arm64" -}}
-{{- $firmware_version := or .firmware_version "master" -}}
-{{ $suite :=  or .suite "focal" }}
 {{- $image := or .image "ovos-dev-edition-rpi4" -}}
+{{- $build_cores := or .build_cores 4 -}}
 
 architecture: {{ $architecture }}
 
@@ -21,11 +20,12 @@ actions:
     partitions:
       - name: firmware
         fs: fat32
-        start: 0%
-        end: 256MB
+        start: 1048576B
+        end: 268435455B
+        # About 256MiB, but aligned for expected sector size
       - name: root
         fs: ext4
-        start: 256MB
+        start: 268435456B
         end: 100%
 
   - action: run
@@ -41,4 +41,4 @@ actions:
   - action: run
     description: Compress image
     postprocess: true
-    command: xz --compress -T0 output/{{ $image }}.img
+    command: xz --compress -T{{ $build_cores }} output/{{ $image }}.img

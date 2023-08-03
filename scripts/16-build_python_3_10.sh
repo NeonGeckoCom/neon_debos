@@ -36,7 +36,7 @@ tar -xf Python-3.10.0.tar.xz
 rm Python-3.10.0.tar.xz
 cd Python-3.10.0 || exit 10
 ./configure --enable-optimizations && echo "Configure complete"
-make -j4 && echo "make complete"
+make -j${1:-} && echo "make complete"
 make altinstall && echo "install complete"
 rm -rf /opt/Python-3.10.0
 

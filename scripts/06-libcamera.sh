@@ -30,25 +30,6 @@
 # Set to exit on error
 set -Ee
 
-## Clone and build libcamera
-#git clone https://github.com/raspberrypi/libcamera.git
-#cd libcamera || exit 10
-#meson setup build -Dv4l2=true -Dtest=false -Dlc-compliance=disabled -Dcam=disabled -Dqcam=disabled -Ddocumentation=disabled
-#ninja -C build install
-#cd ..
-#rm -rf libcamera
-#
-## Clone and build libepoxy
-#git clone https://github.com/anholt/libepoxy.git
-#cd libepoxy || exit 10
-#mkdir _build
-#cd _build || exit 10
-#meson setup
-#ninja
-#ninja install
-#cd ../..
-#rm -rf libepoxy
-
 # Clone and build libcamera-apps
 git clone https://github.com/raspberrypi/libcamera-apps.git -b v1.2.1
 cd libcamera-apps || exit 10
