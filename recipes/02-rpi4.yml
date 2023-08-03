@@ -72,15 +72,24 @@ actions:
     chroot: true
     script: ../scripts/02-patch_5_15_raspi_kernel.sh
 
-  - action: run
-    description: Set root device in cmdline.txt
-    chroot: true
-    script: ../scripts/02-set_root_fs.sh
+#  - action: run
+#    description: Set root device in cmdline.txt
+#    chroot: true
+#    script: ../scripts/02-set_root_fs.sh
 
   - action: run
     description: Define Default Groups
     chroot: true
-    script: ../scripts/02-create-groups.sh
+    command: |
+      groupadd gpio
+      groupadd pulse
+      groupadd pulse-access
+      groupadd i2c
+
+  - action: run
+    description: Enable post-update service
+    chroot: true
+    command: systemctl enable post_update.service
 
   - action: run
     description: Set hostname
