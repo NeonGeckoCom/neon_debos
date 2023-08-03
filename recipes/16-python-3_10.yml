@@ -1,5 +1,5 @@
 {{- $architecture := or .architecture "arm64" -}}
-{{ $suite :=  or .suite "bullseye" }}
+{{- $build_cores := or .build_cores 4 -}}
 
 architecture: {{ $architecture }}
 
@@ -28,4 +28,4 @@ actions:
   - action: run
     description: Build Python 3.10
     chroot: true
-    script: ../scripts/16-build_python_3_10.sh
+    script: ../scripts/16-build_python_3_10.sh {{ $build_cores }}

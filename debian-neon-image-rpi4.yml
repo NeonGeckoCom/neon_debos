@@ -3,6 +3,7 @@
 {{ $suite :=  or .suite "bookworm" }}
 {{- $image := or .image "debian-neon-image-rpi4" -}}
 {{- $neon_core := or .neon_core "master" -}}
+{{- $build_cores := or .build_cores 4 -}}
 
 architecture: {{ $architecture }}
 
@@ -122,25 +123,19 @@ actions:
     recipe: recipes/16-python-3_10.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
-      suite: {{ $suite }}
-      image: {{ $image }}
+      build_cores: {{ $build_cores }}
 
   - action: recipe
     recipe: recipes/20-sj201.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
-      suite: {{ $suite }}
-      image: {{ $image }}
+      build_cores: {{ $build_cores }}
 
   - action: recipe
     recipe: recipes/30-ovos-shell.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
-      suite: {{ $suite }}
-      image: {{ $image }}
+      build_cores: {{ $build_cores }}
 
   - action: recipe
     recipe: recipes/31-updater-service.yml
@@ -211,8 +206,6 @@ actions:
     recipe: recipes/95-add_metadata.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
-      suite: {{ $suite }}
       image: {{ $image }}
       neon_core: {{ $neon_core }}
 
@@ -228,6 +221,5 @@ actions:
     recipe: recipes/99-finalize_squashfs.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
-      suite: {{ $suite }}
       image: {{ $image }}
+      build_cores: {{ $build_cores }}

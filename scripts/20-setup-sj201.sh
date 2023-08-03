@@ -66,7 +66,7 @@ fi
 git clone https://github.com/OpenVoiceOS/vocalfusiondriver
 cd vocalfusiondriver/driver || exit 10
 sed -ie "s|\$(shell uname -r)|${kernel}|g" Makefile
-make all || exit 2
+make -j${1:-} all || exit 2
 mkdir -p "/lib/modules/${kernel}/kernel/drivers/vocalfusion"
 cp vocalfusion* "/lib/modules/${kernel}/kernel/drivers/vocalfusion" || exit 2
 cd ../..
