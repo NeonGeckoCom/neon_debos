@@ -9,4 +9,3 @@ actions:
       - less
       - iputils-ping
       - htop
-      - iotop
