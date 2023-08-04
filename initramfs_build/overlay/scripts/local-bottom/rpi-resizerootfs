@@ -39,7 +39,7 @@ umount "${rootmnt:?}" && echo "unmounted root"
 parted -s "$rootdev" resizepart "$rootpart_nr" 100% && echo "expanded partition"
 
 # Allow some time for udev to catch up with changes before resizing the FS
-wait_for_udev 15
+wait_for_udev 15 || sleep 5
 
 # Now resize the filesystem
 partprobe "$rootdev"

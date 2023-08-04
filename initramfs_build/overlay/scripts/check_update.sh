@@ -48,6 +48,7 @@ mv "${UPDATE_FILE}" "${ROOT_FILE}" && echo "Applied updated rootfs"
 [ -d /backup/home ] || mkdir -p /backup/home
 echo "Backing up overlay files"
 mv "${ROOT_PATH}/etc/NetworkManager/system-connections" /backup/etc/NetworkManager/
+mv "${ROOT_PATH}/etc/ssh/"ssh_host_*_key* /backup/etc/ssh
 mv "${ROOT_PATH}/etc/shadow" /backup/etc/shadow
 mv "${ROOT_PATH}/etc/machine-id" /backup/etc/machine-id
 mv "${ROOT_PATH}/home/neon" /backup/home/ && rm -rf /backup/home/neon/venv
@@ -57,5 +58,6 @@ echo "Backed up relevant overlay"
 
 rm -rf "${ROOT_PATH:?}/"* && echo "Removed old overlay"
 mv /backup/* "${ROOT_PATH}/" && echo "Restored valid overlay"
-
+mkdir -p "${ROOT_PATH}/opt/neon"
+touch "${ROOT_PATH}/opt/neon/squashfs_updated"
 echo "Update complete"

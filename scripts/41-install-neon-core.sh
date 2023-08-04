@@ -45,6 +45,8 @@ rm -rf /var/cache/apt/archives/*
 python3.10 -m venv "/home/neon/venv" || exit 10
 . /home/neon/venv/bin/activate
 pip install --upgrade pip wheel
+mv /home/neon/pip /home/neon/venv/bin/pip
+chmod ugo+x /home/neon/venv/bin/pip
 
 # Install core and skills
 export NEON_IN_SETUP="true"
