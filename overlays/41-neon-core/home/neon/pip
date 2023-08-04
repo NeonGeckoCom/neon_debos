@@ -8,8 +8,9 @@ if __name__ == '__main__':
     sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
     code = main()
     if environ.get("SSH_CLIENT") and len(sys.argv) > 1 and sys.argv[1] == "install":
-        print("\033[93m[WARNING] Manually installed packages will be removed during OS updates.\n"
-              "\tAdd skills to ~/.config/neon/neon.yaml under skills.default_skills\n"
-              "\tor other packages to `/root/post_update` to install them when Neon\n"
-              "\tstarts, or after OS updates, respectively.\033[0m")
+        print("\033[93m[WARNING] Manually installed packages will be removed during OS updates. "
+              "Add skills to ~/.config/neon/neon.yaml under skills.default_skills "
+              "or add commands to `/root/post_update` to run when Neon "
+              "starts, or after OS updates, respectively.\n\tDetails at: "
+              "https://neongeckocom.github.io/neon-docs/neon_os/neon_os_updates/\033[0m")
     sys.exit(code)
