@@ -10,7 +10,7 @@ if __name__ == '__main__':
     if environ.get("SSH_CLIENT") and len(sys.argv) > 1 and sys.argv[1] == "install":
         print("\033[93m[WARNING] Manually installed packages will be removed during OS updates. "
               "Add skills to ~/.config/neon/neon.yaml under skills.default_skills "
-              "or add commands to `/root/post_update` to run when Neon "
+              "or add commands to `/root/post_update` to install packages when Neon "
               "starts, or after OS updates, respectively.\n\tDetails at: "
               "https://neongeckocom.github.io/neon-docs/neon_os/neon_os_updates/\033[0m")
     sys.exit(code)

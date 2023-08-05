@@ -132,6 +132,11 @@ actions:
       build_cores: {{ $build_cores }}
 
   - action: recipe
+    recipe: recipes/70-developer-extras.yml
+    variables:
+      architecture: {{ $architecture }}
+
+  - action: recipe
     recipe: recipes/90-base-finalscripts.yml
     variables:
       architecture: {{ $architecture }}

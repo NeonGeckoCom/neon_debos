@@ -11,6 +11,7 @@ actions:
     packages:
       - curl
       - sox
+      - libsox-fmt-mp3
       - gcc
       - libfann-dev
       - swig

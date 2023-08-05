@@ -187,6 +187,11 @@ actions:
       image: {{ $image }}
 
   - action: recipe
+    recipe: recipes/70-developer-extras.yml
+    variables:
+      architecture: {{ $architecture }}
+
+  - action: recipe
     recipe: recipes/80-extra-fs-overlay.yml
     variables:
       architecture: {{ $architecture }}

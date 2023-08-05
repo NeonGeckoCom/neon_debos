@@ -27,12 +27,16 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+# TODO: Separate first-boot into separate recipe
 # this is executed on host in first run of a brand new image!
 
 # TODO: Reset time only if no RTC?
 # Reset time
 date -s "1 JAN 1970 00:00:00"
 
+# Generate a unique SSH identity
+rm /etc/ssh/ssh_host_*
+ssh-keygen -A
 # disable wifi power management
 #iwconfig wlan0 power off
 
