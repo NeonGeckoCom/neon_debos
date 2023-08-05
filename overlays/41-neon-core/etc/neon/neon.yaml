@@ -15,7 +15,7 @@ Audio:
     OCP:
       type: ovos_common_play
       active: true
-      dbus_type: system
+      dbus_type: session
 audio_parsers:
   blacklist:
   - gender
