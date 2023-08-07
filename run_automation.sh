@@ -10,7 +10,7 @@ image=${1:-"debian-neon-image-rpi4.yml"}
 neon_core=${2:-"master"}
 mem_limit=${MEM_LIMIT:-"16G"}
 core_limit=${CORE_LIMIT:-4}
-chmod ugo+x "${source_dir}/scripts/"*
+sudo chmod ugo+x "${source_dir}/scripts/"*
 docker run --rm -d \
 --device /dev/kvm \
 --workdir /image_build \
@@ -21,5 +21,5 @@ docker run --rm -d \
 godebos/debos "${image}" -t architecture:arm64 -t image:"${image%.*}_${timestamp}" -t neon_core:"${neon_core}" -t build_cores:"${core_limit}" -m "${mem_limit}" -c "${core_limit}" && \
 docker logs -f neon_debos
 echo "completed ${timestamp}"
-chown $USER:$USER "${source_dir}/output/${image%.*}_${timestamp}"*
+sudo chown $USER:$USER "${source_dir}/output/${image%.*}_${timestamp}"*
 echo -e "\n"
