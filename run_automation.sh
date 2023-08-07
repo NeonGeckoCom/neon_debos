@@ -9,8 +9,8 @@ timestamp=$(date '+%Y-%m-%d_%H_%M')
 image=${1:-"debian-neon-image-rpi4.yml"}
 neon_core=${2:-"master"}
 # TODO: Configurable runner limits
-mem_limit=${MEM_LIMIT:-"6G"}
-core_limit=${CORE_LIMIT:-3}
+mem_limit=${MEM_LIMIT:-"64G"}
+core_limit=${CORE_LIMIT:-32}
 sudo chmod ugo+x "${source_dir}/scripts/"*
 sudo chmod 777 /dev/kvm  # Ensure kvm access
 docker run \
