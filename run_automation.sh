@@ -11,6 +11,7 @@ neon_core=${2:-"master"}
 mem_limit=${MEM_LIMIT:-"16G"}
 core_limit=${CORE_LIMIT:-4}
 sudo chmod ugo+x "${source_dir}/scripts/"*
+sudo chmod 777 /dev/kvm  # Ensure kvm access
 docker run --rm -d \
 --device /dev/kvm \
 --workdir /image_build \
