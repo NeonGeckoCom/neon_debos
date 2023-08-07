@@ -8,8 +8,9 @@ source_dir="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 timestamp=$(date '+%Y-%m-%d_%H_%M')
 image=${1:-"debian-neon-image-rpi4.yml"}
 neon_core=${2:-"master"}
-mem_limit=${MEM_LIMIT:-"16G"}
-core_limit=${CORE_LIMIT:-4}
+# TODO: Configurable runner limits
+mem_limit=${MEM_LIMIT:-"6G"}
+core_limit=${CORE_LIMIT:-3}
 sudo chmod ugo+x "${source_dir}/scripts/"*
 sudo chmod 777 /dev/kvm  # Ensure kvm access
 docker run \
