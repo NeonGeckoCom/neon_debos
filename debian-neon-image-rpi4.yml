@@ -24,195 +24,195 @@ actions:
       suite: {{ $suite }}
       image: {{ $image }}
 
-#  - action: recipe
-#    recipe: recipes/03-base-packages.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#      firmware_version: {{ $firmware_version }}
-#      suite: {{ $suite }}
-#      image: {{ $image }}
-#
-#  - action: recipe
-#    recipe: recipes/03-get-raspi-packages.yml
-#
-#  - action: recipe
-#    recipe: recipes/04-base-overlay.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#      firmware_version: {{ $firmware_version }}
-#      suite: {{ $suite }}
-#      image: {{ $image }}
-#
-#  - action: recipe
-#    recipe: recipes/05-setup-networking.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#      firmware_version: {{ $firmware_version }}
-#      suite: {{ $suite }}
-#      image: {{ $image }}
-#
-#  - action: recipe
-#    recipe: recipes/06-libcamera.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#      firmware_version: {{ $firmware_version }}
-#      suite: {{ $suite }}
-#      image: {{ $image }}
-#
-#  - action: recipe
-#    recipe: recipes/07-splash-screen.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#      firmware_version: {{ $firmware_version }}
-#      suite: {{ $suite }}
-#      image: {{ $image }}
-#
-#  - action: recipe
-#    recipe: recipes/08-poweroff-service.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#      firmware_version: {{ $firmware_version }}
-#      suite: {{ $suite }}
-#      image: {{ $image }}
-#
-#  - action: recipe
-#    recipe: recipes/09-swap.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#
-#  - action: recipe
-#    recipe: recipes/11-ovos-font.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#      firmware_version: {{ $firmware_version }}
-#      suite: {{ $suite }}
-#      image: {{ $image }}
-#
-#  - action: recipe
-#    recipe: recipes/12-ovos-gui-dependencies.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#      firmware_version: {{ $firmware_version }}
-#      suite: {{ $suite }}
-#      image: {{ $image }}
-#
-#  - action: recipe
-#    recipe: recipes/13-audio-devices.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#      firmware_version: {{ $firmware_version }}
-#      suite: {{ $suite }}
-#      image: {{ $image }}
-#
-#  - action: recipe
-#    recipe: recipes/14-mount-firmware.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#
-#  - action: recipe
-#    recipe: recipes/09-log2ram.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#
-#  - action: recipe
-#    recipe: recipes/15-firmware-updates.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#
-#  - action: recipe
-#    recipe: recipes/16-python-3_10.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#      build_cores: {{ $build_cores }}
-#
-#  - action: recipe
-#    recipe: recipes/20-sj201.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#      build_cores: {{ $build_cores }}
-#
-#  - action: recipe
-#    recipe: recipes/30-ovos-shell.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#      build_cores: {{ $build_cores }}
-#
-#  - action: recipe
-#    recipe: recipes/31-updater-service.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#      firmware_version: {{ $firmware_version }}
-#      suite: {{ $suite }}
-#      image: {{ $image }}
-#
-#  - action: recipe
-#    recipe: recipes/32-automount-usb.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#      firmware_version: {{ $firmware_version }}
-#      suite: {{ $suite }}
-#      image: {{ $image }}
-#
-#  - action: recipe
-#    recipe: recipes/33-homeassistant-shortcut.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#      firmware_version: {{ $firmware_version }}
-#      suite: {{ $suite }}
-#      image: {{ $image }}
-#
-#  - action: recipe
-#    recipe: recipes/40-add-default-user.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#      firmware_version: {{ $firmware_version }}
-#      suite: {{ $suite }}
-#      image: {{ $image }}
-#
-#  - action: recipe
-#    recipe: recipes/41-install-neon-core.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#      firmware_version: {{ $firmware_version }}
-#      suite: {{ $suite }}
-#      image: {{ $image }}
-#      neon_core: {{ $neon_core }}
-#
-#  - action: recipe
-#    recipe: recipes/45-reset-service.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#      firmware_version: {{ $firmware_version }}
-#      suite: {{ $suite }}
-#      image: {{ $image }}
-#
-#  - action: recipe
-#    recipe: recipes/70-developer-extras.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#
-#  - action: recipe
-#    recipe: recipes/80-extra-fs-overlay.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#      firmware_version: {{ $firmware_version }}
-#      suite: {{ $suite }}
-#      image: {{ $image }}
-#
-#  - action: recipe
-#    recipe: recipes/90-base-finalscripts.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#      firmware_version: {{ $firmware_version }}
-#      suite: {{ $suite }}
-#      image: {{ $image }}
-#
-#  - action: recipe
-#    recipe: recipes/95-add_metadata.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#      image: {{ $image }}
-#      neon_core: {{ $neon_core }}
+  - action: recipe
+    recipe: recipes/03-base-packages.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/03-get-raspi-packages.yml
+
+  - action: recipe
+    recipe: recipes/04-base-overlay.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/05-setup-networking.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/06-libcamera.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/07-splash-screen.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/08-poweroff-service.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/09-swap.yml
+    variables:
+      architecture: {{ $architecture }}
+
+  - action: recipe
+    recipe: recipes/11-ovos-font.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/12-ovos-gui-dependencies.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/13-audio-devices.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/14-mount-firmware.yml
+    variables:
+      architecture: {{ $architecture }}
+
+  - action: recipe
+    recipe: recipes/09-log2ram.yml
+    variables:
+      architecture: {{ $architecture }}
+
+  - action: recipe
+    recipe: recipes/15-firmware-updates.yml
+    variables:
+      architecture: {{ $architecture }}
+
+  - action: recipe
+    recipe: recipes/16-python-3_10.yml
+    variables:
+      architecture: {{ $architecture }}
+      build_cores: {{ $build_cores }}
+
+  - action: recipe
+    recipe: recipes/20-sj201.yml
+    variables:
+      architecture: {{ $architecture }}
+      build_cores: {{ $build_cores }}
+
+  - action: recipe
+    recipe: recipes/30-ovos-shell.yml
+    variables:
+      architecture: {{ $architecture }}
+      build_cores: {{ $build_cores }}
+
+  - action: recipe
+    recipe: recipes/31-updater-service.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/32-automount-usb.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/33-homeassistant-shortcut.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/40-add-default-user.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/41-install-neon-core.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+      neon_core: {{ $neon_core }}
+
+  - action: recipe
+    recipe: recipes/45-reset-service.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/70-developer-extras.yml
+    variables:
+      architecture: {{ $architecture }}
+
+  - action: recipe
+    recipe: recipes/80-extra-fs-overlay.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/90-base-finalscripts.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/95-add_metadata.yml
+    variables:
+      architecture: {{ $architecture }}
+      image: {{ $image }}
+      neon_core: {{ $neon_core }}
 
   - action: recipe
     recipe: recipes/98-backup-image.yml
