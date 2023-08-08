@@ -12,7 +12,7 @@ neon_core=${2:-"master"}
 mem_limit=${MEM_LIMIT:-"64G"}
 core_limit=${CORE_LIMIT:-32}
 chmod ugo+x "${source_dir}/scripts/"*
-docker run \
+docker run --rm \
 --device /dev/kvm \
 --workdir /image_build \
 --mount type=bind,source="${source_dir}",destination=/image_build \
