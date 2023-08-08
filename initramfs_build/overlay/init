@@ -3,6 +3,11 @@
 # Exit on any failure
 set -e
 
+exit_error() {
+  echo ${1}
+  exit 1
+}
+
 # Default PATH differs between shells, and is not automatically exported
 # by klibc dash.  Make it consistent.
 export PATH=/sbin:/usr/sbin:/bin:/usr/bin
@@ -237,11 +242,11 @@ fi
 maybe_break top
 
 # Don't do log messages here to avoid confusing graphical boots
-run_scripts /scripts/init-top && echo "init-top finished"
+run_scripts /scripts/init-top || exit_error "init-top"
 maybe_break modules
 [ "$quiet" != "y" ] && log_begin_msg "Loading essential drivers"
 [ -n "${netconsole}" ] && /sbin/modprobe netconsole netconsole="${netconsole}"
-load_modules
+load_modules || exit_error "load_modules"
 [ "$quiet" != "y" ] && log_end_msg
 
 starttime="$(_uptime)"
@@ -252,9 +257,9 @@ if [ "$ROOTDELAY" ]; then
 	sleep "$ROOTDELAY"
 fi
 
-maybe_break premount
+maybe_break premount || exit_error "premount"
 [ "$quiet" != "y" ] && log_begin_msg "Running /scripts/init-premount"
-run_scripts /scripts/init-premount
+run_scripts /scripts/init-premount || exit_error "init-premount"
 [ "$quiet" != "y" ] && log_end_msg
 
 maybe_break mount
@@ -267,21 +272,21 @@ log_begin_msg "Mounting root file system"
 . /scripts/${BOOT}
 parse_numeric "${ROOT}"
 maybe_break mountroot
-mount_top
-mount_premount && echo "premount finished"
-mountroot
+mount_top || exit_error "mount_top"
+mount_premount || exit_error "mount_premount"
+mountroot || exit_error "mountroot"
 log_end_msg
 
 if read_fstab_entry /usr; then
 	log_begin_msg "Mounting /usr file system"
-	mountfs /usr
+	mountfs /usr || exit_error "mountfs"
 	log_end_msg
 fi
 
 # Mount cleanup
-mount_bottom
-nfs_bottom
-local_bottom
+mount_bottom || exit_error "mount_bottom"
+nfs_bottom || exit_error "nfs_bottom"
+local_bottom || exit_error "local_bottom"
 
 maybe_break bottom
 
