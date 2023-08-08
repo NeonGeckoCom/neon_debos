@@ -1,4 +1,4 @@
 #!/bin/sh
 /scripts/init-bottom/udev "$@" || echo "udev failed"
 [ -e /conf/param.conf ] && . /conf/param.conf
-echo "init-bottom/ORDER done"  # TODO: Fails without this line?
+return 0  # TODO: Fails without this line?

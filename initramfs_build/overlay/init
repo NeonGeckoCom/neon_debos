@@ -86,6 +86,7 @@ export fsckfix=
 # Bring in the main config
 . /conf/initramfs.conf
 for conf in conf/conf.d/*; do
+	# shellcheck disable=SC1090
 	[ -f "${conf}" ] && . "${conf}"
 done
 . /scripts/functions
@@ -226,13 +227,12 @@ fi
 mount -t tmpfs -o "nodev,noexec,nosuid,size=${RUNSIZE:-10%},mode=0755" tmpfs /run
 mkdir -m 0700 /run/initramfs
 
-# TODO: This fails at `exec`
-#if [ -n "$log_output" ]; then
-#  [ -f "${log_output}" ] || touch "${log_output}"
-#  echo "redirecting output to ${log_output}"
-#	exec >$log_output 2>&1
-#	unset log_output
-#fi
+if [ -n "$log_output" ]; then
+  [ -f "${log_output}" ] || touch "${log_output}"
+  echo "redirecting output to ${log_output}"
+	exec >$log_output 2>&1  # TODO: This call was failing
+	unset log_output
+fi
 
 maybe_break top
 
@@ -263,6 +263,7 @@ log_begin_msg "Mounting root file system"
 # /usr, irrespective of the boot script used to mount the rootfs).
 . /scripts/local
 . /scripts/nfs
+# shellcheck disable=SC1090
 . /scripts/${BOOT}
 parse_numeric "${ROOT}"
 maybe_break mountroot

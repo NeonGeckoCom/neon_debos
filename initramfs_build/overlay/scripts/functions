@@ -390,13 +390,10 @@ configure_networking()
 # Wait for queued kernel/udev events
 wait_for_udev()
 {
-	if test command -v udevadm >/dev/null 2>&1; then
-	    udevadm settle ${1:+--timeout=$1}
-    else
-        # Can't wait for udev, just sleep for the specified timeout
-        echo "udevadm not available, sleeping for ${1}s"
-        sleep ${1}
-    fi
+  udevadm settle ${1:+--timeout=$1} && return 0
+  # Can't wait for udev, just sleep for the specified timeout
+  echo "udevadm not available, sleeping for ${1}s"
+  sleep ${1}
 }
 
 # Find a specific fstab entry
