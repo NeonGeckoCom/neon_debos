@@ -11,8 +11,7 @@ neon_core=${2:-"master"}
 # TODO: Configurable runner limits
 mem_limit=${MEM_LIMIT:-"64G"}
 core_limit=${CORE_LIMIT:-32}
-sudo chmod ugo+x "${source_dir}/scripts/"*
-sudo chmod 777 /dev/kvm  # Ensure kvm access
+chmod ugo+x "${source_dir}/scripts/"*
 docker run \
 --device /dev/kvm \
 --workdir /image_build \
@@ -22,5 +21,3 @@ docker run \
 --name neon_debos \
 godebos/debos "${image}" -t architecture:arm64 -t image:"${image%.*}_${timestamp}" -t neon_core:"${neon_core}" -t build_cores:"${core_limit}" -m "${mem_limit}" -c "${core_limit}" || exit 2
 echo "completed ${timestamp}"
-sudo chown $USER:$USER "${source_dir}/output/${image%.*}_${timestamp}"*
-echo -e "\n"
