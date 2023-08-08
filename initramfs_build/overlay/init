@@ -237,8 +237,7 @@ mkdir -m 0700 /run/initramfs
 maybe_break top
 
 # Don't do log messages here to avoid confusing graphical boots
-run_scripts /scripts/init-top || echo "init-top failed"  # TODO: why does `udev` fail here?
-sleep 1  # TODO: What is this fixing?
+run_scripts /scripts/init-top && echo "init-top finished"
 maybe_break modules
 [ "$quiet" != "y" ] && log_begin_msg "Loading essential drivers"
 [ -n "${netconsole}" ] && /sbin/modprobe netconsole netconsole="${netconsole}"
@@ -268,7 +267,7 @@ log_begin_msg "Mounting root file system"
 parse_numeric "${ROOT}"
 maybe_break mountroot
 mount_top
-mount_premount || echo "mount_premount failed"  # TODO: Why?
+mount_premount && echo "premount finished"
 mountroot
 log_end_msg
 
@@ -279,7 +278,7 @@ if read_fstab_entry /usr; then
 fi
 
 # Mount cleanup
-mount_bottom || echo "mount_bottom failed"  # TODO: Why?
+mount_bottom
 nfs_bottom
 local_bottom
 
@@ -336,7 +335,7 @@ if [ -n "${ROOT_ROPATH}" ]; then
   [ "$quiet" != "y" ] && log_begin_msg "Running /scripts/init-bottom"
   # We expect udev's init-bottom script to move /dev to ${rootmnt}/dev
   [ -d "${rootmnt}/dev" ] || mkdir "${rootmnt}/dev"  # Ensure new directory exists
-  run_scripts /scripts/init-bottom || echo "init-bottom failed"  # TODO: why?
+  run_scripts /scripts/init-bottom  #|| echo "init-bottom failed"  # TODO: why?
   [ "$quiet" != "y" ] && log_end_msg
   # Move /run to the root
   mount -n -o move /run ${rootmnt}/run
