@@ -18,6 +18,6 @@ docker run --rm \
 --mount type=bind,source="${source_dir}",destination=/image_build \
 --group-add=108 \
 --security-opt label=disable \
---name neon_debos \
+--name neon_debos_ghaction \
 godebos/debos "${image}" -t architecture:arm64 -t image:"${image%.*}_${timestamp}" -t neon_core:"${neon_core}" -t build_cores:"${core_limit}" -m "${mem_limit}" -c "${core_limit}" || exit 2
 echo "completed ${timestamp}"
