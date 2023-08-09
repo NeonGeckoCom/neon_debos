@@ -1,3 +1,5 @@
+#!/bin/bash
+export LIBRESPOT_NAME=${1:-"Neon Mark 2"}
 # Raspotify installation script
 apt-get -y install curl && curl -sL https://dtcooper.github.io/raspotify/install.sh -o install.sh
 ## Sudo causes issues in build VM, so strip it out

@@ -2,6 +2,8 @@
 {{- $firmware_version := or .firmware_version "master" -}}
 {{ $suite :=  or .suite "focal" }}
 {{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
+{{- $librespot_name := or .librespot_name "Neon Mark 2" -}}
+{{- $user :=  or .user "neon" -}}
 
 architecture: {{ $architecture }}
 
@@ -15,9 +17,9 @@ actions:
       - bluez-tools
       - pulseaudio-module-bluetooth # PulseAudio Bluetooth Module
   - action: overlay
-    description: OVOS specific overlay
+    description: Audio receiver scripts, configs, and service files
     source: ../overlays/46-audio-receiver
   - action: run
     description: Provide default Spotify device name, enable UxPlay service, enable KDE Connect service, enable Bluetooth service
     chroot: true
-    script: ../scripts/46-audio-receiver.sh
+    script: ../scripts/46-audio-receiver.sh {{ $librespot_name }}
