@@ -313,10 +313,17 @@ if [ -n "${ROOT_ROPATH}" ]; then
     exit 10
   fi
 
+  user_backup_path="${rootmnt}/user_backup"
+
+  if [ -d "${user_backup_path}" ]; then
+    echo "WARN: backup path present; an update did not complete as expected"
+    # TODO: How to recover here?
+  fi
+
   if [ -n "${ROOT_BUPATH}" ]; then
-    scripts/check_update.sh "/media/rw/upperdir/" "/media/rw/upperdir/opt/neon/update.squashfs" "${rootmnt}/${ROOT_ROPATH}" "${rootmnt}/${ROOT_BUPATH}"
+    scripts/check_update.sh "/media/rw/upperdir/" "/media/rw/upperdir/opt/neon/update.squashfs" "${rootmnt}/${ROOT_ROPATH}" "${user_backup_path}" "${rootmnt}/${ROOT_BUPATH}"
   else
-    scripts/check_update.sh "/media/rw/upperdir/" "/media/rw/upperdir/opt/neon/update.squashfs" "${rootmnt}/${ROOT_ROPATH}"
+    scripts/check_update.sh "/media/rw/upperdir/" "/media/rw/upperdir/opt/neon/update.squashfs" "${rootmnt}/${ROOT_ROPATH}" "${user_backup_path}"
   fi
 
   scripts/check_reset.sh "/media/rw"
