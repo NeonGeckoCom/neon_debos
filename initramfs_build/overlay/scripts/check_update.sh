@@ -27,38 +27,44 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-ROOT_PATH=${1}
+OVERLAY_PATH=${1}
 UPDATE_FILE=${2}
 ROOT_FILE=${3}
-BACKUP_FILE=${4:-""}
+BACKUP_PATH=${4}
+BACKUP_FILE=${5:-""}
 
 # Validate update and optionally create backup
 if [ ! -f "${UPDATE_FILE}" ]; then
   echo "No update (${UPDATE_FILE})"
   exit 0
 elif [ -n "${BACKUP_FILE}" ]; then
-  mv "${ROOT_FILE}" "${BACKUP_FILE}" && echo "Backed up existing image"
+  mv "${ROOT_FILE}" "${BACKUP_FILE}" && echo "Backed up existing image ${ROOT_FILE} to ${BACKUP_FILE}"
 fi
 
 # Apply update
-mv "${UPDATE_FILE}" "${ROOT_FILE}" && echo "Applied updated rootfs"
+mv "${UPDATE_FILE}" "${ROOT_FILE}" && echo "Applied updated rootfs from ${UPDATE_FILE}"
 
-# Clean up overlayFS changes
-[ -d /backup/etc/NetworkManager ] || mkdir -p /backup/etc/NetworkManager
-[ -d /backup/etc/ssh ] || mkdir -p /backup/etc/ssh
-[ -d /backup/home ] || mkdir -p /backup/home
-echo "Backing up overlay files"
-mv "${ROOT_PATH}/etc/NetworkManager/system-connections" /backup/etc/NetworkManager/
-mv "${ROOT_PATH}/etc/ssh/"ssh_host_*_key* /backup/etc/ssh && echo "Migrating SSH keys"
-mv "${ROOT_PATH}/etc/shadow" /backup/etc/shadow
-mv "${ROOT_PATH}/etc/machine-id" /backup/etc/machine-id
-mv "${ROOT_PATH}/home/neon" /backup/home/ && rm -rf /backup/home/neon/venv
-mv "${ROOT_PATH}/var" /backup/
-mv "${ROOT_PATH}/root" /backup/
-echo "Backed up relevant overlay"
+# Backup to a directory on the drive root file system
+mv "${OVERLAY_PATH}" "${BACKUP_PATH}" && echo "Backed up overlay ${OVERLAY_PATH} to ${BACKUP_PATH}"
 
-rm -rf "${ROOT_PATH:?}/"* && echo "Removed old overlay"
-mv /backup/* "${ROOT_PATH}/" && echo "Restored valid overlay"
-mkdir -p "${ROOT_PATH}/opt/neon"
-touch "${ROOT_PATH}/opt/neon/squashfs_updated"
+# Ensure paths exist for migrated data
+[ -d "${OVERLAY_PATH}/etc/NetworkManager" ] || mkdir -p "${OVERLAY_PATH}/etc/NetworkManager"
+[ -d "${OVERLAY_PATH}/etc/ssh" ] || mkdir -p "${OVERLAY_PATH}/etc/ssh"
+[ -d "${OVERLAY_PATH}/opt/neon" ] || mkdir -p "${OVERLAY_PATH}/opt/neon"
+
+
+# Migrate specific data back
+mv "${BACKUP_PATH}/etc/NetworkManager/system-connections" "${OVERLAY_PATH}/etc/NetworkManager/" && echo "Restored Networks"
+mv "${BACKUP_PATH}/etc/ssh/"ssh_host_*_key* "${OVERLAY_PATH}/etc/ssh/" && echo "Restored SSH keys"
+mv "${BACKUP_PATH}/etc/shadow" "${OVERLAY_PATH}/etc/" && echo "Restored Passwords"
+mv "${BACKUP_PATH}/etc/machine-id" "${OVERLAY_PATH}/etc/" && echo "Restored machine-id"
+mv "${BACKUP_PATH}/home" "${OVERLAY_PATH}/" && rm -rf "${OVERLAY_PATH}/home/neon/venv"
+mv "${BACKUP_PATH}/var" "${OVERLAY_PATH}/" && echo "Restored /var"
+mv "${BACKUP_PATH}/root" "${OVERLAY_PATH}/" && echo "Restored /root"
+mv "${BACKUP_PATH}/opt/neon/firstboot" "${OVERLAY_PATH}/opt/neon/" && echo "Restored firstboot flag"
+
+# Move any other data to a backup location
+mv "${BACKUP_PATH}" "${OVERLAY_PATH}/opt/neon/old_overlay"
+
+touch "${OVERLAY_PATH}/opt/neon/squashfs_updated"
 echo "Update complete"
