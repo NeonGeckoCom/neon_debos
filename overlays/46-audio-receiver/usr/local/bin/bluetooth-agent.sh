@@ -1,5 +1,7 @@
 #!/bin/bash
 
+TIMEOUT=${1:-60}  # Set default value of 60 if $1 is not provided
+
 {
     echo "power on"
     sleep 1
@@ -14,7 +16,7 @@
     echo "discoverable on"
     sleep 1
     echo "scan on"
-    sleep 30  # Allow 30 seconds for devices to pair
+    sleep "$TIMEOUT"  # Allow some time for devices to pair
     echo "pairable off"
     sleep 1
     echo "discoverable off"
