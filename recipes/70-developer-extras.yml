@@ -10,3 +10,5 @@ actions:
       - iputils-ping
       - htop
       - usbutils
+      - nano
+      - vim

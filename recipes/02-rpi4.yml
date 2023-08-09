@@ -43,6 +43,11 @@ actions:
     destination: /
 
   - action: run
+    description: Remove extra overlay files
+    chroot: true
+    command: rm /boot/firmware/initramfs.md5
+
+  - action: run
     origin: kernel
     chroot: true
     description: Install kernel

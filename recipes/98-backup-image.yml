@@ -11,7 +11,7 @@ actions:
   - action: run
     description: Create SquashFS backup
     chroot: true
-    command: mksquashfs / /backup.squashfs -noappend -regex -e proc/.* -e sys/.* -e dev/.* -e tmp/.* -e .*\.squashfs
+    command: mksquashfs / /backup.squashfs -noappend -regex -e boot/.* -e proc/.* -e sys/.* -e dev/.* -e tmp/.* -e .*\.squashfs
   - action: run
     description: Copy squashFS to host
     chroot: false
