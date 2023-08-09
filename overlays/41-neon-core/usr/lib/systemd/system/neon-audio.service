@@ -12,8 +12,6 @@ User=neon
 EnvironmentFile=/etc/neon/neon_env.conf
 WorkingDirectory=/opt/neon
 ExecStart=/usr/libexec/neon-audio.py
-Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1004/bus
-Environment=DISPLAY=:0
 LogNamespace=neon
 
 [Install]
