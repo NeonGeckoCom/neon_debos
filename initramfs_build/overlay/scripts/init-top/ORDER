@@ -1,0 +1,9 @@
+#!/bin/sh
+/scripts/init-top/all_generic_ide "$@" || echo "all_generic_ide failed"
+[ -e /conf/param.conf ] && . /conf/param.conf
+/scripts/init-top/blacklist "$@" || echo "blacklist failed"
+[ -e /conf/param.conf ] && . /conf/param.conf
+/scripts/init-top/keymap "$@" || echo "keymap failed"
+[ -e /conf/param.conf ] && . /conf/param.conf
+/scripts/init-top/udev "$@" || echo "udev failed"
+[ -e /conf/param.conf ] && . /conf/param.conf

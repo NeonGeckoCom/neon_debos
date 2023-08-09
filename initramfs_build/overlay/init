@@ -3,6 +3,11 @@
 # Exit on any failure
 set -e
 
+exit_error() {
+  echo ${1}
+  exit 1
+}
+
 # Default PATH differs between shells, and is not automatically exported
 # by klibc dash.  Make it consistent.
 export PATH=/sbin:/usr/sbin:/bin:/usr/bin
@@ -86,6 +91,7 @@ export fsckfix=
 # Bring in the main config
 . /conf/initramfs.conf
 for conf in conf/conf.d/*; do
+	# shellcheck disable=SC1090
 	[ -f "${conf}" ] && . "${conf}"
 done
 . /scripts/functions
@@ -226,23 +232,21 @@ fi
 mount -t tmpfs -o "nodev,noexec,nosuid,size=${RUNSIZE:-10%},mode=0755" tmpfs /run
 mkdir -m 0700 /run/initramfs
 
-# TODO: This fails at `exec`
-#if [ -n "$log_output" ]; then
-#  [ -f "${log_output}" ] || touch "${log_output}"
-#  echo "redirecting output to ${log_output}"
-#	exec >$log_output 2>&1
-#	unset log_output
-#fi
+if [ -n "$log_output" ]; then
+  [ -f "${log_output}" ] || touch "${log_output}"
+  echo "redirecting output to ${log_output}"
+	exec >$log_output 2>&1  # TODO: This call was failing
+	unset log_output
+fi
 
 maybe_break top
 
 # Don't do log messages here to avoid confusing graphical boots
-run_scripts /scripts/init-top || echo "init-top failed"  # TODO: why does `udev` fail here?
-sleep 1  # TODO: What is this fixing?
+run_scripts /scripts/init-top || exit_error "init-top"
 maybe_break modules
 [ "$quiet" != "y" ] && log_begin_msg "Loading essential drivers"
 [ -n "${netconsole}" ] && /sbin/modprobe netconsole netconsole="${netconsole}"
-load_modules
+load_modules || exit_error "load_modules"
 [ "$quiet" != "y" ] && log_end_msg
 
 starttime="$(_uptime)"
@@ -253,9 +257,9 @@ if [ "$ROOTDELAY" ]; then
 	sleep "$ROOTDELAY"
 fi
 
-maybe_break premount
+maybe_break premount || exit_error "premount"
 [ "$quiet" != "y" ] && log_begin_msg "Running /scripts/init-premount"
-run_scripts /scripts/init-premount
+run_scripts /scripts/init-premount || exit_error "init-premount"
 [ "$quiet" != "y" ] && log_end_msg
 
 maybe_break mount
@@ -264,24 +268,25 @@ log_begin_msg "Mounting root file system"
 # /usr, irrespective of the boot script used to mount the rootfs).
 . /scripts/local
 . /scripts/nfs
+# shellcheck disable=SC1090
 . /scripts/${BOOT}
 parse_numeric "${ROOT}"
 maybe_break mountroot
-mount_top
-mount_premount || echo "mount_premount failed"  # TODO: Why?
-mountroot
+mount_top || exit_error "mount_top"
+mount_premount || exit_error "mount_premount"
+mountroot || exit_error "mountroot"
 log_end_msg
 
 if read_fstab_entry /usr; then
 	log_begin_msg "Mounting /usr file system"
-	mountfs /usr
+	mountfs /usr || exit_error "mountfs"
 	log_end_msg
 fi
 
 # Mount cleanup
-mount_bottom || echo "mount_bottom failed"  # TODO: Why?
-nfs_bottom
-local_bottom
+mount_bottom || exit_error "mount_bottom"
+nfs_bottom || exit_error "nfs_bottom"
+local_bottom || exit_error "local_bottom"
 
 maybe_break bottom
 
@@ -336,7 +341,7 @@ if [ -n "${ROOT_ROPATH}" ]; then
   [ "$quiet" != "y" ] && log_begin_msg "Running /scripts/init-bottom"
   # We expect udev's init-bottom script to move /dev to ${rootmnt}/dev
   [ -d "${rootmnt}/dev" ] || mkdir "${rootmnt}/dev"  # Ensure new directory exists
-  run_scripts /scripts/init-bottom || echo "init-bottom failed"  # TODO: why?
+  run_scripts /scripts/init-bottom  #|| echo "init-bottom failed"  # TODO: why?
   [ "$quiet" != "y" ] && log_end_msg
   # Move /run to the root
   mount -n -o move /run ${rootmnt}/run

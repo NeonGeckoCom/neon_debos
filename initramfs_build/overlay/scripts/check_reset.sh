@@ -35,5 +35,6 @@ if [ -f "${SIGNAL_FILE}" ]; then
   rm -rf "${WRITABLE_PATH}/upperdir"
   rm -rf "${WRITABLE_PATH}/workdir"
   rm -rf "/swapfile"
+# TODO: Option to power off instead of continuing boot
 fi
 

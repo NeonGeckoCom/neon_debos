@@ -4,7 +4,6 @@ set -e
 # List the soft prerequisites here.  This is a space separated list of
 # names, of scripts that are in the same directory as this one, that
 # must be run before this one can be.
-#
 PREREQS=""
 case $1 in
     prereqs) echo "$PREREQS"; exit 0;;
@@ -27,8 +26,8 @@ parted -s "$rootdev" print 2>&1 | grep -z "fix the GPT" && {
 free_space="$(parted -m -s "$rootdev" print free | tail -n1 | grep free)" || free_space=
 if test -z "$free_space"; then
     # Great, we already resized; nothing left to do!
-    echo "Already resized"
-    exit 0
+    echo "Partition Already resized"
+    return 0
 fi
 log_begin_msg "$0 resizing $ROOT"
 
@@ -39,15 +38,16 @@ umount "${rootmnt:?}" && echo "unmounted root"
 parted -s "$rootdev" resizepart "$rootpart_nr" 100% && echo "expanded partition"
 
 # Allow some time for udev to catch up with changes before resizing the FS
-wait_for_udev 15 || sleep 5
+wait_for_udev 5
 
 # Now resize the filesystem
 partprobe "$rootdev"
 e2fsck -fp "$rootpart"  # preempt resize2fs potential errors
-resize2fs "$rootpart"
+resize2fs -f "$rootpart" && echo "FS Resized"
 
 # After resizing, (re)check the root partition's filesystem
 fsck "$rootpart" && echo "fsck success"
+
 # Remount root
 # Don't quote ${ROOTFLAGS} as that results in an extra (empty) argument
 # to 'mount', which in turn causes a boot failure
