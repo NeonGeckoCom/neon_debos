@@ -54,7 +54,7 @@ def get_project_meta(core_branch="dev"):
         image_time = datetime.utcnow().timestamp()
     except Exception as e:
         print(e)
-        image_sha, image_time = get_commit_and_time("neon_debos", "main")
+        image_sha, image_time = get_commit_and_time("neon_debos", core_branch)
 # TODO: neon_debos info from envvars
     core_sha, core_time = get_commit_and_time("neoncore", core_branch)
 

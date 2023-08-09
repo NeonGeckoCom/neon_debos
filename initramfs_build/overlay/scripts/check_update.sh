@@ -63,6 +63,10 @@ mv "${BACKUP_PATH}/var" "${OVERLAY_PATH}/" && echo "Restored /var"
 mv "${BACKUP_PATH}/root" "${OVERLAY_PATH}/" && echo "Restored /root"
 mv "${BACKUP_PATH}/opt/neon/firstboot" "${OVERLAY_PATH}/opt/neon/" && echo "Restored firstboot flag"
 
+# Fix pulse subdirectory ownership
+mkdir -p "${BACKUP_PATH}/var/lib"
+mv "${OVERLAY_PATH}/var/lib/pulse" "${BACKUP_PATH}/var/lib/" && echo "Backed up pulse state"
+
 # Move any other data to a backup location
 mv "${BACKUP_PATH}" "${OVERLAY_PATH}/opt/neon/old_overlay"
 
