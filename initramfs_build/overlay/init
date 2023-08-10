@@ -348,7 +348,7 @@ if [ -n "${ROOT_ROPATH}" ]; then
   [ "$quiet" != "y" ] && log_begin_msg "Running /scripts/init-bottom"
   # We expect udev's init-bottom script to move /dev to ${rootmnt}/dev
   [ -d "${rootmnt}/dev" ] || mkdir "${rootmnt}/dev"  # Ensure new directory exists
-  run_scripts /scripts/init-bottom  #|| echo "init-bottom failed"  # TODO: why?
+  run_scripts /scripts/init-bottom
   [ "$quiet" != "y" ] && log_end_msg
   # Move /run to the root
   mount -n -o move /run ${rootmnt}/run

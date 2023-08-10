@@ -51,7 +51,7 @@ mv "${OVERLAY_PATH}" "${BACKUP_PATH}" && echo "Backed up overlay ${OVERLAY_PATH}
 [ -d "${OVERLAY_PATH}/etc/NetworkManager" ] || mkdir -p "${OVERLAY_PATH}/etc/NetworkManager"
 [ -d "${OVERLAY_PATH}/etc/ssh" ] || mkdir -p "${OVERLAY_PATH}/etc/ssh"
 [ -d "${OVERLAY_PATH}/opt/neon" ] || mkdir -p "${OVERLAY_PATH}/opt/neon"
-
+[ -d "${OVERLAY_PATH}/var" ] || mkdir -p "${OVERLAY_PATH}/var"
 
 # Migrate specific data back
 mv "${BACKUP_PATH}/etc/NetworkManager/system-connections" "${OVERLAY_PATH}/etc/NetworkManager/" && echo "Restored Networks"
@@ -59,13 +59,19 @@ mv "${BACKUP_PATH}/etc/ssh/"ssh_host_*_key* "${OVERLAY_PATH}/etc/ssh/" && echo "
 mv "${BACKUP_PATH}/etc/shadow" "${OVERLAY_PATH}/etc/" && echo "Restored Passwords"
 mv "${BACKUP_PATH}/etc/machine-id" "${OVERLAY_PATH}/etc/" && echo "Restored machine-id"
 mv "${BACKUP_PATH}/home" "${OVERLAY_PATH}/" && rm -rf "${OVERLAY_PATH}/home/neon/venv"
-mv "${BACKUP_PATH}/var" "${OVERLAY_PATH}/" && echo "Restored /var"
 mv "${BACKUP_PATH}/root" "${OVERLAY_PATH}/" && echo "Restored /root"
 mv "${BACKUP_PATH}/opt/neon/firstboot" "${OVERLAY_PATH}/opt/neon/" && echo "Restored firstboot flag"
 
-# Fix pulse subdirectory ownership
-mkdir -p "${BACKUP_PATH}/var/lib"
-mv "${OVERLAY_PATH}/var/lib/pulse" "${BACKUP_PATH}/var/lib/" && echo "Backed up pulse state"
+# Restore specific `/var` paths (https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch05.html)
+[ -d "${BACKUP_PATH}/var/games" ] && mv "${BACKUP_PATH}/var/games" "${OVERLAY_PATH}/var/" && echo "Restored /var/games"
+[ -d "${BACKUP_PATH}/var/log" ] && mv "${BACKUP_PATH}/var/log" "${OVERLAY_PATH}/var/" && echo "Restored /var/log"
+[ -d "${BACKUP_PATH}/var/mail" ] && mv "${BACKUP_PATH}/var/mail" "${OVERLAY_PATH}/var/" && echo "Restored /var/mail"
+
+# Exclude crash information that relates to a previous OS
+#[ -d "${BACKUP_PATH}/var/crash" ] && mv "${BACKUP_PATH}/var/crash" "${OVERLAY_PATH}/var/" && echo "Restored /var/crash"
+
+# Exclude package-specific data as the installed packages/versions may have changed
+#[ -d "${BACKUP_PATH}/var/lib" ] && mv "${BACKUP_PATH}/var/lib" "${OVERLAY_PATH}/var/" && echo "Restored /var/lib"
 
 # Move any other data to a backup location
 mv "${BACKUP_PATH}" "${OVERLAY_PATH}/opt/neon/old_overlay"
