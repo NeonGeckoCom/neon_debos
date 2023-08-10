@@ -42,8 +42,8 @@ actions:
     source: NeonCore-{{ $neon_core }}/neon_core/configuration/mark_2
     destination: /home/{{ $default_user }}/.config/neon/
 
-#  - action: run
-#    description: Install Neon Core
-#    chroot: true
-#    script: ../scripts/41-install-neon-core.sh {{ $neon_core }}
-#    # TODO: Refactor script and overlay to handle a configured username
+  - action: run
+    description: Install Neon Core
+    chroot: true
+    script: ../scripts/41-install-neon-core.sh {{ $neon_core }}
+    # TODO: Refactor script and overlay to handle a configured username
