@@ -86,6 +86,7 @@ neon-speech init-plugin -p ovos-stt-plugin-vosk || echo "Failed to init STT"
 
 ln -s /home/neon/.local/state/neon /home/neon/logs
 rm /home/neon/.local/state/neon/.keep
+rm /home/neon/.config/neon/.keep
 # Fix home directory permissions
 chown -R neon:neon /home/neon
 

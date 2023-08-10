@@ -200,6 +200,11 @@ actions:
       image: {{ $image }}
 
   - action: recipe
+    recipe: recipes/81-extra-media-overlay.yml
+    variables:
+      architecture: {{ $architecture }}
+
+  - action: recipe
     recipe: recipes/90-base-finalscripts.yml
     variables:
       architecture: {{ $architecture }}

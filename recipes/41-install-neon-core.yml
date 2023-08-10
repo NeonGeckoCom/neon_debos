@@ -1,7 +1,6 @@
 {{- $architecture := or .architecture "arm64" -}}
-{{- $firmware_version := or .firmware_version "master" -}}
-{{ $suite :=  or .suite "focal" }}
 {{- $neon_core := or .neon_core "master" -}}
+{{- $default_user := or .default_user "neon" -}}
 
 architecture: {{ $architecture }}
 
@@ -30,10 +29,21 @@ actions:
     description: Neon Core Overlay
     source: ../overlays/41-neon-core
     destination: /
+
+  - action: download
+    description: Download default config
+    url: https://github.com/NeonGeckoCom/NeonCore/archive/refs/heads/{{ $neon_core }}.zip
+    unpack: true
+    name: core_config
+
+  - action: overlay
+    description: Overlay default configuration
+    origin: core_config
+    source: NeonCore-{{ $neon_core }}/neon_core/configuration/mark_2
+    destination: /home/{{ $default_user }}/.config/neon/
+
   - action: run
     description: Install Neon Core
     chroot: true
     script: ../scripts/41-install-neon-core.sh {{ $neon_core }}
     # TODO: Refactor script and overlay to handle a configured username
-
-    # TODO: Get config overlay from NeonCore repository
