@@ -1,0 +1,21 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $default_user := or .default_user "neon" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: download
+    description: Download demo music
+    url: "https://2222.us/app/files/neon_music/music.zip"
+    unpack: true
+    name: music
+
+  - action: run
+    chroot: true
+    description: Ensure demo music directory exists
+    command: mkdir -p /home/{{ $default_user }}/.cache/neon/demo_music/
+
+  - action: overlay
+    description: Overlaying demo music
+    origin: music
+    destination: /home/{{ $default_user }}/.cache/neon/demo_music/
