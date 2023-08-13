@@ -1,10 +1,5 @@
 #!/bin/bash
 export LIBRESPOT_NAME=${1:-"Neon Mark 2"}
-export USER=${2:-"neon"}
-export USER_ID
-USER_ID=$(id -u "$USER")
-# Environment variables
-{ echo USER_ID="$USER_ID"; echo XDG_RUNTIME_DIR="/run/user/$USER_ID"; echo DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$USER_ID/bus"; } >> /etc/neon/neon_env.conf
 # Raspotify installation script
 apt-get -y install curl && curl -sL https://dtcooper.github.io/raspotify/install.sh -o install.sh
 ## Sudo causes issues in build VM, so strip it out
