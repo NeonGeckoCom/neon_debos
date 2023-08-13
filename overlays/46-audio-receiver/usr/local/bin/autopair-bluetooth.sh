@@ -11,7 +11,7 @@ dbus-send --system --type=method_call --dest=org.bluez /org/bluez/hci0 org.freed
 dbus-send --system --type=method_call --dest=org.bluez /org/bluez/hci0 org.freedesktop.DBus.Properties.Set string:org.bluez.Adapter1 string:Discoverable variant:boolean:true
 
 # Start the Custom Agent
-/home/neon/venv/python /usr/local/bin/auto-bt-agent.py &
+/home/neon/venv/bin/python /usr/local/bin/auto-bt-agent.py &
 
 # Allow devices to pair for a specified duration
 sleep "$TIMEOUT"

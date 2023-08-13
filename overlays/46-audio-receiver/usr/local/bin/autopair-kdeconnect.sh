@@ -1,4 +1,5 @@
 #!/bin/bash
+source /etc/neon/neon_env.conf
 
 # Set default timeout to 30 seconds
 timeout_duration=30
