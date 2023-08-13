@@ -1,6 +1,6 @@
 {{- $architecture := or .architecture "arm64" -}}
 {{- $firmware_version := or .firmware_version "master" -}}
-{{ $suite :=  or .suite "focal" }}
+{{ $suite :=  or .suite "bookworm" }}
 {{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
 {{- $librespot_name := or .librespot_name "Neon Mark 2" -}}
 {{- $user :=  or .user "neon" -}}
@@ -14,7 +14,8 @@ actions:
       - uxplay # AirPlay
       - kdeconnect # KDE Connect
       - "bluez*" # Bluetooth
-      - bluez-tools libbluetooth-dev libpq-dev libcairo2-dev
+      - libbluetooth-dev
+      - libcairo2-dev
       - pulseaudio-module-bluetooth # PulseAudio Bluetooth Module
   - action: overlay
     description: Audio receiver scripts, configs, and service files
