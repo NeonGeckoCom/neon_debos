@@ -1,0 +1,12 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $firmware_version := or .firmware_version "master" -}}
+{{ $suite :=  or .suite "focal" }}
+
+architecture: {{ $architecture }}
+
+actions:
+
+  - action: run
+    description: Enable shell login as admin
+    chroot: true
+    script: ../scripts/96-admin-login.sh

@@ -1,0 +1,57 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $firmware_version := or .firmware_version "master" -}}
+{{ $suite :=  or .suite "focal" }}
+{{- $image := or .image "ovos-dev-edition-rpi4" -}}
+# This will not generate a usable image; manual changes to config.txt and cmdline.txt will be required
+architecture: {{ $architecture }}
+
+actions:
+
+  - action: image-partition
+    imagename: output/{{ $image }}.img
+    imagesize: 7GB
+    partitiontype: msdos
+    mountpoints:
+      - mountpoint: /
+        partition: root
+      - mountpoint: /boot/firmware
+        partition: firmware
+        options: [ x-systemd.automount ]
+    partitions:
+      - name: firmware
+        fs: fat32
+        start: 0%
+        end: 128MB
+      - name: root
+        fs: ext4
+        start: 128MB
+        end: 100%
+        flags: [boot]
+
+  - action: filesystem-deploy
+    description: Deploying filesystem into image
+
+  - action: run
+    description: Creating ramdisk
+    chroot: true
+    script: ../scripts/99-create_ramdisk.sh
+
+  - action: overlay
+    description: swapfile automation overlay
+    source: ../overlays/99-create-swap
+    destination: /
+
+  - action: run
+    description: Enabling swap file service
+    chroot: true
+    script: ../scripts/99-enable_swap.sh
+
+#  - action: run
+#    description: Create bmap file
+#    postprocess: true
+#    command: bmaptool create {{ $image }} > {{ $image }}.bmap
+
+  - action: run
+    description: Compress image
+    postprocess: true
+    command: xz --compress -T0 --keep output/{{ $image }}.img

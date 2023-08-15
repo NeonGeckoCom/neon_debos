@@ -1,85 +1,44 @@
 {{- $architecture := or .architecture "arm64" -}}
-{{- $firmware_version := or .firmware_version "master" -}}
-{{ $suite :=  or .suite "focal" }}
-{{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
+{{- $image := or .image "ovos-dev-edition-rpi4" -}}
+{{- $build_cores := or .build_cores 4 -}}
 
 architecture: {{ $architecture }}
 
 actions:
 
   - action: image-partition
-    imagename: {{ $image }}
-    imagesize: 3GB
+    imagename: output/{{ $image }}.img
+    imagesize: 3.5GB
     partitiontype: msdos
     diskid: 1242d180
     mountpoints:
+      - mountpoint: /root
+        partition: root
       - mountpoint: /boot/firmware
         partition: firmware
         options: [ x-systemd.automount ]
     partitions:
       - name: firmware
         fs: fat32
-        start: 0%
-        end: 64MB
+        start: 1048576B
+        end: 268435455B
+        # About 256MiB, but aligned for expected sector size
       - name: root
         fs: ext4
-        start: 64MB
-        end: 2624MB
-        flags: [boot]
-      - name: user
-        fs: ext4
-        start: 2624
+        start: 268435456B
         end: 100%
 
-#  - action: overlay
-#    description: swapfile automation overlay
-#    source: ../overlays/99-create-swap
-#    destination: /
-#
-#  - action: run
-#    description: Enabling swap file service
-#    chroot: true
-#    script: ../scripts/99-enable_swap.sh
-
-  - action: apt
-    description: Install SquashFS
-    packages:
-      - squashfs-tools
-      - parted
-      - cloud-guest-utils
-
-  - action: overlay
-    description: squashFS boot overlay
-    source: ../overlays/99-squashfs
-    destination: /
-
   - action: run
-    description: Prepare SquashFS
-    chroot: true
-    script: ../scripts/99-prepare-squashfs.sh
-
-  - action: run
-    description: Create SquashFS
-    chroot: true
-    command: mksquashfs / /root.squashfs -noappend -regex -e proc/.* -e sys/.* -e dev/.* -e tmp/.* -e .*\.squashfs
-
-  - action: run
-    description: Copy squashFS to host
+    description: Copy squashFS to image
     chroot: false
-    command: |
-      mv "${ROOTDIR}/root.squashfs" "/scratch/mnt/root.squashfs"
+    script: ../scripts/99-prepare-squashfs.sh "{{ $image }}" "${ROOTDIR}"
 
   - action: filesystem-deploy
     description: Deploying filesystem into image
     setup-kernel-cmdline: false
     setup-fstab: false
-  - action: raw
-    description: Write SquashFS partition
-    origin: filesystem
-    source: root.squashfs
-    partition: root
 
   - action: run
     description: Compress image
     postprocess: true
-    command: xz --compress -T0 --keep {{ $image }}
+    command: xz --compress -T{{ $build_cores }} output/{{ $image }}.img

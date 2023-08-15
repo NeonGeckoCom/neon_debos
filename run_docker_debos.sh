@@ -1,9 +1,15 @@
 #!/bin/bash
-source_dir="/home/$USER/neon_debos"
+
+read -rsp "Password: " pass
+
+source_dir="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+[ -d "${source_dir}/output" ] || mkdir "${source_dir}/output"
 timestamp=$(date '+%Y-%m-%d_%H_%M')
-image="debian-neon-image-rpi4"
-neon_core="master"
-sudo chmod ugo+x "${source_dir}/scripts/"*
+image=${1:-"debian-neon-image-rpi4.yml"}
+neon_core=${2:-"master"}
+mem_limit=${MEM_LIMIT:-"16G"}
+core_limit=${CORE_LIMIT:-4}
+echo "${pass}" | sudo -S chmod ugo+x "${source_dir}/scripts/"*
 docker run --rm -d \
 --device /dev/kvm \
 --workdir /image_build \
@@ -11,7 +17,8 @@ docker run --rm -d \
 --group-add=108 \
 --security-opt label=disable \
 --name neon_debos \
-godebos/debos "${image}.yml" -t architecture:arm64 -t image:"${image}_${timestamp}.img" -t neon_core:"${neon_core}" -m 24G -c 4 && \
+godebos/debos "${image}" -t architecture:arm64 -t image:"${image%.*}_${timestamp}" -t neon_core:"${neon_core}" -t build_cores:"${core_limit}" -m "${mem_limit}" -c "${core_limit}" && \
 docker logs -f neon_debos
-
-#sudo chown $USER:$USER "${source_dir}"/*
+echo "completed ${timestamp}"
+echo "${pass}" | sudo -S chown $USER:$USER "${source_dir}/output/${image%.*}_${timestamp}"*
+echo -e "\n"

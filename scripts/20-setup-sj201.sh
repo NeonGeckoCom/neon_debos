@@ -30,8 +30,7 @@
 # Set to exit on error
 set -Ee
 
-pip3.10 install wheel
-pip3.10 install sj201-interface==0.0.3a0
+pip3.10 install wheel sj201-interface==0.0.3a0
 
 # Determine kernel with build directory
 # TODO: Better way to detect appropriate kernel
@@ -67,7 +66,7 @@ fi
 git clone https://github.com/OpenVoiceOS/vocalfusiondriver
 cd vocalfusiondriver/driver || exit 10
 sed -ie "s|\$(shell uname -r)|${kernel}|g" Makefile
-make all || exit 2
+make -j${1:-} all || exit 2
 mkdir -p "/lib/modules/${kernel}/kernel/drivers/vocalfusion"
 cp vocalfusion* "/lib/modules/${kernel}/kernel/drivers/vocalfusion" || exit 2
 cd ../..

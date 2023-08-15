@@ -1,0 +1,20 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{ $suite :=  or .suite "bullseye" }}
+
+architecture: {{ $architecture }}
+
+actions:
+
+  - action: overlay
+    description: log2ram Overlay
+    source: ../overlays/09-log2ram
+
+  - action: apt
+    description: Install git for log2ram installation
+    packages:
+      - git-core
+
+  - action: run
+    description: Install log2ram via repo
+    chroot: true
+    script: ../scripts/09-log2ram.sh

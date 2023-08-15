@@ -31,6 +31,9 @@ listener:
     module: ovos-vad-plugin-silero
   mute_during_output: false
   instant_listen: true
+  speech_begin: 0.5
+  silence_end: 0.9
+  utterance_chunks_to_rewind: 1
 hotwords:
   wake_up:
     active: false
@@ -105,6 +108,13 @@ PHAL:
     sleep_color: red
     utterance_animation: refill
   admin:
+    neon-phal-plugin-device-updater:
+      enabled: true
+      initramfs_url: "https://github.com/NeonGeckoCom/neon_debos/raw/dev/overlays/02-rpi4/boot/firmware/initramfs"
+      initramfs_path: /boot/firmware/initramfs
+      initramfs_update_path: /opt/neon/initramfs
+      squashfs_url: "https://2222.us/app/files/neon_images/pi/mycroft_mark_2/updates/"
+      squashfs_path: /opt/neon/update.squashfs
     neon-phal-plugin-linear-led-neopixel:
       enabled: true
     neon-phal-plugin-core-updater:
@@ -112,9 +122,10 @@ PHAL:
       update_command: systemctl start neon-updater
       core_module: neon_core
       github_ref: NeonGeckoCom/NeonCore
-      patch_script: https://raw.githubusercontent.com/NeonGeckoCom/neon-image-recipe/{}/automation/apply_patches.sh
     neon-phal-plugin-reset:
       enabled: true
+      default_config_url: "https://github.com/NeonGeckoCom/NeonCore/archive/refs/heads/dev.zip"
+      default_config_path: neon_core/configuration/mark_2
 ready_settings:
   - skills
   - voice
@@ -143,7 +154,7 @@ logs:
     info: []
     debug: []
 debug: False
-
+system_unit: imperial
 system:
   protected_keys:
     remote:

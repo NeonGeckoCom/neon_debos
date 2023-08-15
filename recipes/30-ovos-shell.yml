@@ -1,7 +1,5 @@
 {{- $architecture := or .architecture "arm64" -}}
-{{- $firmware_version := or .firmware_version "master" -}}
-{{ $suite :=  or .suite "focal" }}
-{{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
+{{- $build_cores := or .build_cores 4 -}}
 
 architecture: {{ $architecture }}
 
@@ -34,4 +32,4 @@ actions:
   - action: run
     description: Build and Install OVOS Shell and Mycroft GUI
     chroot: true
-    script: ../scripts/30-build-ovos-shell.sh
+    script: ../scripts/30-build-ovos-shell.sh {{ $build_cores }}

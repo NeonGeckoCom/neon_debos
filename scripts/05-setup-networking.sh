@@ -46,8 +46,8 @@ chown root:netdev /usr/bin/nmcli
 usermod -aG netdev root
 
 # Patch SSH service
+# TODO: Consider doing this on first run so devices have unique keys
 cd /etc/ssh || exit 10
 ssh-keygen -A
-sed -ie "s|PasswordAuthentication no|PasswordAuthentication yes|g" /etc/ssh/sshd_config
 
 echo "Network Setup Complete"

@@ -1,6 +1,5 @@
 {{- $architecture := or .architecture "arm64" -}}
 {{- $firmware_version := or .firmware_version "master" -}}
-{{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
 
 architecture: {{ $architecture }}
 

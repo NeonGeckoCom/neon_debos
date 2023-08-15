@@ -45,9 +45,10 @@ rm -rf /var/cache/apt/archives/*
 python3.10 -m venv "/home/neon/venv" || exit 10
 . /home/neon/venv/bin/activate
 pip install --upgrade pip wheel
+mv /home/neon/pip /home/neon/venv/bin/pip
+chmod ugo+x /home/neon/venv/bin/pip
 
 # Install core and skills
-#pip install https://github.com/mozilla/DeepSpeech/releases/download/v0.9.3/deepspeech-0.9.3-cp37-cp37m-linux_aarch64.whl
 export NEON_IN_SETUP="true"
 pip install "git+https://github.com/neongeckocom/neoncore@${CORE_REF}#egg=neon_core[core_modules,skills_required,skills_essential,skills_default,skills_extended,pi]" || exit 11
 echo "Core Installed"
@@ -85,6 +86,7 @@ neon-speech init-plugin -p ovos-stt-plugin-vosk || echo "Failed to init STT"
 
 ln -s /home/neon/.local/state/neon /home/neon/logs
 rm /home/neon/.local/state/neon/.keep
+rm /home/neon/.config/neon/.keep
 # Fix home directory permissions
 chown -R neon:neon /home/neon
 

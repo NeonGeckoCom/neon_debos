@@ -33,7 +33,6 @@ disable_overscan=1
 hdmi_ignore_cec_init=1
 
 
-
 # Spec GPU Memory
 gpu_mem=256
 gpu_mem_256=128
@@ -42,3 +41,9 @@ gpu_mem_1024=128
 
 # Disable rainbow splash screen
 disable_splash=1
+
+# initramfs
+enable_uart=1
+upstream_kernel=1
+kernel=kernel8.img
+initramfs initramfs followkernel
