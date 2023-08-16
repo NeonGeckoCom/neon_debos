@@ -36,7 +36,7 @@ image=${1:-"debian-neon-image-rpi4.yml"}
 neon_core=${2:-"master"}
 mem_limit=${MEM_LIMIT:-"16G"}
 core_limit=${CORE_LIMIT:-4}
-debos_version=$(python "${source_dir}/version.py")
+debos_version="$(python3 "${source_dir}/version.py")*"
 echo "Building core=${neon_core} version=${debos_version}"
 echo "${pass}" | sudo -S chmod ugo+x "${source_dir}/scripts/"*
 docker run --rm -d \
@@ -50,7 +50,7 @@ godebos/debos "${image}" \
 -t architecture:arm64 \
 -t image:"${image%.*}_${timestamp}" \
 -t neon_core:"${neon_core}" \
--t neon_debos"${debos_version}" \
+-t neon_debos:"${debos_version}" \
 -t build_cores:"${core_limit}" \
 -m "${mem_limit}" \
 -c "${core_limit}" && \

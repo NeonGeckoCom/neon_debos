@@ -2,6 +2,7 @@
 {{- $firmware_version := or .firmware_version "master" -}}
 {{ $suite :=  or .suite "bookworm" }}
 {{- $image := or .image "debian-base-image-rpi4" -}}
+{{- $neon_debos := or .neon_debos "unknown" -}}
 {{- $build_cores := or .build_cores 4 -}}
 
 architecture: {{ $architecture }}

@@ -26,6 +26,7 @@
 # LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
 import hashlib
 import json
 import os
@@ -70,12 +71,12 @@ def get_neon_core_meta(core_branch="dev"):
     except Exception as e:
         print(e)
 
-    meta = {"core": {"sha": core_sha,
-                     "time": core_time,
-                     "version": core_version
-                     }
-            }
-    return meta
+    return {"sha": core_sha, "time": core_time, "version": core_version}
+
+
+def get_recipe_meta(branch="dev"):
+    image_sha, image_time = get_commit_and_time("neon_debos", branch)
+    return {"sha": image_sha, "time": image_time}
 
 
 def get_initramfs_metadata():
@@ -94,14 +95,18 @@ if __name__ == "__main__":
     debos_ref = argv[2]
     image_name = argv[3]
     architecture = argv[4]
-    data = get_neon_core_meta(core_ref)
+    print(f"debos_ref={debos_ref}")
+    data = dict()
+    data["core"] = get_neon_core_meta(core_ref)
+    data["image"] = get_recipe_meta(core_ref)
+    data["image"]["version"] = debos_ref
+    data["initramfs"] = get_initramfs_metadata()
     data["base_os"] = {
         "name": image_name.split('_', 1)[0],
-        "time": image_name.split('_', 1)[1],
+        "time": datetime.strptime(image_name.split('_', 1)[1],
+                                  "%Y-%m-%d_%H_%M").timestamp(),
         "arch": architecture
     }
-    data["recipe"] = {"version": debos_ref}
-    data["initramfs"] = get_initramfs_metadata()
     os.makedirs("/opt/neon", exist_ok=True)
     with open("/opt/neon/build_info.json", "w+") as f:
         json.dump(data, f, indent=2)

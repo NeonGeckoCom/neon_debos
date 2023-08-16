@@ -34,11 +34,13 @@ source_dir="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 [ -d "${source_dir}/output" ] || mkdir "${source_dir}/output"
 timestamp=$(date '+%Y-%m-%d_%H_%M')
 image=${1:?}
-branch=${2:?}
+core_branch=${2:?}
 output_dir=${3:?}
 # TODO: Configurable runner limits
 mem_limit=${MEM_LIMIT:-"64G"}
 core_limit=${CORE_LIMIT:-32}
+debos_version="$(python3 "${source_dir}/version.py")"
+echo "Building core=${core_branch} version=${debos_version}"
 chmod ugo+x "${source_dir}/scripts/"*
 docker run --rm \
 --device /dev/kvm \
@@ -47,7 +49,7 @@ docker run --rm \
 --group-add=108 \
 --security-opt label=disable \
 --name neon_debos_ghaction \
-godebos/debos "${image}" -t architecture:arm64 -t image:"${image%.*}_${timestamp}" -t neon_core:"${branch}" -t build_cores:"${core_limit}" -m "${mem_limit}" -c "${core_limit}" || exit 2
-mv "${source_dir}/output/"*.img.xz "${output_dir}/${branch}"
-mv "${source_dir}/output/"*.squashfs "${output_dir}/updates/${branch}"
+godebos/debos "${image}" -t architecture:arm64 -t image:"${image%.*}_${timestamp}" -t neon_core:"${core_branch}" -t neon_debos:"${debos_version}" -t build_cores:"${core_limit}" -m "${mem_limit}" -c "${core_limit}" || exit 2
+mv "${source_dir}/output/"*.img.xz "${output_dir}/${core_branch}"
+mv "${source_dir}/output/"*.squashfs "${output_dir}/updates/${core_branch}"
 echo "completed ${timestamp}"
