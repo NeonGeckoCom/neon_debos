@@ -3,6 +3,7 @@
 {{ $suite :=  or .suite "bookworm" }}
 {{- $image := or .image "debian-neon-image-rpi4" -}}
 {{- $neon_core := or .neon_core "master" -}}
+{{- $neon_debos := or .neon_debos "unknown" -}}
 {{- $build_cores := or .build_cores 4 -}}
 
 architecture: {{ $architecture }}
@@ -218,6 +219,7 @@ actions:
       architecture: {{ $architecture }}
       image: {{ $image }}
       neon_core: {{ $neon_core }}
+      neon_debos: {{ $neon_debos }}
 
   - action: recipe
     recipe: recipes/98-backup-image.yml
