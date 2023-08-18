@@ -17,7 +17,11 @@ systemctl enable uxplay.service
 systemctl enable kdeconnect.service
 systemctl enable bluetooth.service
 systemctl enable raspotify.service
+# Fix permissions
+sudo chown -R neon:neon /home/neon/.cache/pip
 # Install packages for Bluetooth pairing script
 /home/neon/venv/bin/python -m pip install pydbus
 /home/neon/venv/bin/python -m pip install /home/neon/.cache/pip/wheels/5a/83/f3/aa5c753e241ee76cc586065f88f0e750c9bb370c181f1ab40a/PyBluez-0.23-cp310-cp310-linux_aarch64.whl
 /home/neon/venv/bin/python -m pip install /home/neon/.cache/pip/wheels/33/99/2c/061d0c6934509a9cc08470980d68fbfc972bd22a45c3f306d6/PyGObject-3.44.1-cp310-cp310-linux_aarch64.whl
+pip install git+https://github.com/mikejgray/neon-phal-plugin-audio-receiver
+pip install git+https://github.com/mikejgray/skill-mark2-audio-receiver/
