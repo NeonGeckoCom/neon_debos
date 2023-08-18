@@ -36,6 +36,11 @@ To build a default image, use the included `run_docker_debos.sh` shell script.
 
 Instructions for running debos natively can be found in the [official readme](https://github.com/go-debos/debos#sypnosis).
 
+### Optionally update base image
+The `rpi4_base` image is used as a starting point for other images. To manually
+build this, run `build_base_image.sh`. This step is generally unnecessary but
+may result in updated apt packages compared to the included base.
+
 ## Other build tools
 In addition to debos recipes, this repository also contains some relevant build
 tools
