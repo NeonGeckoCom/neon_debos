@@ -40,6 +40,13 @@ output_dir=${3:?}
 mem_limit=${MEM_LIMIT:-"64G"}
 core_limit=${CORE_LIMIT:-32}
 debos_version="$(python3 "${source_dir}/version.py")"
+
+if [ ! -f "${source_dir}/rpi4_base.tar.gz" ]; then
+  echo "WARNING: Building base image"
+  bash "${source_dir}/build_base_image.sh"
+  echo "Completed base image"
+fi
+
 echo "Building core=${core_branch} version=${debos_version}"
 chmod ugo+x "${source_dir}/scripts/"*
 docker run --rm \
