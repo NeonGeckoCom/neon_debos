@@ -1,0 +1,134 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $firmware_version := or .firmware_version "master" -}}
+{{ $suite :=  or .suite "bookworm" }}
+{{- $image := or .image "ostree-base-image-rpi4" -}}
+{{- $build_cores := or .build_cores 4 -}}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: recipe
+    recipe: recipes/01-debian-base.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/02-rpi4.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/03-base-packages.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/03-get-raspi-packages.yml
+
+  - action: recipe
+    recipe: recipes/04-base-overlay.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/05-setup-networking.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/06-libcamera.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/07-splash-screen.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/08-poweroff-service.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/09-swap.yml
+    variables:
+      architecture: {{ $architecture }}
+
+  - action: recipe
+    recipe: recipes/11-ovos-font.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/12-ovos-gui-dependencies.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/13-audio-devices.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/14-mount-firmware.yml
+    variables:
+      architecture: {{ $architecture }}
+
+  - action: recipe
+    recipe: recipes/09-log2ram.yml
+    variables:
+      architecture: {{ $architecture }}
+
+  - action: recipe
+    recipe: recipes/15-firmware-updates.yml
+    variables:
+      architecture: {{ $architecture }}
+
+  - action: recipe
+    recipe: recipes/16-python-3_10.yml
+    variables:
+      architecture: {{ $architecture }}
+      build_cores: {{ $build_cores }}
+
+  - action: recipe
+    recipe: recipes/20-sj201.yml
+    variables:
+      architecture: {{ $architecture }}
+      build_cores: {{ $build_cores }}
+
+  - action: pack
+    file: rpi4_base.tar.gz
