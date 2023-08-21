@@ -9,9 +9,3 @@ actions:
       - less
       - iputils-ping
       - htop
-
-#  - action: run
-#    description: Add ssl-cert group
-#    chroot: true
-#    command: |
-#      groupadd ssl-cert
