@@ -4,10 +4,17 @@ devices. Images generated here are intended to include all dependencies, drivers
 device might need, such as Camera Drivers, wifi-connect, QT packages, Vocal Fusion Drivers, etc.
 
 ## Available Recipes
-- debian-base-image-rpi4.yml: Debian Bookworm image with updated RPi kernel, RPi userland binaries, libcamera, 
-  wifi-connect, SJ-201/Vocalfusion drivers, and a Splash Screen.
+- debian-base-image-rpi4.yml: Debian Bookworm image with updated RPi kernel,
+  RPi userland binaries, libcamera, wifi-connect, SJ-201/Vocalfusion drivers, 
+  and a Splash Screen.
 
-- debian-neon-image-rpi4.yml: Debian base image with Neon Core, OVOS Shell, and associated overlays applied.
+- debian-neon-image-rpi4.yml: Debian base image with Neon Core, OVOS Shell, and
+  associated overlays applied.
+
+- base-rootfs-rpi4.yml: Base rootfs build including recipes up to (excluding) #30.
+  This does not build an image for deployment, but rather a compressed rootFS used 
+  by other recipes to avoid having to re-build mostly static dependencies
+  (i.e. libcamera, Python, RPi firmware).
 
 ## Repository Structure
 Each directory contains numbered files or directories; earlier numbers correspond to earlier build stages, and 
@@ -28,6 +35,11 @@ recipes are used for all builds.
 To build a default image, use the included `run_docker_debos.sh` shell script.
 
 Instructions for running debos natively can be found in the [official readme](https://github.com/go-debos/debos#sypnosis).
+
+### Optionally update base image
+The `rpi4_base` image is used as a starting point for other images. To manually
+build this, run `build_base_image.sh`. This step is generally unnecessary but
+may result in updated apt packages compared to the included base.
 
 ## Other build tools
 In addition to debos recipes, this repository also contains some relevant build

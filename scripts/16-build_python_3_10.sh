@@ -29,16 +29,16 @@
 
 # Set to exit on error
 set -Ee
-
-cd /opt || exit 10
-wget https://www.python.org/ftp/python/3.10.0/Python-3.10.0.tar.xz
-tar -xf Python-3.10.0.tar.xz
-rm Python-3.10.0.tar.xz
-cd Python-3.10.0 || exit 10
+py_ver="3.10.12"
+cd /opt || exit 1
+wget https://www.python.org/ftp/python/${py_ver}/Python-${py_ver}.tar.xz
+tar -xf Python-${py_ver}.tar.xz
+rm Python-${py_ver}.tar.xz
+cd Python-${py_ver} || exit 10
 ./configure --enable-optimizations && echo "Configure complete"
 make -j${1:-} && echo "make complete"
 make altinstall && echo "install complete"
-rm -rf /opt/Python-3.10.0
+rm -rf /opt/Python-${py_ver}
 
 rm /usr/bin/python3
 ln /usr/local/bin/python3.10 /usr/bin/python3 && echo "linked python3"

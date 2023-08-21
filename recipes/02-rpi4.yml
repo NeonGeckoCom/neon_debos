@@ -85,6 +85,7 @@ actions:
       groupadd pulse
       groupadd pulse-access
       groupadd i2c
+      groupadd ssl-cert
 
   - action: run
     description: Enable post-update service

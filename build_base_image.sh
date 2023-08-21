@@ -27,36 +27,21 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# TODO: Build and upload initramfs
-# TODO: Kernel?
-
 source_dir="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-[ -d "${source_dir}/output" ] || mkdir "${source_dir}/output"
-timestamp=$(date '+%Y-%m-%d_%H_%M')
-image=${1:?}
-core_branch=${2:?}
-output_dir=${3:?}
-# TODO: Configurable runner limits
-mem_limit=${MEM_LIMIT:-"64G"}
-core_limit=${CORE_LIMIT:-32}
-debos_version="$(python3 "${source_dir}/version.py")"
 
-if [ ! -f "${source_dir}/rpi4_base.tar.gz" ]; then
-  echo "WARNING: Building base image"
-  bash "${source_dir}/build_base_image.sh"
-  echo "Completed base image"
-fi
-
-echo "Building core=${core_branch} version=${debos_version}"
-chmod ugo+x "${source_dir}/scripts/"*
-docker run --rm \
+mem_limit=${MEM_LIMIT:-"16G"}
+core_limit=${CORE_LIMIT:-4}
+docker run --rm -d \
 --device /dev/kvm \
 --workdir /image_build \
 --mount type=bind,source="${source_dir}",destination=/image_build \
 --group-add=108 \
 --security-opt label=disable \
---name neon_debos_ghaction \
-godebos/debos "${image}" -t architecture:arm64 -t image:"${image%.*}_${timestamp}" -t neon_core:"${core_branch}" -t neon_debos:"${debos_version}" -t build_cores:"${core_limit}" -m "${mem_limit}" -c "${core_limit}" || exit 2
-mv "${source_dir}/output/"*.img.xz "${output_dir}/${core_branch}"
-mv "${source_dir}/output/"*.squashfs "${output_dir}/updates/${core_branch}"
-echo "completed ${timestamp}"
+--name neon_debos_ostree_base \
+godebos/debos "base-rootfs-rpi4.yml" \
+-t architecture:arm64 \
+-t build_cores:"${core_limit}" \
+-m "${mem_limit}" \
+-c "${core_limit}" && \
+docker logs -f neon_debos_ostree_base
+echo -e "\n"

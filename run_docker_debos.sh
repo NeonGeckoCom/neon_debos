@@ -28,7 +28,7 @@
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 read -rsp "Password: " pass
-
+echo -e "\n"
 source_dir="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 [ -d "${source_dir}/output" ] || mkdir "${source_dir}/output"
 timestamp=$(date '+%Y-%m-%d_%H_%M')
@@ -39,6 +39,12 @@ core_limit=${CORE_LIMIT:-4}
 debos_version="$(python3 "${source_dir}/version.py")*"
 echo "Building core=${neon_core} version=${debos_version}"
 echo "${pass}" | sudo -S chmod ugo+x "${source_dir}/scripts/"*
+
+if [ ! -f "${source_dir}/rpi4_base.tar.gz" ]; then
+  echo "Building base image"
+  bash "${source_dir}/build_base_image.sh"
+  echo "Completed base image"
+fi
 docker run --rm -d \
 --device /dev/kvm \
 --workdir /image_build \
