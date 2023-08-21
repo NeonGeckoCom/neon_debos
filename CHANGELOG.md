@@ -1,5 +1,13 @@
 # Changelog
 
+## [23.8.21a4](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.21a4) (2023-08-21)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.21a3...23.8.21a4)
+
+**Merged pull requests:**
+
+- Staged build recipes with base image [\#45](https://github.com/NeonGeckoCom/neon_debos/pull/45) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [23.8.21a3](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.21a3) (2023-08-21)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.16a2...23.8.21a3)
