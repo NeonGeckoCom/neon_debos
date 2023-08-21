@@ -1,5 +1,17 @@
 # Changelog
 
+## [23.8.21a3](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.21a3) (2023-08-21)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.16a2...23.8.21a3)
+
+**Implemented enhancements:**
+
+- Media Casting [\#16](https://github.com/NeonGeckoCom/neon_debos/issues/16)
+
+**Merged pull requests:**
+
+- feat: Mark 2 Audio Receiver [\#23](https://github.com/NeonGeckoCom/neon_debos/pull/23) ([mikejgray](https://github.com/mikejgray))
+
 ## [23.8.16a2](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.16a2) (2023-08-16)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/86eeae542d6ecf5ba625722f09404f11e5a3f303...23.8.16a2)
