@@ -1,5 +1,13 @@
 # Changelog
 
+## [23.8.21a5](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.21a5) (2023-08-21)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.21a4...23.8.21a5)
+
+**Merged pull requests:**
+
+- Cleanup Audio Reciever Package Installation [\#47](https://github.com/NeonGeckoCom/neon_debos/pull/47) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [23.8.21a4](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.21a4) (2023-08-21)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.21a3...23.8.21a4)
