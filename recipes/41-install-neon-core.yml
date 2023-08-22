@@ -45,7 +45,7 @@ actions:
   - action: run
     description: Apply System Config
     chroot: true
-    run: mv /home/{{ $default_user }}/.config/neon/neon.yaml /opt/neon/neon.yaml
+    command: mv /home/{{ $default_user }}/.config/neon/neon.yaml /etc/neon/neon.yaml
 
   - action: run
     description: Install Neon Core
