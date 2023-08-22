@@ -125,7 +125,23 @@ actions:
       build_cores: {{ $build_cores }}
 
   - action: recipe
+    recipe: recipes/17-locale-config.yml
+    variables:
+      architecture: {{ $architecture }}
+
+  - action: recipe
     recipe: recipes/20-sj201.yml
+    variables:
+      architecture: {{ $architecture }}
+      build_cores: {{ $build_cores }}
+
+  - action: recipe
+    recipe: recipes/28-automount-usb.yml
+    variables:
+      architecture: {{ $architecture }}
+
+  - action: recipe
+    recipe: recipes/29-ovos-shell.yml
     variables:
       architecture: {{ $architecture }}
       build_cores: {{ $build_cores }}

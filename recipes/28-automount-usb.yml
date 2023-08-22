@@ -1,6 +1,4 @@
 {{- $architecture := or .architecture "arm64" -}}
-{{- $firmware_version := or .firmware_version "master" -}}
-{{ $suite :=  or .suite "focal" }}
 
 architecture: {{ $architecture }}
 
@@ -12,5 +10,5 @@ actions:
 
   - action: overlay
     description: Automount USB Config
-    source: ../overlays/32-automount-usb
+    source: ../overlays/28-automount-usb
     destination: /
