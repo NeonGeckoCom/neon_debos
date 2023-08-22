@@ -130,5 +130,16 @@ actions:
       architecture: {{ $architecture }}
       build_cores: {{ $build_cores }}
 
+  - action: recipe
+    recipe: recipes/28-automount-usb.yml
+    variables:
+      architecture: {{ $architecture }}
+
+  - action: recipe
+    recipe: recipes/29-ovos-shell.yml
+    variables:
+      architecture: {{ $architecture }}
+      build_cores: {{ $build_cores }}
+
   - action: pack
     file: rpi4_base.tar.gz

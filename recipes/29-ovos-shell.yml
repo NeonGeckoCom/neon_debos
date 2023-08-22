@@ -27,9 +27,9 @@ actions:
       - qml-module-qtmultimedia
   - action: overlay
     description: Neon Shell Overlay
-    source: ../overlays/30-ovos-shell
+    source: ../overlays/29-ovos-shell
     destination: /
   - action: run
     description: Build and Install OVOS Shell and Mycroft GUI
     chroot: true
-    script: ../scripts/30-build-ovos-shell.sh {{ $build_cores }}
+    script: ../scripts/29-build-ovos-shell.sh {{ $build_cores }}
