@@ -1,5 +1,13 @@
 # Changelog
 
+## [23.8.22a6](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.22a6) (2023-08-22)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.21a5...23.8.22a6)
+
+**Merged pull requests:**
+
+- Fix system config handling [\#48](https://github.com/NeonGeckoCom/neon_debos/pull/48) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [23.8.21a5](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.21a5) (2023-08-21)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.21a4...23.8.21a5)
