@@ -1,5 +1,13 @@
 # Changelog
 
+## [23.8.22a7](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.22a7) (2023-08-22)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.22a6...23.8.22a7)
+
+**Merged pull requests:**
+
+- Reorder recipes for larger base images [\#49](https://github.com/NeonGeckoCom/neon_debos/pull/49) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [23.8.22a6](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.22a6) (2023-08-22)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.21a5...23.8.22a6)
