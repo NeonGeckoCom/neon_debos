@@ -1,5 +1,13 @@
 # Changelog
 
+## [23.8.23a9](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.23a9) (2023-08-23)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.23a8...23.8.23a9)
+
+**Merged pull requests:**
+
+- Include image metadata in automation uploads [\#51](https://github.com/NeonGeckoCom/neon_debos/pull/51) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [23.8.23a8](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.23a8) (2023-08-23)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.22a7...23.8.23a8)
