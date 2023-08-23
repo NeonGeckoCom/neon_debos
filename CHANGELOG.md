@@ -1,5 +1,13 @@
 # Changelog
 
+## [23.8.23a8](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.23a8) (2023-08-23)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.22a7...23.8.23a8)
+
+**Merged pull requests:**
+
+- Copy image metadata to output directory [\#50](https://github.com/NeonGeckoCom/neon_debos/pull/50) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [23.8.22a7](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.22a7) (2023-08-22)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.22a6...23.8.22a7)
