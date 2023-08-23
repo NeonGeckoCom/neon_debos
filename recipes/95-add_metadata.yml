@@ -15,3 +15,7 @@ actions:
     description: Add metadata file to image
     chroot: true
     script: ../scripts/95-get_metadata.py {{ $neon_core }} {{ $neon_debos }} {{ $image }} {{ $architecture }}
+  - action: run
+    description: Copy metadata to outputs
+    chroot: false
+    command: cp "${ROOTDIR}/opt/neon/build_info.json" "/image_build/output/{{ $image }}.json"
