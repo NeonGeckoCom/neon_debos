@@ -59,4 +59,5 @@ docker run --rm \
 godebos/debos "${image}" -t architecture:arm64 -t image:"${image%.*}_${timestamp}" -t neon_core:"${core_branch}" -t neon_debos:"${debos_version}" -t build_cores:"${core_limit}" -m "${mem_limit}" -c "${core_limit}" || exit 2
 mv "${source_dir}/output/"*.img.xz "${output_dir}/${core_branch}"
 mv "${source_dir}/output/"*.squashfs "${output_dir}/updates/${core_branch}"
+mv "${source_dir}/output/"*.json "${output_dir}/updates/${core_branch}"
 echo "completed ${timestamp}"
