@@ -1,5 +1,13 @@
 # Changelog
 
+## [23.8.24a10](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.24a10) (2023-08-24)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.23a9...23.8.24a10)
+
+**Merged pull requests:**
+
+- Update process improvements [\#52](https://github.com/NeonGeckoCom/neon_debos/pull/52) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [23.8.23a9](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.23a9) (2023-08-23)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.23a8...23.8.23a9)
