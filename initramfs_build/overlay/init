@@ -298,6 +298,7 @@ validate_init() {
 if [ -n "${ROOT_ROPATH}" ]; then
   echo "configuring squashFS file: ${ROOT_ROPATH}"
 
+  # Mount "real" root as RW
   mount -o remount,rw ${rootmnt}
 
   # Mount read-write FS
@@ -313,6 +314,7 @@ if [ -n "${ROOT_ROPATH}" ]; then
     exit 10
   fi
 
+  # Define a path to temporarily cache user data during updates
   user_backup_path="${rootmnt}/user_backup"
 
   if [ -d "${user_backup_path}" ]; then
