@@ -1,5 +1,13 @@
 # Changelog
 
+## [23.8.24a11](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.24a11) (2023-08-24)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.24a10...23.8.24a11)
+
+**Merged pull requests:**
+
+- Add reset button check in initramfs in case OS is really broken [\#54](https://github.com/NeonGeckoCom/neon_debos/pull/54) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [23.8.24a10](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.24a10) (2023-08-24)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.23a9...23.8.24a10)
