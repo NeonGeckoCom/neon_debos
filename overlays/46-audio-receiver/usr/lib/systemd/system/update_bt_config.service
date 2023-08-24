@@ -1,7 +1,7 @@
 [Unit]
 Description=Patch config.txt for Bluetooth Support
 Before=sj201.service
-ConditionPathExists="/opt/neon/do_bluetooth_config"
+ConditionPathExists=/opt/neon/do_bluetooth_config
 
 [Service]
 Type=oneshot
