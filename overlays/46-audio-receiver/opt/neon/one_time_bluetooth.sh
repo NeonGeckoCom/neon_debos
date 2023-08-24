@@ -31,7 +31,7 @@
 mount_firmware
 
 config_file="/opt/neon/firmware/config.txt"
-if ! grep -q "dtparam=krnbt=on" "${config_file}"; then
+if ! grep -q "dtparam=krnbt=" "${config_file}"; then
   echo "dtparam=krnbt=on" >> "${config_file}"
   echo "Patching config.txt"
 fi
