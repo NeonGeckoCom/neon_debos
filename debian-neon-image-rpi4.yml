@@ -16,9 +16,6 @@ actions:
     recipe: recipes/31-updater-service.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
-      suite: {{ $suite }}
-      image: {{ $image }}
 
   - action: recipe
     recipe: recipes/33-homeassistant-shortcut.yml

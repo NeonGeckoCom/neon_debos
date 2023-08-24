@@ -54,11 +54,13 @@ mv "${OVERLAY_PATH}" "${BACKUP_PATH}" && echo "Backed up overlay ${OVERLAY_PATH}
 [ -d "${OVERLAY_PATH}/var" ] || mkdir -p "${OVERLAY_PATH}/var"
 
 # Migrate specific data back
+rm -rf "${BACKUP_PATH}/home/neon/venv" && echo "Removed old venv"
+
 mv "${BACKUP_PATH}/etc/NetworkManager/system-connections" "${OVERLAY_PATH}/etc/NetworkManager/" && echo "Restored Networks"
 mv "${BACKUP_PATH}/etc/ssh/"ssh_host_*_key* "${OVERLAY_PATH}/etc/ssh/" && echo "Restored SSH keys"
-mv "${BACKUP_PATH}/etc/shadow" "${OVERLAY_PATH}/etc/" && echo "Restored Passwords"
+[ -f "${BACKUP_PATH}/etc/shadow" ] && mv "${BACKUP_PATH}/etc/shadow" "${OVERLAY_PATH}/etc/" && echo "Restored User Passwords"
 mv "${BACKUP_PATH}/etc/machine-id" "${OVERLAY_PATH}/etc/" && echo "Restored machine-id"
-mv "${BACKUP_PATH}/home" "${OVERLAY_PATH}/" && rm -rf "${OVERLAY_PATH}/home/neon/venv"
+mv "${BACKUP_PATH}/home" "${OVERLAY_PATH}/" && echo "Restored /home"
 mv "${BACKUP_PATH}/root" "${OVERLAY_PATH}/" && echo "Restored /root"
 mv "${BACKUP_PATH}/opt/neon/firstboot" "${OVERLAY_PATH}/opt/neon/" && echo "Restored firstboot flag"
 
@@ -74,7 +76,7 @@ mv "${BACKUP_PATH}/opt/neon/firstboot" "${OVERLAY_PATH}/opt/neon/" && echo "Rest
 #[ -d "${BACKUP_PATH}/var/lib" ] && mv "${BACKUP_PATH}/var/lib" "${OVERLAY_PATH}/var/" && echo "Restored /var/lib"
 
 # Move any other data to a backup location
-mv "${BACKUP_PATH}" "${OVERLAY_PATH}/opt/neon/old_overlay"
+mv "${BACKUP_PATH}" "${OVERLAY_PATH}/opt/neon/old_overlay" && echo "Archived old overlay"
 
 touch "${OVERLAY_PATH}/opt/neon/squashfs_updated"
 echo "Update complete"

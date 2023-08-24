@@ -88,11 +88,6 @@ actions:
       groupadd ssl-cert
 
   - action: run
-    description: Enable post-update service
-    chroot: true
-    command: systemctl enable post_update.service
-
-  - action: run
     description: Set hostname
     chroot: true
     command: echo raspberrypi4 > /etc/hostname
