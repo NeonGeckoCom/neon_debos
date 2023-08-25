@@ -9,3 +9,4 @@ actions:
       - less
       - iputils-ping
       - htop
+      - usbutils
