@@ -1,5 +1,13 @@
 # Changelog
 
+## [23.8.25a12](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.25a12) (2023-08-25)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.24a11...23.8.25a12)
+
+**Merged pull requests:**
+
+- Add service to enable Bluetooth in updates [\#53](https://github.com/NeonGeckoCom/neon_debos/pull/53) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [23.8.24a11](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.24a11) (2023-08-24)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.24a10...23.8.24a11)
