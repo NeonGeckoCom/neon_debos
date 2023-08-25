@@ -1,5 +1,13 @@
 # Changelog
 
+## [23.8.25a13](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.25a13) (2023-08-25)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.25a12...23.8.25a13)
+
+**Merged pull requests:**
+
+- Add usbutils to developer extras [\#55](https://github.com/NeonGeckoCom/neon_debos/pull/55) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [23.8.25a12](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.25a12) (2023-08-25)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.24a11...23.8.25a12)
