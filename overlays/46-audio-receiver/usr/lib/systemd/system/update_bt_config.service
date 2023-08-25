@@ -1,0 +1,11 @@
+[Unit]
+Description=Patch config.txt for Bluetooth Support
+Before=sj201.service
+ConditionPathExists=/opt/neon/do_bluetooth_config
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash /opt/neon/one_time_bluetooth.sh
+
+[Install]
+WantedBy=multi-user.target

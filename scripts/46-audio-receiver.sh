@@ -17,6 +17,7 @@ systemctl enable uxplay.service
 systemctl enable kdeconnect.service
 systemctl enable bluetooth.service
 systemctl enable raspotify.service
+systemctl enable update_bt_config.service
 # Fix permissions
 sudo chown -R neon:neon /home/neon/.cache/pip
 # Install packages for Bluetooth pairing script

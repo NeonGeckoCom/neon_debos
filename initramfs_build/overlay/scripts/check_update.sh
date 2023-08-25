@@ -62,7 +62,11 @@ mv "${BACKUP_PATH}/etc/ssh/"ssh_host_*_key* "${OVERLAY_PATH}/etc/ssh/" && echo "
 mv "${BACKUP_PATH}/etc/machine-id" "${OVERLAY_PATH}/etc/" && echo "Restored machine-id"
 mv "${BACKUP_PATH}/home" "${OVERLAY_PATH}/" && echo "Restored /home"
 mv "${BACKUP_PATH}/root" "${OVERLAY_PATH}/" && echo "Restored /root"
+
+# Restore signal files
 mv "${BACKUP_PATH}/opt/neon/firstboot" "${OVERLAY_PATH}/opt/neon/" && echo "Restored firstboot flag"
+mv "${BACKUP_PATH}/opt/neon/do_sj201_config" "${OVERLAY_PATH}/opt/neon/" && echo "Restored do_sj201_config flag"
+mv "${BACKUP_PATH}/opt/neon/do_bluetooth_config" "${OVERLAY_PATH}/opt/neon/" && echo "Restored do_bluetooth_config flag"
 
 # Restore specific `/var` paths (https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch05.html)
 [ -d "${BACKUP_PATH}/var/games" ] && mv "${BACKUP_PATH}/var/games" "${OVERLAY_PATH}/var/" && echo "Restored /var/games"
