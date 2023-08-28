@@ -14,5 +14,5 @@ actions:
     command: |
       chmod +x /opt/neon/update
       chmod +x /opt/neon/check_neon_modules.py
-      systemctl enable post_update.service
-      systemctl enable finalize_update.service
+      systemctl enable post-update.service
+      systemctl enable finalize-update.service
