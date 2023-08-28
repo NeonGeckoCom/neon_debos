@@ -28,6 +28,7 @@
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # Checkout valid log2ram release
+cd /tmp || exit 10
 git clone https://github.com/azlux/log2ram
 cd log2ram || exit 10
 git checkout a7d0063
