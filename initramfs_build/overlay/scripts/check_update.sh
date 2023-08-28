@@ -48,10 +48,10 @@ mv "${UPDATE_FILE}" "${ROOT_FILE}" && echo "Applied updated rootfs from ${UPDATE
 mv "${OVERLAY_PATH}" "${BACKUP_PATH}" && echo "Backed up overlay ${OVERLAY_PATH} to ${BACKUP_PATH}"
 
 # Ensure paths exist for migrated data
-[ -d "${OVERLAY_PATH}/etc/NetworkManager" ] || mkdir -p "${OVERLAY_PATH}/etc/NetworkManager"
-[ -d "${OVERLAY_PATH}/etc/ssh" ] || mkdir -p "${OVERLAY_PATH}/etc/ssh"
-[ -d "${OVERLAY_PATH}/opt/neon" ] || mkdir -p "${OVERLAY_PATH}/opt/neon"
-[ -d "${OVERLAY_PATH}/var" ] || mkdir -p "${OVERLAY_PATH}/var"
+mkdir -p "${OVERLAY_PATH}/etc/NetworkManager"
+mkdir -p "${OVERLAY_PATH}/etc/ssh"
+mkdir -p "${OVERLAY_PATH}/opt/neon"
+mkdir -p "${OVERLAY_PATH}/var"
 
 # Migrate specific data back
 rm -rf "${BACKUP_PATH}/home/neon/venv" && echo "Removed old venv"
