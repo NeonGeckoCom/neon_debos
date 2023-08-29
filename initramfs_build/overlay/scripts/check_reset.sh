@@ -28,16 +28,34 @@
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 WRITABLE_PATH=${1}
+ROOT_PATH=${2}
+BACK_PATH=${3}
 SIGNAL_FILE="${WRITABLE_PATH}/upperdir/opt/neon/signal_reset_device"
 
+revert_squashfs() {
+  [ -f "${BACK_PATH}" ] || exit 1
+  [ -f "${ROOT_PATH}" ] || exit 2
+  mv "${ROOT_PATH}" "${ROOT_PATH}.old"
+  mv "${BACK_PATH}" "${ROOT_PATH}"
+  echo "Restored previous squashFS"
+  exit 0
+}
+
 set_up_gpio() {
+  echo "22" > /sys/class/gpio/export
   echo "23" > /sys/class/gpio/export
   echo "24" > /sys/class/gpio/export
+  echo "in" > /sys/class/gpio/gpio22/direction
   echo "in" > /sys/class/gpio/gpio23/direction
   echo "in" > /sys/class/gpio/gpio24/direction
   if [ "$(cat /sys/class/gpio/gpio24/value)" = "0" ] && [ "$(cat /sys/class/gpio/gpio23/value)" = "0" ]; then
-    echo "Reset buttons down"
-    touch "${SIGNAL_FILE}"
+    if [ "$(cat /sys/class/gpio/gpio22/value)" = "0" ]; then
+      echo "All buttons down"
+      revert_squashfs
+    else
+      echo "Reset buttons down"
+      touch "${SIGNAL_FILE}"
+    fi
   fi
 }
 
@@ -51,4 +69,4 @@ if [ -f "${SIGNAL_FILE}" ]; then
   exit 0
 # TODO: Option to power off instead of continuing boot
 fi
-
+exit 0
