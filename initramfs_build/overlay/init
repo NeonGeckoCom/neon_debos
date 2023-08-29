@@ -319,7 +319,9 @@ if [ -n "${ROOT_ROPATH}" ]; then
 
   if [ -d "${user_backup_path}" ]; then
     echo "WARN: backup path present; an update did not complete as expected"
-    # TODO: How to recover here?
+    backup_path="/media/rw/upperdir/opt/neon/failed_updates"
+    [ -d ${backup_path} ] || mkdir -p ${backup_path}
+    mv "${user_backup_path}" "${backup_path}/$(date +%s)"
   fi
 
   if [ -n "${ROOT_BUPATH}" ]; then
@@ -328,7 +330,7 @@ if [ -n "${ROOT_ROPATH}" ]; then
     scripts/check_update.sh "/media/rw/upperdir/" "/media/rw/upperdir/opt/neon/update.squashfs" "${rootmnt}/${ROOT_ROPATH}" "${user_backup_path}"
   fi
 
-  scripts/check_reset.sh "/media/rw"
+  scripts/check_reset.sh "/media/rw" "${rootmnt}/${ROOT_ROPATH}" "${rootmnt}/${ROOT_BUPATH}"
   # Mount read-only FS
   mkdir -p /media/ro
   mount -t "squashfs" -o noatime,nodiratime "${rootmnt}/${ROOT_ROPATH}" /media/ro
