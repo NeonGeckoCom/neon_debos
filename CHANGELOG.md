@@ -1,5 +1,22 @@
 # Changelog
 
+## [23.8.29a14](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.29a14) (2023-08-29)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.25a13...23.8.29a14)
+
+**Implemented enhancements:**
+
+- \[FEAT\] Easy way to determine the exact squashfs build revision [\#58](https://github.com/NeonGeckoCom/neon_debos/issues/58)
+
+**Fixed bugs:**
+
+- \[BUG\] It's easy to introduce \(non-fatal\) data restore errors in `check_update.sh` if new firstboot-type flags are created [\#56](https://github.com/NeonGeckoCom/neon_debos/issues/56)
+- \[BUG\] log2ram git clone isn't cleaned up [\#60](https://github.com/NeonGeckoCom/neon_debos/issues/60)
+
+**Merged pull requests:**
+
+- Resolve init errors and clean up build leftovers [\#61](https://github.com/NeonGeckoCom/neon_debos/pull/61) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [23.8.25a13](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.25a13) (2023-08-25)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.25a12...23.8.25a13)
