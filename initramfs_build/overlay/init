@@ -315,7 +315,7 @@ if [ -n "${ROOT_ROPATH}" ]; then
   fi
 
   # Define a path to temporarily cache user data during updates
-  user_backup_path="${rootmnt}/user_backup"
+  user_backup_path="/media/rw/user_backup"
 
   if [ -d "${user_backup_path}" ]; then
     echo "WARN: backup path present; an update did not complete as expected"

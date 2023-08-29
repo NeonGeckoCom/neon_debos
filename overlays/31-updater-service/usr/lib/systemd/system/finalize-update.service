@@ -1,7 +1,7 @@
 [Unit]
 Description=Remove SquashFS Update Flag and ensure /home permissions
 ConditionPathExists=/opt/neon/squashfs_updated
-After=post_update.service
+After=post-update.service
 Before=neon.service
 
 [Service]
