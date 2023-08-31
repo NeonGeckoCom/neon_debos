@@ -1,0 +1,14 @@
+{{- $architecture := or .architecture "arm64" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: overlay
+    description: Overlay final services
+    source: ../overlays/27-update-clock
+    destination: /
+
+  - action: run
+    description: Enable clock reset service
+    chroot: true
+    command: systemctl enable update-clock

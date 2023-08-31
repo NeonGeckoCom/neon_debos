@@ -136,6 +136,11 @@ actions:
       build_cores: {{ $build_cores }}
 
   - action: recipe
+    recipe: recipes/27-update-clock.yml
+    variables:
+      architecture: {{ $architecture }}
+
+  - action: recipe
     recipe: recipes/28-automount-usb.yml
     variables:
       architecture: {{ $architecture }}
