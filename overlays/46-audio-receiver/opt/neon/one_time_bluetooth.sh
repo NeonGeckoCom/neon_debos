@@ -29,13 +29,16 @@
 
 # Check if Bluetooth needs to be enabled in config.txt
 mount_firmware
-
+updated=false
 config_file="/opt/neon/firmware/config.txt"
 if ! grep -q "dtparam=krnbt=" "${config_file}"; then
   echo "dtparam=krnbt=on" >> "${config_file}"
   echo "Patching config.txt"
+  updated=true
 fi
 
 rm /opt/neon/do_bluetooth_config
 unmount_firmware
-shutdown -r now
+echo "updated=${updated}"
+[ ${updated} == true ] && shutdown -r now
+exit 0
