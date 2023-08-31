@@ -1,5 +1,13 @@
 # Changelog
 
+## [23.8.31a17](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.31a17) (2023-08-31)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.31a16...23.8.31a17)
+
+**Merged pull requests:**
+
+- Include hostname changes in update data migration [\#67](https://github.com/NeonGeckoCom/neon_debos/pull/67) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [23.8.31a16](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.31a16) (2023-08-31)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.31a15...23.8.31a16)
