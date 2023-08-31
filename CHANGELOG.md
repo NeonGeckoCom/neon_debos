@@ -1,5 +1,18 @@
 # Changelog
 
+## [23.8.31a16](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.31a16) (2023-08-31)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.31a15...23.8.31a16)
+
+**Fixed bugs:**
+
+- \[BUG\] Applying an OS update appears to reset the SSH host key [\#59](https://github.com/NeonGeckoCom/neon_debos/issues/59)
+
+**Merged pull requests:**
+
+- Refactor bluetooth script to only restart when config.txt is modified [\#66](https://github.com/NeonGeckoCom/neon_debos/pull/66) ([NeonDaniel](https://github.com/NeonDaniel))
+- Refactor `first_run` to separate steps [\#64](https://github.com/NeonGeckoCom/neon_debos/pull/64) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [23.8.31a15](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.31a15) (2023-08-31)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.29a14...23.8.31a15)
