@@ -30,21 +30,20 @@
 import hashlib
 import json
 import os
-import pytz
-import requests
+import urllib.request
 
 from sys import argv
-from subprocess import check_output
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 def get_commit_and_time(repo, branch="master"):
-    last_commit = requests.get(f"https://api.github.com/repos/neongeckocom/"
-                               f"{repo}/commits?sha={branch}").json()[0]
+    info = urllib.request.urlopen(f"https://api.github.com/repos/neongeckocom/"
+                                  f"{repo}/commits?sha={branch}").read()
+    last_commit = json.loads(info)[0]
     commit_sha = last_commit.get("sha")
     commit_time = datetime.strptime(last_commit.get("commit").get(
         "committer").get("date"), '%Y-%m-%dT%H:%M:%SZ').replace(
-        tzinfo=pytz.UTC).timestamp()
+        tzinfo=timezone.utc).timestamp()
     return commit_sha, commit_time
 
 
@@ -58,16 +57,17 @@ def get_neon_core_meta(core_branch="dev"):
 
     core_version = "unknown"
     try:
-        core_version_file = requests.get(f"https://raw.githubusercontent.com/"
-                                         f"neongeckocom/neoncore/{core_branch}/"
-                                         f"neon_core/version.py").content.decode(
-            'utf-8')
+        core_version_file = urllib.request.urlopen(
+            f"https://raw.githubusercontent.com/neongeckocom/neoncore/"
+            f"{core_branch}/neon_core/version.py").read().decode('utf-8')
         for line in core_version_file.split('\n'):
             if line.startswith("__version__"):
                 if '"' in line:
                     core_version = line.split('"')[1]
                 else:
                     core_version = line.split("'")[1]
+        if core_version not in ("dev", "master"):
+            core_version = f"{core_version}*"
     except Exception as e:
         print(e)
 
@@ -108,6 +108,6 @@ if __name__ == "__main__":
         "arch": architecture
     }
     os.makedirs("/opt/neon", exist_ok=True)
-    with open("/opt/neon/build_info.json", "w+") as f:
-        json.dump(data, f, indent=2)
-        f.write('\n')
+    with open("/opt/neon/build_info.json", "w+") as o:
+        json.dump(data, o, indent=2)
+        o.write('\n')
