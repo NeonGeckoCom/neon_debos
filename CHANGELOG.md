@@ -1,5 +1,13 @@
 # Changelog
 
+## [23.8.31a18](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.31a18) (2023-08-31)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.31a17...23.8.31a18)
+
+**Merged pull requests:**
+
+- Refactor GUI service [\#62](https://github.com/NeonGeckoCom/neon_debos/pull/62) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [23.8.31a17](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.31a17) (2023-08-31)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.31a16...23.8.31a17)
