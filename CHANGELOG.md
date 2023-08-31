@@ -1,5 +1,13 @@
 # Changelog
 
+## [23.8.31a15](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.31a15) (2023-08-31)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.29a14...23.8.31a15)
+
+**Merged pull requests:**
+
+- Update metadata recipe to use only default Python packages [\#65](https://github.com/NeonGeckoCom/neon_debos/pull/65) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [23.8.29a14](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.29a14) (2023-08-29)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.25a13...23.8.29a14)
