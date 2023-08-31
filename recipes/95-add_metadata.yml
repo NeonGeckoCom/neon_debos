@@ -5,12 +5,7 @@
 
 architecture: {{ $architecture }}
 
-# TODO: Run script on host and copy outputs
 actions:
-  - action: run
-    description: Install script dependencies
-    chroot: true
-    command: pip3.10 install pytz requests
   - action: run
     description: Add metadata file to image
     chroot: true
