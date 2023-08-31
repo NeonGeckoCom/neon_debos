@@ -91,5 +91,4 @@ rm /usr/share/OVOS/ColorSchemes/sunset_scheme.json
 chmod -R ugo+x /usr/bin
 chown -R neon:neon /home/neon
 systemctl enable gui-shell
-
 echo "GUI Embedded Shell Configured"
