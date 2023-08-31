@@ -37,11 +37,11 @@ docker run --rm -d \
 --mount type=bind,source="${source_dir}",destination=/image_build \
 --group-add=108 \
 --security-opt label=disable \
---name neon_debos_ostree_base \
+--name neon_debos_base \
 godebos/debos "base-rootfs-rpi4.yml" \
 -t architecture:arm64 \
 -t build_cores:"${core_limit}" \
 -m "${mem_limit}" \
 -c "${core_limit}" && \
-docker logs -f neon_debos_ostree_base
+docker logs -f neon_debos_base
 echo -e "\n"

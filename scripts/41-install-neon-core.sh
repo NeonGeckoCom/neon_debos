@@ -109,7 +109,6 @@ systemctl enable neon-gui.service
 systemctl enable neon-logs.service
 systemctl enable neon-skills.service
 systemctl enable neon-speech.service
-systemctl enable neon-firstboot.service
 
 neon_uid=$(id -u neon)
 echo "XDG_RUNTIME_DIR=/run/user/${neon_uid}" >> /etc/neon/neon_env.conf

@@ -27,20 +27,24 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# TODO: Separate first-boot into separate recipe
-# this is executed on host in first run of a brand new image!
+# Do nothing if there's an RTC module present
+[ -e /dev/rtc ] && exit 0
 
-# TODO: Reset time only if no RTC?
-# Reset time
-date -s "1 JAN 1970 00:00:00"
+ip route | grep default
 
-# Generate a unique SSH identity
-rm /etc/ssh/ssh_host_*
-ssh-keygen -A
-# disable wifi power management
-#iwconfig wlan0 power off
-
-rm /opt/neon/firstboot
-
-# clean bash history
-history -c
+if [ $? != 0 ]; then
+    if [ -n "$(ls /etc/NetworkManager/system-connections/)" ]; then
+        echo "Network Configured, waiting for reconnection"
+        sleep 15
+    else
+        echo "No Networks Configured"
+    fi
+    ip route | grep default
+fi
+if [ $? != 0 ]; then
+  echo "Network not connected, reset time"
+  /usr/bin/date -s "1 JAN 1970 00:00:00"
+else
+  echo "Connected; force sync"
+  /usr/sbin/ntpd -ngq
+fi

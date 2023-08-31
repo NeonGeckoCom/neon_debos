@@ -1,0 +1,11 @@
+[Unit]
+Description=Service to create SSH keys
+
+[Service]
+Type=oneshot
+User=root
+ExecStart=/usr/bin/ssh-keygen -A
+ExecStop=/usr/bin/systemctl disable configure-ssh
+
+[Install]
+WantedBy=multi-user.target

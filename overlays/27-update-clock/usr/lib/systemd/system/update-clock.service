@@ -1,0 +1,13 @@
+[Unit]
+Description=Service to force update system time if no RTC module is available
+Before=post-update.service
+Before=ntp.service
+Requires=network.target
+
+[Service]
+Type=oneshot
+User=root
+ExecStart=/bin/bash /opt/neon/check_clock.sh
+
+[Install]
+WantedBy=multi-user.target
