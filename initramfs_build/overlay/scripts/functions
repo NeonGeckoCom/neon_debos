@@ -588,3 +588,34 @@ mount_bottom()
 {
 	:
 }
+
+# Restore a backed up user overlay
+restore_backup()
+{
+  BACKUP_PATH=${1}
+  RESTORE_PATH=${2}
+  log "Restoring ${BACKUP_PATH} to ${RESTORE_PATH}"
+  # Ensure paths exist for migrated data
+  [ -d "${RESTORE_PATH}/etc/NetworkManager" ] || mkdir -p "${RESTORE_PATH}/etc/NetworkManager"
+  [ -d "${RESTORE_PATH}/etc/ssh" ] || mkdir -p "${RESTORE_PATH}/etc/ssh"
+  [ -d "${RESTORE_PATH}/opt/neon" ] || mkdir -p "${RESTORE_PATH}/opt/neon"
+  [ -d "${RESTORE_PATH}/var" ] ||  mkdir -p "${RESTORE_PATH}/var"
+  
+  # Migrate specific data back
+  [ -d "${BACKUP_PATH}/etc/NetworkManager/system-connections" ] && mv "${BACKUP_PATH}/etc/NetworkManager/system-connections" "${RESTORE_PATH}/etc/NetworkManager/" && log "Restored Networks"
+  [ -f "${BACKUP_PATH}/etc/ssh/ssh_host_rsa_key" ] && mv "${BACKUP_PATH}/etc/ssh/"ssh_host_*_key* "${RESTORE_PATH}/etc/ssh/" && log "Restored SSH keys"
+  [ -f "${BACKUP_PATH}/etc/shadow" ] && mv "${BACKUP_PATH}/etc/shadow" "${RESTORE_PATH}/etc/" && log "Restored User Passwords"
+  [ -f "${BACKUP_PATH}/etc/hostname" ] && mv "${BACKUP_PATH}/etc/hostname" "${RESTORE_PATH}/etc/" && log "Restored Hostname"
+  [ -f "${BACKUP_PATH}/etc/machine-id" ] && mv "${BACKUP_PATH}/etc/machine-id" "${RESTORE_PATH}/etc/" && log "Restored machine-id"
+  [ -d "${BACKUP_PATH}/home" ] && mv "${BACKUP_PATH}/home" "${RESTORE_PATH}/" && log "Restored /home"
+  [ -d "${BACKUP_PATH}/root" ] && mv "${BACKUP_PATH}/root" "${RESTORE_PATH}/" && log "Restored /root"
+  # Restore specific `/var` paths (https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch05.html)
+  [ -d "${BACKUP_PATH}/var/games" ] && mv "${BACKUP_PATH}/var/games" "${RESTORE_PATH}/var/" && log "Restored /var/games"
+  [ -d "${BACKUP_PATH}/var/log" ] && mv "${BACKUP_PATH}/var/log" "${RESTORE_PATH}/var/" && log "Restored /var/log"
+  [ -d "${BACKUP_PATH}/var/mail" ] && mv "${BACKUP_PATH}/var/mail" "${RESTORE_PATH}/var/" && log "Restored /var/mail"
+  # Exclude crash information that relates to a previous OS
+  #[ -d "${BACKUP_PATH}/var/crash" ] && mv "${BACKUP_PATH}/var/crash" "${RESTORE_PATH}/var/" && log "Restored /var/crash"
+  
+  # Exclude package-specific data as the installed packages/versions may have changed
+  #[ -d "${BACKUP_PATH}/var/lib" ] && mv "${BACKUP_PATH}/var/lib" "${RESTORE_PATH}/var/" && log "Restored /var/lib"
+}
