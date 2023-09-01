@@ -1,5 +1,13 @@
 # Changelog
 
+## [23.9.1a20](https://github.com/NeonGeckoCom/neon_debos/tree/23.9.1a20) (2023-09-01)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.9.1a19...23.9.1a20)
+
+**Merged pull requests:**
+
+- Fix core non-default branch check in metadata recipe [\#69](https://github.com/NeonGeckoCom/neon_debos/pull/69) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [23.9.1a19](https://github.com/NeonGeckoCom/neon_debos/tree/23.9.1a19) (2023-09-01)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.31a18...23.9.1a19)
