@@ -1,5 +1,13 @@
 # Changelog
 
+## [23.9.1a21](https://github.com/NeonGeckoCom/neon_debos/tree/23.9.1a21) (2023-09-01)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.9.1a20...23.9.1a21)
+
+**Merged pull requests:**
+
+- Better InitramFS log handling [\#70](https://github.com/NeonGeckoCom/neon_debos/pull/70) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [23.9.1a20](https://github.com/NeonGeckoCom/neon_debos/tree/23.9.1a20) (2023-09-01)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.9.1a19...23.9.1a20)
