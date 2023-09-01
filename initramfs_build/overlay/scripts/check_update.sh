@@ -69,6 +69,7 @@ log_end_msg
 mv "${BACKUP_PATH}" "${OVERLAY_PATH}/opt/neon/old_overlay" && log "Archived old overlay"
 
 touch "${OVERLAY_PATH}/opt/neon/squashfs_updated"
-log_success_msg "Update complete"
 log "Update complete"
-exit 0
+dmesg > "${OVERLAY_PATH}/var/log/squashfs_update.log"
+reboot -f
+exit 10
