@@ -66,7 +66,7 @@ def get_neon_core_meta(core_branch="dev"):
                     core_version = line.split('"')[1]
                 else:
                     core_version = line.split("'")[1]
-        if core_version not in ("dev", "master"):
+        if core_branch not in ("dev", "master"):
             core_version = f"{core_version}*"
     except Exception as e:
         print(e)
