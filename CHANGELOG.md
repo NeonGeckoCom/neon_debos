@@ -1,5 +1,13 @@
 # Changelog
 
+## [23.9.1a19](https://github.com/NeonGeckoCom/neon_debos/tree/23.9.1a19) (2023-09-01)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.31a18...23.9.1a19)
+
+**Merged pull requests:**
+
+- Resolve KDEConnect init errors [\#68](https://github.com/NeonGeckoCom/neon_debos/pull/68) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [23.8.31a18](https://github.com/NeonGeckoCom/neon_debos/tree/23.8.31a18) (2023-08-31)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.8.31a17...23.8.31a18)
