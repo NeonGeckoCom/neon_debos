@@ -2,7 +2,7 @@
 
 _log_msg()
 {
-	if [ "${quiet?}" = "y" ]; then return; fi
+	if [ "${quiet?}" = "y" ]; then log "$@"; fi
 	# shellcheck disable=SC2059
 	printf "$@"
 	return 0 # Prevents error carry over in case of unavailable console
@@ -26,6 +26,11 @@ log_warning_msg()
 log_begin_msg()
 {
 	_log_msg "Begin: %s ... " "$*"
+}
+
+log()
+{
+  echo "${@}" > /dev/kmsg
 }
 
 log_end_msg()

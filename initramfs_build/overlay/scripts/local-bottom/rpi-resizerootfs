@@ -26,16 +26,16 @@ parted -s "$rootdev" print 2>&1 | grep -z "fix the GPT" && {
 free_space="$(parted -m -s "$rootdev" print free | tail -n1 | grep free)" || free_space=
 if test -z "$free_space"; then
     # Great, we already resized; nothing left to do!
-    echo "Partition Already resized"
+    log "Partition Already resized"
     return 0
 fi
 log_begin_msg "$0 resizing $ROOT"
 
 # Unmount for safety; fail if unset or empty (shellcheck SC2154)
-umount "${rootmnt:?}" && echo "unmounted root"
+umount "${rootmnt:?}" && log "unmounted root"
 
 # Expand the partition size to fill the entire device
-parted -s "$rootdev" resizepart "$rootpart_nr" 100% && echo "expanded partition"
+parted -s "$rootdev" resizepart "$rootpart_nr" 100% && log "expanded partition"
 
 # Allow some time for udev to catch up with changes before resizing the FS
 wait_for_udev 5
@@ -43,10 +43,10 @@ wait_for_udev 5
 # Now resize the filesystem
 partprobe "$rootdev"
 e2fsck -fp "$rootpart"  # preempt resize2fs potential errors
-resize2fs -f "$rootpart" && echo "FS Resized"
+resize2fs -f "$rootpart" && log "FS Resized"
 
 # After resizing, (re)check the root partition's filesystem
-fsck "$rootpart" && echo "fsck success"
+fsck "$rootpart" && log "fsck success"
 
 # Remount root
 # Don't quote ${ROOTFLAGS} as that results in an extra (empty) argument
