@@ -333,6 +333,7 @@ if [ -n "${ROOT_ROPATH}" ]; then
   mkdir -p /media/ro
   mount -t "squashfs" -o noatime,nodiratime "${rootmnt}/${ROOT_ROPATH}" /media/ro
   mount -o remount,ro /media/ro
+  # TODO: Recover here by restoring a backup squashfs
 
   # Optionally Create and mount swapfile
   scripts/check_swapfile.sh "${rootmnt}/swapfile"
