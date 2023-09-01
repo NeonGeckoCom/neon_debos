@@ -29,9 +29,11 @@
 
 SWAP_FILE="${1}"
 
+. /scripts/functions
+
 # Check for existing swapfile
 if [ -f "${SWAP_FILE}" ]; then
-  echo "${SWAP_FILE} already exists"
+  log "${SWAP_FILE} already exists"
   exit 0
 fi
 
@@ -42,12 +44,12 @@ min_mem=2097153  # 2GiB + 1B
 
 
 if [ "${mem}" -le "${min_mem}" ]; then
-  echo "Creating swapfile"
+  log "Creating swapfile"
   fallocate -l 1G "${SWAP_FILE}"
   chmod 600 "${SWAP_FILE}"
   mkswap "${SWAP_FILE}"
-#  echo "${SWAP_FILE} none swap sw 0 0" >> /etc/fstab
+#  log "${SWAP_FILE} none swap sw 0 0" >> /etc/fstab
 #  swapon "${SWAP_FILE}"
 else
-  echo "Skip swapfile creation. ${mem} > ${min_mem}"
+  log "Skip swapfile creation. ${mem} > ${min_mem}"
 fi

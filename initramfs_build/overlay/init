@@ -4,7 +4,7 @@
 set -e
 
 exit_error() {
-  echo ${1}
+  echo "${1}"
   exit 1
 }
 
@@ -235,7 +235,7 @@ mkdir -m 0700 /run/initramfs
 if [ -n "$log_output" ]; then
   [ -f "${log_output}" ] || touch "${log_output}"
   echo "redirecting output to ${log_output}"
-	exec >$log_output 2>&1  # TODO: This call was failing
+	exec >$log_output 2>&1
 	unset log_output
 fi
 
@@ -296,7 +296,7 @@ validate_init() {
 
 # Custom SquashFS Handling
 if [ -n "${ROOT_ROPATH}" ]; then
-  echo "configuring squashFS file: ${ROOT_ROPATH}"
+  log "configuring squashFS file: ${ROOT_ROPATH}"
 
   # Mount "real" root as RW
   mount -o remount,rw ${rootmnt}
@@ -304,13 +304,13 @@ if [ -n "${ROOT_ROPATH}" ]; then
   # Mount read-write FS
   mkdir -p /media/rw
   if [ -n "${ROOT_RWPATH}" ]; then
-    echo "configuring RW path: ${ROOT_RWPATH}"
+    log "configuring RW path: ${ROOT_RWPATH}"
     [ -d "${rootmnt}/${ROOT_RWPATH}" ] || mkdir -p "${rootmnt}/${ROOT_RWPATH}"
     mount --bind "${rootmnt}/${ROOT_RWPATH}" /media/rw -o relatime,nosuid,nodev
   elif [ -n "${ROOT_RWDEVICE}" ]; then
     mount "${ROOT_RWDEVICE}" /media/rw -t auto -o relatime,nosuid,nodev
   else
-    echo "No RW Device configured!"
+    log "No RW Device configured!"
     exit 10
   fi
 
@@ -318,7 +318,7 @@ if [ -n "${ROOT_ROPATH}" ]; then
   user_backup_path="/media/rw/user_backup"
 
   if [ -d "${user_backup_path}" ]; then
-    echo "WARN: backup path present; an update did not complete as expected"
+    log "WARN: backup path present; an update did not complete as expected"
     # TODO: How to recover here?
   fi
 
@@ -337,11 +337,11 @@ if [ -n "${ROOT_ROPATH}" ]; then
   # Optionally Create and mount swapfile
   scripts/check_swapfile.sh "${rootmnt}/swapfile"
   if [ -f "${rootmnt}/swapfile" ]; then
-    echo "mounting swapfile"
+    log "mounting swapfile"
     touch /swapfile
     mount --bind ${rootmnt}/swapfile /swapfile
   fi
-  echo "swapfile handled"
+  log "swapfile handled"
 
   # Define remaining paths and build overlayFS
   mkdir -p /media/rw/work /media/rw/upperdir
@@ -363,7 +363,7 @@ if [ -n "${ROOT_ROPATH}" ]; then
   init="/sbin/init"
 
 elif [ -n "${ROOT_RWDEVICE}" ]; then  # TODO: Deprecate? this was never deployed
-  echo "configuring squashFS partition"
+  log "configuring squashFS partition"
 
   # Mount read-only FS
   mkdir -p /media/ro
@@ -394,7 +394,7 @@ else
 
   # Check init is really there
   if ! validate_init "$init"; then
-    echo "Target filesystem doesn't have requested ${init}."
+    log "Target filesystem doesn't have requested ${init}."
     init=
     for inittest in /sbin/init /etc/init /bin/init /bin/sh; do
       if validate_init "${inittest}"; then
@@ -453,6 +453,9 @@ if [ -f /swapfile ]; then
   [ -f "${rootmnt}/swapfile" ] || touch "${rootmnt}/swapfile"
   mount -n -o move /swapfile ${rootmnt}/swapfile
 fi
+
+# Flush dmesg logs to disk
+dmesg > "${rootmnt}/var/log/initramfs.log"
 
 # Chain to real filesystem
 # shellcheck disable=SC2086,SC2094

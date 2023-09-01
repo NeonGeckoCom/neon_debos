@@ -30,21 +30,23 @@
 WRITABLE_PATH=${1}
 SIGNAL_FILE="${WRITABLE_PATH}/upperdir/opt/neon/signal_reset_device"
 
+. /scripts/functions
+
 set_up_gpio() {
   echo "23" > /sys/class/gpio/export
   echo "24" > /sys/class/gpio/export
   echo "in" > /sys/class/gpio/gpio23/direction
   echo "in" > /sys/class/gpio/gpio24/direction
   if [ "$(cat /sys/class/gpio/gpio24/value)" = "0" ] && [ "$(cat /sys/class/gpio/gpio23/value)" = "0" ]; then
-    echo "Reset buttons down"
+    log "Reset buttons down"
     touch "${SIGNAL_FILE}"
   fi
 }
 
-set_up_gpio || echo "Unable to check GPIO"
+set_up_gpio || log "Unable to check GPIO"
 
 if [ -f "${SIGNAL_FILE}" ]; then
-  echo "reset requested"
+  log "reset requested"
   rm -rf "${WRITABLE_PATH}/upperdir"
   rm -rf "${WRITABLE_PATH}/workdir"
   rm -rf "/swapfile"

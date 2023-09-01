@@ -1,3 +1,3 @@
 #!/bin/sh
-/scripts/local-premount/resume "$@" || echo "resume failed"
+/scripts/local-premount/resume "$@"
 [ -e /conf/param.conf ] && . /conf/param.conf
