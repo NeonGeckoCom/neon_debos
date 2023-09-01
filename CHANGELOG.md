@@ -1,5 +1,17 @@
 # Changelog
 
+## [23.9.1a22](https://github.com/NeonGeckoCom/neon_debos/tree/23.9.1a22) (2023-09-01)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.9.1a21...23.9.1a22)
+
+**Fixed bugs:**
+
+- \[BUG\] Recursive Backups [\#71](https://github.com/NeonGeckoCom/neon_debos/issues/71)
+
+**Merged pull requests:**
+
+- Improved backup handling [\#73](https://github.com/NeonGeckoCom/neon_debos/pull/73) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [23.9.1a21](https://github.com/NeonGeckoCom/neon_debos/tree/23.9.1a21) (2023-09-01)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.9.1a20...23.9.1a21)
