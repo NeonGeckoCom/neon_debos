@@ -263,7 +263,7 @@ run_scripts /scripts/init-premount || exit_error "init-premount"
 [ "$quiet" != "y" ] && log_end_msg
 
 maybe_break mount
-log_begin_msg "Mounting root file system"
+log "Mounting root file system"
 # Always load local and nfs (since these might be needed for /etc or
 # /usr, irrespective of the boot script used to mount the rootfs).
 . /scripts/local
@@ -275,7 +275,7 @@ maybe_break mountroot
 mount_top || exit_error "mount_top"
 mount_premount || exit_error "mount_premount"
 mountroot || exit_error "mountroot"
-log_end_msg
+#log_end_msg
 
 if read_fstab_entry /usr; then
 	log_begin_msg "Mounting /usr file system"
