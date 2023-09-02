@@ -1,5 +1,13 @@
 # Changelog
 
+## [23.9.2a23](https://github.com/NeonGeckoCom/neon_debos/tree/23.9.2a23) (2023-09-02)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.9.1a22...23.9.2a23)
+
+**Merged pull requests:**
+
+- Restart after applying SquashFS updates [\#74](https://github.com/NeonGeckoCom/neon_debos/pull/74) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [23.9.1a22](https://github.com/NeonGeckoCom/neon_debos/tree/23.9.1a22) (2023-09-01)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.9.1a21...23.9.1a22)
