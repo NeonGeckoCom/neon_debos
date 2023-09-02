@@ -49,7 +49,7 @@ mv "${UPDATE_FILE}" "${ROOT_FILE}" && log "Applied updated rootfs from ${UPDATE_
 
 # Remove paths explicitly excluded from backup
 [ -d "${OVERLAY_PATH}/home/neon/venv" ] && rm -rf "${OVERLAY_PATH}/home/neon/venv" && log "Removed old venv"
-[ -d "${OVERLAY_PATH}/opt/neon/old_overlay/old_overlay" ] && rm -rf "${OVERLAY_PATH}/opt/neon/old_overlay/old_overlay" && log "Older backup removed"
+[ -d "${OVERLAY_PATH}/opt/neon/old_overlay/opt/neon/old_overlay" ] && rm -rf "${OVERLAY_PATH}/opt/neon/old_overlay/opt/neon/old_overlay" && log "Removed old backup"
 
 # Backup to a directory on the drive root file system
 mv "${OVERLAY_PATH}" "${BACKUP_PATH}" && log "Backed up overlay ${OVERLAY_PATH} to ${BACKUP_PATH}"
@@ -69,6 +69,7 @@ log_end_msg
 mv "${BACKUP_PATH}" "${OVERLAY_PATH}/opt/neon/old_overlay" && log "Archived old overlay"
 
 touch "${OVERLAY_PATH}/opt/neon/squashfs_updated"
-log_success_msg "Update complete"
 log "Update complete"
-exit 0
+dmesg > "${OVERLAY_PATH}/var/log/squashfs_update.log"
+reboot -f
+exit 10

@@ -126,9 +126,8 @@ run_scripts()
 	[ ! -d "${initdir}" ] && return
 
 	shift
-  echo "run_scripts ${initdir}"
 	. "${initdir}/ORDER"
-	echo "finished ${initdir}"
+	log "finished ${initdir}"
 }
 
 # Load custom modules first
