@@ -47,11 +47,11 @@ set_up_gpio || log "Unable to check GPIO"
 
 if [ -f "${SIGNAL_FILE}" ]; then
   log "reset requested"
-  log_begin_message "Resetting"
+  log_begin_msg "Resetting"
   rm -rf "${WRITABLE_PATH}/upperdir"
   rm -rf "${WRITABLE_PATH}/workdir"
   rm -rf "/swapfile"
-  log_end_message
+  log_end_msg
   exit 0
 # TODO: Option to power off instead of continuing boot
 fi
