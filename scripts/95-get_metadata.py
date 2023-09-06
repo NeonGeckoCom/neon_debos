@@ -75,7 +75,12 @@ def get_neon_core_meta(core_branch="dev"):
 
 
 def get_recipe_meta(branch="dev"):
-    image_sha, image_time = get_commit_and_time("neon_debos", branch)
+    try:
+        image_sha, image_time = get_commit_and_time("neon_debos", branch)
+    except Exception as e:
+        print(e)
+        image_sha = "Unknown"
+        image_time = "Unknown"
     return {"sha": image_sha, "time": image_time}
 
 
@@ -98,7 +103,7 @@ if __name__ == "__main__":
     print(f"debos_ref={debos_ref}")
     data = dict()
     data["core"] = get_neon_core_meta(core_ref)
-    data["image"] = get_recipe_meta(core_ref)
+    data["image"] = get_recipe_meta(debos_ref)
     data["image"]["version"] = debos_ref
     data["initramfs"] = get_initramfs_metadata()
     data["base_os"] = {
