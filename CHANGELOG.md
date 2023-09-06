@@ -1,5 +1,13 @@
 # Changelog
 
+## [23.9.6a24](https://github.com/NeonGeckoCom/neon_debos/tree/23.9.6a24) (2023-09-06)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.9.2a23...23.9.6a24)
+
+**Merged pull requests:**
+
+- Update service init order [\#75](https://github.com/NeonGeckoCom/neon_debos/pull/75) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [23.9.2a23](https://github.com/NeonGeckoCom/neon_debos/tree/23.9.2a23) (2023-09-02)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.9.1a22...23.9.2a23)
