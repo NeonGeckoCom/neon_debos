@@ -11,6 +11,7 @@ Restart=always
 User=neon
 EnvironmentFile=/etc/neon/neon_env.conf
 WorkingDirectory=/opt/neon
+ExecStartPre=/opt/neon/install_skills
 ExecStart=/usr/libexec/neon-skills.py
 LogNamespace=neon
 
