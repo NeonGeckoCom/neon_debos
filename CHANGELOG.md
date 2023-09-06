@@ -1,5 +1,13 @@
 # Changelog
 
+## [23.9.6a25](https://github.com/NeonGeckoCom/neon_debos/tree/23.9.6a25) (2023-09-06)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.9.6a24...23.9.6a25)
+
+**Merged pull requests:**
+
+- Add script to install skills before launching service [\#76](https://github.com/NeonGeckoCom/neon_debos/pull/76) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [23.9.6a24](https://github.com/NeonGeckoCom/neon_debos/tree/23.9.6a24) (2023-09-06)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.9.2a23...23.9.6a24)
