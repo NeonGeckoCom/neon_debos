@@ -1,5 +1,6 @@
 [Unit]
 Description=Service to create SSH keys
+Before=ssh.service
 
 [Service]
 Type=oneshot
