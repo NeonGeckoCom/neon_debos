@@ -1,0 +1,21 @@
+[Unit]
+Description=KDEConnect Daemon
+Documentation=https://kdeconnect.kde.org/
+After=network-online.target
+After=dbus.service
+StartLimitIntervalSec=300s
+StartLimitBurst=3
+
+[Service]
+User=neon
+EnvironmentFile=/etc/neon/neon_env.conf
+ExecStart=/usr/lib/aarch64-linux-gnu/libexec/kdeconnectd --platform offscreen
+Restart=on-failure
+RestartSec=30s
+
+# Restart the service if it's unexpectedly stopped
+RestartPreventExitStatus=SIGINT SIGTERM
+RestartForceExitStatus=SIGKILL
+
+[Install]
+WantedBy=multi-user.target

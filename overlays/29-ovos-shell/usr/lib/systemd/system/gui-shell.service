@@ -1,0 +1,13 @@
+[Unit]
+Description=Neon GUI
+
+[Service]
+User=neon
+WorkingDirectory=/opt/neon
+EnvironmentFile=/etc/neon/gui-shell.conf
+ExecStartPre=-/usr/bin/kbuildsycoca5
+ExecStart=ovos-shell
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

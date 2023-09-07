@@ -85,11 +85,7 @@ actions:
       groupadd pulse
       groupadd pulse-access
       groupadd i2c
-
-  - action: run
-    description: Enable post-update service
-    chroot: true
-    command: systemctl enable post_update.service
+      groupadd ssl-cert
 
   - action: run
     description: Set hostname

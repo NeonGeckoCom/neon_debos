@@ -1,0 +1,15 @@
+[Unit]
+Description=Remove SquashFS Update Flag and ensure /home permissions
+ConditionPathExists=/opt/neon/squashfs_updated
+After=post-update.service
+Before=neon.service
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/neon/neon_env.conf
+ExecStartPre=/usr/bin/chmod +x /opt/neon/validate_directory_permissions
+ExecStart=/opt/neon/validate_directory_permissions
+ExecStartPost=/usr/bin/rm /opt/neon/squashfs_updated
+
+[Install]
+WantedBy=multi-user.target

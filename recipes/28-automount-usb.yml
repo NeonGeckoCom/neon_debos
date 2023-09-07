@@ -1,0 +1,14 @@
+{{- $architecture := or .architecture "arm64" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: apt
+    description: Install Autofs
+    packages:
+      - autofs
+
+  - action: overlay
+    description: Automount USB Config
+    source: ../overlays/28-automount-usb
+    destination: /

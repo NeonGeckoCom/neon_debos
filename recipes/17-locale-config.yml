@@ -1,0 +1,21 @@
+{{- $architecture := or .architecture "arm64" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: apt
+    description: Basic packages
+    packages:
+      - locales
+
+  - action: overlay
+    description: Locale overlay
+    source: ../overlays/17-locales
+    destination: /
+
+  - action: run
+    description: Set up system locale
+    chroot: true
+    command: |
+      dpkg-reconfigure --frontend=noninteractive locales
+      update-locale LANG=en_US.UTF-8

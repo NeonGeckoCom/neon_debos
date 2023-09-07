@@ -1,4 +1,4 @@
 #!/bin/sh
-/scripts/local-bottom/rpi-resizerootfs "$@" || echo "resizerootfs failed"
+/scripts/local-bottom/rpi-resizerootfs "$@"
 [ -e /conf/param.conf ] && . /conf/param.conf
 return 0  # TODO: Fails without this line?

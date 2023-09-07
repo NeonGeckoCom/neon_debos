@@ -95,6 +95,7 @@ chmod +x /opt/neon/*.sh
 chmod +x /usr/sbin/*
 chmod +x /usr/bin/*
 chmod +x /usr/libexec/*
+chmod +x /opt/neon/install_skills
 
 # Disable wifi-connect
 systemctl disable wifi-setup.service
@@ -109,7 +110,6 @@ systemctl enable neon-gui.service
 systemctl enable neon-logs.service
 systemctl enable neon-skills.service
 systemctl enable neon-speech.service
-systemctl enable neon-firstboot.service
 
 neon_uid=$(id -u neon)
 echo "XDG_RUNTIME_DIR=/run/user/${neon_uid}" >> /etc/neon/neon_env.conf

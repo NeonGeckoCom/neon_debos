@@ -34,20 +34,18 @@ set -Ee
 systemctl disable systemd-networkd.socket
 systemctl disable systemd-networkd
 systemctl disable dnsmasq
-
+systemctl enable configure-ssh
 systemctl enable wifi-setup.service
 
 # Add wifi-connect binary
 chmod -R ugo+x /usr/local/sbin
 chmod -R ugo+x /opt/neon
 
+# Ensure default SSH keys are removed
+rm /etc/ssh/ssh_host_*
+
 # Ensure Group Permissions
 chown root:netdev /usr/bin/nmcli
 usermod -aG netdev root
-
-# Patch SSH service
-# TODO: Consider doing this on first run so devices have unique keys
-cd /etc/ssh || exit 10
-ssh-keygen -A
 
 echo "Network Setup Complete"

@@ -1,0 +1,22 @@
+# This workflow will generate a distribution and upload it to PyPI
+
+name: Publish Alpha Build
+on:
+  push:
+    branches:
+      - dev
+    paths-ignore:
+      - 'version.py'
+      - 'CHANGELOG.md'
+
+jobs:
+  publish_alpha_release:
+    uses: neongeckocom/.github/.github/workflows/publish_alpha_release.yml@master
+    secrets: inherit
+    with:
+      version_scheme: "dated"
+      version_file: "version.py"
+      setup_py: "version.py"
+      publish_pypi: false
+      publish_prerelease: true
+      update_changelog: true

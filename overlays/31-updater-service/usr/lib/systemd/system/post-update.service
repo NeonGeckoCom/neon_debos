@@ -1,0 +1,14 @@
+[Unit]
+Description=Post-SquashFS Update scripts
+ConditionPathExists=/opt/neon/squashfs_updated
+ConditionPathExists=/root/post_update
+Before=neon.service
+After=update-clock.service
+
+[Service]
+Type=oneshot
+ExecStartPre=/usr/bin/chmod +x /root/post_update
+ExecStart=/root/post_update
+
+[Install]
+WantedBy=multi-user.target

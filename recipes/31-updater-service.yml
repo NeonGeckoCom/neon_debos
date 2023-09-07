@@ -1,6 +1,4 @@
 {{- $architecture := or .architecture "arm64" -}}
-{{- $firmware_version := or .firmware_version "master" -}}
-{{ $suite :=  or .suite "focal" }}
 
 architecture: {{ $architecture }}
 
@@ -9,7 +7,12 @@ actions:
     description: Neon Update Service Overlay
     source: ../overlays/31-updater-service
     destination: /
+
   - action: run
-    description: Install and Enable Neon Update Service
+    description: Enable update services
     chroot: true
-    script: ../scripts/31-enable-updater-service.sh
+    command: |
+      chmod +x /opt/neon/update
+      chmod +x /opt/neon/check_neon_modules.py
+      systemctl enable post-update.service
+      systemctl enable finalize-update.service

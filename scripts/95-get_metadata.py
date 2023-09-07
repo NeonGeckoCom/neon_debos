@@ -26,61 +26,62 @@
 # LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
 import hashlib
 import json
 import os
-import pytz
-import requests
+import urllib.request
 
 from sys import argv
-from subprocess import check_output
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 def get_commit_and_time(repo, branch="master"):
-    last_commit = requests.get(f"https://api.github.com/repos/neongeckocom/"
-                               f"{repo}/commits?sha={branch}").json()[0]
+    info = urllib.request.urlopen(f"https://api.github.com/repos/neongeckocom/"
+                                  f"{repo}/commits?sha={branch}").read()
+    last_commit = json.loads(info)[0]
     commit_sha = last_commit.get("sha")
     commit_time = datetime.strptime(last_commit.get("commit").get(
         "committer").get("date"), '%Y-%m-%dT%H:%M:%SZ').replace(
-        tzinfo=pytz.UTC).timestamp()
+        tzinfo=timezone.utc).timestamp()
     return commit_sha, commit_time
 
 
-def get_project_meta(core_branch="dev"):
+def get_neon_core_meta(core_branch="dev"):
     try:
-        image_sha = check_output(["git", "rev-parse",
-                                  "HEAD"]).decode("utf-8").rstrip('\n')
-        image_time = datetime.utcnow().timestamp()
+        core_sha, core_time = get_commit_and_time("neoncore", core_branch)
     except Exception as e:
         print(e)
-        image_sha, image_time = get_commit_and_time("neon_debos", core_branch)
-# TODO: neon_debos info from envvars
-    core_sha, core_time = get_commit_and_time("neoncore", core_branch)
+        core_sha = "Unknown"
+        core_time = "Unknown"
 
     core_version = "unknown"
-    core_version_file = requests.get(f"https://raw.githubusercontent.com/"
-                                     f"neongeckocom/neoncore/{core_branch}/"
-                                     f"neon_core/version.py").content.decode(
-        'utf-8')
-    for line in core_version_file.split('\n'):
-        if line.startswith("__version__"):
-            if '"' in line:
-                core_version = line.split('"')[1]
-            else:
-                core_version = line.split("'")[1]
+    try:
+        core_version_file = urllib.request.urlopen(
+            f"https://raw.githubusercontent.com/neongeckocom/neoncore/"
+            f"{core_branch}/neon_core/version.py").read().decode('utf-8')
+        for line in core_version_file.split('\n'):
+            if line.startswith("__version__"):
+                if '"' in line:
+                    core_version = line.split('"')[1]
+                else:
+                    core_version = line.split("'")[1]
+        if core_branch not in ("dev", "master"):
+            core_version = f"{core_version}*"
+    except Exception as e:
+        print(e)
 
-    meta = {"image": {
-        "sha": image_sha,
-        "time": image_time
-    },
-        "core": {
-            "sha": core_sha,
-            "time": core_time,
-            "version": core_version
-    }
-    }
-    return meta
+    return {"sha": core_sha, "time": core_time, "version": core_version}
+
+
+def get_recipe_meta(branch="dev"):
+    try:
+        image_sha, image_time = get_commit_and_time("neon_debos", branch)
+    except Exception as e:
+        print(e)
+        image_sha = "Unknown"
+        image_time = "Unknown"
+    return {"sha": image_sha, "time": image_time}
 
 
 def get_initramfs_metadata():
@@ -96,16 +97,22 @@ def get_initramfs_metadata():
 
 if __name__ == "__main__":
     core_ref = argv[1]
-    image_name = argv[2]
-    architecture = argv[3]
-    data = get_project_meta(core_ref)
+    debos_ref = argv[2]
+    image_name = argv[3]
+    architecture = argv[4]
+    print(f"debos_ref={debos_ref}")
+    data = dict()
+    data["core"] = get_neon_core_meta(core_ref)
+    data["image"] = get_recipe_meta(debos_ref)
+    data["image"]["version"] = debos_ref
+    data["initramfs"] = get_initramfs_metadata()
     data["base_os"] = {
         "name": image_name.split('_', 1)[0],
-        "time": image_name.split('_', 1)[1],
+        "time": datetime.strptime(image_name.split('_', 1)[1],
+                                  "%Y-%m-%d_%H_%M").timestamp(),
         "arch": architecture
     }
-    data["initramfs"] = get_initramfs_metadata()
     os.makedirs("/opt/neon", exist_ok=True)
-    with open("/opt/neon/build_info.json", "w+") as f:
-        json.dump(data, f)
-        f.write('\n')
+    with open("/opt/neon/build_info.json", "w+") as o:
+        json.dump(data, o, indent=2)
+        o.write('\n')

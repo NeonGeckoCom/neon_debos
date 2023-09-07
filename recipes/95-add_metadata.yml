@@ -1,16 +1,16 @@
 {{- $architecture := or .architecture "arm64" -}}
 {{- $image := or .image "ovos-dev-edition-rpi4" -}}
 {{- $neon_core := or .neon_core "master" -}}
+{{- $neon_debos := or .neon_debos "unknown" -}}
 
 architecture: {{ $architecture }}
 
-# TODO: Run script on host and copy outputs pip3.10 install
 actions:
-  - action: run
-    description: Install script dependencies
-    chroot: true
-    command: pip3.10 install pytz requests
   - action: run
     description: Add metadata file to image
     chroot: true
-    script: ../scripts/95-get_metadata.py {{ $neon_core }} {{ $image }} {{ $architecture }}
+    script: ../scripts/95-get_metadata.py {{ $neon_core }} {{ $neon_debos }} {{ $image }} {{ $architecture }}
+  - action: run
+    description: Copy metadata to outputs
+    chroot: false
+    command: cp "${ROOTDIR}/opt/neon/build_info.json" "/image_build/output/{{ $image }}.json"

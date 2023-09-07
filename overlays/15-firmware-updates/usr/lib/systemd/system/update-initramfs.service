@@ -3,4 +3,4 @@ Description=InitramFS Update Service
 
 [Service]
 Type=oneshot
-ExecStart=/bin/bash /opt/neon/update_initramfs.sh
+ExecStart=/bin/bash /opt/neon/update_firmware_file.sh "/opt/neon/initramfs" "/opt/neon/firmware/initramfs"
