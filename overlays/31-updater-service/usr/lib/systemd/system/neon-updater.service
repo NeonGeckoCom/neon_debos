@@ -5,4 +5,4 @@ Description=Neon Updater
 Type=oneshot
 User=root
 EnvironmentFile=/etc/neon/versions.conf
-ExecStart=/opt/neon/update $NEON_CORE_REF
+ExecStart=/opt/neon/legacy_update $NEON_CORE_REF
