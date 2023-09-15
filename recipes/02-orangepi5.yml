@@ -1,0 +1,44 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $firmware_version := or .firmware_version "master" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: apt
+    description: Install apt dependencies
+    packages:
+      - zstd
+      - initramfs-tools
+      - u-boot-tools
+      - u-boot-menu
+      - util-linux
+      - linux-image-arm64
+      - arm-trusted-firmware
+      - device-tree-compiler
+#      - linux-image-next-sunxi64
+#      - linux-dtb-next-sunxi64
+#      - linux-u-boot-orangepizeroplus2-h5-next
+
+  - action: overlay
+    description: Add Orange Pi 5 overlay
+    source: ../overlays/02-opi5
+    destination: /
+
+  - action: run
+    description: Define Default Groups
+    chroot: true
+    command: |
+      groupadd gpio
+      groupadd pulse
+      groupadd pulse-access
+      groupadd i2c
+
+  - action: run
+    description: Build boot.scr
+    chroot: true
+    command: mkimage -C none -A arm64 -O linux -T script -d /boot/boot.cmd /boot/boot.scr
+
+  - action: run
+    description: Set hostname
+    chroot: true
+    command: echo orangepi5 > /etc/hostname
