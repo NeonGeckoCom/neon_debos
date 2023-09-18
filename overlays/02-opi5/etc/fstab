@@ -1,0 +1,2 @@
+UUID=23909a83-f34f-42a6-b393-f6adf5cf9c38	/	ext4	defaults,noatime,commit=600,errors=remount-ro	0	1
+UUID=9EAC-8A2C	/boot	vfat	defaults	0	2

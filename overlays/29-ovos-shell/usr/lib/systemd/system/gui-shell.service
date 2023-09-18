@@ -2,7 +2,8 @@
 Description=Neon GUI
 
 [Service]
-User=neon
+# TODO: Generic user ID
+User=root
 WorkingDirectory=/opt/neon
 EnvironmentFile=/etc/neon/gui-shell.conf
 ExecStartPre=-/usr/bin/kbuildsycoca5

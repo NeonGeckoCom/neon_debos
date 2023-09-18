@@ -1,8 +1,9 @@
-verbosity=3
+verbosity=1
 bootlogo=true
-extraargs=cma=128M
+extraargs=cma=128M fbcon=rotate:3
 overlay_prefix=rk3588
-fdtfile=rockchip/rk3588s-orangepi-5.dtb
-rootdev=UUID=23909a83-f34f-42a6-b393-f6adf5cf9c37
+overlays=wifi-ap6275p lcd2
+fdtfile=rockchip/rk3588s-orangepi-5b.dtb
+rootdev=UUID=23909a83-f34f-42a6-b393-f6adf5cf9c38
 rootfstype=ext4
 usbstoragequirks=0x2537:0x1066:u,0x2537:0x1068:u

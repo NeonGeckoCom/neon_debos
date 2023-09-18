@@ -4,6 +4,12 @@
 architecture: {{ $architecture }}
 
 actions:
+
+  - action: overlay
+    description: Add Orange Pi 5 overlay
+    source: ../overlays/02-opi5
+    destination: /
+
   - action: apt
     description: Install apt dependencies
     packages:
@@ -15,14 +21,6 @@ actions:
       - linux-image-arm64
       - arm-trusted-firmware
       - device-tree-compiler
-#      - linux-image-next-sunxi64
-#      - linux-dtb-next-sunxi64
-#      - linux-u-boot-orangepizeroplus2-h5-next
-
-  - action: overlay
-    description: Add Orange Pi 5 overlay
-    source: ../overlays/02-opi5
-    destination: /
 
   - action: run
     description: Define Default Groups
@@ -33,10 +31,46 @@ actions:
       groupadd pulse-access
       groupadd i2c
 
+  - action: raw
+    description: Write idbloader to magic sector
+    origin: filesystem
+    source: /boot/idbloader.img
+    offset: {{ sector 64 }}
+
+  - action: raw
+    description: Write u-boot to magic sector
+    origin: filesystem
+    source: /boot/u-boot.itb
+    offset: {{ sector 16384 }}
+
   - action: run
-    description: Build boot.scr
+    description: Build boot.scr and cleanup boot partition
     chroot: true
-    command: mkimage -C none -A arm64 -O linux -T script -d /boot/boot.cmd /boot/boot.scr
+    command: |
+      mkimage -C none -A arm64 -O linux -T script -d /boot/boot.cmd /boot/boot.scr
+      rm /boot/idbloader.img
+      rm /boot/u-boot.itb
+
+  - action: apt
+    description: Install rockchip deb package dependencies
+    packages:
+      - libssl-dev
+      - flex
+      - bison
+      - libc6-dev
+      - gcc
+      - make
+      - rfkill
+
+  - action: run
+    chroot: true
+    description: Install kernel headers
+    label: dpkg
+    command: |
+      dpkg -i /var/tmp/*.deb && rm /var/tmp -r
+      rm /boot/Image && mv /boot/vmlinuz-*-rockchip-rk3588 /boot/Image
+      rm -rf /boot/dtb && mv /boot/dtb-*-rockchip-rk3588 /boot/dtb
+      ls -lah /boot
 
   - action: run
     description: Set hostname
