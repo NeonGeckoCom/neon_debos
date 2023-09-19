@@ -73,13 +73,13 @@ actions:
       suite: {{ $suite }}
       image: {{ $image }}
 
-#  - action: recipe
-#    recipe: recipes/12-ovos-gui-dependencies.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#      firmware_version: {{ $firmware_version }}
-#      suite: {{ $suite }}
-#      image: {{ $image }}
+  - action: recipe
+    recipe: recipes/12-ovos-gui-dependencies.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
 
   - action: recipe
     recipe: recipes/13-audio-devices.yml
@@ -125,11 +125,11 @@ actions:
     variables:
       architecture: {{ $architecture }}
 
-#  - action: recipe
-#    recipe: recipes/29-ovos-shell.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#      build_cores: {{ $build_cores }}
+  - action: recipe
+    recipe: recipes/29-ovos-shell.yml
+    variables:
+      architecture: {{ $architecture }}
+      build_cores: {{ $build_cores }}
 
 #  - action: pack
 #    file: rpi4_base.tar.gz
