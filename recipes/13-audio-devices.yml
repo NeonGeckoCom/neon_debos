@@ -12,6 +12,7 @@ actions:
       - pulseaudio-module-zeroconf
       - alsa-utils
       - portaudio19-dev
+      - git-core
   - action: overlay
     description: Pulse and ALSA Audio overlay
     source: ../overlays/13-audio-devices

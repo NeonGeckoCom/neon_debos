@@ -41,6 +41,14 @@ systemctl --global disable pulseaudio.service pulseaudio.socket
 # Ensure execute permissions
 chmod -R ugo+x /usr/libexec
 
+# Build and install tinyalsa
+cd /tmp
+git clone https://github.com/tinyalsa/tinyalsa
+cd tinyalsa
+make
+make install
+ldconfig
+rm -rf /tmp/tinyalsa
 
 # Enable system services
 systemctl enable pulseaudio.service
