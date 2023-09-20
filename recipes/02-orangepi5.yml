@@ -10,6 +10,13 @@ actions:
     source: ../overlays/02-opi5
     destination: /
 
+  - action: run
+    description: Add mesa extras
+    chroot: true
+    command: |
+      apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 0B2F0747E3BD546820A639B68065BE1FC67AABDE
+      apt update
+
   - action: apt
     description: Install apt dependencies
     packages:
@@ -21,6 +28,8 @@ actions:
       - linux-image-arm64
       - arm-trusted-firmware
       - device-tree-compiler
+      - mali-g610-firmware
+#      - rockchip-multimedia-config
 
   - action: run
     description: Define Default Groups
