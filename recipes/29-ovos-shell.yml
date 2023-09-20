@@ -4,31 +4,73 @@
 architecture: {{ $architecture }}
 
 actions:
+  - action: run
+    description: Ensure /var/tmp directory
+    chroot: true
+    command: mkdir -p /var/tmp
   - action: apt
-    description: Shell/GUI Dependencies
+    description: GUI Build Dependencies
     packages:
-      - git-core
-      - g++
+      - breeze-icon-theme
       - cmake
       - extra-cmake-modules
+      - g++
       - gettext
-      - pkg-config
-      - qml-module-qtwebengine
-      - pkg-kde-tools
-      - qtbase5-dev
-      - qtdeclarative5-dev
-      - libkf5kio-dev
-      - libqt5websockets5-dev
+      - git-core
+      - gstreamer1.0-libav
+      - gstreamer1.0-plugins-bad
+      - gstreamer1.0-plugins-ugly
+      - kirigami2-dev
+      - libinput-tools
       - libkf5i18n-dev
+      - libkf5kio-dev
       - libkf5notifications-dev
       - libkf5plasma-dev
+      - libqt5multimedia5-plugins
+      # TODO: Skip keyboard since build is below?
+#      - libqt5virtualkeyboard5-dev
+      - libqt5websockets5-dev
       - libqt5webview5-dev
-      - qtmultimedia5-dev
+      - pkg-config
+      - pkg-kde-tools
+      - plasma-pa
+      - qml-module-qt-labs-folderlistmodel
+      - qml-module-qtgraphicaleffects
+      - qml-module-qtlocation
       - qml-module-qtmultimedia
+      - qml-module-qtpositioning
+      - qml-module-qtqml-models2
+      - qml-module-qtquick-localstorage
+      - qml-module-qtquick-particles2
+      - qml-module-qtquick-shapes
+      - qml-module-qtquick-templates2
+      - qml-module-qtquick-virtualkeyboard
+      - qml-module-qtquick-xmllistmodel
+      - qml-module-qttest
+      - qml-module-qtwayland-compositor
+      - qml-module-qtwebchannel
+      - qml-module-qtwebengine
+      - qml-module-termwidget
+      - qmltermwidget-common
+      - qt5ct
+      - qtbase5-dev
+      - qtdeclarative5-dev
+      - qtmultimedia5-dev
+      - qtwayland5
+      - xorg
+
   - action: overlay
     description: Neon Shell Overlay
     source: ../overlays/29-ovos-shell
     destination: /
+
+  - action: run
+    description: Build Keyboard
+    chroot: true
+    command: |
+      dpkg --force-overwrite -i /opt/qtvirtualkeyboard_patch/qtvirtualkeyboard_5.15.6_arm64.deb || exit 10
+      rm -rf /opt/qtvirtualkeyboard_patch || exit 10
+
   - action: run
     description: Build and Install OVOS Shell and Mycroft GUI
     chroot: true
