@@ -1,5 +1,13 @@
 # Changelog
 
+## [23.9.20a2](https://github.com/NeonGeckoCom/neon_debos/tree/23.9.20a2) (2023-09-20)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.9.11a1...23.9.20a2)
+
+**Merged pull requests:**
+
+- Refactor Qt Shell Build [\#81](https://github.com/NeonGeckoCom/neon_debos/pull/81) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [23.9.11a1](https://github.com/NeonGeckoCom/neon_debos/tree/23.9.11a1) (2023-09-11)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.9.7...23.9.11a1)
