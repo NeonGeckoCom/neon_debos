@@ -29,9 +29,19 @@
 
 image=${1}
 root_dir=${2}
-mv "${root_dir}/boot/firmware" "/image_build/output/firmware"
+
+# Determine directory mounted to `boot` partition
+boot_part_dir=""
+if [ -d "${root_dir}/boot/firmware" ]; then
+  boot_part_dir="/boot/firmware"
+else
+  boot_part_dir="/boot"
+fi
+
+mv "${root_dir}${boot_part_dir}" "/image_build/output/boot_part"
 rm -rf "${root_dir:?}"/*
 mkdir "${root_dir}/root"
 cp "/image_build/output/${image}.squashfs" "${root_dir}/root/neon.squashfs" && echo "added ${image} as neon.squashfs"
-mkdir "${root_dir}/boot"
-mv "/image_build/output/firmware" "${root_dir}/boot/firmware" && echo "restored firmware"
+mkdir -p "${root_dir}${boot_part_dir}"
+mv "/image_build/output/boot_part"/* "${root_dir}${boot_part_dir}" && echo "restored boot partition"
+rm -r "/image_build/output/boot_part"
