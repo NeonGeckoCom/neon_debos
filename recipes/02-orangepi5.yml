@@ -25,7 +25,7 @@ actions:
       - u-boot-tools
       - u-boot-menu
       - util-linux
-      - linux-image-arm64
+#      - linux-image-arm64
       - arm-trusted-firmware
       - device-tree-compiler
       - mali-g610-firmware
@@ -40,6 +40,7 @@ actions:
       groupadd pulse-access
       groupadd i2c
 
+  # TODO: Build idbloader and u-boot.itb from installed kernel
   - action: raw
     description: Write idbloader to magic sector
     origin: filesystem
@@ -77,9 +78,8 @@ actions:
     label: dpkg
     command: |
       dpkg -i /var/tmp/*.deb && rm /var/tmp -r
-      rm /boot/Image && mv /boot/vmlinuz-*-rockchip-rk3588 /boot/Image
-      rm -rf /boot/dtb && mv /boot/dtb-*-rockchip-rk3588 /boot/dtb
-      ls -lah /boot
+      rm /boot/Image && mv /boot/vmlinuz-* /boot/Image
+      rm -rf /boot/dtb && mv /boot/dtb-* /boot/dtb
 
   - action: run
     description: Set hostname
