@@ -74,14 +74,6 @@ actions:
       image: {{ $image }}
 
   - action: recipe
-    recipe: recipes/12-ovos-gui-dependencies.yml
-    variables:
-      architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
-      suite: {{ $suite }}
-      image: {{ $image }}
-
-  - action: recipe
     recipe: recipes/13-audio-devices.yml
     variables:
       architecture: {{ $architecture }}
@@ -125,11 +117,20 @@ actions:
     variables:
       architecture: {{ $architecture }}
 
-  - action: recipe
-    recipe: recipes/29-ovos-shell.yml
-    variables:
-      architecture: {{ $architecture }}
-      build_cores: {{ $build_cores }}
+#  - action: recipe
+#    recipe: recipes/29-ovos-shell.yml
+#    variables:
+#      architecture: {{ $architecture }}
+#      build_cores: {{ $build_cores }}
+
+#  - action: recipe
+#    recipe: recipes/41-install-neon-core.yml
+#    variables:
+#      architecture: {{ $architecture }}
+#      firmware_version: {{ $firmware_version }}
+#      suite: {{ $suite }}
+#      image: {{ $image }}
+#      neon_core: dev
 
 #  - action: pack
 #    file: rpi4_base.tar.gz
@@ -163,33 +164,49 @@ actions:
       suite: {{ $suite }}
       image: {{ $image }}
 
-  - action: image-partition
-    imagename: output/{{ $image }}.img
-    imagesize: 7GB
-    partitiontype: gpt
-    diskid: 67d9d0ad-c9a4-a94a-b477-ce3a3e8534e9
-    mountpoints:
-      - mountpoint: /
-        partition: opi_root
-        options: [noatime, commit=600, errors=remount-ro]
-      - mountpoint: /boot
-        partition: opi_boot
-    partitions:
-      - name: opi_boot
-        parttype: bc13c2ff-59e6-4262-a352-b275fd6f7172
-        fsuuid: 9EAC8A2C
-        flags: [bls_boot]
-        fs: fat32
-        start: 61440s
-        end: 2158591s
-      - name: opi_root
-        parttype: 0fc63daf-8483-4772-8e79-3d69d8477de4
-        fsuuid: 23909a83-f34f-42a6-b393-f6adf5cf9c38
-        fs: ext4
-        start: 2158592s
-        end: 100%
+  - action: recipe
+    recipe: recipes/98-backup-image.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
 
-  - action: filesystem-deploy
-    description: Deploying filesystem into image
-    setup-kernel-cmdline: false
-    setup-fstab: false
+  - action: recipe
+    recipe: recipes/99-finalize_squashfs.yml
+    variables:
+      architecture: {{ $architecture }}
+      image: {{ $image }}
+      build_cores: {{ $build_cores }}
+      platform: opi
+
+#  - action: image-partition
+#    imagename: output/{{ $image }}.img
+#    imagesize: 7GB
+#    partitiontype: gpt
+#    diskid: 67d9d0ad-c9a4-a94a-b477-ce3a3e8534e9
+#    mountpoints:
+#      - mountpoint: /
+#        partition: opi_root
+#        options: [noatime, commit=600, errors=remount-ro]
+#      - mountpoint: /boot
+#        partition: opi_boot
+#    partitions:
+#      - name: opi_boot
+#        parttype: bc13c2ff-59e6-4262-a352-b275fd6f7172
+#        fsuuid: 9EAC8A2C
+#        flags: [bls_boot]
+#        fs: fat32
+#        start: 61440s
+#        end: 2158591s
+#      - name: opi_root
+#        parttype: 0fc63daf-8483-4772-8e79-3d69d8477de4
+#        fsuuid: 23909a83-f34f-42a6-b393-f6adf5cf9c38
+#        fs: ext4
+#        start: 2158592s
+#        end: 100%
+#
+#  - action: filesystem-deploy
+#    description: Deploying filesystem into image
+#    setup-kernel-cmdline: false
+#    setup-fstab: false

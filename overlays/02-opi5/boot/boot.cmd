@@ -76,7 +76,7 @@ if test "${ethernet_phy}" = "rtl8211f"; then
         fdt set /ethernet@ff540000 tx_delay <0x24>
         fdt set /ethernet@ff540000 rx_delay <0x18>
 fi
-
+echo "booting"
 booti ${kernel_addr_r} ${ramdisk_addr_r} ${fdt_addr_r}
 
 # Recompile with:

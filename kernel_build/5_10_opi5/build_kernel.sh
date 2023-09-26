@@ -34,10 +34,10 @@ git clone --depth=1 https://github.com/orangepi-xunlong/linux-orangepi -b orange
 cd linux || exit 10
 export KERNEL=kernel8
 make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- rk3588_linux.config
-#mv .config .config.old
+
 cp ../.config .config
-#make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- rk3588_linux
-make -j4 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- deb-pkg
+
+make -j8 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- deb-pkg
 cd .. || exit 10
 rm -rf linux
 for file in *.deb; do
@@ -58,8 +58,9 @@ for file in *.deb; do
   ar -m -c -a sdsd "${kernel_dir}/${file}" "${work_dir}/debian-binary" "${work_dir}/control.tar.xz" "${work_dir}/data.tar.xz" && echo "Wrote patched ${kernel_dir}/${file}"
   rm -r "${work_dir}"
 done
+# TODO: Copy outputs to overlay
 echo "Compressing ${kernel_dir}"
 zip -j -r "${kernel_dir}.zip" "${kernel_dir}" || exit 2
 rm -r "${kernel_dir}"
-rm linux-*
+rm -r linux-*
 rm ./*.deb

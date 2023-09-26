@@ -40,7 +40,6 @@ actions:
       groupadd pulse-access
       groupadd i2c
 
-  # TODO: Build idbloader and u-boot.itb from installed kernel
   - action: raw
     description: Write idbloader to magic sector
     origin: filesystem
@@ -78,7 +77,7 @@ actions:
     label: dpkg
     command: |
       dpkg -i /var/tmp/*.deb && rm /var/tmp -r
-      rm /boot/Image && mv /boot/vmlinuz-* /boot/Image
+      rm /boot/Image && cp /boot/vmlinuz-* /boot/Image
       rm -rf /boot/dtb && mv /boot/dtb-* /boot/dtb
 
   - action: run

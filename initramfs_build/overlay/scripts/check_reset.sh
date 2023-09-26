@@ -55,4 +55,4 @@ if [ -f "${SIGNAL_FILE}" ]; then
   exit 0
 # TODO: Option to power off instead of continuing boot
 fi
-
+log "No reset requested"

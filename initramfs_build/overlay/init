@@ -334,10 +334,12 @@ if [ -n "${ROOT_ROPATH}" ]; then
 
   scripts/check_reset.sh "/media/rw"
   # Mount read-only FS
+  log_begin_msg "Mounting squashfs root"
   mkdir -p /media/ro
   mount -t "squashfs" -o noatime,nodiratime "${rootmnt}/${ROOT_ROPATH}" /media/ro
   mount -o remount,ro /media/ro
   # TODO: Recover here by restoring a backup squashfs
+  log_end_msg
 
   if [ -f /media/rw/upperdir/opt/neon/squashfs_updated ]; then
     user_backup_path="/media/rw/firmware_backup"
@@ -349,15 +351,18 @@ if [ -n "${ROOT_ROPATH}" ]; then
   # Optionally Create and mount swapfile
   scripts/check_swapfile.sh "${rootmnt}/swapfile"
   if [ -f "${rootmnt}/swapfile" ]; then
-    log "mounting swapfile"
+    [ "$quiet" != "y" ] && log_begin_msg "mounting swapfile"
     touch /swapfile
     mount --bind ${rootmnt}/swapfile /swapfile
+    [ "$quiet" != "y" ] && log_end_msg
   fi
-  log "swapfile handled"
+  [ "$quiet" != "y" ] && log "swapfile handled"
 
   # Define remaining paths and build overlayFS
   mkdir -p /media/rw/work /media/rw/upperdir
+  [ "$quiet" != "y" ] && log_begin_msg "Mounting overlayFS"
   mount -t overlay overlay -o lowerdir=/media/ro,upperdir=/media/rw/upperdir,workdir=/media/rw/work ${rootmnt}
+  [ "$quiet" != "y" ] && log_end_msg
 
   [ "$quiet" != "y" ] && log_begin_msg "Running /scripts/init-bottom"
   # We expect udev's init-bottom script to move /dev to ${rootmnt}/dev
