@@ -29,7 +29,7 @@
 
 # Set to exit on error
 set -Ee
-py_ver="3.10.12"
+py_ver="3.10.13"
 cd /opt || exit 1
 wget https://www.python.org/ftp/python/${py_ver}/Python-${py_ver}.tar.xz
 tar -xf Python-${py_ver}.tar.xz

@@ -1,5 +1,6 @@
 {{- $architecture := or .architecture "arm64" -}}
 {{- $firmware_version := or .firmware_version "master" -}}
+{{- $kernel_version := or .kernel_version "5.15.92-gecko+" -}}
 {{ $suite :=  or .suite "bookworm" }}
 {{- $image := or .image "ostree-base-image-rpi4" -}}
 {{- $build_cores := or .build_cores 4 -}}
@@ -22,6 +23,7 @@ actions:
       firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
       image: {{ $image }}
+      kernel_version: {{ $kernel_version }}
 
   - action: recipe
     recipe: recipes/03-base-packages.yml

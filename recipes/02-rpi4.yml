@@ -1,23 +1,24 @@
 {{- $architecture := or .architecture "arm64" -}}
 {{- $firmware_version := or .firmware_version "master" -}}
+{{- $kernel_version := or .kernel_version "" -}}
 
 architecture: {{ $architecture }}
 
 actions:
-  # Download all needed proprietary stuff first
   - action: download
     description: Download latest version of the firmware from GitHub
     url: https://github.com/raspberrypi/firmware/archive/{{ $firmware_version }}.tar.gz
     unpack: true
     name: firmware
 
-  # add firmware
   - action: overlay
+    description: Apply downloaded RPi firmware
     origin: firmware
     source: firmware-{{ $firmware_version }}/boot
     destination: /boot/firmware
 
   - action: run
+    description: Remove downloaded kernel and dtb files
     chroot: true
     command: rm -rvf /boot/firmware/kernel*.img /boot/firmware/*.dtb /boot/firmware/overlays
 
@@ -49,18 +50,9 @@ actions:
     command: dpkg -i /var/tmp/*.deb && rm /var/tmp/* -r
 
   - action: run
-    description: Copy dtb to boot firmware partition
+    description: Copy dtb and kernel ({{ $kernel_version }}) to boot firmware partition
     chroot: true
-{{ if eq $architecture "armhf" }}
-    command: mkdir -p /boot/firmware/overlays && cp -v /usr/lib/linux-image-*/*.dtb /boot/firmware && cp -v /usr/lib/linux-image-*/overlays/* /boot/firmware/overlays/
-{{ else }}
-    command: mkdir -p /boot/firmware/overlays && cp -v /usr/lib/linux-image-*/broadcom/*.dtb /boot/firmware && cp -v /usr/lib/linux-image-*/overlays/* /boot/firmware/overlays/
-{{ end }}
-
-  - action: run
-    description: Copy kernel to where bootloader expects it
-    chroot: true
-    script: ../scripts/02-pi_copy_kernel.sh {{ $architecture }}
+    script: ../scripts/02-link_kernel.sh {{ $kernel_version }}
 
 #  - action: run
 #    description: Get and Install Kernel Packages
@@ -70,7 +62,7 @@ actions:
   - action: run
     description: Patch kernel headers
     chroot: true
-    script: ../scripts/02-patch_5_15_raspi_kernel.sh
+    script: ../scripts/02-patch_kernel_headers.sh
 
 #  - action: run
 #    description: Set root device in cmdline.txt
