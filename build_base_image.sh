@@ -29,7 +29,7 @@
 
 source_dir="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-mem_limit=${MEM_LIMIT:-"16G"}
+mem_limit=${MEM_LIMIT:-"24G"}
 core_limit=${CORE_LIMIT:-4}
 docker run --rm -d \
 --device /dev/kvm \
@@ -38,10 +38,13 @@ docker run --rm -d \
 --group-add=108 \
 --security-opt label=disable \
 --name neon_debos_base \
+-m "${mem_limit}" \
+--oom-kill-disable \
 godebos/debos "base-rootfs-rpi4.yml" \
 -t architecture:arm64 \
 -t build_cores:"${core_limit}" \
 -m "${mem_limit}" \
--c "${core_limit}" && \
+-c "${core_limit}" \
+--scratchsize=32GB && \
 docker logs -f neon_debos_base
 echo -e "\n"

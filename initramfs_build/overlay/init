@@ -72,6 +72,7 @@ export DEVICE=
 export BOOT=
 export BOOTIF=
 export UBIMTD=
+export KERNEL="kernel8.img"
 export break=
 export init=/sbin/init
 export readonly=y
@@ -123,6 +124,9 @@ for x in $(cat /proc/cmdline); do
     ;;
   root_backup=*)
     ROOT_BUPATH="${x#root_backup=}"
+    ;;
+  kernel=*)
+    KERNEL="${x#kernel=}"
     ;;
 	rootfstype=*)
 		ROOTFSTYPE="${x#rootfstype=}"
@@ -334,6 +338,13 @@ if [ -n "${ROOT_ROPATH}" ]; then
   mount -t "squashfs" -o noatime,nodiratime "${rootmnt}/${ROOT_ROPATH}" /media/ro
   mount -o remount,ro /media/ro
   # TODO: Recover here by restoring a backup squashfs
+
+  if [ -f /media/rw/upperdir/opt/neon/squashfs_updated ]; then
+    user_backup_path="/media/rw/firmware_backup"
+    log "Checking for updated kernel/firmware"
+    scripts/check_firmware_update.sh "${user_backup_path}"
+    log "No firmware update to apply"
+  fi
 
   # Optionally Create and mount swapfile
   scripts/check_swapfile.sh "${rootmnt}/swapfile"
