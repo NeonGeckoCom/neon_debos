@@ -37,13 +37,22 @@ kernels=($(ls /usr/src | grep linux-headers))
 #default_kernel="${1}"
 #kernels[${#kernels[@]}]="${default_kernel}"
 
-for kernel in "${kernels[@]}"; do
-  echo "patching kernel ${kernel}"
-  export HEADER_DIR="/usr/src/${kernel}"
-  [ -d "${HEADER_DIR}" ] || exit 2
-  [ -d "${HEADER_DIR}/scripts" ] || continue
-  find "$HEADER_DIR/scripts" -type f | while read i; do if file -b $i | egrep -q "^ELF.*x86-64"; then rm "$i"; fi; done
-  cd "$HEADER_DIR/scripts" || exit 2
+patch_5_4() {
+  gcc kallsyms.c -o "$HEADER_DIR/scripts/kallsyms"
+  gcc pnmtologo.c -o "$HEADER_DIR/scripts/pnmtologo"
+  gcc conmakehash.c -o "$HEADER_DIR/scripts/conmakehash"
+  gcc recordmcount.c -o "$HEADER_DIR/scripts/recordmcount"
+  gcc -I../tools/include sortextable.c -o "$HEADER_DIR/scripts/sortextable"
+  gcc unifdef.c -o "$HEADER_DIR/scripts/unifdef"
+  gcc ./basic/fixdep.c -o "$HEADER_DIR/scripts/basic/fixdep"
+  gcc extract-cert.c -o "$HEADER_DIR/scripts/extract-cert" -lssl -lcrypto
+  gcc ./mod/modpost.c ./mod/file2alias.c ./mod/sumversion.c -o "$HEADER_DIR/scripts/mod/modpost"
+  gcc ./mod/mk_elfconfig.c -o "$HEADER_DIR/scripts/mod/mk_elfconfig"
+  gcc  -I../include asn1_compiler.c -o "$HEADER_DIR/scripts/asn1_compiler"
+  gcc ./genksyms/genksyms.c ./genksyms/parse.tab.c ./genksyms/lex.lex.c -o "$HEADER_DIR/scripts/genksyms/genksyms"
+}
+
+patch_5_15() {
   gcc kallsyms.c -o "$HEADER_DIR/scripts/kallsyms"
   gcc recordmcount.c -o "$HEADER_DIR/scripts/recordmcount"
   gcc unifdef.c -o "$HEADER_DIR/scripts/unifdef"
@@ -53,5 +62,20 @@ for kernel in "${kernels[@]}"; do
   gcc ./mod/mk_elfconfig.c -o "$HEADER_DIR/scripts/mod/mk_elfconfig"
   gcc  -I../include asn1_compiler.c -o "$HEADER_DIR/scripts/asn1_compiler"
   gcc ./genksyms/genksyms.c ./genksyms/parse.tab.c ./genksyms/lex.lex.c -o "$HEADER_DIR/scripts/genksyms/genksyms"
+}
+
+for kernel in "${kernels[@]}"; do
+  echo "patching kernel ${kernel}"
+  export HEADER_DIR="/usr/src/${kernel}"
+  [ -d "${HEADER_DIR}" ] || exit 2
+  [ -d "${HEADER_DIR}/scripts" ] || continue
+  find "$HEADER_DIR/scripts" -type f | while read i; do if file -b $i | egrep -q "^ELF.*x86-64"; then rm "$i"; fi; done
+  cd "$HEADER_DIR/scripts" || exit 2
+  if [[ ${kernel} == "linux-headers-5.4."* ]]; then
+    patch_5_4
+  elif [[ ${kernel} == "linux-headers-5.15."* ]]; then
+    patch_5_15
+  # TODO: 6.x kernels
+  fi
 done
 
