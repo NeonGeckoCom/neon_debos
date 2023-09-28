@@ -27,52 +27,33 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+# Build Vocalfusion drivers for all installed kernels
+
 # Set to exit on error
 set -Ee
 
 pip3.10 install wheel sj201-interface==0.0.3a0
 
-# Determine kernel with build directory
-# TODO: Better way to detect appropriate kernel
-if [ -d /lib/modules/5.15.72-v8+ ]; then
-    kernel=5.15.72-v8+
-elif [ -d /lib/modules/5.15.61-v8+ ]; then
-    kernel=5.15.61-v8+
-elif [ -d /lib/modules/5.10.103-v8+ ]; then
-    kernel=5.10.103-v8+
-elif [ -d /lib/modules/5.4.51-v8-raspi2 ]; then
-    kernel=5.4.51-v8-raspi2
-elif [ "$(ls -1 /lib/modules | wc -l)" -gt 1 ]; then
-    kernels=($(ls /lib/modules))
-    echo "Looking for kernel with build dir in ${kernels[*]}"
-    for k in "${kernels[@]}"; do
-        if [ -d "/lib/modules/${k}/build" ]; then
-            kernel="${k}"
-            echo "Selected kernel ${kernel}"
-            break
-        fi
-    done
-    if [ -z ${kernel} ]; then
-        echo "No build files available. Picking kernel=${kernels[0]}"
-        kernel=${kernels[0]}
-    fi
-else
-    kernel=$(ls /lib/modules)
-    echo "Only one kernel available: ${kernel}"
-fi
-#kernel="5.4.0-1052-raspi"
+kernels=($(ls /lib/modules))
+echo "Looking for kernels with build dir in ${kernels[*]}"
+for k in "${kernels[@]}"; do
+  if [ -d "/lib/modules/${k}/build" ]; then
+    kernel="${k}"
+    echo "Building for kernel ${kernel}"
 
-# Build and load VocalFusion Driver
-git clone https://github.com/OpenVoiceOS/vocalfusiondriver
-cd vocalfusiondriver/driver || exit 10
-sed -ie "s|\$(shell uname -r)|${kernel}|g" Makefile
-make -j${1:-} all || exit 2
-mkdir -p "/lib/modules/${kernel}/kernel/drivers/vocalfusion"
-cp vocalfusion* "/lib/modules/${kernel}/kernel/drivers/vocalfusion" || exit 2
-cd ../..
-rm -rf vocalfusiondriver
+    # Build and load VocalFusion Driver
+    git clone https://github.com/OpenVoiceOS/vocalfusiondriver
+    cd vocalfusiondriver/driver || exit 10
+    sed -ie "s|\$(shell uname -r)|${kernel}|g" Makefile
+    make -j${1:-} all || exit 2
+    mkdir -p "/lib/modules/${kernel}/kernel/drivers/vocalfusion"
+    cp vocalfusion* "/lib/modules/${kernel}/kernel/drivers/vocalfusion" || exit 2
+    cd ../..
+    rm -rf vocalfusiondriver
 
-depmod ${kernel} -a
+    depmod "${kernel}" -a
+  fi
+done
 # `modinfo -k ${kernel} vocalfusion-soundcard` should show the module info now
 
 # Ensure execute permissions
