@@ -1,0 +1,70 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $firmware_version := or .firmware_version "master" -}}
+{{- $kernel_version := or .kernel_version "" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+
+  - action: overlay
+    description: Add Orange Pi 5 overlay
+    source: ../overlays/02-opi5
+    destination: /
+
+# TODO: Adding these causes a package version conflict in later build steps
+#  - action: run
+#    description: Add mesa extras
+#    chroot: true
+#    command: |
+#      apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 0B2F0747E3BD546820A639B68065BE1FC67AABDE
+#      apt update
+
+  - action: apt
+    description: Install apt dependencies
+    packages:
+      - zstd
+      - initramfs-tools
+      - u-boot-tools
+      - u-boot-menu
+      - util-linux
+      - arm-trusted-firmware
+      - device-tree-compiler
+      - python-is-python3
+#      - mali-g610-firmware
+#      - rockchip-multimedia-config
+
+  - action: run
+    description: Build boot.scr
+    chroot: true
+    command: |
+      mkimage -C none -A arm64 -O linux -T script -d /boot/boot.cmd /boot/boot.scr
+
+  - action: apt
+    description: Install rockchip deb package dependencies
+    packages:
+      - libssl-dev
+      - flex
+      - bison
+      - libc6-dev
+      - gcc
+      - make
+      - rfkill
+
+  - action: run
+    chroot: true
+    description: Install kernel headers
+    label: dpkg
+    command: |
+      dpkg -i /var/tmp/*.deb && rm /var/tmp -r
+      rm /boot/Image && cp /boot/vmlinuz-* /boot/Image
+      rm -rf /boot/dtb && mv /boot/dtb-* /boot/dtb
+
+  - action: run
+    chroot: true
+    description: Write kernel metadata
+    script: ../scripts/02-link_kernel.sh
+
+  - action: run
+    description: Set hostname
+    chroot: true
+    command: echo orangepi5 > /etc/hostname

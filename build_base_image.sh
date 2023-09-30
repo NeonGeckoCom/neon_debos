@@ -34,6 +34,7 @@ core_limit=${CORE_LIMIT:-4}
 
 platform=${1:-rpi4}
 [ "${platform}" == "rpi4" ] && kernel_version="5.15.92-gecko+"
+[ "${platform}" == "opi5" ] && kernel_version="5.10.110-gecko+"
 
 docker run --rm -d \
 --device /dev/kvm \
@@ -50,7 +51,6 @@ godebos/debos "base-rootfs.yml" \
 -t kernel_version:"${kernel_version}" \
 -t platform:"${platform}" \
 -m "${mem_limit}" \
--c "${core_limit}" \
---scratchsize=32GB && \
+-c "${core_limit}" && \
 docker logs -f neon_debos_base
 echo -e "\n"
