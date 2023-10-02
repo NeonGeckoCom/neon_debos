@@ -27,6 +27,9 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+# Already configured
+[ -f /etc/pulse/daemon.conf ] && exit 0
+
 # Set default configurations
 PULSE_SYSTEM=/etc/pulse/pulseaudio-system.pa
 PULSE_DAEMON=/etc/pulse/pulseaudio-daemon.conf
@@ -38,7 +41,7 @@ fi
 
 # Check platform defaults
 if [ -z "${prefix}" ]; then
-  if [[ "$(uname -r)" == *"rockchip-rk3588" ]]; then
+  if $(grep -q opi5 /opt/neon/build_info.json); then
     # Check for Orange Pi
     prefix="opi5-"
     card=$(aplay -l | grep "es8388" | cut -d ':' -f 1 | cut -d ' ' -f 2)
