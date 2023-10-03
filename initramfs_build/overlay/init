@@ -287,6 +287,10 @@ if read_fstab_entry /usr; then
 	log_end_msg
 fi
 
+# Check for instance installed to other media
+scripts/check_install.sh && log "Not installing to internal storage"
+# If this does install, then boot will fail and reboot to next boot device (internal emmc for OPi)
+
 # Mount cleanup
 mount_bottom || exit_error "mount_bottom"
 nfs_bottom || exit_error "nfs_bottom"

@@ -30,12 +30,42 @@
 set -e
 . /scripts/functions
 rootpart=$(realpath "$ROOT")
+root_uuid="77d9d0ad-c9a4-a94a-b477-ce3a3e8534e8"
+boot_uuid="3030-3030"
 
 # TODO: Conditional check to enable installation
 
 # Check if booting from micro SD
 [ "${rootpart}" = "/dev/mmcblk0p2" ] || exit 0
-log "Booted from SD Card; writing to internal storage"
-dd if=/dev/mmcblk0 of=/dev/mmcblk1 && log "Wrote image to internal storage"
-echo "Please remove the micro SD card and restart"
-sleep 30
+log "Booted from SD Card. Checking for installation"
+
+if lsblk -o UUID | grep -q "3030-3030"; then
+  log "Already installed to internal storage. Try next boot device"
+  exit 11
+else
+  log "Installing OS to internal storage"
+  # TODO: Display installation screen
+fi
+
+# Write image to internal storage
+sleep 5
+last_sector=$(fdisk -l /dev/mmcblk0 | grep p2 | awk '{print $4}')
+log "Writing ${last_sector} sectors"
+sleep 5
+dd if=/dev/mmcblk0 of=/dev/mmcblk1 count=${last_sector} && log "Wrote image to internal storage"
+sleep 5
+# Guarantee unique partition UUIDs
+printf "\x30\x30\x30\x30" | dd bs=1 seek=67 count=4 conv=notrunc of=/dev/mmcblk1p1 && log "Changed boot partition UUID to ${boot_uuid}"
+tune2fs -U "${root_uuid}" /dev/mmcblk1p2 && lo9g "Changed root partition UUID to ${root_uuid}"
+
+# Update labels in boot config
+[ -d /media/fw ] || mkdir /media/fw
+real_path="/media/fw"
+mount boot_uuid=${boot_uuid} "${real_path}"
+sed -i -e "s|^rootdev=boot_uuid=*$|rootdev=boot_uuid=${root_uuid}|g"  ${real_path}/orangepiEnv.txt
+umount ${real_path}
+
+log "Installed OS to internal storage"
+dmesg > "${OVERLAY_PATH}/var/log/os_installation.log"
+reboot -f
+exit 10
