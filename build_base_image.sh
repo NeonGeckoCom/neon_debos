@@ -51,6 +51,4 @@ godebos/debos "base-rootfs.yml" \
 -t kernel_version:"${kernel_version}" \
 -t platform:"${platform}" \
 -m "${mem_limit}" \
--c "${core_limit}" && \
-docker logs -f neon_debos_base
-echo -e "\n"
+-c "${core_limit}"

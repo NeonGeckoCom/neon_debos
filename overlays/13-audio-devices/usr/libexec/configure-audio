@@ -44,16 +44,17 @@ if [ -z "${prefix}" ]; then
   if $(grep -q opi5 /opt/neon/build_info.json); then
     # Check for Orange Pi
     prefix="opi5-"
+    # Configure the onboard microphone
     card=$(aplay -l | grep "es8388" | cut -d ':' -f 1 | cut -d ' ' -f 2)
-    # TODO: Validate below params
-    tinymix -D "${card}" set 3 4
-    tinymix -D "${card}" set 4 2
-    tinymix -D "${card}" set 14 192
-    tinymix -D "${card}" set 16 0
-    tinymix -D "${card}" set 17 0
-    tinymix -D "${card}" set 31 1
-    tinymix -D "${card}" set 32 1
-    tinymix -D "${card}" set 33 1
+    # PGA=Programmable Gain Amplifier
+    tinymix -D "${card}" set 3 4    # Capture Max PGA (0-7)
+    tinymix -D "${card}" set 4 2    # Capture Min PGA (0-7)
+    tinymix -D "${card}" set 14 192 # Capture volume (0-192)
+    tinymix -D "${card}" set 16 0   # Left channel volume (0-8)
+    tinymix -D "${card}" set 17 0   # Right channel volume (0-8)
+    tinymix -D "${card}" set 31 1   # Left PGA Mux (enum)
+    tinymix -D "${card}" set 32 1   # Right PGA Mux (enum)
+    tinymix -D "${card}" set 33 1   # Differential Mux (enum)
   elif which dtoverlay; then
     # If dtoverlay command is present, assume RPi
     prefix="rpi-"
@@ -66,11 +67,13 @@ if [ -n "${prefix}" ]; then
 fi
 
 if [[ -f /etc/pulse/system.pa || -L /etc/pulse/system.pa ]] ; then
-    rm /etc/pulse/system.pa
+  echo "removing existing system.pa"
+  rm /etc/pulse/system.pa
 fi
 if [[ -f /etc/pulse/daemon.conf || -L /etc/pulse/daemon.conf ]] ; then
-    rm /etc/pulse/daemon.conf
+  echo "removing existing daemon.conf"
+  rm /etc/pulse/daemon.conf
 fi
 
-ln -s "${PULSE_SYSTEM}" /etc/pulse/system.pa
-ln -s "${PULSE_DAEMON}" /etc/pulse/daemon.conf
+ln -s "${PULSE_SYSTEM}" /etc/pulse/system.pa && echo "linked ${PULSE_SYSTEM}"
+ln -s "${PULSE_DAEMON}" /etc/pulse/daemon.conf && echo "linked ${PULSE_DAEMON}"
