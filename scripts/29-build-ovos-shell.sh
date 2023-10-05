@@ -89,6 +89,5 @@ rm /usr/share/OVOS/ColorSchemes/sunset_scheme.json
 
 # Permission overlay files and enable gui service
 chmod -R ugo+x /usr/bin
-chown -R neon:neon /home/neon
 systemctl enable gui-shell
 echo "GUI Embedded Shell Configured"

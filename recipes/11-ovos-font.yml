@@ -1,6 +1,4 @@
 {{- $architecture := or .architecture "arm64" -}}
-{{- $firmware_version := or .firmware_version "master" -}}
-{{ $suite :=  or .suite "focal" }}
 
 architecture: {{ $architecture }}
 
@@ -28,4 +26,4 @@ actions:
   - action: run
     description: Update font cache
     chroot: true
-    command: fc-cache -f -v
+    command: fc-cache -f

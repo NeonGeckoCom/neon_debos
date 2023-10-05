@@ -6,11 +6,6 @@ architecture: {{ $architecture }}
 
 actions:
   - action: overlay
-    description: Mycroft helper commands overlay
-    source: ../overlays/10-helper-commands
-    destination: /opt/mycroft/
-
-  - action: overlay
     description: OVOS specific overlay
     source: ../overlays/10-mycroft
 
