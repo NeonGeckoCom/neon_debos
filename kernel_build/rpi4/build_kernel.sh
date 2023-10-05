@@ -62,7 +62,7 @@ for file in *.deb; do
 done
 cp "${kernel_dir}/"*.deb "${ROOT_PATH}/../../overlays/02-rpi4/var/tmp/" && echo "Copied deb installers to overlay"
 echo "Compressing ${kernel_dir}"
-zip -j1 -r "${kernel_dir}.zip" "${kernel_dir}" || exit 2
+zip -j -r "${kernel_dir}.zip" "${kernel_dir}" || exit 2
 rm -r "${kernel_dir}"
 rm linux-upstream_*
 rm ./*.deb

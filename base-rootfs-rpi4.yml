@@ -2,7 +2,6 @@
 {{- $firmware_version := or .firmware_version "master" -}}
 {{- $kernel_version := or .kernel_version "5.15.92-gecko+" -}}
 {{ $suite :=  or .suite "bookworm" }}
-{{- $image := or .image "ostree-base-image-rpi4" -}}
 {{- $build_cores := or .build_cores 4 -}}
 
 architecture: {{ $architecture }}
@@ -14,15 +13,12 @@ actions:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
-      image: {{ $image }}
-
   - action: recipe
     recipe: recipes/02-rpi4.yml
     variables:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
-      image: {{ $image }}
       kernel_version: {{ $kernel_version }}
 
   - action: recipe
@@ -31,7 +27,6 @@ actions:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
-      image: {{ $image }}
 
   - action: recipe
     recipe: recipes/03-get-raspi-packages.yml
@@ -42,7 +37,6 @@ actions:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
-      image: {{ $image }}
 
   - action: recipe
     recipe: recipes/05-setup-networking.yml
@@ -58,7 +52,6 @@ actions:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
-      image: {{ $image }}
 
   - action: recipe
     recipe: recipes/07-splash-screen.yml
@@ -71,7 +64,6 @@ actions:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
-      image: {{ $image }}
 
   - action: recipe
     recipe: recipes/09-swap.yml
@@ -82,9 +74,6 @@ actions:
     recipe: recipes/11-ovos-font.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
-      suite: {{ $suite }}
-      image: {{ $image }}
 
   - action: recipe
     recipe: recipes/13-audio-devices.yml
@@ -92,7 +81,6 @@ actions:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
-      image: {{ $image }}
 
   - action: recipe
     recipe: recipes/14-mount-firmware.yml
