@@ -1,5 +1,13 @@
 # Changelog
 
+## [23.10.5a4](https://github.com/NeonGeckoCom/neon_debos/tree/23.10.5a4) (2023-10-05)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.9.28a3...23.10.5a4)
+
+**Merged pull requests:**
+
+- Minor recipe cleanup [\#83](https://github.com/NeonGeckoCom/neon_debos/pull/83) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [23.9.28a3](https://github.com/NeonGeckoCom/neon_debos/tree/23.9.28a3) (2023-09-28)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.9.20a2...23.9.28a3)
