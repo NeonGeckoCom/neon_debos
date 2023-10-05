@@ -70,16 +70,6 @@ actions:
 #    script: ../scripts/02-set_root_fs.sh
 
   - action: run
-    description: Define Default Groups
-    chroot: true
-    command: |
-      groupadd gpio
-      groupadd pulse
-      groupadd pulse-access
-      groupadd i2c
-      groupadd ssl-cert
-
-  - action: run
     description: Set hostname
     chroot: true
     command: echo raspberrypi4 > /etc/hostname
