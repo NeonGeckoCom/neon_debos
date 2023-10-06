@@ -2,6 +2,8 @@
 {{- $image := or .image "ovos-dev-edition-rpi4" -}}
 {{- $neon_core := or .neon_core "master" -}}
 {{- $neon_debos := or .neon_debos "unknown" -}}
+{{ $platform := or .platform "rpi4" }}
+{{ $device := or .device $platform }}
 
 architecture: {{ $architecture }}
 
@@ -9,7 +11,7 @@ actions:
   - action: run
     description: Add metadata file to image
     chroot: true
-    script: ../scripts/95-get_metadata.py {{ $neon_core }} {{ $neon_debos }} {{ $image }} {{ $architecture }}
+    script: ../scripts/95-get_metadata.py {{ $neon_core }} {{ $neon_debos }} {{ $image }} {{ $architecture }} {{ $platform }} {{ $device }}
   - action: run
     description: Copy metadata to outputs
     chroot: false
