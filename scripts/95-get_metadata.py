@@ -109,13 +109,11 @@ def get_kernel_metadata(platform: str) -> dict:
     if os.path.isfile(kernel_info_path):
         with open(kernel_info_path, 'r') as f:
             kernel_version = f.read().strip('\n')
-
-    rpi4_path = "/boot/firmware/kernel8.img"
-    with open(rpi4_path, 'rb') as f:
+    with open(kernel_path, 'rb') as f:
         kernel_hash = hashlib.md5(f.read()).hexdigest()
     return {"version": kernel_version,
             "md5": kernel_hash,
-            "filename": os.path.basename(rpi4_path)}
+            "filename": os.path.basename(kernel_path)}
 
 
 if __name__ == "__main__":
