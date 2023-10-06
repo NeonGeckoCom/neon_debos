@@ -36,7 +36,7 @@ platform=${1:-rpi4}
 [ "${platform}" == "rpi4" ] && kernel_version="5.15.92-gecko+"
 [ "${platform}" == "opi5" ] && kernel_version="5.10.110-gecko+"
 
-docker run --rm -d \
+docker run --rm \
 --device /dev/kvm \
 --workdir /image_build \
 --mount type=bind,source="${source_dir}",destination=/image_build \
