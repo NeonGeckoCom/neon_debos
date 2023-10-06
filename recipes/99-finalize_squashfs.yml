@@ -1,11 +1,12 @@
 {{- $architecture := or .architecture "arm64" -}}
 {{- $image := or .image "ovos-dev-edition-rpi4" -}}
 {{- $build_cores := or .build_cores 4 -}}
+{{- $platform := or .platform "rpi4" -}}
 
 architecture: {{ $architecture }}
 
 actions:
-
+{{ if eq $platform "rpi4" }}
   - action: image-partition
     imagename: output/{{ $image }}.img
     imagesize: 3.5GB
@@ -27,7 +28,52 @@ actions:
         fs: ext4
         start: 268435456B
         end: 100%
+{{ else }}
+  - action: image-partition
+    imagename: output/{{ $image }}.img
+    imagesize: 3.5GB
+    partitiontype: gpt
+    diskid: 67d9d0ad-c9a4-a94a-b477-ce3a3e8534e9
+    mountpoints:
+      - mountpoint: /root
+        partition: opi_root
+        options: [ noatime, commit=600, errors=remount-ro ]
+      - mountpoint: /boot
+        partition: firmware
+    partitions:
+      - name: firmware
+        parttype: bc13c2ff-59e6-4262-a352-b275fd6f7172
+        fsuuid: 9EAC8A2C
+        flags: [ bls_boot ]
+        fs: fat32
+        start: 61440s
+        end: 2158591s
+      - name: opi_root
+        parttype: 0fc63daf-8483-4772-8e79-3d69d8477de4
+        fsuuid: 23909a83-f34f-42a6-b393-f6adf5cf9c38
+        fs: ext4
+        start: 2158592s
+        end: 100%
+# TODO: Consider moving below to separate recipe
+  - action: raw
+    description: Write idbloader to magic sector
+    origin: filesystem
+    source: /boot/idbloader.img
+    offset: {{ sector 64 }}
 
+  - action: raw
+    description: Write u-boot to magic sector
+    origin: filesystem
+    source: /boot/u-boot.itb
+    offset: {{ sector 16384 }}
+
+  - action: run
+    description: Cleanup bootloader leftovers
+    chroot: true
+    command: |
+      rm /boot/idbloader.img
+      rm /boot/u-boot.itb
+  {{ end }}
   - action: run
     description: Copy squashFS to image
     chroot: false

@@ -32,17 +32,19 @@ echo -e "\n"
 source_dir="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 [ -d "${source_dir}/output" ] || mkdir "${source_dir}/output"
 timestamp=$(date '+%Y-%m-%d_%H_%M')
-image=${1:-"debian-neon-image-rpi4.yml"}
+image=${1:-"debian-neon-image.yml"}
 neon_core=${2:-"master"}
+platform=${3:-"rpi4"}
+device=${4:-"mark_2"}
 mem_limit=${MEM_LIMIT:-"16G"}
 core_limit=${CORE_LIMIT:-4}
 debos_version="$(python3 "${source_dir}/version.py")*"
-echo "Building core=${neon_core} version=${debos_version}"
+echo "Building core=${neon_core} version=${debos_version} platform=${platform}"
 echo "${pass}" | sudo -S chmod ugo+x "${source_dir}/scripts/"*
 
-if [ ! -f "${source_dir}/rpi4_base.tar.gz" ]; then
+if [ ! -f "${source_dir}/${platform}_base.tar.gz" ]; then
   echo "Building base image"
-  bash "${source_dir}/build_base_image.sh"
+  bash "${source_dir}/build_base_image.sh" ${platform}
   echo "Completed base image"
 fi
 docker run --rm -d \
@@ -53,8 +55,10 @@ docker run --rm -d \
 --security-opt label=disable \
 --name neon_debos \
 godebos/debos "${image}" \
+-t device:"${device}" \
 -t architecture:arm64 \
--t image:"${image%.*}_${timestamp}" \
+-t platform:"${platform}" \
+-t image:"${image%.*}-${platform}_${timestamp}" \
 -t neon_core:"${neon_core}" \
 -t neon_debos:"${debos_version}" \
 -t build_cores:"${core_limit}" \
@@ -62,5 +66,5 @@ godebos/debos "${image}" \
 -c "${core_limit}" && \
 docker logs -f neon_debos
 echo "completed ${timestamp}"
-echo "${pass}" | sudo -S chown $USER:$USER "${source_dir}/output/${image%.*}_${timestamp}"*
+echo "${pass}" | sudo -S chown $USER:$USER "${source_dir}/output/${image%.*}-${platform}_${timestamp}"*
 echo -e "\n"

@@ -3,6 +3,7 @@
 {{- $kernel_version := or .kernel_version "5.15.92-gecko+" -}}
 {{ $suite :=  or .suite "bookworm" }}
 {{- $build_cores := or .build_cores 4 -}}
+{{ $platform := or .platform "rpi4" }}
 
 architecture: {{ $architecture }}
 
@@ -14,7 +15,7 @@ actions:
       firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
   - action: recipe
-    recipe: recipes/02-rpi4.yml
+    recipe: recipes/02-{{ $platform }}.yml
     variables:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
@@ -27,10 +28,10 @@ actions:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
-
+{{ if eq $platform "rpi4" }}
   - action: recipe
     recipe: recipes/03-get-raspi-packages.yml
-
+{{ end }}
   - action: recipe
     recipe: recipes/04-base-overlay.yml
     variables:
@@ -44,15 +45,14 @@ actions:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
-      image: {{ $image }}
-
+{{ if eq $platform "rpi4" }}
   - action: recipe
     recipe: recipes/06-libcamera.yml
     variables:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
-
+{{ end }}
   - action: recipe
     recipe: recipes/07-splash-screen.yml
     variables:
@@ -107,13 +107,13 @@ actions:
     recipe: recipes/17-locale-config.yml
     variables:
       architecture: {{ $architecture }}
-
+{{ if eq $platform "rpi4" }}
   - action: recipe
     recipe: recipes/20-sj201.yml
     variables:
       architecture: {{ $architecture }}
       build_cores: {{ $build_cores }}
-
+{{ end }}
   - action: recipe
     recipe: recipes/27-update-clock.yml
     variables:
@@ -131,4 +131,4 @@ actions:
       build_cores: {{ $build_cores }}
 
   - action: pack
-    file: rpi4_base.tar.gz
+    file: {{ $platform }}_base.tar.gz

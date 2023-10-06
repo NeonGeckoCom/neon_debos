@@ -1,6 +1,7 @@
 {{- $architecture := or .architecture "arm64" -}}
 {{- $firmware_version := or .firmware_version "master" -}}
 {{ $suite :=  or .suite "bookworm" }}
+{{ $platform := or .platform "rpi4" }}
 {{- $image := or .image "debian-base-image-rpi4" -}}
 {{- $neon_debos := or .neon_debos "unknown" -}}
 {{- $build_cores := or .build_cores 4 -}}
@@ -9,7 +10,7 @@ architecture: {{ $architecture }}
 
 actions:
   - action: unpack
-    file: rpi4_base.tar.gz
+    file: {{ $platform }}_base.tar.gz
 
   - action: recipe
     recipe: recipes/70-developer-extras.yml
@@ -46,3 +47,4 @@ actions:
       architecture: {{ $architecture }}
       image: {{ $image }}
       build_cores: {{ $build_cores }}
+      platform: {{ $platform }}
