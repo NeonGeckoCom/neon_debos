@@ -1,5 +1,13 @@
 # Changelog
 
+## [23.10.6a5](https://github.com/NeonGeckoCom/neon_debos/tree/23.10.6a5) (2023-10-06)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.10.5a4...23.10.6a5)
+
+**Merged pull requests:**
+
+- Refactor to support multiple platforms/devices [\#84](https://github.com/NeonGeckoCom/neon_debos/pull/84) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [23.10.5a4](https://github.com/NeonGeckoCom/neon_debos/tree/23.10.5a4) (2023-10-05)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.9.28a3...23.10.5a4)
