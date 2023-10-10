@@ -1,5 +1,17 @@
 # Changelog
 
+## [23.10.10a6](https://github.com/NeonGeckoCom/neon_debos/tree/23.10.10a6) (2023-10-10)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.10.6a5...23.10.10a6)
+
+**Closed issues:**
+
+- Neon on Orange Pi [\#80](https://github.com/NeonGeckoCom/neon_debos/issues/80)
+
+**Merged pull requests:**
+
+- OrangePi 5 Initial Support [\#79](https://github.com/NeonGeckoCom/neon_debos/pull/79) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [23.10.6a5](https://github.com/NeonGeckoCom/neon_debos/tree/23.10.6a5) (2023-10-06)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.10.5a4...23.10.6a5)
