@@ -100,6 +100,9 @@ def get_kernel_metadata(platform: str) -> dict:
     if platform == "rpi4":
         kernel_path = "/boot/firmware/kernel8.img"
         kernel_info_path = "/boot/firmware/kernel.txt"
+    elif platform == "opi5":
+        kernel_path = "/boot/Image"
+        kernel_info_path = "/boot/kernel.txt"
     else:
         return {"version": kernel_version}
 

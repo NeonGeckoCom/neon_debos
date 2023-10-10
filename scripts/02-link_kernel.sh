@@ -42,13 +42,19 @@ else
   kernel=${kernels[-1]}
   echo "Picking kernel: ${kernel}"
 fi
-echo "${kernel}" > /boot/firmware/kernel.txt
 
-# Copy appropriate overlays to boot partition
-mkdir -p /boot/firmware/overlays
-[ -d "/usr/lib/linux-image-${kernel}/broadcom" ] && cp "/usr/lib/linux-image-${kernel}/broadcom"/*.dtb /boot/firmware/
-cp "/usr/lib/linux-image-${kernel}/overlays"/* /boot/firmware/overlays/
+# RPi needs firmware and kernel updated on the boot partition
+if [ -d "/boot/firmware" ]; then
+  echo "${kernel}" > /boot/firmware/kernel.txt
 
-# Copy kernel to boot partition
-mv "/boot/vmlinuz-${kernel}" /boot/firmware/kernel8.img.gz
-gunzip /boot/firmware/kernel8.img.gz
+  # Copy appropriate overlays to boot partition
+  mkdir -p /boot/firmware/overlays
+  [ -d "/usr/lib/linux-image-${kernel}/broadcom" ] && cp "/usr/lib/linux-image-${kernel}/broadcom"/*.dtb /boot/firmware/
+  cp "/usr/lib/linux-image-${kernel}/overlays"/* /boot/firmware/overlays/
+
+  # Copy kernel to boot partition
+  mv "/boot/vmlinuz-${kernel}" /boot/firmware/kernel8.img.gz
+  gunzip /boot/firmware/kernel8.img.gz
+else
+  echo "${kernel}" > /boot/kernel.txt
+fi
