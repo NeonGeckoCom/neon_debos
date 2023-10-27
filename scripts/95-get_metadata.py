@@ -95,24 +95,51 @@ def get_initramfs_metadata():
                 "md5": md5_hash}
 
 
+def get_kernel_metadata(platform: str) -> dict:
+    kernel_version = "unknown"
+    if platform == "rpi4":
+        kernel_path = "/boot/firmware/kernel8.img"
+        kernel_info_path = "/boot/firmware/kernel.txt"
+    elif platform == "opi5":
+        kernel_path = "/boot/Image"
+        kernel_info_path = "/boot/kernel.txt"
+    else:
+        return {"version": kernel_version}
+
+    if os.path.isfile(kernel_info_path):
+        with open(kernel_info_path, 'r') as f:
+            kernel_version = f.read().strip('\n')
+    with open(kernel_path, 'rb') as f:
+        kernel_hash = hashlib.md5(f.read()).hexdigest()
+    return {"version": kernel_version,
+            "md5": kernel_hash,
+            "filename": os.path.basename(kernel_path)}
+
+
 if __name__ == "__main__":
     core_ref = argv[1]
     debos_ref = argv[2]
     image_name = argv[3]
     architecture = argv[4]
+    platform = argv[5]
+    device = argv[6]
     print(f"debos_ref={debos_ref}")
     data = dict()
     data["core"] = get_neon_core_meta(core_ref)
     data["image"] = get_recipe_meta(debos_ref)
     data["image"]["version"] = debos_ref
     data["initramfs"] = get_initramfs_metadata()
+    data["kernel"] = get_kernel_metadata(platform)
     data["base_os"] = {
         "name": image_name.split('_', 1)[0],
         "time": datetime.strptime(image_name.split('_', 1)[1],
                                   "%Y-%m-%d_%H_%M").timestamp(),
-        "arch": architecture
+        "arch": architecture,
+        "platform": platform,
+        "device": device
     }
     os.makedirs("/opt/neon", exist_ok=True)
+    print(f"build_info={data}")
     with open("/opt/neon/build_info.json", "w+") as o:
         json.dump(data, o, indent=2)
         o.write('\n')

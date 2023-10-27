@@ -28,20 +28,27 @@
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 source_dir="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-mem_limit=${MEM_LIMIT:-"16G"}
+sudo chmod ugo+x "${source_dir}/scripts/"*
+mem_limit=${MEM_LIMIT:-"24G"}
 core_limit=${CORE_LIMIT:-4}
-docker run --rm -d \
+
+platform=${1:-rpi4}
+[ "${platform}" == "rpi4" ] && kernel_version="5.15.92-gecko+"
+[ "${platform}" == "opi5" ] && kernel_version="5.10.110-gecko+"
+
+docker run --rm \
 --device /dev/kvm \
 --workdir /image_build \
 --mount type=bind,source="${source_dir}",destination=/image_build \
 --group-add=108 \
 --security-opt label=disable \
 --name neon_debos_base \
-godebos/debos "base-rootfs-rpi4.yml" \
+-m "${mem_limit}" \
+--oom-kill-disable \
+godebos/debos "base-rootfs.yml" \
 -t architecture:arm64 \
 -t build_cores:"${core_limit}" \
+-t kernel_version:"${kernel_version}" \
+-t platform:"${platform}" \
 -m "${mem_limit}" \
--c "${core_limit}" && \
-docker logs -f neon_debos_base
-echo -e "\n"
+-c "${core_limit}"

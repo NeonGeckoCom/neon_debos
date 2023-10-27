@@ -72,6 +72,7 @@ export DEVICE=
 export BOOT=
 export BOOTIF=
 export UBIMTD=
+export KERNEL="kernel8.img"
 export break=
 export init=/sbin/init
 export readonly=y
@@ -123,6 +124,9 @@ for x in $(cat /proc/cmdline); do
     ;;
   root_backup=*)
     ROOT_BUPATH="${x#root_backup=}"
+    ;;
+  kernel=*)
+    KERNEL="${x#kernel=}"
     ;;
 	rootfstype=*)
 		ROOTFSTYPE="${x#rootfstype=}"
@@ -283,6 +287,10 @@ if read_fstab_entry /usr; then
 	log_end_msg
 fi
 
+# Check for instance installed to other media
+scripts/check_install.sh && log "Not installing to internal storage"
+# If this does install, then boot will fail and reboot to next boot device (internal emmc for OPi)
+
 # Mount cleanup
 mount_bottom || exit_error "mount_bottom"
 nfs_bottom || exit_error "nfs_bottom"
@@ -330,23 +338,35 @@ if [ -n "${ROOT_ROPATH}" ]; then
 
   scripts/check_reset.sh "/media/rw"
   # Mount read-only FS
+  log_begin_msg "Mounting squashfs root"
   mkdir -p /media/ro
   mount -t "squashfs" -o noatime,nodiratime "${rootmnt}/${ROOT_ROPATH}" /media/ro
   mount -o remount,ro /media/ro
   # TODO: Recover here by restoring a backup squashfs
+  log_end_msg
+
+  if [ -f /media/rw/upperdir/opt/neon/squashfs_updated ]; then
+    user_backup_path="/media/rw/firmware_backup"
+    log "Checking for updated kernel/firmware"
+    scripts/check_firmware_update.sh "${user_backup_path}"
+    log "No firmware update to apply"
+  fi
 
   # Optionally Create and mount swapfile
   scripts/check_swapfile.sh "${rootmnt}/swapfile"
   if [ -f "${rootmnt}/swapfile" ]; then
-    log "mounting swapfile"
+    [ "$quiet" != "y" ] && log_begin_msg "mounting swapfile"
     touch /swapfile
     mount --bind ${rootmnt}/swapfile /swapfile
+    [ "$quiet" != "y" ] && log_end_msg
   fi
-  log "swapfile handled"
+  [ "$quiet" != "y" ] && log "swapfile handled"
 
   # Define remaining paths and build overlayFS
   mkdir -p /media/rw/work /media/rw/upperdir
+  [ "$quiet" != "y" ] && log_begin_msg "Mounting overlayFS"
   mount -t overlay overlay -o lowerdir=/media/ro,upperdir=/media/rw/upperdir,workdir=/media/rw/work ${rootmnt}
+  [ "$quiet" != "y" ] && log_end_msg
 
   [ "$quiet" != "y" ] && log_begin_msg "Running /scripts/init-bottom"
   # We expect udev's init-bottom script to move /dev to ${rootmnt}/dev

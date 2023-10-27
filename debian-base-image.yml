@@ -1,0 +1,50 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $firmware_version := or .firmware_version "master" -}}
+{{ $suite :=  or .suite "bookworm" }}
+{{ $platform := or .platform "rpi4" }}
+{{- $image := or .image "debian-base-image-rpi4" -}}
+{{- $neon_debos := or .neon_debos "unknown" -}}
+{{- $build_cores := or .build_cores 4 -}}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: unpack
+    file: {{ $platform }}_base.tar.gz
+
+  - action: recipe
+    recipe: recipes/70-developer-extras.yml
+    variables:
+      architecture: {{ $architecture }}
+
+  - action: recipe
+    recipe: recipes/90-base-finalscripts.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+#  - action: recipe
+#    recipe: recipes/96-admin-login.yml
+#    variables:
+#      architecture: {{ $architecture }}
+#      firmware_version: {{ $firmware_version }}
+#      suite: {{ $suite }}
+#      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/98-backup-image.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/99-finalize_squashfs.yml
+    variables:
+      architecture: {{ $architecture }}
+      image: {{ $image }}
+      build_cores: {{ $build_cores }}
+      platform: {{ $platform }}

@@ -31,6 +31,15 @@ Within each directory, files are indexed roughly in the order they are indended
 to be run in, so a recipe starting with `03` should run before `04`. Not all
 recipes are used for all builds. 
 
+## Build Options
+Several configuration options are available at build time; a brief summary of common
+parameters is listed here.
+
+- `platform` - The hardware platform to build for. Valid options include: `rpi4`.
+- `device` - The specific device to build for. Valid options include: `mark_2`, `rpi4`. In
+  many cases, `device` will default to `platform` if not defined.
+- `neon_core` - A branch or version spec for `neon_core` to build.
+
 ## Build instructions
 To build a default image, use the included `run_docker_debos.sh` shell script.
 

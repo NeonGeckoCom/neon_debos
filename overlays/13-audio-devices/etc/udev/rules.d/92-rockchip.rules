@@ -1,0 +1,11 @@
+SUBSYSTEM!="sound", GOTO="rockchip_end"
+ACTION!="change", GOTO="rockchip_end"
+KERNEL!="card*", GOTO="rockchip_end"
+
+ATTRS{id}=="rockchipes8388", ACTION=="change", ENV{PULSE_PROFILE_SET}="rockchip.conf"
+#ATTRS{id}=="rockchiphdmi0", ACTION=="change", ENV{PULSE_PROFILE_SET}="rockchip-hdmi0.conf"
+#ATTRS{id}=="rockchiphdmi1", ACTION=="change", ENV{PULSE_PROFILE_SET}="rockchip-hdmi1.conf"
+ATTRS{id}=="rockchiprk168hd", ACTION=="change", ENV{PULSE_PROFILE_SET}="rockchip.conf"
+ATTRS{id}=="ROCKCHIPSPDIF", ACTION=="change", ENV{PULSE_PROFILE_SET}="rockchip.conf"
+
+LABEL="rockchip_end"

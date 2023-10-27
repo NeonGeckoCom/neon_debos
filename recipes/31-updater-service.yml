@@ -1,4 +1,6 @@
-{{- $architecture := or .architecture "arm64" -}}
+{{ $architecture := or .architecture "arm64" }}
+{{ $platform := or .platform "rpi4" }}
+{{ $device := or .device $platform }}
 
 architecture: {{ $architecture }}
 
@@ -7,6 +9,13 @@ actions:
     description: Neon Update Service Overlay
     source: ../overlays/31-updater-service
     destination: /
+
+  - action: run
+    description: Update env file
+    chroot: true
+    command: |
+      echo "PLATFORM={{ $platform }}" >> /etc/neon/versions.conf
+      echo "NEON_OS_DEVICE={{ $device }}" >> /etc/neon/versions.conf
 
   - action: run
     description: Enable update services

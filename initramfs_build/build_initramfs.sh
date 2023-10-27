@@ -38,7 +38,15 @@ cd .. || exit 10
 zstd -z initramfs.cpio
 rm initramfs.cpio
 rm -r initramfs_dir
-output_path="../overlays/02-rpi4/boot/firmware/initramfs"
-mv initramfs.cpio.zst "${output_path}" && echo "Generated initramfs"
-md5=$(md5sum "${output_path}" | cut -d' ' -f1)
-echo "${md5}" > "${output_path}.md5"
+
+# Write OPi5 initrd
+opi_path="../overlays/02-opi5/boot/uInitrd"
+mkimage -A arm64 -T ramdisk -C none -n uInitrd -d initramfs.cpio.zst "${opi_path}"  && echo "Generated uInitrd"
+md5=$(md5sum "${opi_path}" | cut -d' ' -f1)
+echo "${md5}" > "${opi_path}.md5"
+
+# Write RPi4 initrd
+rpi_path="../overlays/02-rpi4/boot/firmware/initramfs"
+mv initramfs.cpio.zst "${rpi_path}" && echo "Generated initramfs"
+md5=$(md5sum "${rpi_path}" | cut -d' ' -f1)
+echo "${md5}" > "${rpi_path}.md5"
