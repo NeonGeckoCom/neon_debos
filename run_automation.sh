@@ -45,7 +45,7 @@ debos_version="$(python3 "${source_dir}/version.py")"
 
 if [ ! -f "${source_dir}/${platform}_base.tar.gz" ]; then
   echo "WARNING: Building ${platform} base image"
-  bash "${source_dir}/build_base_image.sh" "${platform]}"
+  bash "${source_dir}/build_base_image.sh" "${platform}"
   echo "Completed ${platform} base image"
 fi
 
