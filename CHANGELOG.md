@@ -1,5 +1,13 @@
 # Changelog
 
+## [23.11.20a2](https://github.com/NeonGeckoCom/neon_debos/tree/23.11.20a2) (2023-11-20)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.11.16a1...23.11.20a2)
+
+**Merged pull requests:**
+
+- Fix misconfigured audio [\#87](https://github.com/NeonGeckoCom/neon_debos/pull/87) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [23.11.16a1](https://github.com/NeonGeckoCom/neon_debos/tree/23.11.16a1) (2023-11-16)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.10.26...23.11.16a1)
