@@ -54,4 +54,8 @@ rm -rf /tmp/tinyalsa
 systemctl enable pulseaudio.service
 systemctl enable configure-audio.service
 
+# Ensure default config is removed
+rm /etc/pulse/daemon.conf || echo "No daemon.conf to remove"
+rm /etc/pulse/system.pa || echo "No system.pa to remove"
+
 echo "Pulseaudio Setup Complete"
