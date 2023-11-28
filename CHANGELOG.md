@@ -1,5 +1,13 @@
 # Changelog
 
+## [23.11.28a3](https://github.com/NeonGeckoCom/neon_debos/tree/23.11.28a3) (2023-11-28)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.11.20a2...23.11.28a3)
+
+**Merged pull requests:**
+
+- Add post-update patch for old jokes skill [\#88](https://github.com/NeonGeckoCom/neon_debos/pull/88) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [23.11.20a2](https://github.com/NeonGeckoCom/neon_debos/tree/23.11.20a2) (2023-11-20)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.11.16a1...23.11.20a2)
