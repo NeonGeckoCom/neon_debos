@@ -1,3 +1,4 @@
+#!/bin/bash
 # NEON AI (TM) SOFTWARE, Software Development Kit & Application Framework
 # All trademark and other rights reserved by their respective owners
 # Copyright 2008-2022 Neongecko.com Inc.
@@ -26,8 +27,16 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-__version__ = "23.12.19"
+# TODO: Use expected UID here
+home_user=${DEFAULT_USER:"neon"}
+home_dir="/home/${home_user}"
 
-if __name__ == "__main__":
-    print(__version__)
-    exit(0)
+# Ensure home directory contents have proper permissions
+chmod +x /opt/neon/validate_directory_permissions
+/opt/neon/validate_directory_permissions "${home_user}" "${home_dir}"
+
+# Patch known errors
+if [ -d "${home_dir}/.local/share/neon/skills/skill-icanhazdadjokes.jarbasskills" ]; then
+    echo "Legacy jokes skill found and will be removed"
+    rm -rf "${home_dir}/.local/share/neon/skills/skill-icanhazdadjokes.jarbasskills"
+fi

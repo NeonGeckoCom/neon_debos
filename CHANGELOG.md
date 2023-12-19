@@ -1,56 +1,28 @@
 # Changelog
 
-## [23.10.10a6](https://github.com/NeonGeckoCom/neon_debos/tree/23.10.10a6) (2023-10-10)
+## [23.11.28a3](https://github.com/NeonGeckoCom/neon_debos/tree/23.11.28a3) (2023-11-28)
 
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.10.6a5...23.10.10a6)
-
-**Closed issues:**
-
-- Neon on Orange Pi [\#80](https://github.com/NeonGeckoCom/neon_debos/issues/80)
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.11.20a2...23.11.28a3)
 
 **Merged pull requests:**
 
-- OrangePi 5 Initial Support [\#79](https://github.com/NeonGeckoCom/neon_debos/pull/79) ([NeonDaniel](https://github.com/NeonDaniel))
+- Add post-update patch for old jokes skill [\#88](https://github.com/NeonGeckoCom/neon_debos/pull/88) ([NeonDaniel](https://github.com/NeonDaniel))
 
-## [23.10.6a5](https://github.com/NeonGeckoCom/neon_debos/tree/23.10.6a5) (2023-10-06)
+## [23.11.20a2](https://github.com/NeonGeckoCom/neon_debos/tree/23.11.20a2) (2023-11-20)
 
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.10.5a4...23.10.6a5)
-
-**Merged pull requests:**
-
-- Refactor to support multiple platforms/devices [\#84](https://github.com/NeonGeckoCom/neon_debos/pull/84) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [23.10.5a4](https://github.com/NeonGeckoCom/neon_debos/tree/23.10.5a4) (2023-10-05)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.9.28a3...23.10.5a4)
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.11.16a1...23.11.20a2)
 
 **Merged pull requests:**
 
-- Minor recipe cleanup [\#83](https://github.com/NeonGeckoCom/neon_debos/pull/83) ([NeonDaniel](https://github.com/NeonDaniel))
+- Fix misconfigured audio [\#87](https://github.com/NeonGeckoCom/neon_debos/pull/87) ([NeonDaniel](https://github.com/NeonDaniel))
 
-## [23.9.28a3](https://github.com/NeonGeckoCom/neon_debos/tree/23.9.28a3) (2023-09-28)
+## [23.11.16a1](https://github.com/NeonGeckoCom/neon_debos/tree/23.11.16a1) (2023-11-16)
 
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.9.20a2...23.9.28a3)
-
-**Merged pull requests:**
-
-- Update kernel and add kernel update mechanism [\#82](https://github.com/NeonGeckoCom/neon_debos/pull/82) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [23.9.20a2](https://github.com/NeonGeckoCom/neon_debos/tree/23.9.20a2) (2023-09-20)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.9.11a1...23.9.20a2)
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.10.26...23.11.16a1)
 
 **Merged pull requests:**
 
-- Refactor Qt Shell Build [\#81](https://github.com/NeonGeckoCom/neon_debos/pull/81) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [23.9.11a1](https://github.com/NeonGeckoCom/neon_debos/tree/23.9.11a1) (2023-09-11)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.9.7...23.9.11a1)
-
-**Merged pull requests:**
-
-- Add manual squashfs update script [\#78](https://github.com/NeonGeckoCom/neon_debos/pull/78) ([NeonDaniel](https://github.com/NeonDaniel))
+- Update base images and fix OPi5 automation [\#86](https://github.com/NeonGeckoCom/neon_debos/pull/86) ([NeonDaniel](https://github.com/NeonDaniel))
 
 
 

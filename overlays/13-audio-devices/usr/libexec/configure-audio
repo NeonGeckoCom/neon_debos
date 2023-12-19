@@ -28,7 +28,10 @@
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # Already configured
-[ -f /etc/pulse/daemon.conf ] && exit 0
+[ -L /etc/pulse/daemon.conf ] && exit 0
+
+# Handle unexpected file that should be a link
+[ -f /etc/pulse/daemon.conf ] && echo "Manual Pulse configuration will be overwritten"
 
 # Set default configurations
 PULSE_SYSTEM=/etc/pulse/pulseaudio-system.pa
