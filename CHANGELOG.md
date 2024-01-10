@@ -1,28 +1,25 @@
 # Changelog
 
-## [23.11.28a3](https://github.com/NeonGeckoCom/neon_debos/tree/23.11.28a3) (2023-11-28)
+## [24.1.10a1](https://github.com/NeonGeckoCom/neon_debos/tree/24.1.10a1) (2024-01-10)
 
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.11.20a2...23.11.28a3)
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.12.19...24.1.10a1)
 
-**Merged pull requests:**
+**Implemented enhancements:**
 
-- Add post-update patch for old jokes skill [\#88](https://github.com/NeonGeckoCom/neon_debos/pull/88) ([NeonDaniel](https://github.com/NeonDaniel))
+- \[FEAT\] Orange Pi 5 Plus Support [\#90](https://github.com/NeonGeckoCom/neon_debos/issues/90)
+- \[FEAT\] make use of ramdisk for logging [\#26](https://github.com/NeonGeckoCom/neon_debos/issues/26)
 
-## [23.11.20a2](https://github.com/NeonGeckoCom/neon_debos/tree/23.11.20a2) (2023-11-20)
+**Fixed bugs:**
 
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.11.16a1...23.11.20a2)
+- \[BUG\] rw filesystem appears to not be cleanly unmounted during update [\#57](https://github.com/NeonGeckoCom/neon_debos/issues/57)
 
-**Merged pull requests:**
+**Closed issues:**
 
-- Fix misconfigured audio [\#87](https://github.com/NeonGeckoCom/neon_debos/pull/87) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [23.11.16a1](https://github.com/NeonGeckoCom/neon_debos/tree/23.11.16a1) (2023-11-16)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.10.26...23.11.16a1)
+- Update Pulse setup to use profiles and support other devices [\#9](https://github.com/NeonGeckoCom/neon_debos/issues/9)
 
 **Merged pull requests:**
 
-- Update base images and fix OPi5 automation [\#86](https://github.com/NeonGeckoCom/neon_debos/pull/86) ([NeonDaniel](https://github.com/NeonDaniel))
+- Fix syntax error in qt logging rules [\#92](https://github.com/NeonGeckoCom/neon_debos/pull/92) ([NeonDaniel](https://github.com/NeonDaniel))
 
 
 
