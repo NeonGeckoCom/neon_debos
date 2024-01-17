@@ -1,0 +1,11 @@
+[Unit]
+Description=Validates hardware is properly initialized during boot
+After=configure-audio.service
+After=gui-shell.service
+
+[Service]
+Type=oneshot
+ExecStart=/opt/neon/preflight-check
+
+[Install]
+WantedBy=multi-user.target
