@@ -37,6 +37,14 @@ validate_mark2() {
     sj201 reset-led yellow
     shutdown now
   fi
+  if [ "$(cat /sys/class/backlight/rpi_backlight/brightness)" == "0" ]; then
+    echo "Backlight off! Set to minimum value"
+    echo "1" > /sys/class/backlight/rpi_backlight/brightness
+  fi
+  while not journalctl -u gui-shell | grep "Trying to connect to Mycroft"; do
+    echo "Waiting for GUI service init"
+    sleep 1
+  done
   if journalctl -u gui-shell | grep "code=-13"; then
     echo "GUI failed to start! Restarting..."
     reboot now
