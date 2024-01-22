@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.1.22a2](https://github.com/NeonGeckoCom/neon_debos/tree/24.1.22a2) (2024-01-22)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.1.10a1...24.1.22a2)
+
+**Merged pull requests:**
+
+- Add hardware and GUI init checks for Mark2 [\#93](https://github.com/NeonGeckoCom/neon_debos/pull/93) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.1.10a1](https://github.com/NeonGeckoCom/neon_debos/tree/24.1.10a1) (2024-01-10)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.12.19...24.1.10a1)
