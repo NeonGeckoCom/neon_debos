@@ -107,6 +107,12 @@ actions:
     recipe: recipes/17-locale-config.yml
     variables:
       architecture: {{ $architecture }}
+
+  - action: recipe
+    recipe: recipes/18-preflight-check.yml
+    variables:
+      architecture: { { $architecture } }
+
 {{ if eq $platform "rpi4" }}
   - action: recipe
     recipe: recipes/20-sj201.yml
@@ -114,6 +120,7 @@ actions:
       architecture: {{ $architecture }}
       build_cores: {{ $build_cores }}
 {{ end }}
+
   - action: recipe
     recipe: recipes/27-update-clock.yml
     variables:

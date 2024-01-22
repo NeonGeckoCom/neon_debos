@@ -1,0 +1,17 @@
+{{- $architecture := or .architecture "arm64" -}}
+
+
+architecture: {{ $architecture }}
+
+actions:
+
+  - action: overlay
+    description: SJ201 overlay
+    source: ../overlays/18-preflight-check
+    destination: /
+  - action: run
+    description: Enable service to validate startup
+    chroot: true
+    command: |
+      chmod ugo+x /opt/neon/preflight-check
+      systemctl enable preflight-check
