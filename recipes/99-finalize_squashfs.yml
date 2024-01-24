@@ -25,6 +25,7 @@ actions:
         end: 268435455B
         # About 256MiB, but aligned for expected sector size
       - name: root
+        fsuuid: 23909a83-f34f-42a6-b393-f6adf5cf9c38
         fs: ext4
         start: 268435456B
         end: 100%
