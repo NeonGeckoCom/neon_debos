@@ -1,5 +1,17 @@
 # Changelog
 
+## [24.1.24a3](https://github.com/NeonGeckoCom/neon_debos/tree/24.1.24a3) (2024-01-24)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.1.22a2...24.1.24a3)
+
+**Implemented enhancements:**
+
+- \[FEAT\] Update default `cmdline.txt` for USB and SD boot devices [\#94](https://github.com/NeonGeckoCom/neon_debos/issues/94)
+
+**Merged pull requests:**
+
+- Update cmdline.txt to support booting from SD Cards [\#95](https://github.com/NeonGeckoCom/neon_debos/pull/95) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.1.22a2](https://github.com/NeonGeckoCom/neon_debos/tree/24.1.22a2) (2024-01-22)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.1.10a1...24.1.22a2)
