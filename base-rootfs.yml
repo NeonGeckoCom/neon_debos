@@ -71,6 +71,11 @@ actions:
       architecture: {{ $architecture }}
 
   - action: recipe
+    recipe: recipes/09-log2ram.yml
+    variables:
+      architecture: {{ $architecture }}
+
+  - action: recipe
     recipe: recipes/11-ovos-font.yml
     variables:
       architecture: {{ $architecture }}
@@ -88,12 +93,12 @@ actions:
       architecture: {{ $architecture }}
 
   - action: recipe
-    recipe: recipes/09-log2ram.yml
+    recipe: recipes/15-firmware-updates.yml
     variables:
       architecture: {{ $architecture }}
 
   - action: recipe
-    recipe: recipes/15-firmware-updates.yml
+    recipe: recipes/16-check-boot-network-config.yml
     variables:
       architecture: {{ $architecture }}
 
