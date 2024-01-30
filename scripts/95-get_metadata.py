@@ -122,6 +122,7 @@ if __name__ == "__main__":
     architecture = argv[4]
     platform = argv[5]
     device = argv[6]
+    edition = argv[7]
     print(f"debos_ref={debos_ref}")
     data = dict()
     data["core"] = get_neon_core_meta(core_ref)
@@ -135,6 +136,7 @@ if __name__ == "__main__":
                                   "%Y-%m-%d_%H_%M").timestamp(),
         "arch": architecture,
         "platform": platform,
+        "edition": edition,
         "device": device
     }
     os.makedirs("/opt/neon", exist_ok=True)
