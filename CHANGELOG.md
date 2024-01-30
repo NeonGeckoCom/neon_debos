@@ -1,5 +1,17 @@
 # Changelog
 
+## [24.1.30a4](https://github.com/NeonGeckoCom/neon_debos/tree/24.1.30a4) (2024-01-30)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.1.24a3...24.1.30a4)
+
+**Implemented enhancements:**
+
+- \[FEAT\] Pre-configured WiFi option [\#96](https://github.com/NeonGeckoCom/neon_debos/issues/96)
+
+**Merged pull requests:**
+
+- Support pre-configured WiFi [\#98](https://github.com/NeonGeckoCom/neon_debos/pull/98) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.1.24a3](https://github.com/NeonGeckoCom/neon_debos/tree/24.1.24a3) (2024-01-24)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.1.22a2...24.1.24a3)
