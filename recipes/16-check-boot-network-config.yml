@@ -1,0 +1,16 @@
+{{- $architecture := or .architecture "arm64" -}}
+
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: overlay
+    description: Boot Network Config overlay
+    source: ../overlays/16-boot-network-config
+    destination: /
+  - action: run
+    description: Enable boot network config service
+    chroot: true
+    command: |
+      chmod ugo+x /opt/neon/*.sh
+      systemctl enable check-boot-network-config
