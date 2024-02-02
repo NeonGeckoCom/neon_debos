@@ -50,6 +50,11 @@ set_up_gpio() {
     log "Reset buttons down"
     touch "${SIGNAL_FILE}"
   fi
+
+  echo "22" > /sys/class/gpio/unexport
+  echo "23" > /sys/class/gpio/unexport
+  echo "24" > /sys/class/gpio/unexport
+
 }
 
 set_up_gpio || log "Unable to check GPIO"

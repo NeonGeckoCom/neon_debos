@@ -124,6 +124,10 @@ actions:
     variables:
       architecture: {{ $architecture }}
       build_cores: {{ $build_cores }}
+  - action: recipe
+    recipe: recipes/22-mark1.yml
+    variables:
+      architecture: {{ $architecture }}
 {{ end }}
 
   - action: recipe
