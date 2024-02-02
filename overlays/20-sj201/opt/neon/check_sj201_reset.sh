@@ -27,7 +27,7 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-
+[ "$(sj201 get-revision)" == "0" ] && exit 0  # Not an SJ201 board
 if [[ "$(cat /sys/class/gpio/gpio24/value)" == "0" && "$(cat /sys/class/gpio/gpio23/value)" == "0" ]]; then
   echo "Reset Requested"
   sj201 reset-led white

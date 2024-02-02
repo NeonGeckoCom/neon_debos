@@ -32,7 +32,11 @@
 # Set to exit on error
 set -Ee
 
-pip3.10 install wheel sj201-interface==0.0.3a0
+export PIPX_HOME=/opt/neon/pipx
+export PIPX_BIN_DIR=/bin
+
+[ -d ${PIPX_HOME} ] || mkdir -p ${PIPX_HOME}
+pipx install sj201-interface==0.0.3a0
 
 kernels=($(ls /lib/modules))
 echo "Looking for kernels with build dir in ${kernels[*]}"
@@ -48,6 +52,7 @@ for k in "${kernels[@]}"; do
     make -j${1:-} all || exit 2
     mkdir -p "/lib/modules/${kernel}/kernel/drivers/vocalfusion"
     cp vocalfusion* "/lib/modules/${kernel}/kernel/drivers/vocalfusion" || exit 2
+    cp ../*.dtbo /boot/overlays/
     cd ../..
     rm -rf vocalfusiondriver
 
@@ -58,7 +63,7 @@ done
 
 # Ensure execute permissions
 chmod -R ugo+x /usr/bin
-chmod -R ugo+x /usr/sbin
+chmod -R ugo+x /usr/libexec
 chmod ugo+x /opt/neon/configure_sj201_on_boot.sh
 
 

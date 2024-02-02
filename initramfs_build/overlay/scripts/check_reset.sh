@@ -33,10 +33,19 @@ SIGNAL_FILE="${WRITABLE_PATH}/upperdir/opt/neon/signal_reset_device"
 . /scripts/functions
 
 set_up_gpio() {
+  echo "22" > /sys/class/gpio/export
   echo "23" > /sys/class/gpio/export
   echo "24" > /sys/class/gpio/export
+  echo "in" > /sys/class/gpio/gpio22/direction
   echo "in" > /sys/class/gpio/gpio23/direction
   echo "in" > /sys/class/gpio/gpio24/direction
+# TODO: Update this to better prevent accidental resets and be more generic
+  if [ "$(cat /sys/class/gpio/gpio22/value)" = "0" ]; then
+    # All of the Mark2 buttons are pressed or this isn't a Mark2
+    log "gpio22 closed; don't reset"
+    exit 0
+  fi
+
   if [ "$(cat /sys/class/gpio/gpio24/value)" = "0" ] && [ "$(cat /sys/class/gpio/gpio23/value)" = "0" ]; then
     log "Reset buttons down"
     touch "${SIGNAL_FILE}"
