@@ -41,7 +41,7 @@ validate_mark2() {
     echo "Backlight off! Set to minimum value"
     echo "1" > /sys/class/backlight/rpi_backlight/brightness
   fi
-  while not journalctl -u gui-shell | grep "Trying to connect to Mycroft"; do
+  while ! journalctl -u gui-shell | grep "Trying to connect to Mycroft"; do
     echo "Waiting for GUI service init"
     sleep 1
   done
