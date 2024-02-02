@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.2.2a5](https://github.com/NeonGeckoCom/neon_debos/tree/24.2.2a5) (2024-02-02)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.1.30a4...24.2.2a5)
+
+**Merged pull requests:**
+
+- Fix syntax error waiting for GUI service to start [\#100](https://github.com/NeonGeckoCom/neon_debos/pull/100) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.1.30a4](https://github.com/NeonGeckoCom/neon_debos/tree/24.1.30a4) (2024-01-30)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.1.24a3...24.1.30a4)
