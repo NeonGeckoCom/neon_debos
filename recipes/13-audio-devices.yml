@@ -18,6 +18,10 @@ actions:
     source: ../overlays/13-audio-devices
     destination: /
   - action: run
+    description: Copy button overlay
+    chroot: true
+    command: mv /var/tmp/*.dtbo /boot/overlays/
+  - action: run
     description: Enable configure-audio service
     chroot: true
     script: ../scripts/13-audio-devices.sh
