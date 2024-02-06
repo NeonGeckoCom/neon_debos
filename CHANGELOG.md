@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.2.6a6](https://github.com/NeonGeckoCom/neon_debos/tree/24.2.6a6) (2024-02-06)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.2.2a5...24.2.6a6)
+
+**Merged pull requests:**
+
+- Support more audio solutions [\#101](https://github.com/NeonGeckoCom/neon_debos/pull/101) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.2.2a5](https://github.com/NeonGeckoCom/neon_debos/tree/24.2.2a5) (2024-02-02)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.1.30a4...24.2.2a5)
