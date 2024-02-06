@@ -50,7 +50,7 @@ chmod ugo+x /home/neon/venv/bin/pip
 
 # Install core and skills
 export NEON_IN_SETUP="true"
-pip install "git+https://github.com/neongeckocom/neoncore@${CORE_REF}#egg=neon_core[core_modules,skills_required,skills_essential,skills_default,skills_extended,pi]" || exit 11
+pip install "neon_core[core_modules,skills_required,skills_essential,skills_default,skills_extended,pi] @ git+https://github.com/neongeckocom/neoncore@${CORE_REF}" || exit 11
 echo "Core Installed"
 neon-install-default-skills && echo "Default git skills installed" || exit 2
 
