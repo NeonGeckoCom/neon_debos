@@ -86,6 +86,7 @@ actions:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
+      platform: {{ $platform }}
 
   - action: recipe
     recipe: recipes/14-mount-firmware.yml
