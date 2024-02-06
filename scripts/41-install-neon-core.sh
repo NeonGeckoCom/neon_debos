@@ -32,6 +32,12 @@ cd "${BASE_DIR}" || exit 10
 
 CORE_REF="${1:-dev}"
 
+# Remove sj201 dtoverlays
+# TODO: This is patching some LED issues on SJ201R10; ideally, the button and
+#       fan overlays would remain and the PHAL plugins integrate with them
+rm /boot/firmware/overlays/sj201-buttons-overlay.dtbo
+rm /boot/firmware/overlays/sj201-rev10-pwm-fan-overlay.dtbo
+
 # install mimic
 curl https://forslund.github.io/mycroft-desktop-repo/mycroft-desktop.gpg.key | apt-key add - 2> /dev/null && \
 echo "deb http://forslund.github.io/mycroft-desktop-repo bionic main" | tee /etc/apt/sources.list.d/mycroft-desktop.list
