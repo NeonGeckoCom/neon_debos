@@ -86,6 +86,7 @@ actions:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
+      platform: {{ $platform }}
 
   - action: recipe
     recipe: recipes/14-mount-firmware.yml
@@ -124,6 +125,15 @@ actions:
     variables:
       architecture: {{ $architecture }}
       build_cores: {{ $build_cores }}
+  - action: recipe
+    recipe: recipes/21-seeed-audio.yml
+    variables:
+      architecture: { { $architecture } }
+
+  - action: recipe
+    recipe: recipes/22-mark1.yml
+    variables:
+      architecture: {{ $architecture }}
 {{ end }}
 
   - action: recipe

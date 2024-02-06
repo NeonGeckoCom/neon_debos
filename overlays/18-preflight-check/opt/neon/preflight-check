@@ -28,6 +28,10 @@
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 validate_mark2() {
+  if [ "$(sj201 get-revision)" == "0" ]; then
+    echo "Mark2 image booted but no SJ201 hardware detected"
+    exit 0
+  fi
   if [ ! -e /dev/fb0 ]; then
     # Display not loaded; there is no way to recover this without a hard reset
     # to re-init the Pi hardware. Do our best to communicate to the user what

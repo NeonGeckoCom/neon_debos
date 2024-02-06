@@ -1,6 +1,7 @@
 {{- $architecture := or .architecture "arm64" -}}
 {{- $firmware_version := or .firmware_version "master" -}}
 {{ $suite :=  or .suite "focal" }}
+{{ $platform := or .platform "rpi4" }}
 
 architecture: {{ $architecture }}
 
@@ -17,6 +18,12 @@ actions:
     description: Pulse and ALSA Audio overlay
     source: ../overlays/13-audio-devices
     destination: /
+{{ if eq $platform "rpi4" }}
+  - action: run
+    description: Copy button overlay
+    chroot: true
+    command: mv /var/tmp/*.dtbo /boot/overlays/
+{{ end }}
   - action: run
     description: Enable configure-audio service
     chroot: true
