@@ -29,7 +29,7 @@ actions:
       image: {{ $image }}
 
   - action: recipe
-    recipe: recipes/42-install-neon-satellite.yml
+    recipe: recipes/42-install-neon-node.yml
     variables:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}

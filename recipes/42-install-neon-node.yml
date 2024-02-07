@@ -19,9 +19,10 @@ actions:
       - plasma-nm
       - unzip
       - ffmpeg
+      - pipx
       - python3-wheel
   - action: overlay
-    description: Neon Satellite overlay
+    description: Neon Node overlay
     source: ../overlays/42-neon-node
     destination: /
 
@@ -32,7 +33,6 @@ actions:
       export PIPX_HOME=/opt/neon/pipx
       export PIPX_BIN_DIR=/bin
       [ -d ${PIPX_HOME} ] || mkdir -p ${PIPX_HOME}
-
       pipx install neon-nodes[voice_client]@git+https://github.com/neongeckocom/neon-nodes@FEAT_InitialVoiceClient
       systemctl enable neon-node
       chmod ugo+x /usr/libexec/neon-node.py
