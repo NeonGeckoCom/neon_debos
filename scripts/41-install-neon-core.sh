@@ -32,6 +32,12 @@ cd "${BASE_DIR}" || exit 10
 
 CORE_REF="${1:-dev}"
 
+# Remove sj201 dtoverlays
+# TODO: This is patching some LED issues on SJ201R10; ideally, the button and
+#       fan overlays would remain and the PHAL plugins integrate with them
+rm /boot/firmware/overlays/sj201-buttons-overlay.dtbo
+rm /boot/firmware/overlays/sj201-rev10-pwm-fan-overlay.dtbo
+
 # install mimic
 curl https://forslund.github.io/mycroft-desktop-repo/mycroft-desktop.gpg.key | apt-key add - 2> /dev/null && \
 echo "deb http://forslund.github.io/mycroft-desktop-repo bionic main" | tee /etc/apt/sources.list.d/mycroft-desktop.list
@@ -50,7 +56,8 @@ chmod ugo+x /home/neon/venv/bin/pip
 
 # Install core and skills
 export NEON_IN_SETUP="true"
-pip install "git+https://github.com/neongeckocom/neoncore@${CORE_REF}#egg=neon_core[core_modules,skills_required,skills_essential,skills_default,skills_extended,pi]" || exit 11
+# TODO: Normalize extras after NeonCore 24.2.x stable release
+pip install "neon-core[core_modules,skills_required,skills_essential,skills_default,skills_extended,pi] @ git+https://github.com/neongeckocom/neoncore@${CORE_REF}" || exit 11
 echo "Core Installed"
 neon-install-default-skills && echo "Default git skills installed" || exit 2
 

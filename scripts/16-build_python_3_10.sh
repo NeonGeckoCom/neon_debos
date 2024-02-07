@@ -40,5 +40,6 @@ make -j${1:-} && echo "make complete"
 make altinstall && echo "install complete"
 rm -rf /opt/Python-${py_ver}
 
-rm /usr/bin/python3
+[ -e /usr/bin/python3 ] && exit 0
+echo "WARN: Linking python3.10 as python3"
 ln /usr/local/bin/python3.10 /usr/bin/python3 && echo "linked python3"
