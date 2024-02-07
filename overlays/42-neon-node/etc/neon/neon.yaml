@@ -2,16 +2,14 @@ microphone:
   module: ovos-microphone-plugin-alsa
 listener:
   VAD:
-    silence_method: vad_and_ratio
+    silence_method: vad_only
     speech_seconds: 0.1
     silence_seconds: 0.5
     before_seconds: 0.5
     min_seconds: 1
     max_current_ratio_threshold: 2
     initial_energy_threshold: 1000.0
-    module: ovos-vad-plugin-webrtcvad
-    ovos-vad-plugin-webrtcvad:
-      vad_mode: 2
+    module: ovos-vad-plugin-silero
   mute_during_output: true
   duck_while_listening: 0.3
   phoneme_duration: 120

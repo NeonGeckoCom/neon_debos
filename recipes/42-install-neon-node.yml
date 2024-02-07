@@ -19,20 +19,21 @@ actions:
       - plasma-nm
       - unzip
       - ffmpeg
+      - python3-wheel
   - action: overlay
     description: Neon Satellite overlay
-    source: ../overlays/42-neon-satellite
+    source: ../overlays/42-neon-node
     destination: /
 
   - action: run
     description: Install Python dependencies and enable service
     chroot: true
-    # TODO: Update to configurable path
     command: |
-      python3 -m venv /home/neon/venv
-      . /home/neon/venv/bin/activate
-      pip install neon-nodes[voice_client]@git+https://github.com/neongeckocom/neon-nodes@FEAT_InitialVoiceClient
+      export PIPX_HOME=/opt/neon/pipx
+      export PIPX_BIN_DIR=/bin
+      [ -d ${PIPX_HOME} ] || mkdir -p ${PIPX_HOME}
+
+      pipx install neon-nodes[voice_client]@git+https://github.com/neongeckocom/neon-nodes@FEAT_InitialVoiceClient
       systemctl enable neon-node
       chmod ugo+x /usr/libexec/neon-node.py
-      chown -R neon:neon /home/neon
       wget https://github.com/OpenVoiceOS/precise-lite-models/raw/master/wakewords/en/hey_mycroft.tflite -O /opt/neon/hey_mycroft.tflite
