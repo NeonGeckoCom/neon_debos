@@ -32,7 +32,7 @@ actions:
     description: Apply configuration overlay
     chroot: true
     command: |
-      wget https://raw.githubusercontent.com/NeonGeckoCom/neon-nodes/FEAT_InitialVoiceClient/neon_nodes/configuration/system.yaml -O /etc/neon/neon.yaml
+      wget https://raw.githubusercontent.com/NeonGeckoCom/neon-nodes/{{ $neon_core }}/neon_nodes/configuration/system.yaml -O /etc/neon/neon.yaml
 
   - action: run
     description: Install Python dependencies and enable service
@@ -40,9 +40,11 @@ actions:
     command: |
       python3 -m venv /opt/neon/venv
       . /opt/neon/venv/bin/activate
-      # TODO: Parse branch from `neon_core` var
-      pip install neon-nodes[voice-client]@git+https://github.com/neongeckocom/neon-nodes@FEAT_InitialVoiceClient
+{{ if eq $neon_core "dev" }}
+      pip install --pre neon-nodes[voice-client]
+{{ else }}
+      pip install neon-nodes[voice-client]
+{{ end }}
       systemctl enable neon-node
       chmod ugo+x /usr/libexec/neon-node.py
       wget https://github.com/OpenVoiceOS/precise-lite-models/raw/master/wakewords/en/hey_mycroft.tflite -O /opt/neon/hey_mycroft.tflite
-
