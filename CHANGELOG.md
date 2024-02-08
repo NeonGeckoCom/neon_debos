@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.2.8a8](https://github.com/NeonGeckoCom/neon_debos/tree/24.2.8a8) (2024-02-08)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.2.7a7...24.2.8a8)
+
+**Merged pull requests:**
+
+- Fix audio configuration to ensure sj201 is initialized before HW checks [\#104](https://github.com/NeonGeckoCom/neon_debos/pull/104) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.2.7a7](https://github.com/NeonGeckoCom/neon_debos/tree/24.2.7a7) (2024-02-07)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.2.6a6...24.2.7a7)
