@@ -19,7 +19,7 @@ systemctl enable bluetooth.service
 systemctl enable raspotify.service
 systemctl enable update_bt_config.service
 # Fix permissions
-sudo chown -R neon:neon /home/neon/.cache/pip
+chown -R neon:neon /home/neon/.cache
 
 # Install packages for Bluetooth pairing script
 # TODO: Python packages to NeonCore dependencies(?)
