@@ -7,8 +7,8 @@ After=seeed-voicecard.service
 
 [Service]
 Type=oneshot
+ExecStartPre=/usr/libexec/ovos-i2csound
 ExecStart=/usr/libexec/configure-audio
-ExecStartPost=/usr/libexec/ovos-i2csound
 
 [Install]
 WantedBy=multi-user.target
