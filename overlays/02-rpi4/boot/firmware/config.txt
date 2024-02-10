@@ -1,4 +1,7 @@
 
+[pi3]
+boot_delay=1
+
 [all]
 # Enable fKMS Driver
 dtoverlay=vc4-fkms-v3d

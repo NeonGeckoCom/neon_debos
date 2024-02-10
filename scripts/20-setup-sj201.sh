@@ -36,7 +36,8 @@ export PIPX_HOME=/opt/neon/pipx
 export PIPX_BIN_DIR=/bin
 
 [ -d ${PIPX_HOME} ] || mkdir -p ${PIPX_HOME}
-pipx install sj201-interface==0.0.3a2
+echo "Installing sj201-interface; this will take several minutes"
+pipx install sj201-interface==0.0.3a2 && echo "Installed sj201-interface"
 
 kernels=($(ls /lib/modules))
 echo "Looking for kernels with build dir in ${kernels[*]}"
