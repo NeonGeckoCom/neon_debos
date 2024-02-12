@@ -12,4 +12,4 @@ actions:
   - action: run
     description: Configure scripts to mount firmware partition
     chroot: true
-    command: chmod ugo+x /usr/sbin
+    command: chmod ug+x /usr/sbin/*

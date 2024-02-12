@@ -51,3 +51,11 @@ load-module module-suspend-on-idle
 
 ### Enable positioned event sounds
 load-module module-position-event-sounds
+
+### Assistant Device Audio Settings
+load-module module-role-ducking
+load-module module-combine-sink sink_name=CombinedOutput
+set-default-sink CombinedOutput
+
+# Set default volume
+set-sink-volume CombinedOutput 32768

@@ -1,9 +1,13 @@
 [Unit]
 Description=Audio Configuration Service
 Before=pulseaudio.service
+After=dev-i2c\x2d1.device
+After=systemd-modules-load.service
+After=seeed-voicecard.service
 
 [Service]
 Type=oneshot
+ExecStartPre=/usr/libexec/ovos-i2csound
 ExecStart=/usr/libexec/configure-audio
 
 [Install]

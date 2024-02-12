@@ -38,8 +38,6 @@ usermod -aG gpio root
 # Disable userspace pulseaudio services
 systemctl --global disable pulseaudio.service pulseaudio.socket
 
-# Ensure execute permissions
-chmod -R ugo+x /usr/libexec
 
 # Build and install tinyalsa
 cd /tmp
@@ -49,6 +47,17 @@ make
 make install
 ldconfig
 rm -rf /tmp/tinyalsa
+
+# Clone and install ovos-i2csound
+cd /tmp
+git clone https://github.com/openvoiceos/ovos-i2csound
+cp ovos-i2csound/i2c.conf /etc/modules-load.d/
+cp ovos-i2csound/ovos-i2csound /usr/libexec/
+cp ovos-i2csound/99-i2c.rules /usr/lib/udev/rules.d/
+rm -r ovos-i2csound
+
+# Ensure execute permissions
+chmod -R ugo+x /usr/libexec
 
 # Enable system services
 systemctl enable pulseaudio.service

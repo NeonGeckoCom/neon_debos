@@ -25,13 +25,13 @@ actions:
       suite: {{ $suite }}
       image: {{ $image }}
 
-#  - action: recipe
-#    recipe: recipes/96-admin-login.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#      firmware_version: {{ $firmware_version }}
-#      suite: {{ $suite }}
-#      image: {{ $image }}
+  - action: recipe
+    recipe: recipes/96-admin-login.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
 
   - action: recipe
     recipe: recipes/98-backup-image.yml

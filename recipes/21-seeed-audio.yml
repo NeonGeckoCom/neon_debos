@@ -1,0 +1,20 @@
+{{- $architecture := or .architecture "arm64" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: apt
+    description: Audio Dependencies
+    packages:
+      - git-core
+      - dkms
+      - gcc
+      - g++
+      - make
+      - cmake
+      - alsa-utils
+
+  - action: run
+    description: Install seeed audio drivers
+    chroot: true
+    script: ../scripts/21-install_seeed_drivers.sh

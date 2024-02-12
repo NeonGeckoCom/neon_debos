@@ -1,7 +1,6 @@
 [Unit]
 Description=SJ201 Service
-Before=pulseaudio.service
-Before=configure-audio.service
+After=configure-audio.service
 
 [Service]
 Type=oneshot
@@ -9,4 +8,3 @@ ExecStart=/bin/bash /opt/neon/configure_sj201_on_boot.sh
 
 [Install]
 WantedBy=multi-user.target
-WantedBy=pulseaudio.service

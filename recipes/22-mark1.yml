@@ -1,0 +1,16 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $build_cores := or .build_cores 4 -}}
+
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: apt
+    description: Mark1 Dependencies
+    packages:
+      - avrdude
+# TODO: https://github.com/MycroftAI/enclosure-mark1
+  - action: overlay
+    description: Mark 1 Audio overlay
+    source: ../overlays/22-mark-1
+    destination: /
