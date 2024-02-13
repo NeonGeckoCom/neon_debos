@@ -49,11 +49,6 @@ dkms add -m $mod -v $ver
 
 echo "Looking for kernel with build dir in ${kernels[*]}"
 for current_kernel in "${kernels[@]}"; do
-  if [[ "${current_kernel}" == 6.* ]]; then
-    echo "Skipping Kernel 6.x build"
-  else
-    dkms build -k "${current_kernel}" -m $mod -v $ver && {
-            dkms install --force -k "${current_kernel}" -m $mod -v $ver
-            }
-  fi
+  dkms build -k "${current_kernel}" -m $mod -v $ver || continue
+  dkms install --force -k "${current_kernel}" -m $mod -v $ver
 done
