@@ -1,6 +1,6 @@
 {{- $architecture := or .architecture "arm64" -}}
 {{- $firmware_version := or .firmware_version "master" -}}
-{{- $kernel_version := or .kernel_version "5.15.92-gecko+" -}}
+{{- $kernel_version := or .kernel_version "6.1.77-gecko+" -}}
 {{ $suite :=  or .suite "bookworm" }}
 {{- $build_cores := or .build_cores 4 -}}
 {{ $platform := or .platform "rpi4" }}
