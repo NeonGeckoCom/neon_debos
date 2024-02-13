@@ -346,9 +346,9 @@ if [ -n "${ROOT_ROPATH}" ]; then
   log_end_msg
 
   if [ -f /media/rw/upperdir/opt/neon/squashfs_updated ]; then
-    user_backup_path="/media/rw/firmware_backup"
+    fw_backup_path="/media/rw/firmware_backup"
     log "Checking for updated kernel/firmware"
-    scripts/check_firmware_update.sh "${user_backup_path}"
+    scripts/check_firmware_update.sh "${fw_backup_path}"
     log "No firmware update to apply"
   fi
 

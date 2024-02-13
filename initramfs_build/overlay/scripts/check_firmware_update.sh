@@ -75,7 +75,7 @@ mv "${real_path}/overlays" "${BACKUP_PATH}/" && log "backed up overlays director
 log "Backed up to ${BACKUP_PATH}"
 
 # Copy new firmware
-new_version=$(cat "${update_path}/kernel.txt")
+new_version=$(strings "${update_path}/${KERNEL}" | grep "Linux version" | cut -d' ' -f3)
 log "New kernel version=${new_version}"
 cp "/media/ro/usr/lib/linux-image-${new_version}/broadcom/"*.dtb "${real_path}" && log "Updated broadcom FW"
 cp -r "/media/ro/usr/lib/linux-image-${new_version}/overlays" "${real_path}" && log "Updated dtb overlays"
