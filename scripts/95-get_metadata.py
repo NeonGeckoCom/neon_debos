@@ -48,7 +48,7 @@ def get_commit_and_time(repo, branch="master"):
     return commit_sha, commit_time
 
 
-def get_neon_core_meta(core_branch="dev"):
+def get_neon_core_meta(core_branch="dev", core_repo="neoncore", version_path="neon_core/version.py"):
     try:
         core_sha, core_time = get_commit_and_time("neoncore", core_branch)
     except Exception as e:
@@ -59,8 +59,8 @@ def get_neon_core_meta(core_branch="dev"):
     core_version = "unknown"
     try:
         core_version_file = urllib.request.urlopen(
-            f"https://raw.githubusercontent.com/neongeckocom/neoncore/"
-            f"{core_branch}/neon_core/version.py").read().decode('utf-8')
+            f"https://raw.githubusercontent.com/neongeckocom/{core_repo}/"
+            f"{core_branch}/{version_path}").read().decode('utf-8')
         for line in core_version_file.split('\n'):
             if line.startswith("__version__"):
                 if '"' in line:
@@ -122,10 +122,17 @@ if __name__ == "__main__":
     architecture = argv[4]
     platform = argv[5]
     device = argv[6]
-    edition = argv[7]
+
     print(f"debos_ref={debos_ref}")
     data = dict()
-    data["core"] = get_neon_core_meta(core_ref)
+
+    if image_name.startswith("debian-neon-image"):
+        edition = "Standalone"
+        data["core"] = get_neon_core_meta(core_ref, "NeonCore", "neon_core/version.py")
+    elif image_name.startswith("debian-node-image"):
+        edition = "Node"
+        data["node"] = get_neon_node_meta(core_ref, "neon-nodes", "neon_nodes/version.py")
+
     data["image"] = get_recipe_meta(debos_ref)
     data["image"]["version"] = debos_ref
     data["initramfs"] = get_initramfs_metadata()

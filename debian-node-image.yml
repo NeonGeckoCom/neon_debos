@@ -179,7 +179,6 @@ actions:
       neon_debos: {{ $neon_debos }}
       platform: {{ $platform }}
       device: {{ $device }}
-      edition: satellite
 
   - action: recipe
     recipe: recipes/98-backup-image.yml
