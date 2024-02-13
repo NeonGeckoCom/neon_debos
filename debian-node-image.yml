@@ -4,7 +4,7 @@
 {{ $suite :=  or .suite "bookworm" }}
 {{ $platform := or .platform "rpi4" }}
 {{ $device := or .device $platform }}
-{{- $image := or .image "debian-neon-image-rpi4" -}}
+{{- $image := or .image "debian-node-image-rpi4" -}}
 {{- $neon_core := or .neon_core "master" -}}
 {{- $neon_debos := or .neon_debos "unknown" -}}
 {{- $build_cores := or .build_cores 4 -}}
