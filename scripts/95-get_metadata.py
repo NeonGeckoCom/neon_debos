@@ -32,6 +32,7 @@ import json
 import os
 import urllib.request
 
+from subprocess import getoutput
 from sys import argv
 from datetime import datetime, timezone
 
@@ -99,16 +100,19 @@ def get_kernel_metadata(platform: str) -> dict:
     kernel_version = "unknown"
     if platform == "rpi4":
         kernel_path = "/boot/firmware/kernel8.img"
-        kernel_info_path = "/boot/firmware/kernel.txt"
+        # kernel_info_path = "/boot/firmware/kernel.txt"
     elif platform == "opi5":
         kernel_path = "/boot/Image"
-        kernel_info_path = "/boot/kernel.txt"
+        # kernel_info_path = "/boot/kernel.txt"
     else:
         return {"version": kernel_version}
 
-    if os.path.isfile(kernel_info_path):
-        with open(kernel_info_path, 'r') as f:
-            kernel_version = f.read().strip('\n')
+    kernel_version = getoutput('strings /boot/firmware/kernel8.img | '
+                               'grep "Linux version"').split()[2]
+
+    # if os.path.isfile(kernel_info_path):
+    #     with open(kernel_info_path, 'r') as f:
+    #         kernel_version = f.read().strip('\n')
     with open(kernel_path, 'rb') as f:
         kernel_hash = hashlib.md5(f.read()).hexdigest()
     return {"version": kernel_version,
