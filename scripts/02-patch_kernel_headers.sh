@@ -64,6 +64,17 @@ patch_5_15() {
   gcc ./genksyms/genksyms.c ./genksyms/parse.tab.c ./genksyms/lex.lex.c -o "$HEADER_DIR/scripts/genksyms/genksyms"
 }
 
+patch_6_1() {
+  gcc kallsyms.c -o "$HEADER_DIR/scripts/kallsyms"
+  gcc recordmcount.c -o "$HEADER_DIR/scripts/recordmcount"
+  gcc unifdef.c -o "$HEADER_DIR/scripts/unifdef"
+  gcc ./basic/fixdep.c -o "$HEADER_DIR/scripts/basic/fixdep" || exit 10
+  gcc ./mod/modpost.c ./mod/file2alias.c ./mod/sumversion.c -o "$HEADER_DIR/scripts/mod/modpost"
+  gcc ./mod/mk_elfconfig.c -o "$HEADER_DIR/scripts/mod/mk_elfconfig"
+  gcc  -I../include asn1_compiler.c -o "$HEADER_DIR/scripts/asn1_compiler"
+  gcc ./genksyms/genksyms.c ./genksyms/parse.tab.c ./genksyms/lex.lex.c -o "$HEADER_DIR/scripts/genksyms/genksyms"
+}
+
 for kernel in "${kernels[@]}"; do
   echo "patching kernel ${kernel}"
   export HEADER_DIR="/usr/src/${kernel}"
@@ -75,7 +86,8 @@ for kernel in "${kernels[@]}"; do
     patch_5_4
   elif [[ ${kernel} == "linux-headers-5.15."* ]]; then
     patch_5_15
-  # TODO: 6.x kernels
+  elif [[ ${kernel} == "linux-headers-6.1."* ]]; then
+    patch_6_1
   fi
 done
 

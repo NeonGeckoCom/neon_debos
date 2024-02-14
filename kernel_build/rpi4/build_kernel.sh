@@ -32,7 +32,7 @@ sudo apt install -y git bc bison flex libssl-dev make libc6-dev libncurses5-dev\
 
 ROOT_PATH="$(pwd)"
 
-branch="rpi-5.15.y"
+branch="rpi-6.1.y"
 git clone --depth=1 https://github.com/raspberrypi/linux -b "${branch}"
 cd linux || exit 10
 export KERNEL=kernel8
@@ -61,8 +61,6 @@ for file in *.deb; do
   rm -r "${work_dir}"
 done
 cp "${kernel_dir}/"*.deb "${ROOT_PATH}/../../overlays/02-rpi4/var/tmp/" && echo "Copied deb installers to overlay"
-echo "Compressing ${kernel_dir}"
-zip -j -r "${kernel_dir}.zip" "${kernel_dir}" || exit 2
 rm -r "${kernel_dir}"
 rm linux-upstream_*
 rm ./*.deb
