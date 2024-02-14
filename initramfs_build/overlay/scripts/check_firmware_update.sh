@@ -33,15 +33,21 @@ BACKUP_PATH=${1}
 
 
 cleanup() {
+  if [ -z "$(ls "${real_path}")" ]; then
+    log "cleanup after FW update check"
+    return 0
+  fi
   log_failure_msg "Update error. rolling back boot partition changes"
   [ -d "${BACKUP_PATH}" ] || exit 10
   [ -f "${BACKUP_PATH}/${KERNEL}" ] && mv "${BACKUP_PATH}/${KERNEL}" "${real_path}" && echo "restored kernel"
-  mv "${BACKUP_PATH}/"*.dtb "${real_path}" && echo "restored dtb files"
+  mv "${BACKUP_PATH}/"*.dtb "${real_path}/" && echo "restored dtb files"
   [ -d "${BACKUP_PATH}/overlays" ] && mv "${BACKUP_PATH}/overlays" "${real_path}" && echo "restored overlays"
   umount "${real_path}"
+  dmesg > "/media/rw/upperdir/var/log/firmware_update.log"
 }
 
-trap cleanup 2 3 6 15
+set -e
+trap cleanup EXIT
 
 
 [ -d /media/fw ] || mkdir /media/fw
@@ -75,8 +81,9 @@ mv "${real_path}/overlays" "${BACKUP_PATH}/" && log "backed up overlays director
 log "Backed up to ${BACKUP_PATH}"
 
 # Copy new firmware
-new_version=$(strings "${update_path}/${KERNEL}" | grep "Linux version" | cut -d' ' -f3)
+new_version=$(strings "${update_path}/${KERNEL}" | grep "Linux version" | head -n1 | cut -d' ' -f3)
 log "New kernel version=${new_version}"
+# TODO: This path not found
 cp "/media/ro/usr/lib/linux-image-${new_version}/broadcom/"*.dtb "${real_path}" && log "Updated broadcom FW"
 cp -r "/media/ro/usr/lib/linux-image-${new_version}/overlays" "${real_path}" && log "Updated dtb overlays"
 cp "${update_path}/${KERNEL}" "${real_path}/${KERNEL}" && log "Updated kernel"
@@ -84,6 +91,6 @@ cp "${update_path}/${KERNEL}" "${real_path}/${KERNEL}" && log "Updated kernel"
 # Unmount and reboot
 umount "${real_path}"
 log "Firmware update complete"
-dmesg > "${OVERLAY_PATH}/var/log/firmware_update.log"
+dmesg > "/media/rw/upperdir/var/log/firmware_update.log"
 reboot -f
 exit 10

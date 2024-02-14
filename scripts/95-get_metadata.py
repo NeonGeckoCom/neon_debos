@@ -108,7 +108,7 @@ def get_kernel_metadata(platform: str) -> dict:
         return {"version": kernel_version}
 
     kernel_version = getoutput('strings /boot/firmware/kernel8.img | '
-                               'grep "Linux version"').split()[2]
+                               'grep "Linux version" | head -n1').split()[2]
 
     # if os.path.isfile(kernel_info_path):
     #     with open(kernel_info_path, 'r') as f:
