@@ -1,89 +1,16 @@
 # Changelog
 
-## [24.2.8a8](https://github.com/NeonGeckoCom/neon_debos/tree/24.2.8a8) (2024-02-08)
+## [24.2.14a1](https://github.com/NeonGeckoCom/neon_debos/tree/24.2.14a1) (2024-02-14)
 
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.2.7a7...24.2.8a8)
-
-**Merged pull requests:**
-
-- Fix audio configuration to ensure sj201 is initialized before HW checks [\#104](https://github.com/NeonGeckoCom/neon_debos/pull/104) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [24.2.7a7](https://github.com/NeonGeckoCom/neon_debos/tree/24.2.7a7) (2024-02-07)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.2.6a6...24.2.7a7)
-
-**Merged pull requests:**
-
-- Minor build optimizations and fixes [\#103](https://github.com/NeonGeckoCom/neon_debos/pull/103) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [24.2.6a6](https://github.com/NeonGeckoCom/neon_debos/tree/24.2.6a6) (2024-02-06)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.2.2a5...24.2.6a6)
-
-**Merged pull requests:**
-
-- Support more audio solutions [\#101](https://github.com/NeonGeckoCom/neon_debos/pull/101) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [24.2.2a5](https://github.com/NeonGeckoCom/neon_debos/tree/24.2.2a5) (2024-02-02)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.1.30a4...24.2.2a5)
-
-**Merged pull requests:**
-
-- Fix syntax error waiting for GUI service to start [\#100](https://github.com/NeonGeckoCom/neon_debos/pull/100) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [24.1.30a4](https://github.com/NeonGeckoCom/neon_debos/tree/24.1.30a4) (2024-01-30)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.1.24a3...24.1.30a4)
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.2.12...24.2.14a1)
 
 **Implemented enhancements:**
 
-- \[FEAT\] Pre-configured WiFi option [\#96](https://github.com/NeonGeckoCom/neon_debos/issues/96)
+- \[FEAT\] Optimize Kernel Build [\#72](https://github.com/NeonGeckoCom/neon_debos/issues/72)
 
 **Merged pull requests:**
 
-- Support pre-configured WiFi [\#98](https://github.com/NeonGeckoCom/neon_debos/pull/98) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [24.1.24a3](https://github.com/NeonGeckoCom/neon_debos/tree/24.1.24a3) (2024-01-24)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.1.22a2...24.1.24a3)
-
-**Implemented enhancements:**
-
-- \[FEAT\] Update default `cmdline.txt` for USB and SD boot devices [\#94](https://github.com/NeonGeckoCom/neon_debos/issues/94)
-
-**Merged pull requests:**
-
-- Update cmdline.txt to support booting from SD Cards [\#95](https://github.com/NeonGeckoCom/neon_debos/pull/95) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [24.1.22a2](https://github.com/NeonGeckoCom/neon_debos/tree/24.1.22a2) (2024-01-22)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.1.10a1...24.1.22a2)
-
-**Merged pull requests:**
-
-- Add hardware and GUI init checks for Mark2 [\#93](https://github.com/NeonGeckoCom/neon_debos/pull/93) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [24.1.10a1](https://github.com/NeonGeckoCom/neon_debos/tree/24.1.10a1) (2024-01-10)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/23.12.19...24.1.10a1)
-
-**Implemented enhancements:**
-
-- \[FEAT\] Orange Pi 5 Plus Support [\#90](https://github.com/NeonGeckoCom/neon_debos/issues/90)
-- \[FEAT\] make use of ramdisk for logging [\#26](https://github.com/NeonGeckoCom/neon_debos/issues/26)
-
-**Fixed bugs:**
-
-- \[BUG\] rw filesystem appears to not be cleanly unmounted during update [\#57](https://github.com/NeonGeckoCom/neon_debos/issues/57)
-
-**Closed issues:**
-
-- Update Pulse setup to use profiles and support other devices [\#9](https://github.com/NeonGeckoCom/neon_debos/issues/9)
-
-**Merged pull requests:**
-
-- Fix syntax error in qt logging rules [\#92](https://github.com/NeonGeckoCom/neon_debos/pull/92) ([NeonDaniel](https://github.com/NeonDaniel))
+- Update RPi Kernel to 6.1 [\#107](https://github.com/NeonGeckoCom/neon_debos/pull/107) ([NeonDaniel](https://github.com/NeonDaniel))
 
 
 
