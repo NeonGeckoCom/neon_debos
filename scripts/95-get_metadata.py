@@ -127,11 +127,13 @@ if __name__ == "__main__":
     data = dict()
 
     if image_name.startswith("debian-neon-image"):
-        edition = "Standalone"
+        edition = "Core"
         data["core"] = get_neon_core_meta(core_ref, "NeonCore", "neon_core/version.py")
     elif image_name.startswith("debian-node-image"):
         edition = "Node"
-        data["node"] = get_neon_node_meta(core_ref, "neon-nodes", "neon_nodes/version.py")
+        data["core"] = get_neon_node_meta(core_ref, "neon-nodes", "neon_nodes/version.py")
+    else:
+        edition = "Unknown"
 
     data["image"] = get_recipe_meta(debos_ref)
     data["image"]["version"] = debos_ref
