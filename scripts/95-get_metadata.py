@@ -131,7 +131,7 @@ if __name__ == "__main__":
         data["core"] = get_neon_core_meta(core_ref, "NeonCore", "neon_core/version.py")
     elif image_name.startswith("debian-node-image"):
         edition = "Node"
-        data["core"] = get_neon_node_meta(core_ref, "neon-nodes", "neon_nodes/version.py")
+        data["core"] = get_neon_core_meta(core_ref, "neon-nodes", "neon_nodes/version.py")
     else:
         edition = "Unknown"
 
