@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.2.19a2](https://github.com/NeonGeckoCom/neon_debos/tree/24.2.19a2) (2024-02-19)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.2.14a1...24.2.19a2)
+
+**Merged pull requests:**
+
+- Initial Support for Raspberry Pi5 [\#109](https://github.com/NeonGeckoCom/neon_debos/pull/109) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.2.14a1](https://github.com/NeonGeckoCom/neon_debos/tree/24.2.14a1) (2024-02-14)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.2.12...24.2.14a1)
