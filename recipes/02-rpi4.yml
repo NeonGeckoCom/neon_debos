@@ -54,20 +54,20 @@ actions:
     chroot: true
     script: ../scripts/02-link_kernel.sh {{ $kernel_version }}
 
-#  - action: run
-#    description: Get and Install Kernel Packages
-#    chroot: true
-#    script: ../scripts/02-get_raspi_kernel.sh
-
   - action: run
     description: Patch kernel headers
     chroot: true
     script: ../scripts/02-patch_kernel_headers.sh
 
-#  - action: run
-#    description: Set root device in cmdline.txt
-#    chroot: true
-#    script: ../scripts/02-set_root_fs.sh
+  - action: run
+    description: Patch RPi5 Support
+    chroot: true
+    command: |
+      cd /usr/lib/firmware/brcm
+      ln ../cypress/cyfmac43455-sdio.bin brcmfmac43455-sdio.raspberrypi,5-model-b.bin
+      ln ../cypress/cyfmac43455-sdio.bin brcmfmac43455-sdio.raspberrypi,5-model-b.bin
+      ln ../cypress/cyfmac43455-sdio.clm_blob brcmfmac43455-sdio.raspberrypi,5-model-b.clm_blob
+      ln brcmfmac43455-sdio.raspberrypi,4-model-b.txt brcmfmac43455-sdio.raspberrypi,5-model-b.txt
 
   - action: run
     description: Set hostname

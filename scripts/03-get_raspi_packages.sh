@@ -30,11 +30,11 @@
 # Set to exit on error
 set -Ee
 
-wget http://archive.raspberrypi.org/debian/pool/main/r/raspberrypi-firmware/raspberrypi-bootloader_1.20221104-1_arm64.deb
-wget http://archive.raspberrypi.org/debian/pool/main/r/raspberrypi-userland/libraspberrypi0_2+git20220324~090146+c4fd1b8-1_arm64.deb
-wget http://archive.raspberrypi.org/debian/pool/main/r/raspberrypi-userland/libraspberrypi-dev_2+git20220324~090146+c4fd1b8-1_arm64.deb
-wget http://archive.raspberrypi.org/debian/pool/main/r/raspberrypi-userland/libraspberrypi-bin_2+git20220324~090146+c4fd1b8-1_arm64.deb
-dpkg -i ./raspberrypi-bootloader_1.20221104-1_arm64.deb
+wget https://archive.raspberrypi.org/debian/pool/main/r/raspberrypi-firmware/raspberrypi-bootloader_1.20230405-1_arm64.deb
+wget https://archive.raspberrypi.org/debian/pool/main/r/raspberrypi-userland/libraspberrypi0_2+git20231018~131943+3c97f76-1_arm64.deb
+wget https://archive.raspberrypi.org/debian/pool/main/r/raspberrypi-userland/libraspberrypi-dev_2+git20231018~131943+3c97f76-1_arm64.deb
+wget https://archive.raspberrypi.org/debian/pool/main/r/raspberrypi-userland/libraspberrypi-bin_2+git20231018~131943+3c97f76-1_arm64.deb
+dpkg -i ./raspberrypi-bootloader_1.20230405-1_arm64.deb
 dpkg -i ./libraspberrypi0*.deb
 dpkg -i ./libraspberrypi-dev*.deb
 dpkg -i ./libraspberrypi-bin*.deb
