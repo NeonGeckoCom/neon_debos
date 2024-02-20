@@ -1,0 +1,197 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $firmware_version := or .firmware_version "master" -}}
+{{- $kernel_version := or .kernel_version "6.1.77-gecko+" -}}
+{{ $suite :=  or .suite "bookworm" }}
+{{ $platform := or .platform "rpi4" }}
+{{ $device := or .device $platform }}
+{{- $image := or .image "debian-node-image-rpi4" -}}
+{{- $neon_core := or .neon_core "master" -}}
+{{- $neon_debos := or .neon_debos "unknown" -}}
+{{- $build_cores := or .build_cores 4 -}}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: recipe
+    recipe: recipes/01-debian-base.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+  - action: recipe
+    recipe: recipes/02-{{ $platform }}.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      kernel_version: {{ $kernel_version }}
+
+  - action: recipe
+    recipe: recipes/03-base-packages.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+{{ if eq $platform "rpi4" }}
+  - action: recipe
+    recipe: recipes/03-get-raspi-packages.yml
+{{ end }}
+  - action: recipe
+    recipe: recipes/04-base-overlay.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+
+  - action: recipe
+    recipe: recipes/05-setup-networking.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+#{{ if eq $platform "rpi4" }}
+#  - action: recipe
+#    recipe: recipes/06-libcamera.yml
+#    variables:
+#      architecture: {{ $architecture }}
+#      firmware_version: {{ $firmware_version }}
+#      suite: {{ $suite }}
+#{{ end }}
+  - action: recipe
+    recipe: recipes/07-splash-screen.yml
+    variables:
+      architecture: {{ $architecture }}
+
+  - action: recipe
+    recipe: recipes/08-poweroff-service.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+
+  - action: recipe
+    recipe: recipes/13-audio-devices.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      platform: {{ $platform }}
+
+  - action: recipe
+    recipe: recipes/14-mount-firmware.yml
+    variables:
+      architecture: {{ $architecture }}
+
+  - action: recipe
+    recipe: recipes/15-firmware-updates.yml
+    variables:
+      architecture: {{ $architecture }}
+
+  - action: recipe
+    recipe: recipes/16-check-boot-network-config.yml
+    variables:
+      architecture: {{ $architecture }}
+
+  - action: recipe
+    recipe: recipes/17-locale-config.yml
+    variables:
+      architecture: {{ $architecture }}
+
+  - action: recipe
+    recipe: recipes/18-preflight-check.yml
+    variables:
+      architecture: {{ $architecture }}
+
+{{ if eq $platform "rpi4" }}
+  - action: recipe
+    recipe: recipes/20-sj201.yml
+    variables:
+      architecture: {{ $architecture }}
+      build_cores: {{ $build_cores }}
+  - action: recipe
+    recipe: recipes/21-seeed-audio.yml
+    variables:
+      architecture: {{ $architecture }}
+
+  - action: recipe
+    recipe: recipes/22-mark1.yml
+    variables:
+      architecture: {{ $architecture }}
+{{ end }}
+
+  - action: recipe
+    recipe: recipes/27-update-clock.yml
+    variables:
+      architecture: {{ $architecture }}
+
+  - action: recipe
+    recipe: recipes/31-updater-service.yml
+    variables:
+      architecture: {{ $architecture }}
+      device: {{ $device }}
+
+  - action: recipe
+    recipe: recipes/40-add-default-user.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/42-install-neon-node.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+      neon_core: {{ $neon_core }}
+      platform: {{ $platform }}
+      device: {{ $device }}
+
+  - action: recipe
+    recipe: recipes/45-reset-service.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/46-audio-receiver.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/90-base-finalscripts.yml
+    variables:
+      architecture: {{ $architecture }}
+
+  - action: recipe
+    recipe: recipes/95-add_metadata.yml
+    variables:
+      architecture: {{ $architecture }}
+      image: {{ $image }}
+      neon_core: {{ $neon_core }}
+      neon_debos: {{ $neon_debos }}
+      platform: {{ $platform }}
+      device: {{ $device }}
+
+  - action: recipe
+    recipe: recipes/98-backup-image.yml
+    variables:
+      architecture: {{ $architecture }}
+      firmware_version: {{ $firmware_version }}
+      suite: {{ $suite }}
+      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/99-finalize_squashfs.yml
+    variables:
+      architecture: {{ $architecture }}
+      image: {{ $image }}
+      build_cores: {{ $build_cores }}
+      platform: {{ $platform }}
