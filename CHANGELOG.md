@@ -1,5 +1,17 @@
 # Changelog
 
+## [24.2.20a3](https://github.com/NeonGeckoCom/neon_debos/tree/24.2.20a3) (2024-02-20)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.2.19a2...24.2.20a3)
+
+**Implemented enhancements:**
+
+- \[FEAT\] Audio-only satellite image [\#97](https://github.com/NeonGeckoCom/neon_debos/issues/97)
+
+**Merged pull requests:**
+
+- Add Node image build recipe [\#99](https://github.com/NeonGeckoCom/neon_debos/pull/99) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.2.19a2](https://github.com/NeonGeckoCom/neon_debos/tree/24.2.19a2) (2024-02-19)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.2.14a1...24.2.19a2)
