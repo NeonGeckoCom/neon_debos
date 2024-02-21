@@ -1,7 +1,8 @@
 
 [pi3]
 boot_delay=1
-
+arm_control=0x200
+device_tree=bcm2837-rpi-3-b.dtb
 [all]
 # Enable fKMS Driver
 dtoverlay=vc4-fkms-v3d
