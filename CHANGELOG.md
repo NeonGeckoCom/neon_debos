@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.2.23a4](https://github.com/NeonGeckoCom/neon_debos/tree/24.2.23a4) (2024-02-23)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.2.20a3...24.2.23a4)
+
+**Merged pull requests:**
+
+- Fix OrangePi5 Compat [\#110](https://github.com/NeonGeckoCom/neon_debos/pull/110) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.2.20a3](https://github.com/NeonGeckoCom/neon_debos/tree/24.2.20a3) (2024-02-20)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.2.19a2...24.2.20a3)
