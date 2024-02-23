@@ -166,7 +166,7 @@ actions:
       image: {{ $image }}
 
   - action: recipe
-    recipe: recipes/90-base-finalscripts.yml
+    recipe: recipes/90-cleanup-build-leftovers.yml
     variables:
       architecture: {{ $architecture }}
 

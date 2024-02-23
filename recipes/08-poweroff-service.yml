@@ -16,4 +16,6 @@ actions:
   - action: run
     description: Configure Poweroff Service
     chroot: true
-    script: ../scripts/08-poweroff-service.sh
+    command: |
+      chmod ugo+x /opt/neon/poweroff.sh
+      systemctl enable poweroff.service

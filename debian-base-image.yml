@@ -18,7 +18,7 @@ actions:
       architecture: {{ $architecture }}
 
   - action: recipe
-    recipe: recipes/90-base-finalscripts.yml
+    recipe: recipes/90-cleanup-build-leftovers.yml
     variables:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}

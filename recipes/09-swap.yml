@@ -16,4 +16,5 @@ actions:
   - action: run
     description: Configure Swapfile
     chroot: true
-    script: ../scripts/09-swapfile-service.sh
+    command: |
+      systemctl enable mount_swapfile.service

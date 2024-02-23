@@ -10,54 +10,27 @@ actions:
     chroot: true
     command: mkdir -p /var/tmp
   - action: apt
-    description: GUI Build Dependencies
+    description: Shell/GUI Dependencies
     packages:
-      - breeze-icon-theme
+      - git-core
+      - g++
+      - make
       - cmake
       - extra-cmake-modules
-      - g++
       - gettext
-      - git-core
-      - gstreamer1.0-libav
-      - gstreamer1.0-plugins-bad
-      - gstreamer1.0-plugins-ugly
-      - kirigami2-dev
-      - libinput-tools
-      - libkf5i18n-dev
-      - libkf5kio-dev
-      - libkf5notifications-dev
-      - libkf5plasma-dev
-      - libqt5multimedia5-plugins
-      - libqt5websockets5-dev
-      - libqt5webview5-dev
       - pkg-config
-      - pkg-kde-tools
-      - plasma-pa
-      - qml-module-qt-labs-folderlistmodel
-      - qml-module-qtgraphicaleffects
-      - qml-module-qtlocation
-      - qml-module-qtmultimedia
-      - qml-module-qtpositioning
-      - qml-module-qtqml-models2
-      - qml-module-qtquick-localstorage
-      - qml-module-qtquick-particles2
-      - qml-module-qtquick-shapes
-      - qml-module-qtquick-templates2
-      - qml-module-qtquick-virtualkeyboard
-      - qml-module-qtquick-xmllistmodel
-      - qml-module-qttest
-      - qml-module-qtwayland-compositor
-      - qml-module-qtwebchannel
       - qml-module-qtwebengine
-      - qml-module-termwidget
-      - qmltermwidget-common
-      - qt5ct
+      - pkg-kde-tools
       - qtbase5-dev
       - qtdeclarative5-dev
+      - libkf5kio-dev
+      - libqt5websockets5-dev
+      - libkf5i18n-dev
+      - libkf5notifications-dev
+      - libkf5plasma-dev
+      - libqt5webview5-dev
       - qtmultimedia5-dev
-      - qtwayland5
-      - xorg
-
+      - qml-module-qtmultimedia
   - action: overlay
     description: Neon Shell Overlay
     source: ../overlays/29-ovos-shell
