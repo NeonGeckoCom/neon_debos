@@ -35,9 +35,12 @@ ROOT_PATH="$(pwd)"
 # OPi kernel build requires this patch
 wget https://github.com/armbian/build/raw/master/patch/misc/headers-debian-byteshift.patch -O /tmp/headers-debian-byteshift.patch
 
-branch="orange-pi-5.10-rk3588"
 # Get kernel source with rk3588 support
+branch="orange-pi-5.10-rk3588"
 git clone --depth=1 https://github.com/orangepi-xunlong/linux-orangepi -b "${branch}" linux
+#branch="v6.1"
+#git clone --depth=1 https://github.com/torvalds/linux -b "${branch}"
+
 cd linux || exit 10
 #export KERNEL=kernel8
 make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- rk3588_linux.config
@@ -67,7 +70,5 @@ for file in *.deb; do
 done
 
 cp "${kernel_dir}/"*.deb "${ROOT_PATH}/../../overlays/02-opi5/var/tmp/" && echo "Copied deb installers to overlay"
-echo "Compressing ${kernel_dir}"
-zip -j -r "${kernel_dir}.zip" "${kernel_dir}" || exit 2
 rm -r "${kernel_dir}"
 rm -r linux-*
