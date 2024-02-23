@@ -42,9 +42,12 @@ debos_version="$(python3 "${source_dir}/version.py")*"
 echo "Building core=${neon_core} version=${debos_version} platform=${platform}"
 echo "${pass}" | sudo -S chmod ugo+x "${source_dir}/scripts/"*
 
+[ "${platform}" == "rpi4" ] && kernel_version="6.1.77-gecko+"
+[ "${platform}" == "opi5" ] && kernel_version="5.10.110-gecko+"
+
 if [ ! -f "${source_dir}/${platform}_base.tar.gz" ]; then
   echo "Building base image"
-  bash "${source_dir}/build_base_image.sh" ${platform}
+  bash "${source_dir}/build_base_image.sh" "${platform}"
   echo "Completed base image"
 fi
 docker run --rm -d \
@@ -62,6 +65,7 @@ godebos/debos "${image}" \
 -t neon_core:"${neon_core}" \
 -t neon_debos:"${debos_version}" \
 -t build_cores:"${core_limit}" \
+-t kernel_version:"${kernel_version}" \
 -m "${mem_limit}" \
 -c "${core_limit}" && \
 docker logs -f neon_debos

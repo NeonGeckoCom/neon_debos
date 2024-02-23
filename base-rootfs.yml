@@ -151,6 +151,7 @@ actions:
     variables:
       architecture: {{ $architecture }}
       build_cores: {{ $build_cores }}
+      platform: {{ $platform }}
 
   - action: pack
     file: {{ $platform }}_base.tar.gz

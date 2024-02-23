@@ -1,5 +1,6 @@
 {{- $architecture := or .architecture "arm64" -}}
 {{- $build_cores := or .build_cores 4 -}}
+{{- $platform := or .platform "rpi4" -}}
 
 architecture: {{ $architecture }}
 
@@ -61,6 +62,16 @@ actions:
     description: Neon Shell Overlay
     source: ../overlays/29-ovos-shell
     destination: /
+
+{{ if eq $platform "opi5" }}
+  - action: run
+    description: Patch device path for Orange Pi5
+    chroot: True
+    command: |
+      sed -i -e "s|card1|card0|g" /etc/neon/eglfs.json
+{{ end }}
+
+{{ if eq $platform "rpi4" }}
   - action: apt
     description: Mesa unstable
     packages:
@@ -79,6 +90,7 @@ actions:
       - libdrm-amdgpu1/unstable
       - libdrm-nouveau2/unstable
       - libgbm1/unstable
+{{ end }}
 
   - action: run
     description: Build Keyboard
