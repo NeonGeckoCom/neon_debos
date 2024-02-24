@@ -1,8 +1,4 @@
-{{- $architecture := or .architecture "arm64" -}}
-{{- $firmware_version := or .firmware_version "master" -}}
-{{ $suite :=  or .suite "focal" }}
-
-architecture: {{ $architecture }}
+architecture: {{ .architecture }}
 
 actions:
   - action: apt
@@ -10,6 +6,7 @@ actions:
     packages:
       - lsb-release
       - cloud-guest-utils
+      - sudo
   - action: overlay
     description: Default User Overlay
     source: ../overlays/40-default-user

@@ -1,7 +1,7 @@
 {{- $architecture := or .architecture "arm64" -}}
 {{- $build_cores := or .build_cores 4 -}}
 
-architecture: {{ $architecture }}
+architecture: {{ .architecture }}
 
 actions:
   - action: apt

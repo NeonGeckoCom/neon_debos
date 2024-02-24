@@ -2,23 +2,18 @@
 {{- $firmware_version := or .firmware_version "master" -}}
 {{ $suite :=  or .suite "focal" }}
 
-architecture: {{ $architecture }}
+architecture: {{ .architecture }}
 
 actions:
   - action: apt
     description: Basic packages
     packages:
-      - bash-completion
-#      - vim
       - alsa-utils
       - git-core
-#      - python3
       - openssh-server
       - ftp
-#      - nano
       - i2c-tools
       - rng-tools5
-      - sudo
       - systemd-sysv
       - debconf
       - systemd-resolved
@@ -36,21 +31,3 @@ actions:
       - network-manager
       - wireless-tools
       - dnsmasq
-
-#  - action: apt
-#    description: Plasma packages
-#    packages:
-#      - qt5ct
-#      - plasma-pa
-#      - plasma-nm
-#      # TODO: Needed?
-
-#  - action: apt
-#    description: GStreamer packages
-#    packages:
-#      - gstreamer1.0-plugins-base
-#      - gstreamer1.0-plugins-good
-#      - gstreamer1.0-plugins-bad
-#      - gstreamer1.0-plugins-ugly
-#      - gstreamer1.0-libav
-#      - libqt5multimedia5-plugins

@@ -1,6 +1,4 @@
-{{- $architecture := or .architecture "arm64" -}}
-
-architecture: {{ $architecture }}
+architecture: {{ .architecture }}
 
 actions:
 

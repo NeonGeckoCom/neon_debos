@@ -1,6 +1,4 @@
-{{- $architecture := or .architecture "arm64" -}}
-
-architecture: {{ $architecture }}
+architecture: {{ .architecture }}
 
 actions:
   - action: apt
@@ -12,3 +10,5 @@ actions:
       - usbutils
       - nano
       - vim
+      - bash-completion
+      - sudo
