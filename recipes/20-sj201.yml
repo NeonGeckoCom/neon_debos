@@ -19,6 +19,7 @@ actions:
       - pipx
       - python3-dev
       - python3-pip
+      - python3-venv
       - python3-wheel
       - python3-spidev
       - python3-rpi.gpio
@@ -27,6 +28,16 @@ actions:
     description: SJ201 overlay
     source: ../overlays/20-sj201
     destination: /
+
+  - action: run
+    description: Install sj201 Python Interface
+    chroot: true
+    command: |
+      export PIPX_HOME=/opt/neon/pipx
+      export PIPX_BIN_DIR=/bin
+      [ -d ${PIPX_HOME} ] || mkdir -p ${PIPX_HOME}
+      pipx install sj201-interface==0.0.3a2
+
   - action: run
     description: Build and Install SJ201 VF driver
     chroot: true
