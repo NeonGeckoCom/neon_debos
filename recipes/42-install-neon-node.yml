@@ -44,5 +44,6 @@ actions:
       pip install neon-nodes[voice-client]
 {{ end }}
       systemctl enable neon-node
+      systemctl disable gui-shell
       chmod ugo+x /usr/libexec/neon-node.py
       wget https://github.com/OpenVoiceOS/precise-lite-models/raw/master/wakewords/en/hey_mycroft.tflite -O /opt/neon/hey_mycroft.tflite
