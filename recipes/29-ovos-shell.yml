@@ -30,6 +30,36 @@ actions:
       - libqt5webview5-dev
       - qtmultimedia5-dev
       - qml-module-qtmultimedia
+      - gstreamer1.0-libav
+      - gstreamer1.0-plugins-bad
+      - gstreamer1.0-plugins-ugly
+      - kirigami2-dev
+      - libinput-tools
+      - libkf5i18n-dev
+      - libkf5kio-dev
+      - libkf5notifications-dev
+      - libkf5plasma-dev
+      - libqt5multimedia5-plugins
+      - libqt5websockets5-dev
+      - libqt5webview5-dev
+      - qml-module-qt-labs-folderlistmodel
+      - qml-module-qtgraphicaleffects
+      - qml-module-qtlocation
+      - qml-module-qtmultimedia
+      - qml-module-qtpositioning
+      - qml-module-qtqml-models2
+      - qml-module-qtquick-localstorage
+      - qml-module-qtquick-particles2
+      - qml-module-qtquick-shapes
+      - qml-module-qtquick-templates2
+      - qml-module-qtquick-virtualkeyboard
+      - qml-module-qtquick-xmllistmodel
+      - qml-module-qttest
+      - qml-module-qtwayland-compositor
+      - qml-module-qtwebchannel
+      - qml-module-termwidget
+      - qmltermwidget-common
+      - qt5ct
   - action: overlay
     description: Neon Shell Overlay
     source: ../overlays/29-ovos-shell
