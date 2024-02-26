@@ -10,5 +10,3 @@ actions:
       - usbutils
       - nano
       - vim
-      - bash-completion
-      - sudo
