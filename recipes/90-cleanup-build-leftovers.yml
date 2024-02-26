@@ -2,13 +2,6 @@ architecture: {{ .architecture }}
 
 actions:
   - action: run
-    description: Remove ZFS (Potential License Issue https://wiki.archlinux.org/title/ZFS)
-    chroot: true
-    command: |
-      rm -f /lib/modules/*/kernel/zfs/zfs/zfs.ko
-      rm -f /lib/modules/*/kernel/zfs/zfs/zfs.ko
-
-  - action: run
     description: Clean APT
     chroot: true
     command: rm -rf /var/cache/apt/archives/*
