@@ -21,6 +21,11 @@ actions:
     chroot: true
     command: chmod +r /usr/share/fonts/truetype/noto/*
 
+  - action: apt
+    description: Install fontconfig dependency
+    packages:
+      - fontconfig
+
   - action: run
     description: Update font cache
     chroot: true
