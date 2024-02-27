@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.2.27a6](https://github.com/NeonGeckoCom/neon_debos/tree/24.2.27a6) (2024-02-27)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.2.27a5...24.2.27a6)
+
+**Merged pull requests:**
+
+- Fix missing `neon_core` variable [\#111](https://github.com/NeonGeckoCom/neon_debos/pull/111) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.2.27a5](https://github.com/NeonGeckoCom/neon_debos/tree/24.2.27a5) (2024-02-27)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.2.23a4...24.2.27a5)
