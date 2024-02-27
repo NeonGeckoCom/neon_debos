@@ -7,6 +7,7 @@
 {{- $neon_core := or .neon_core "master" -}}
 {{- $neon_debos := or .neon_debos "unknown" -}}
 {{- $build_cores := or .build_cores 4 -}}
+{{- $librespot_name := or .librespot_name  "Neon Mark 2" }}
 
 architecture: {{ $architecture }}
 
@@ -24,44 +25,33 @@ actions:
     recipe: recipes/33-homeassistant-shortcut.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
-      suite: {{ $suite }}
-      image: {{ $image }}
+
+  - action: recipe
+    recipe: recipes/34-mimic-tts.yml
+    variables:
+      architecture: {{ $architecture }}
 
   - action: recipe
     recipe: recipes/40-add-default-user.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
-      suite: {{ $suite }}
-      image: {{ $image }}
 
   - action: recipe
     recipe: recipes/41-install-neon-core.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
-      suite: {{ $suite }}
-      image: {{ $image }}
-      neon_core: {{ $neon_core }}
-      platform: {{ $platform }}
       device: {{ $device }}
 
   - action: recipe
     recipe: recipes/45-reset-service.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
-      suite: {{ $suite }}
-      image: {{ $image }}
 
   - action: recipe
     recipe: recipes/46-audio-receiver.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
-      suite: {{ $suite }}
-      image: {{ $image }}
+      librespot_name: {{ $librespot_name }}
 
   - action: recipe
     recipe: recipes/70-developer-extras.yml
@@ -72,9 +62,6 @@ actions:
     recipe: recipes/80-extra-fs-overlay.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
-      suite: {{ $suite }}
-      image: {{ $image }}
 
   - action: recipe
     recipe: recipes/81-extra-media-overlay.yml
@@ -82,7 +69,7 @@ actions:
       architecture: {{ $architecture }}
 
   - action: recipe
-    recipe: recipes/90-base-finalscripts.yml
+    recipe: recipes/90-cleanup-build-leftovers.yml
     variables:
       architecture: {{ $architecture }}
 
@@ -100,8 +87,6 @@ actions:
     recipe: recipes/98-backup-image.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
-      suite: {{ $suite }}
       image: {{ $image }}
 
   - action: recipe

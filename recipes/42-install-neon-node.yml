@@ -1,7 +1,6 @@
-{{- $architecture := or .architecture "arm64" -}}
 {{- $neon_core := or .neon_core "master" -}}
 
-architecture: {{ $architecture }}
+architecture: {{ .architecture }}
 
 actions:
   - action: apt
@@ -11,7 +10,7 @@ actions:
       - sox
       - libsox-fmt-mp3
       - portaudio19-dev
-      - git
+      - git-core
       - libpulse-dev
       - wireless-tools
       - plasma-nm
@@ -39,10 +38,11 @@ actions:
       python3 -m venv /opt/neon/venv
       . /opt/neon/venv/bin/activate
 {{ if eq $neon_core "dev" }}
-      pip install --pre neon-nodes[voice-client]
+      pip install --use-pep517 --pre neon-nodes[voice-client]
 {{ else }}
-      pip install neon-nodes[voice-client]
+      pip install --use-pep517 neon-nodes[voice-client]
 {{ end }}
       systemctl enable neon-node
+      systemctl disable gui-shell
       chmod ugo+x /usr/libexec/neon-node.py
       wget https://github.com/OpenVoiceOS/precise-lite-models/raw/master/wakewords/en/hey_mycroft.tflite -O /opt/neon/hey_mycroft.tflite

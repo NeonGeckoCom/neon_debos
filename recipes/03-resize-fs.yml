@@ -1,7 +1,7 @@
 {{- $architecture := or .architecture "arm64" -}}
 {{- $firmware_version := or .firmware_version "master" -}}
 
-architecture: {{ $architecture }}
+architecture: {{ .architecture }}
 
 actions:
   - action: overlay
@@ -16,4 +16,6 @@ actions:
   - action: run
     description: Enable service to resize FS
     chroot: true
-    script: ../scripts/03-resize-fs.sh
+    command: |
+      chmod -R ugo+x /opt/neon
+      systemctl enable resize_fs.service

@@ -1,9 +1,8 @@
-{{- $architecture := or .architecture "arm64" -}}
 {{- $neon_core := or .neon_core "master" -}}
 {{- $default_user := or .default_user "neon" -}}
 {{- $device := or .device "mark_2" -}}
 
-architecture: {{ $architecture }}
+architecture: {{ .architecture }}
 
 actions:
   - action: apt

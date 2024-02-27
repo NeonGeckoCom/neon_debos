@@ -5,7 +5,7 @@
 {{ $platform := or .platform "rpi4" }}
 {{ $device := or .device $platform }}
 
-architecture: {{ $architecture }}
+architecture: {{ .architecture }}
 
 actions:
   - action: run

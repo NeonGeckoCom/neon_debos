@@ -1,8 +1,7 @@
-{{- $architecture := or .architecture "arm64" -}}
 {{- $build_cores := or .build_cores 4 -}}
 {{- $platform := or .platform "rpi4" -}}
 
-architecture: {{ $architecture }}
+architecture: {{ .architecture }}
 
 actions:
   - action: run
@@ -10,7 +9,7 @@ actions:
     chroot: true
     command: mkdir -p /var/tmp
   - action: apt
-    description: GUI Build Dependencies
+    description: GUI/Shell Dependencies
     packages:
       - breeze-icon-theme
       - cmake
@@ -30,9 +29,9 @@ actions:
       - libqt5multimedia5-plugins
       - libqt5websockets5-dev
       - libqt5webview5-dev
+      - make
       - pkg-config
       - pkg-kde-tools
-      - plasma-pa
       - qml-module-qt-labs-folderlistmodel
       - qml-module-qtgraphicaleffects
       - qml-module-qtlocation
@@ -55,8 +54,6 @@ actions:
       - qtbase5-dev
       - qtdeclarative5-dev
       - qtmultimedia5-dev
-      - qtwayland5
-      - xorg
 
   - action: overlay
     description: Neon Shell Overlay

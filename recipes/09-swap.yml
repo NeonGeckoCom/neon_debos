@@ -1,7 +1,4 @@
-{{- $architecture := or .architecture "arm64" -}}
-{{ $suite :=  or .suite "bullseye" }}
-
-architecture: {{ $architecture }}
+architecture: {{ .architecture }}
 
 actions:
   - action: apt
@@ -16,4 +13,5 @@ actions:
   - action: run
     description: Configure Swapfile
     chroot: true
-    script: ../scripts/09-swapfile-service.sh
+    command: |
+      systemctl enable mount_swapfile.service

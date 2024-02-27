@@ -38,15 +38,7 @@ CORE_REF="${1:-dev}"
 rm /boot/firmware/overlays/sj201-buttons-overlay.dtbo
 rm /boot/firmware/overlays/sj201-rev10-pwm-fan-overlay.dtbo
 
-# install mimic
-curl https://forslund.github.io/mycroft-desktop-repo/mycroft-desktop.gpg.key | apt-key add - 2> /dev/null && \
-echo "deb http://forslund.github.io/mycroft-desktop-repo bionic main" | tee /etc/apt/sources.list.d/mycroft-desktop.list
-apt update
-apt install -y mimic || exit 1
-
-# Cleanup apt caches
-rm -rf /var/cache/apt/archives/*
-
+# TODO: Configurable username/venv path
 # Configure venv for deepspeech compat.
 python3.10 -m venv "/home/neon/venv" || exit 10
 . /home/neon/venv/bin/activate
@@ -57,7 +49,7 @@ chmod ugo+x /home/neon/venv/bin/pip
 # Install core and skills
 export NEON_IN_SETUP="true"
 # TODO: Normalize extras after NeonCore 24.2.x stable release
-pip install "neon-core[core_modules,skills_required,skills_essential,skills_default,skills_extended,pi] @ git+https://github.com/neongeckocom/neoncore@${CORE_REF}" || exit 11
+pip install --use-pep517 "neon-core[core_modules,skills_required,skills_essential,skills_default,skills_extended,pi] @ git+https://github.com/neongeckocom/neoncore@${CORE_REF}" || exit 11
 echo "Core Installed"
 neon-install-default-skills && echo "Default git skills installed" || exit 2
 

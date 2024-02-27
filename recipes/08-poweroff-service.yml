@@ -1,7 +1,4 @@
-{{- $architecture := or .architecture "arm64" -}}
-{{ $suite :=  or .suite "bullseye" }}
-
-architecture: {{ $architecture }}
+architecture: {{ .architecture }}
 
 actions:
   - action: apt
@@ -16,4 +13,6 @@ actions:
   - action: run
     description: Configure Poweroff Service
     chroot: true
-    script: ../scripts/08-poweroff-service.sh
+    command: |
+      chmod ugo+x /opt/neon/poweroff.sh
+      systemctl enable poweroff.service

@@ -1,11 +1,7 @@
-{{- $architecture := or .architecture "arm64" -}}
-{{- $firmware_version := or .firmware_version "master" -}}
-{{ $suite :=  or .suite "bookworm" }}
-{{- $image := or .image "ovos-dev-edition-rpi4.img" -}}
 {{- $librespot_name := or .librespot_name "Neon Mark 2" -}}
 {{- $user :=  or .user "neon" -}}
 
-architecture: {{ $architecture }}
+architecture: {{ .architecture }}
 
 actions:
   - action: apt

@@ -1,0 +1,7 @@
+architecture: {{ .architecture }}
+
+actions:
+  - action: run
+    description: Clean APT
+    chroot: true
+    command: rm -rf /var/cache/apt/archives/*
