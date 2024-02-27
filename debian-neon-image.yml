@@ -36,11 +36,11 @@ actions:
     variables:
       architecture: {{ $architecture }}
 
-#  - action: recipe
-#    recipe: recipes/41-install-neon-core.yml
-#    variables:
-#      architecture: {{ $architecture }}
-#      device: {{ $device }}
+  - action: recipe
+    recipe: recipes/41-install-neon-core.yml
+    variables:
+      architecture: {{ $architecture }}
+      device: {{ $device }}
 
   - action: recipe
     recipe: recipes/45-reset-service.yml
