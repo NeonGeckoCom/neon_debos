@@ -41,6 +41,7 @@ actions:
     variables:
       architecture: {{ $architecture }}
       device: {{ $device }}
+      neon_core: {{ $neon_core }}
 
   - action: recipe
     recipe: recipes/45-reset-service.yml
