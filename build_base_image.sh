@@ -42,7 +42,7 @@ docker run --rm \
 --mount type=bind,source="${source_dir}",destination=/image_build \
 --group-add=108 \
 --security-opt label=disable \
---name neon_debos_base \
+--name "neon_debos_base_${platform}" \
 -m "${mem_limit}" \
 --oom-kill-disable \
 godebos/debos "base-rootfs.yml" \
