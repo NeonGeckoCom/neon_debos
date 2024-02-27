@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.2.27a5](https://github.com/NeonGeckoCom/neon_debos/tree/24.2.27a5) (2024-02-27)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.2.23a4...24.2.27a5)
+
+**Merged pull requests:**
+
+- Refactor and Cleanup Recipes [\#39](https://github.com/NeonGeckoCom/neon_debos/pull/39) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.2.23a4](https://github.com/NeonGeckoCom/neon_debos/tree/24.2.23a4) (2024-02-23)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.2.20a3...24.2.23a4)
