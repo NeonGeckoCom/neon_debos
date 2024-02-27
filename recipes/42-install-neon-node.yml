@@ -1,4 +1,3 @@
-{{- $architecture := or .architecture "arm64" -}}
 {{- $neon_core := or .neon_core "master" -}}
 
 architecture: {{ .architecture }}
@@ -39,9 +38,9 @@ actions:
       python3 -m venv /opt/neon/venv
       . /opt/neon/venv/bin/activate
 {{ if eq $neon_core "dev" }}
-      pip install --pre neon-nodes[voice-client]
+      pip install --use-pep517 --pre neon-nodes[voice-client]
 {{ else }}
-      pip install neon-nodes[voice-client]
+      pip install --use-pep517 neon-nodes[voice-client]
 {{ end }}
       systemctl enable neon-node
       systemctl disable gui-shell
