@@ -11,18 +11,12 @@ actions:
   - action: apt
     description: GUI/Shell Dependencies
     packages:
-      - git-core
-      - g++
-      - make
+      - breeze-icon-theme
       - cmake
       - extra-cmake-modules
+      - g++
       - gettext
-      - pkg-config
-      - pkg-kde-tools
-      - qtbase5-dev
-      - qt5ct
-      - qtdeclarative5-dev
-      - qtmultimedia5-dev
+      - git-core
       - gstreamer1.0-libav
       - gstreamer1.0-plugins-bad
       - gstreamer1.0-plugins-ugly
@@ -35,6 +29,9 @@ actions:
       - libqt5multimedia5-plugins
       - libqt5websockets5-dev
       - libqt5webview5-dev
+      - make
+      - pkg-config
+      - pkg-kde-tools
       - qml-module-qt-labs-folderlistmodel
       - qml-module-qtgraphicaleffects
       - qml-module-qtlocation
@@ -53,6 +50,10 @@ actions:
       - qml-module-qtwebengine
       - qml-module-termwidget
       - qmltermwidget-common
+      - qt5ct
+      - qtbase5-dev
+      - qtdeclarative5-dev
+      - qtmultimedia5-dev
 
   - action: overlay
     description: Neon Shell Overlay
