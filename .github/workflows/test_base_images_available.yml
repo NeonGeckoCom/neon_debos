@@ -13,6 +13,4 @@ jobs:
         name: checkout repository
       - name: Check base images
         run: |
-          python3 base_images/download_base_images.py
-          [ -f base_images/rpi4_base.tar.gz ] || exit 10
-          [ -f base_images/opi5_base.tar.gz ] || exit 10
+          pytest test/
