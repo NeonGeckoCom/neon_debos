@@ -14,5 +14,6 @@ jobs:
       - name: Check base image downloads
         run: |
           sudo apt update
-          sudo apt install -y python3-pytest
+          sudo apt install -y pipx
+          sudo pipx install pytest
           pytest test/
