@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.2.28a7](https://github.com/NeonGeckoCom/neon_debos/tree/24.2.28a7) (2024-02-28)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.2.27a6...24.2.28a7)
+
+**Merged pull requests:**
+
+- Refactor to use server storage instead of LFS for base images [\#112](https://github.com/NeonGeckoCom/neon_debos/pull/112) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.2.27a6](https://github.com/NeonGeckoCom/neon_debos/tree/24.2.27a6) (2024-02-27)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.2.27a5...24.2.27a6)
