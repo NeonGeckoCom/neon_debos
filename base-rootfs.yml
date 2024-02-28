@@ -14,6 +14,7 @@ actions:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
+
   - action: recipe
     recipe: recipes/02-{{ $platform }}.yml
     variables:
@@ -28,10 +29,12 @@ actions:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
+
 {{ if eq $platform "rpi4" }}
   - action: recipe
     recipe: recipes/03-get-raspi-packages.yml
 {{ end }}
+
   - action: recipe
     recipe: recipes/04-base-overlay.yml
     variables:
@@ -45,6 +48,7 @@ actions:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
+
 {{ if eq $platform "rpi4" }}
   - action: recipe
     recipe: recipes/06-libcamera.yml
@@ -53,6 +57,7 @@ actions:
       firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
 {{ end }}
+
   - action: recipe
     recipe: recipes/07-splash-screen.yml
     variables:
@@ -125,6 +130,7 @@ actions:
     variables:
       architecture: {{ $architecture }}
       build_cores: {{ $build_cores }}
+
   - action: recipe
     recipe: recipes/21-seeed-audio.yml
     variables:
@@ -154,4 +160,12 @@ actions:
       platform: {{ $platform }}
 
   - action: pack
-    file: {{ $platform }}_base.tar.gz
+    file: base_images/{{ $platform }}_base.tar.gz
+
+  - action: run
+    description: Update md5 base image references
+    chroot: false
+    command: |
+      cd /image_build/base_images
+      md5sum *.tar.gz > base_images.md5
+      chmod 777 ./*

@@ -1,4 +1,3 @@
-#!/bin/bash
 # NEON AI (TM) SOFTWARE, Software Development Kit & Application Framework
 # All trademark and other rights reserved by their respective owners
 # Copyright 2008-2022 Neongecko.com Inc.
@@ -27,47 +26,37 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-read -rsp "Password: " pass
-echo -e "\n"
-source_dir="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-[ -d "${source_dir}/output" ] || mkdir "${source_dir}/output"
-timestamp=$(date '+%Y-%m-%d_%H_%M')
-image=${1:-"debian-neon-image.yml"}
-neon_core=${2:-"master"}
-platform=${3:-"rpi4"}
-device=${4:-"mark_2"}
-mem_limit=${MEM_LIMIT:-"16G"}
-core_limit=${CORE_LIMIT:-4}
-debos_version="$(python3 "${source_dir}/version.py")*"
-echo "Building core=${neon_core} version=${debos_version} platform=${platform}"
-echo "${pass}" | sudo -S chmod ugo+x "${source_dir}/scripts/"*
+from urllib.request import urlretrieve
+from os.path import dirname, join, isfile
+from hashlib import md5
 
-[ "${platform}" == "rpi4" ] && kernel_version="6.1.77-gecko+"
-[ "${platform}" == "opi5" ] && kernel_version="5.10.110-gecko+"
+_BASE_DIR = dirname(__file__)
+_BASE_DL_URL = "https://2222.us/app/files/neon_images/base_images/"
 
-if [ ! -f "${source_dir}/base_images/${platform}_base.tar.gz" ]; then
-  python3 "${source_dir}/base_images/download_base_images.py"
-fi
 
-docker run --rm -d \
---device /dev/kvm \
---workdir /image_build \
---mount type=bind,source="${source_dir}",destination=/image_build \
---group-add=108 \
---security-opt label=disable \
---name neon_debos \
-godebos/debos "${image}" \
--t device:"${device}" \
--t architecture:arm64 \
--t platform:"${platform}" \
--t image:"${image%.*}-${platform}_${timestamp}" \
--t neon_core:"${neon_core}" \
--t neon_debos:"${debos_version}" \
--t build_cores:"${core_limit}" \
--t kernel_version:"${kernel_version}" \
--m "${mem_limit}" \
--c "${core_limit}" && \
-docker logs -f neon_debos
-echo "completed ${timestamp}"
-echo "${pass}" | sudo -S chown $USER:$USER "${source_dir}/output/${image%.*}-${platform}_${timestamp}"*
-echo -e "\n"
+def download_file(file_md5: str, local_file: str):
+    url = f"{_BASE_DL_URL}{file_md5}"
+    urlretrieve(url, local_file)
+
+
+def main():
+    with open(join(_BASE_DIR, "base_images.md5")) as f:
+        lines = f.readlines()
+    for line in lines:
+        md5sum, filename = line.split()
+        local_filepath = join(_BASE_DIR, filename)
+        if not isfile(local_filepath):
+            print(f"{filename} not present. Downloading...")
+            download_file(md5sum, local_filepath)
+            continue
+        with open(local_filepath, 'rb') as f:
+            local_md5 = md5(f.read()).hexdigest()
+        if md5sum != local_md5:
+            print(f"{filename} not present. Downloading...")
+            download_file(md5sum, local_filepath)
+            continue
+        print(f"{filename} up-to-date")
+
+
+if __name__ == "__main__":
+    main()
