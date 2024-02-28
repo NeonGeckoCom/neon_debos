@@ -37,6 +37,7 @@ _BASE_DL_URL = "https://2222.us/app/files/neon_images/base_images/"
 def download_file(file_md5: str, local_file: str):
     url = f"{_BASE_DL_URL}{file_md5}"
     urlretrieve(url, local_file)
+    print(f"Downloaded {url} to {local_file}")
 
 
 def main():
