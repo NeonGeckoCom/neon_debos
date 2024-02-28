@@ -43,10 +43,8 @@ mem_limit=${MEM_LIMIT:-"64G"}
 core_limit=${CORE_LIMIT:-32}
 debos_version="$(python3 "${source_dir}/version.py")"
 
-if [ ! -f "${source_dir}/${platform}_base.tar.gz" ]; then
-  echo "WARNING: Building ${platform} base image"
-  bash "${source_dir}/build_base_image.sh" "${platform}"
-  echo "Completed ${platform} base image"
+if [ ! -f "${source_dir}/base_images/${platform}_base.tar.gz" ]; then
+  python3 "${source_dir}/base_images/download_base_images.py"
 fi
 
 echo "Building core=${core_branch} version=${debos_version}"

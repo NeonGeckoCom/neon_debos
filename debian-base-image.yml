@@ -10,7 +10,7 @@ architecture: {{ $architecture }}
 
 actions:
   - action: unpack
-    file: {{ $platform }}_base.tar.gz
+    file: base_images/{{ $platform }}_base.tar.gz
 
   - action: recipe
     recipe: recipes/70-developer-extras.yml

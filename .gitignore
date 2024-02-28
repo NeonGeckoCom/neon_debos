@@ -1,2 +1,3 @@
 overlays/80-google-json-overlay/**
+base_images/*.tar.gz
 .DS_Store

@@ -1,4 +1,3 @@
-#!/bin/bash
 # NEON AI (TM) SOFTWARE, Software Development Kit & Application Framework
 # All trademark and other rights reserved by their respective owners
 # Copyright 2008-2022 Neongecko.com Inc.
@@ -27,47 +26,20 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-read -rsp "Password: " pass
-echo -e "\n"
-source_dir="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-[ -d "${source_dir}/output" ] || mkdir "${source_dir}/output"
-timestamp=$(date '+%Y-%m-%d_%H_%M')
-image=${1:-"debian-neon-image.yml"}
-neon_core=${2:-"master"}
-platform=${3:-"rpi4"}
-device=${4:-"mark_2"}
-mem_limit=${MEM_LIMIT:-"16G"}
-core_limit=${CORE_LIMIT:-4}
-debos_version="$(python3 "${source_dir}/version.py")*"
-echo "Building core=${neon_core} version=${debos_version} platform=${platform}"
-echo "${pass}" | sudo -S chmod ugo+x "${source_dir}/scripts/"*
+from unittest import TestCase
+from urllib.request import urlopen
+from os.path import dirname, join
 
-[ "${platform}" == "rpi4" ] && kernel_version="6.1.77-gecko+"
-[ "${platform}" == "opi5" ] && kernel_version="5.10.110-gecko+"
 
-if [ ! -f "${source_dir}/base_images/${platform}_base.tar.gz" ]; then
-  python3 "${source_dir}/base_images/download_base_images.py"
-fi
+class TestBaseFiles(TestCase):
+    _BASE_DIR = join(dirname(dirname(__file__)), "base_images")
+    _BASE_DL_URL = "https://2222.us/app/files/neon_images/base_images/"
 
-docker run --rm -d \
---device /dev/kvm \
---workdir /image_build \
---mount type=bind,source="${source_dir}",destination=/image_build \
---group-add=108 \
---security-opt label=disable \
---name neon_debos \
-godebos/debos "${image}" \
--t device:"${device}" \
--t architecture:arm64 \
--t platform:"${platform}" \
--t image:"${image%.*}-${platform}_${timestamp}" \
--t neon_core:"${neon_core}" \
--t neon_debos:"${debos_version}" \
--t build_cores:"${core_limit}" \
--t kernel_version:"${kernel_version}" \
--m "${mem_limit}" \
--c "${core_limit}" && \
-docker logs -f neon_debos
-echo "completed ${timestamp}"
-echo "${pass}" | sudo -S chown $USER:$USER "${source_dir}/output/${image%.*}-${platform}_${timestamp}"*
-echo -e "\n"
+    def test_base_images_exist(self):
+        with open(join(self._BASE_DIR, "base_images.md5")) as f:
+            lines = f.readlines()
+        for line in lines:
+            md5sum, filename = line.split()
+            remote_url = f"{self._BASE_DL_URL}{md5sum}"
+            resp = urlopen(remote_url)
+            self.assertEqual(resp.code, 200, resp.code)
