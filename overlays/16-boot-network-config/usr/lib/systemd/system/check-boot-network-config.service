@@ -3,6 +3,7 @@ Description=Boot Partition Network Configuration Check
 Requires=network.target
 After=NetworkManager.service
 Before=wifi-setup.service
+Before=update-clock.service
 
 [Service]
 Restart=on-failure
