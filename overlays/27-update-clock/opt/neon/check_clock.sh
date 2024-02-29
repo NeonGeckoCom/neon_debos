@@ -43,7 +43,13 @@ if [ $? != 0 ]; then
 fi
 if [ $? != 0 ]; then
   echo "Network not connected."
+  if [ -f "/opt/neon/reset_clock" ]; then
+    echo "Reset time on first boot without networking"
+    /usr/bin/date -s "1 JAN 1970 00:00:00"
+  fi
 else
   echo "Connected; force sync"
   /usr/sbin/ntpd -ngq
 fi
+
+[ -f "/opt/neon/reset_clock" ] && rm /opt/neon/reset_clock
