@@ -42,8 +42,7 @@ if [ $? != 0 ]; then
     ip route | grep default
 fi
 if [ $? != 0 ]; then
-  echo "Network not connected, reset time"
-  /usr/bin/date -s "1 JAN 1970 00:00:00"
+  echo "Network not connected."
 else
   echo "Connected; force sync"
   /usr/sbin/ntpd -ngq
