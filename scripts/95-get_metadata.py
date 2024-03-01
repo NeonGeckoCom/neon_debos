@@ -128,11 +128,11 @@ if __name__ == "__main__":
     architecture = argv[4]
     platform = argv[5]
     device = argv[6]
-    version = argv[7] or (image_name.split('_', 1)[1].replace("20", "", 1) +
+    build_version = argv[7] or (image_name.split('_', 1)[1].replace("20", "", 1) +
                           "alpha")
 
     print(f"debos_ref={debos_ref}")
-    data = {"version": version}
+    data = {"build_version": build_version}
 
     if image_name.startswith("debian-neon-image"):
         edition = "Core"
