@@ -32,8 +32,6 @@ cd "${BASE_DIR}" || exit 10
 
 default_username="neon"  # Default user to create
 default_password="neon"
-image_name="neon"  # Identifier for extra directories and hostname
-
 
 # Add 'neon' user with default password
 adduser "${default_username}" --gecos "" --disabled-password
@@ -59,12 +57,4 @@ usermod -aG i2c ${default_username}
 usermod -aG dialout ${default_username}
 usermod -aG netdev ${default_username}
 
-
-# Set TZ
-echo "America/Los_Angeles" > /etc/timezone
-rm /etc/localtime
-ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
-
-  echo "${image_name}" > /etc/hostname
-
-echo "Core Configuration Complete"
+echo "User configuration complete"

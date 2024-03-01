@@ -17,3 +17,11 @@ actions:
     command: |
       dpkg-reconfigure --frontend=noninteractive locales
       update-locale LANG=en_US.UTF-8
+
+  - action: run
+    description: Set default timezone
+    chroot: true
+    command: |
+      echo "America/Los_Angeles" > /etc/timezone
+      rm /etc/localtime
+      ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime

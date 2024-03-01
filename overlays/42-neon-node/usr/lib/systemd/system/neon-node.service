@@ -1,6 +1,6 @@
 [Unit]
 Description=Neon Node Service
-After=ntpd.service
+After=update-clock.service
 
 [Service]
 Type=notify
