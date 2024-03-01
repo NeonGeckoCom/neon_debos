@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.3.1a9](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.1a9) (2024-03-01)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.1a8...24.3.1a9)
+
+**Merged pull requests:**
+
+- Handle a `build_version` arg for image metadata "version" [\#114](https://github.com/NeonGeckoCom/neon_debos/pull/114) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.3.1a8](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.1a8) (2024-03-01)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.2.28a7...24.3.1a8)
