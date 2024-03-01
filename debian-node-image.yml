@@ -8,6 +8,7 @@
 {{- $neon_core := or .neon_core "master" -}}
 {{- $neon_debos := or .neon_debos "unknown" -}}
 {{- $build_cores := or .build_cores 4 -}}
+{{ $build_version := or .build_version "" }}
 
 architecture: {{ $architecture }}
 
@@ -70,6 +71,7 @@ actions:
       neon_debos: {{ $neon_debos }}
       platform: {{ $platform }}
       device: {{ $device }}
+      build_version: {{ $build_version }}
 
   - action: recipe
     recipe: recipes/98-backup-image.yml
