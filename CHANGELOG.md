@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.3.1a10](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.1a10) (2024-03-01)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.1a9...24.3.1a10)
+
+**Merged pull requests:**
+
+- Fix default `build_version` handling [\#115](https://github.com/NeonGeckoCom/neon_debos/pull/115) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.3.1a9](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.1a9) (2024-03-01)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.1a8...24.3.1a9)
