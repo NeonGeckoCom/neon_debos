@@ -5,6 +5,7 @@
 {{- $image := or .image "debian-base-image-rpi4" -}}
 {{- $neon_debos := or .neon_debos "unknown" -}}
 {{- $build_cores := or .build_cores 4 -}}
+{{ $build_version := or .build_version "" }}
 
 architecture: {{ $architecture }}
 

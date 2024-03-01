@@ -86,8 +86,14 @@ def get_recipe_meta(branch="dev"):
 
 
 def get_initramfs_metadata():
-    initramfs_path = "/boot/firmware/initramfs"
+    if platform == "rpi4":
+        initramfs_path = "/boot/firmware/initramfs"
+    elif platform == "opi5":
+        initramfs_path = "/boot/uInitrd"
+    else:
+        return dict()
     if not os.path.isfile(initramfs_path):
+        print(f"Missing initramfs at: {initramfs_path}")
         return dict()
     else:
         with open(initramfs_path, 'rb') as f:
@@ -122,16 +128,20 @@ if __name__ == "__main__":
     architecture = argv[4]
     platform = argv[5]
     device = argv[6]
+    version = argv[7] or (image_name.split('_', 1)[1].replace("20", "", 1) +
+                          "alpha")
 
     print(f"debos_ref={debos_ref}")
-    data = dict()
+    data = {"version": version}
 
     if image_name.startswith("debian-neon-image"):
         edition = "Core"
-        data["core"] = get_neon_core_meta(core_ref, "NeonCore", "neon_core/version.py")
+        data["core"] = get_neon_core_meta(core_ref, "NeonCore",
+                                          "neon_core/version.py")
     elif image_name.startswith("debian-node-image"):
         edition = "Node"
-        data["core"] = get_neon_core_meta(core_ref, "neon-nodes", "neon_nodes/version.py")
+        data["core"] = get_neon_core_meta(core_ref, "neon-nodes",
+                                          "neon_nodes/version.py")
     else:
         edition = "Unknown"
 
