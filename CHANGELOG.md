@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.3.1a8](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.1a8) (2024-03-01)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.2.28a7...24.3.1a8)
+
+**Merged pull requests:**
+
+- Improved Time Handling [\#113](https://github.com/NeonGeckoCom/neon_debos/pull/113) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.2.28a7](https://github.com/NeonGeckoCom/neon_debos/tree/24.2.28a7) (2024-02-28)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.2.27a6...24.2.28a7)
