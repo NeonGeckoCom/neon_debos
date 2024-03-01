@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.3.1a11](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.1a11) (2024-03-01)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.1a10...24.3.1a11)
+
+**Merged pull requests:**
+
+- Add automation to trigger Neon OS beta builds [\#116](https://github.com/NeonGeckoCom/neon_debos/pull/116) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.3.1a10](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.1a10) (2024-03-01)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.1a9...24.3.1a10)
