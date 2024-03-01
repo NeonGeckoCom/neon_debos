@@ -131,8 +131,7 @@ if __name__ == "__main__":
     if len(argv) > 7:
         build_version = argv[7]
     else:
-        build_version = image_name.split('_',
-                                         1)[1].replace("20", "", 1) + "alpha"
+        build_version = image_name.split('_')[1][2:].replace('-', '.') + "alpha"
 
     print(f"debos_ref={debos_ref}")
     data = {"build_version": build_version}
