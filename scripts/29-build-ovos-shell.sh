@@ -27,6 +27,9 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+# Set to exit on error
+set -Ee
+
 BASE_DIR="/tmp"
 cd "${BASE_DIR}" || exit 10
 
@@ -46,7 +49,6 @@ cd "${BASE_DIR}" || exit 10
 rm -rf ovos-shell
 
 # Install GUI
-rm -rf mycroft-gui
 git clone https://github.com/mycroftai/mycroft-gui -b stable-qt5
 #bash mycroft-gui/dev_setup.sh
 cd mycroft-gui || exit 10

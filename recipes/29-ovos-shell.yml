@@ -4,10 +4,18 @@
 architecture: {{ .architecture }}
 
 actions:
+  - action: overlay
+    description: Neon Shell Overlay
+    source: ../overlays/29-ovos-shell
+    destination: /
+
   - action: run
-    description: Ensure /var/tmp directory
+    description: Install Patched VirtualKeyboard Keyboard
     chroot: true
-    command: mkdir -p /var/tmp
+    command: |
+      dpkg -i /var/tmp/qtvirtualkeyboard*.deb || exit 10
+      rm /var/tmp/qtvirtualkeyboard*.deb || exit 10
+
   - action: apt
     description: GUI/Shell Dependencies
     packages:
@@ -55,11 +63,6 @@ actions:
       - qtdeclarative5-dev
       - qtmultimedia5-dev
 
-  - action: overlay
-    description: Neon Shell Overlay
-    source: ../overlays/29-ovos-shell
-    destination: /
-
 {{ if eq $platform "opi5" }}
   - action: run
     description: Patch device path for Orange Pi5
@@ -67,6 +70,11 @@ actions:
     command: |
       sed -i -e "s|card1|card0|g" /etc/neon/eglfs.json
 {{ end }}
+
+  - action: run
+    description: Build and Install OVOS Shell and Mycroft GUI
+    chroot: true
+    script: ../scripts/29-build-ovos-shell.sh {{ $build_cores }}
 
 {{ if eq $platform "rpi4" }}
   - action: apt
@@ -88,15 +96,3 @@ actions:
       - libdrm-nouveau2/unstable
       - libgbm1/unstable
 {{ end }}
-
-  - action: run
-    description: Build Keyboard
-    chroot: true
-    command: |
-      dpkg --force-overwrite -i /opt/qtvirtualkeyboard_patch/qtvirtualkeyboard_5.15.6_arm64.deb || exit 10
-      rm -rf /opt/qtvirtualkeyboard_patch || exit 10
-
-  - action: run
-    description: Build and Install OVOS Shell and Mycroft GUI
-    chroot: true
-    script: ../scripts/29-build-ovos-shell.sh {{ $build_cores }}
