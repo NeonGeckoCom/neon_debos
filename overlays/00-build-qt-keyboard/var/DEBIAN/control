@@ -1,0 +1,8 @@
+Package: qtvirtualkeyboard
+Version: 5.15.8
+Section: custom
+Priority: optional
+Architecture: all
+Essential: no
+Description: Patched QT Keyboard
+Maintainer: Neongecko
