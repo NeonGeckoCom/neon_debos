@@ -70,7 +70,6 @@ actions:
     command: |
       cd /usr/lib/firmware/brcm
       ln ../cypress/cyfmac43455-sdio.bin brcmfmac43455-sdio.raspberrypi,5-model-b.bin
-      ln ../cypress/cyfmac43455-sdio.bin brcmfmac43455-sdio.raspberrypi,5-model-b.bin
       ln ../cypress/cyfmac43455-sdio.clm_blob brcmfmac43455-sdio.raspberrypi,5-model-b.clm_blob
       ln brcmfmac43455-sdio.raspberrypi,4-model-b.txt brcmfmac43455-sdio.raspberrypi,5-model-b.txt
 

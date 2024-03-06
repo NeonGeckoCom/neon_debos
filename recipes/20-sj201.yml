@@ -1,5 +1,6 @@
 {{- $architecture := or .architecture "arm64" -}}
 {{- $build_cores := or .build_cores 4 -}}
+{{- $kernel_version := or .kernel_version "5.15.92-v8+" -}}
 
 
 architecture: {{ .architecture }}
@@ -41,4 +42,4 @@ actions:
   - action: run
     description: Build and Install SJ201 VF driver
     chroot: true
-    script: ../scripts/20-setup-sj201.sh {{ $build_cores }}
+    script: ../scripts/20-setup-sj201.sh {{ $build_cores }} {{ $kernel_version }}

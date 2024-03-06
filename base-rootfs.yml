@@ -130,11 +130,13 @@ actions:
     variables:
       architecture: {{ $architecture }}
       build_cores: {{ $build_cores }}
+      kernel_version: {{ $kernel_version }}
 
   - action: recipe
     recipe: recipes/21-seeed-audio.yml
     variables:
-      architecture: { { $architecture } }
+      architecture: {{ $architecture }}
+      kernel_version: {{ $kernel_version }}
 
   - action: recipe
     recipe: recipes/22-mark1.yml

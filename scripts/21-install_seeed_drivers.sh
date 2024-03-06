@@ -33,12 +33,12 @@ set -Ee
 cd /tmp
 
 # Install like raspovos
-git clone https://github.com/HinTak/seeed-voicecard -b v5.15
-# seeed-voicecard
-kernels=($(ls /lib/modules))
+kernel="${1}"
+kernel_version=$(cut -d'.' -f 1,2 <<< "${kernel}")
+echo "Building for kernel=${kernel_version}"
+git clone https://github.com/HinTak/seeed-voicecard -b "v${kernel_version}"
 ver="0.3"
 mod="seeed-voicecard"
-marker="0.0.0"
 
 cp seeed-voicecard/*.dtbo /boot/firmware/overlays
 cp seeed-voicecard/*.dts /boot/firmware/
@@ -47,8 +47,5 @@ cp -a seeed-voicecard/* /usr/src/$mod-$ver/
 cd seeed-voicecard
 dkms add -m $mod -v $ver
 
-echo "Looking for kernel with build dir in ${kernels[*]}"
-for current_kernel in "${kernels[@]}"; do
-  dkms build -k "${current_kernel}" -m $mod -v $ver || continue
-  dkms install --force -k "${current_kernel}" -m $mod -v $ver
-done
+dkms build -k "${kernel}" -m $mod -v $ver
+dkms install --force -k "${kernel}" -m $mod -v $ver
