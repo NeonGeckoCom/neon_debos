@@ -22,8 +22,6 @@ actions:
       - qtdeclarative5-dev
       - libxcb-xfixes0-dev
 
-#      - libqt5quick5
-#      - libqt5virtualkeyboard5-dev
 
   - action: overlay
     description: Apply patch for qtvirtualkeyboard
@@ -36,12 +34,13 @@ actions:
 
   - action: run
     chroot: true
-    description: Build Keyboard
+    description: Build and Install Keyboard
     command: |
-      mv /var/qvirtualkeyboardinputcontext_p.cpp /var/qtvirtualkeyboard_5.15.8/src/virtualkeyboard/
+      mv /var/tmp/qvirtualkeyboardinputcontext_p.cpp /var/qtvirtualkeyboard_5.15.8/src/virtualkeyboard/
       cd /var/qtvirtualkeyboard_5.15.8/
       qmake . CONFIG+="lang-all handwriting"
       make -j
+      make install
 
   - action: run
     chroot: true
