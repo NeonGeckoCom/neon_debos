@@ -1,0 +1,58 @@
+architecture: arm64
+actions:
+  - action: debootstrap
+    suite: bookworm
+    components:
+      - main
+      - non-free-firmware
+    mirror: https://deb.debian.org/debian
+    variant: minbase
+  - action: apt
+    chroot: true
+    description: Install Build Dependencies
+    packages:
+      - git-core
+      - make
+      - g++
+      - gcc
+      - qt5-qmake
+      - qtbase5-dev
+      - qtbase5-private-dev
+      - libqt5svg5-dev
+      - qtdeclarative5-dev
+      - libxcb-xfixes0-dev
+
+
+  - action: overlay
+    description: Apply patch for qtvirtualkeyboard
+    source: ../overlays/00-build-qt-keyboard
+    destination: /
+  - action: run
+    chroot: true
+    description: Clone Keyboard
+    command: git clone https://invent.kde.org/qt/qt/qtvirtualkeyboard/ -b v5.15.8-lts-lgpl /var/qtvirtualkeyboard_5.15.8
+
+  - action: run
+    chroot: true
+    description: Build and Install Keyboard
+    command: |
+      mv /var/tmp/qvirtualkeyboardinputcontext_p.cpp /var/qtvirtualkeyboard_5.15.8/src/virtualkeyboard/
+      cd /var/qtvirtualkeyboard_5.15.8/
+      qmake . CONFIG+="lang-all handwriting"
+      make -j
+      make install
+
+  - action: run
+    chroot: true
+    description: Package Keyboard
+    command: |
+      export DEBEMAIL="developers@neon.ai"
+      export DEBFULLNAME="Daniel McKnight"
+      mv /var/DEBIAN /var/qtvirtualkeyboard_5.15.8/
+      cd /var
+      dpkg-deb --build qtvirtualkeyboard_5.15.8
+
+  - action: run
+    description: Copy output patch to host
+    chroot: false
+    command: mv "${ROOTDIR}/var/"*.deb "/image_build/overlays/29-ovos-shell/var/tmp/"
