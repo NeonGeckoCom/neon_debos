@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.3.7a12](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.7a12) (2024-03-07)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.1a11...24.3.7a12)
+
+**Merged pull requests:**
+
+- Update to support latest Qt stable apt packages [\#117](https://github.com/NeonGeckoCom/neon_debos/pull/117) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.3.1a11](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.1a11) (2024-03-01)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.1a10...24.3.1a11)
