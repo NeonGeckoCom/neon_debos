@@ -42,6 +42,7 @@ sed -ie "s|\$(shell uname -r)|${kernel}|g" Makefile
 make -j${1:-} all || exit 2
 mkdir -p "/lib/modules/${kernel}/kernel/drivers/vocalfusion"
 cp vocalfusion* "/lib/modules/${kernel}/kernel/drivers/vocalfusion" || exit 2
+[ -d /boot/overlays ] || mkdir /boot/overlays
 cp ../*.dtbo /boot/overlays/
 cd ../..
 rm -rf vocalfusiondriver
