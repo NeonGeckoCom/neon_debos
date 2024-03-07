@@ -1,0 +1,9 @@
+[Unit]
+Description=Error screen
+Conflicts=gui-shell.service
+Conflicts=splashscreen.service
+
+[Service]
+ExecStart=/usr/bin/fbi -d /dev/fb0 --noverbose -a /opt/neon/error_restarting.png
+StandardInput=tty
+StandardOutput=tty
