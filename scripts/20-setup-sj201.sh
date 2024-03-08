@@ -32,27 +32,23 @@
 # Set to exit on error
 set -Ee
 
-kernels=($(ls /lib/modules))
-echo "Looking for kernels with build dir in ${kernels[*]}"
-for k in "${kernels[@]}"; do
-  if [ -d "/lib/modules/${k}/build" ]; then
-    kernel="${k}"
-    echo "Building for kernel ${kernel}"
+kernel="${2}"
 
-    # Build and load VocalFusion Driver
-    git clone https://github.com/OpenVoiceOS/vocalfusiondriver
-    cd vocalfusiondriver/driver || exit 10
-    sed -ie "s|\$(shell uname -r)|${kernel}|g" Makefile
-    make -j${1:-} all || exit 2
-    mkdir -p "/lib/modules/${kernel}/kernel/drivers/vocalfusion"
-    cp vocalfusion* "/lib/modules/${kernel}/kernel/drivers/vocalfusion" || exit 2
-    cp ../*.dtbo /boot/overlays/
-    cd ../..
-    rm -rf vocalfusiondriver
+echo "Building for kernel ${kernel}"
+# Build and load VocalFusion Driver
+git clone https://github.com/OpenVoiceOS/vocalfusiondriver
+cd vocalfusiondriver/driver || exit 10
+sed -ie "s|\$(shell uname -r)|${kernel}|g" Makefile
+make -j${1:-} all || exit 2
+mkdir -p "/lib/modules/${kernel}/kernel/drivers/vocalfusion"
+cp vocalfusion* "/lib/modules/${kernel}/kernel/drivers/vocalfusion" || exit 2
+[ -d /boot/overlays ] || mkdir /boot/overlays
+cp ../*.dtbo /boot/overlays/
+cd ../..
+rm -rf vocalfusiondriver
 
-    depmod "${kernel}" -a
-  fi
-done
+depmod "${kernel}" -a
+
 # `modinfo -k ${kernel} vocalfusion-soundcard` should show the module info now
 
 # Ensure execute permissions

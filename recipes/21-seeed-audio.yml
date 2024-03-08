@@ -15,4 +15,4 @@ actions:
   - action: run
     description: Install seeed audio drivers
     chroot: true
-    script: ../scripts/21-install_seeed_drivers.sh
+    script: ../scripts/21-install_seeed_drivers.sh {{ .kernel_version }}
