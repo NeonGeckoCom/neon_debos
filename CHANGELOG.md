@@ -1,5 +1,17 @@
 # Changelog
 
+## [24.3.8a14](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.8a14) (2024-03-08)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.8a13...24.3.8a14)
+
+**Fixed bugs:**
+
+- \[BUG\] log2ram disk full [\#108](https://github.com/NeonGeckoCom/neon_debos/issues/108)
+
+**Merged pull requests:**
+
+- Refactor log archival to prevent excessive use of RAM cache [\#120](https://github.com/NeonGeckoCom/neon_debos/pull/120) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.3.8a13](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.8a13) (2024-03-08)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.7a12...24.3.8a13)
