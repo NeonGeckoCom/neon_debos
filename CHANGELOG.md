@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.3.8a13](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.8a13) (2024-03-08)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.7a12...24.3.8a13)
+
+**Merged pull requests:**
+
+- Update kernel-specific builds [\#119](https://github.com/NeonGeckoCom/neon_debos/pull/119) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.3.7a12](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.7a12) (2024-03-07)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.1a11...24.3.7a12)
