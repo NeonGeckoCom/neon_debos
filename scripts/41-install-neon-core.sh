@@ -38,7 +38,7 @@ CORE_REF="${1:-dev}"
 rm /boot/firmware/overlays/sj201-buttons-overlay.dtbo
 rm /boot/firmware/overlays/sj201-rev10-pwm-fan-overlay.dtbo
 
-# TODO: Configurable username/venv path
+# TODO: Configurable username/venv path and Python version
 # Configure venv for deepspeech compat.
 python3.10 -m venv "/home/neon/venv" || exit 10
 . /home/neon/venv/bin/activate
@@ -83,9 +83,10 @@ neon-audio init-plugin -p coqui || echo "Failed to init TTS"
 # Init STT model
 neon-speech init-plugin -p ovos-stt-plugin-vosk || echo "Failed to init STT"
 
+mkdir -p /home/neon/.local/state/neon
+mkdir -p /home/neon/.cache/neon/log_archive
+ln -s /home/neon/.cache/neon/log_archive /home/neon/.local/state/neon/archive
 ln -s /home/neon/.local/state/neon /home/neon/logs
-rm /home/neon/.local/state/neon/.keep
-rm /home/neon/.config/neon/.keep
 # Fix home directory permissions
 chown -R neon:neon /home/neon
 
