@@ -47,8 +47,6 @@ actions:
     chroot: true
     description: Package Keyboard
     command: |
-      export DEBEMAIL="developers@neon.ai"
-      export DEBFULLNAME="Daniel McKnight"
       cd /var/qtvirtualkeyboard-5.15.8/
       dh_make -s -c gpl -e "developers@neon.ai" -n -y
       dpkg-buildpackage -b

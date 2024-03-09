@@ -9,13 +9,6 @@ actions:
     source: ../overlays/29-ovos-shell
     destination: /
 
-  - action: run
-    description: Install patched keyboard binary
-    chroot: true
-    command: |
-      dpkg --force-overwrite -i /var/tmp/*.deb
-      rm /var/tmp/*.deb
-
   - action: apt
     description: GUI/Shell Dependencies
     packages:
@@ -62,6 +55,13 @@ actions:
       - qtbase5-dev
       - qtdeclarative5-dev
       - qtmultimedia5-dev
+
+  - action: run
+    description: Install patched keyboard binary
+    chroot: true
+    command: |
+      dpkg --force-overwrite -i /var/tmp/*.deb
+      rm /var/tmp/*.deb
 
 {{ if eq $platform "opi5" }}
   - action: run
