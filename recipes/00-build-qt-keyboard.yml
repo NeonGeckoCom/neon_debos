@@ -21,7 +21,9 @@ actions:
       - libqt5svg5-dev
       - qtdeclarative5-dev
       - libxcb-xfixes0-dev
-
+      - dpkg-dev
+      - dh-make
+      - build-essential
 
   - action: overlay
     description: Apply patch for qtvirtualkeyboard
@@ -30,17 +32,16 @@ actions:
   - action: run
     chroot: true
     description: Clone Keyboard
-    command: git clone https://invent.kde.org/qt/qt/qtvirtualkeyboard/ -b v5.15.8-lts-lgpl /var/qtvirtualkeyboard_5.15.8
+    command: git clone https://invent.kde.org/qt/qt/qtvirtualkeyboard/ -b v5.15.8-lts-lgpl /var/qtvirtualkeyboard-5.15.8
 
   - action: run
     chroot: true
-    description: Build and Install Keyboard
+    description: Build Keyboard
     command: |
-      mv /var/tmp/qvirtualkeyboardinputcontext_p.cpp /var/qtvirtualkeyboard_5.15.8/src/virtualkeyboard/
-      cd /var/qtvirtualkeyboard_5.15.8/
+      mv /var/tmp/qvirtualkeyboardinputcontext_p.cpp /var/qtvirtualkeyboard-5.15.8/src/virtualkeyboard/
+      cd /var/qtvirtualkeyboard-5.15.8/
       qmake . CONFIG+="lang-all handwriting"
       make -j
-      make install
 
   - action: run
     chroot: true
@@ -48,11 +49,13 @@ actions:
     command: |
       export DEBEMAIL="developers@neon.ai"
       export DEBFULLNAME="Daniel McKnight"
-      mv /var/DEBIAN /var/qtvirtualkeyboard_5.15.8/
-      cd /var
-      dpkg-deb --build qtvirtualkeyboard_5.15.8
+      cd /var/qtvirtualkeyboard-5.15.8/
+      dh_make -s -c gpl -e "developers@neon.ai" -n -y
+      dpkg-buildpackage -b
 
   - action: run
     description: Copy output patch to host
     chroot: false
-    command: mv "${ROOTDIR}/var/"*.deb "/image_build/overlays/29-ovos-shell/var/tmp/"
+    command: |
+      mv "${ROOTDIR}/var/qtvirtualkeyboard_"*.deb "/image_build/overlays/29-ovos-shell/var/tmp/"
+      chmod 777 "/image_build/overlays/29-ovos-shell/var/tmp/"*.deb

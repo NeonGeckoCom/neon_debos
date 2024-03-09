@@ -5,9 +5,16 @@ architecture: {{ .architecture }}
 
 actions:
   - action: overlay
-    description: Neon Shell Overlay
+    description: Shell Overlay
     source: ../overlays/29-ovos-shell
     destination: /
+
+  - action: run
+    description: Install patched keyboard binary
+    chroot: true
+    command: |
+      dpkg --force-overwrite -i /var/tmp/*.deb
+      rm /var/tmp/*.deb
 
   - action: apt
     description: GUI/Shell Dependencies
@@ -68,36 +75,6 @@ actions:
     description: Build and Install OVOS Shell and Mycroft GUI
     chroot: true
     script: ../scripts/29-build-ovos-shell.sh {{ $build_cores }}
-
-  - action: run
-    chroot: true
-    description: Clone Keyboard
-    command: git clone https://invent.kde.org/qt/qt/qtvirtualkeyboard/ -b v5.15.8-lts-lgpl /var/qtvirtualkeyboard
-
-  - action: apt
-    chroot: true
-    description: Install Build Dependencies
-    packages:
-      - git-core
-      - make
-      - g++
-      - gcc
-      - qt5-qmake
-      - qtbase5-dev
-      - qtbase5-private-dev
-      - libqt5svg5-dev
-      - qtdeclarative5-dev
-      - libxcb-xfixes0-dev
-
-  - action: run
-    chroot: true
-    description: Build and Install Keyboard
-    command: |
-      mv /var/tmp/qvirtualkeyboardinputcontext_p.cpp /var/qtvirtualkeyboard/src/virtualkeyboard/
-      cd /var/qtvirtualkeyboard/
-      qmake . CONFIG+="lang-all handwriting"
-      make -j
-      make install
 
 {{ if eq $platform "rpi4" }}
   - action: apt
