@@ -1,0 +1,71 @@
+architecture: arm64
+actions:
+  - action: debootstrap
+    suite: bookworm
+    components:
+      - main
+      - non-free-firmware
+    mirror: https://deb.debian.org/debian
+    variant: minbase
+  - action: apt
+    chroot: true
+    description: Install Build Dependencies
+    packages:
+      - git-core
+      - g++
+      - libboost-dev
+      - libgnutls28-dev
+      - openssl
+      - libtiff5-dev
+      - python3-yaml
+      - python3-ply
+      - libglib2.0-dev
+      - libssl-dev
+      - meson
+      - pkg-config
+      - qtbase5-dev
+      - libqt5core5a
+      - libqt5gui5
+      - libqt5widgets5
+      - libboost-program-options-dev
+      - libdrm-dev
+      - libexif-dev
+      - libpng-dev
+      - libegl1-mesa-dev
+      - v4l-utils
+      - software-properties-common
+      - libcamera-dev
+      - libepoxy-dev
+      - dpkg-dev
+      - dh-make
+      - build-essential
+      - cmake
+
+  - action: run
+    chroot: true
+    description: Clone Libcamera
+    command: git clone https://github.com/raspberrypi/libcamera-apps.git -b v1.2.1 /var/libcamera-apps
+
+  - action: run
+    chroot: true
+    description: Build Libcamera
+    command: |
+      cd /var/libcamera-apps || exit 10
+      meson setup build -Denable_libav=true -Denable_drm=true -Denable_egl=true -Denable_qt=true -Denable_opencv=false -Denable_tflite=false
+      meson compile -C build
+
+  - action: run
+    chroot: true
+    description: Package Libcamera
+    command: |
+      cd /var/libcamera-apps || exit 10
+      dh_make --createorig -p libcamera-apps_1.2.1 -e "developers@neon.ai" -n -s -y
+      dh_auto_configure --buildsystem=meson
+      dpkg-buildpackage -b
+
+  - action: run
+    description: Copy output installer to host
+    chroot: false
+    command: |
+      mv "${ROOTDIR}/var/libcamera-apps_"*.deb "/image_build/overlays/02-rpi4/var/tmp/"
+      chmod 777 "/image_build/overlays/02-rpi4/var/tmp/libcamera"*.deb

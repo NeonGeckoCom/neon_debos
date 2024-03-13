@@ -49,15 +49,6 @@ actions:
       firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
 
-{{ if eq $platform "rpi4" }}
-  - action: recipe
-    recipe: recipes/06-libcamera.yml
-    variables:
-      architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
-      suite: {{ $suite }}
-{{ end }}
-
   - action: recipe
     recipe: recipes/07-splash-screen.yml
     variables:

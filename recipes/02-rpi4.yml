@@ -23,6 +23,7 @@ actions:
     command: rm -rvf /boot/firmware/kernel*.img /boot/firmware/*.dtb /boot/firmware/overlays
 
   - action: apt
+    description: Core RPi Dependencies
     packages:
       - file
       - gcc
@@ -36,6 +37,25 @@ actions:
       - libssl-dev
       - firmware-brcm80211
       - rpi.gpio-common
+
+  - action: apt
+    description: RPi libcamera Dependencies
+    packages:
+      - libcamera-dev
+      - libepoxy-dev
+      - libjpeg-dev
+      - libtiff5-dev
+      - libpng-dev
+      - qtbase5-dev
+      - libqt5core5a
+      - libqt5gui5
+      - libqt5widgets5
+      - libavcodec-dev
+      - libavdevice-dev
+      - libavformat-dev
+      - libswresample-dev
+      - libexif12
+      - libboost-program-options-dev
 
   - action: overlay
     description: Add Raspberry Pi 4 root overlay
@@ -52,7 +72,7 @@ actions:
     chroot: true
     description: Install kernel
     label: dpkg
-    command: dpkg -i /var/tmp/*.deb && rm /var/tmp/* -r
+    command: dpkg -i /var/tmp/*.deb && rm /var/tmp/* -r || exit 3
 
   - action: run
     description: Copy dtb and kernel ({{ $kernel_version }}) to boot firmware partition
