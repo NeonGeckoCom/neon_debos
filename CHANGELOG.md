@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.3.13a15](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.13a15) (2024-03-13)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.8a14...24.3.13a15)
+
+**Merged pull requests:**
+
+- Pre-compile modules and install with dpkg [\#122](https://github.com/NeonGeckoCom/neon_debos/pull/122) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.3.8a14](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.8a14) (2024-03-08)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.8a13...24.3.8a14)
