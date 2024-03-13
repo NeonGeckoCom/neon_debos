@@ -51,7 +51,7 @@ export NEON_IN_SETUP="true"
 # TODO: Normalize extras after NeonCore 24.2.x stable release
 pip install --use-pep517 "neon-core[core_modules,skills_required,skills_essential,skills_default,skills_extended,pi] @ git+https://github.com/neongeckocom/neoncore@${CORE_REF}" || exit 11
 echo "Core Installed"
-neon-install-default-skills && echo "Default git skills installed" || exit 2
+neon install-default-skills && echo "Default git skills installed" || exit 2
 
 # Clean pip caches
 rm -rf /root/.cache/pip
