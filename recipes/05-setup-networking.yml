@@ -21,8 +21,8 @@ actions:
     source: ../overlays/05-wifi-connect
 
   - action: overlay
-    description: ssh overlay
-    source: ../overlays/05-ssh
+    description: ssh and NetworkManager config overlay
+    source: ../overlays/05-networking
 
   - action: run
     description: Configure Networking
