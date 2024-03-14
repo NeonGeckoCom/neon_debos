@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.3.14a16](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.14a16) (2024-03-14)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.13a15...24.3.14a16)
+
+**Merged pull requests:**
+
+- Ensure NetworkManager Permissions [\#123](https://github.com/NeonGeckoCom/neon_debos/pull/123) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.3.13a15](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.13a15) (2024-03-13)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.8a14...24.3.13a15)
