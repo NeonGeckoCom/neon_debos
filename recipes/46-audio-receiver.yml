@@ -1,5 +1,4 @@
 {{- $librespot_name := or .librespot_name "Neon Mark 2" -}}
-{{- $user :=  or .user "neon" -}}
 
 architecture: {{ .architecture }}
 
