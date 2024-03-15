@@ -9,6 +9,7 @@
 {{- $neon_debos := or .neon_debos "unknown" -}}
 {{- $build_cores := or .build_cores 4 -}}
 {{ $build_version := or .build_version "" }}
+{{- $default_user := or .default_user "neon" -}}
 
 architecture: {{ $architecture }}
 
@@ -29,6 +30,7 @@ actions:
       firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
       image: {{ $image }}
+      default_user: {{ $default_user }}
 
   - action: recipe
     recipe: recipes/42-install-neon-node.yml

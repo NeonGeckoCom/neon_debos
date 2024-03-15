@@ -9,6 +9,7 @@
 {{- $build_cores := or .build_cores 4 -}}
 {{- $librespot_name := or .librespot_name  "Neon Mark 2" }}
 {{ $build_version := or .build_version "" }}
+{{- $default_user := or .default_user "neon" -}}
 
 architecture: {{ $architecture }}
 
@@ -36,6 +37,7 @@ actions:
     recipe: recipes/40-add-default-user.yml
     variables:
       architecture: {{ $architecture }}
+      default_user: {{ $default_user }}
 
   - action: recipe
     recipe: recipes/41-install-neon-core.yml
@@ -43,6 +45,7 @@ actions:
       architecture: {{ $architecture }}
       device: {{ $device }}
       neon_core: {{ $neon_core }}
+      default_user: {{ $default_user }}
 
   - action: recipe
     recipe: recipes/45-reset-service.yml
