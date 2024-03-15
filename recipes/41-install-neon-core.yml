@@ -30,6 +30,14 @@ actions:
     source: ../overlays/41-neon-core
     destination: /
 
+  - action: run
+    description: Apply user overlay
+    chroot: true
+    command: |
+      username=$(id -nu 1000)
+      cp -r /home/_default /home/${username}
+      rm -rf /home/_default
+
   - action: download
     description: Download default config
     url: https://github.com/NeonGeckoCom/NeonCore/archive/refs/heads/{{ $neon_core }}.zip
@@ -51,4 +59,3 @@ actions:
     description: Install Neon Core
     chroot: true
     script: ../scripts/41-install-neon-core.sh {{ $neon_core }}
-    # TODO: Refactor script and overlay to handle a configured username

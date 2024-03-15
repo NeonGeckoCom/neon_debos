@@ -5,7 +5,7 @@ Before=neon-bus.service
 
 [Service]
 Type=oneshot
-User=neon
+User=1000
 WorkingDirectory=/opt/neon
 ExecStart=/bin/bash /opt/neon/archive_logs.sh
 

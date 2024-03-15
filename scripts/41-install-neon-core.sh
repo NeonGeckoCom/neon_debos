@@ -38,13 +38,15 @@ CORE_REF="${1:-dev}"
 rm /boot/firmware/overlays/sj201-buttons-overlay.dtbo
 rm /boot/firmware/overlays/sj201-rev10-pwm-fan-overlay.dtbo
 
-# TODO: Configurable username/venv path and Python version
+username="$(id -nu 1000)"
+# TODO: Configurable Python version
 # Configure venv for deepspeech compat.
-python3.10 -m venv "/home/neon/venv" || exit 10
+python3.10 -m venv "/home/${username}/venv" || exit 10
 . /home/neon/venv/bin/activate
 pip install --upgrade pip wheel
-mv /home/neon/pip /home/neon/venv/bin/pip
-chmod ugo+x /home/neon/venv/bin/pip
+# TODO: Overlay move to generic path
+mv /home/neon/pip "/home/${username}/venv/bin/pip"
+chmod ugo+x "/home/${username}/venv/bin/pip"
 
 # Install core and skills
 export NEON_IN_SETUP="true"
@@ -57,14 +59,14 @@ neon install-default-skills && echo "Default git skills installed" || exit 2
 rm -rf /root/.cache/pip
 
 # Download model files
-mkdir -p /home/neon/.local/share/neon
-wget -O /home/neon/.local/share/neon/vosk-model-small-en-us-0.15.zip https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip
-cd /home/neon/.local/share/neon || exit 10
+mkdir -p /home/${username}/.local/share/neon
+wget -O /home/${username}/.local/share/neon/vosk-model-small-en-us-0.15.zip https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip
+cd /home/${username}/.local/share/neon || exit 10
 unzip vosk-model-small-en-us-0.15.zip
 rm vosk-model-small-en-us-0.15.zip
 
 # Precise engine and models
-cd /home/neon/.local/share || exit 10
+cd /home/${username}/.local/share || exit 10
 wget https://github.com/MycroftAI/mycroft-precise/releases/download/v0.3.0/precise-engine_0.3.0_aarch64.tar.gz
 tar xvf precise-engine_0.3.0_aarch64.tar.gz && echo "precise engine unpacked"
 rm precise-engine_0.3.0_aarch64.tar.gz
@@ -73,9 +75,9 @@ cd neon || exit 10
 wget https://github.com/MycroftAI/precise-data/raw/models-dev/hey-mycroft.tar.gz
 tar xvf hey-mycroft.tar.gz && echo "ww model unpacked"
 
-export XDG_CONFIG_HOME="/home/neon/.config"
-export XDG_DATA_HOME="/home/neon/.local/share"
-export XDG_CACHE_HOME="/home/neon/.cache"
+export XDG_CONFIG_HOME="/home/${username}/.config"
+export XDG_DATA_HOME="/home/${username}/.local/share"
+export XDG_CACHE_HOME="/home/${username}/.cache"
 
 # TODO: Below init neon_core default fallbacks but CLIs should add an option to init configured fallbacks
 # Init TTS model
@@ -83,12 +85,12 @@ neon-audio init-plugin -p coqui || echo "Failed to init TTS"
 # Init STT model
 neon-speech init-plugin -p ovos-stt-plugin-vosk || echo "Failed to init STT"
 
-mkdir -p /home/neon/.local/state/neon
-mkdir -p /home/neon/.cache/neon/log_archive
-ln -s /home/neon/.cache/neon/log_archive /home/neon/.local/state/neon/archive
-ln -s /home/neon/.local/state/neon /home/neon/logs
+mkdir -p /home/${username}/.local/state/neon
+mkdir -p /home/${username}/.cache/neon/log_archive
+ln -s /home/${username}/.cache/neon/log_archive /home/${username}/.local/state/neon/archive
+ln -s /home/${username}/.local/state/neon /home/${username}/logs
 # Fix home directory permissions
-chown -R neon:neon /home/neon
+chown -R ${username}:${username} /home/${username}
 
 # Ensure executable
 chmod +x /opt/neon/*.sh
@@ -111,7 +113,7 @@ systemctl enable neon-logs.service
 systemctl enable neon-skills.service
 systemctl enable neon-speech.service
 
-neon_uid=$(id -u neon)
+neon_uid=$(id -u ${username})
 echo "XDG_RUNTIME_DIR=/run/user/${neon_uid}" >> /etc/neon/neon_env.conf
 echo "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${neon_uid}/bus" >> /etc/neon/neon_env.conf
 

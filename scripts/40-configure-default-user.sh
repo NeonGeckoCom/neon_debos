@@ -27,34 +27,20 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cd "${BASE_DIR}" || exit 10
+set -eE
 
-default_username="neon"  # Default user to create
-default_password="neon"
+default_username="${1}"  # Default user to create
+default_password="${1}"
+user_groups="sudo,gpio,video,audio,input,render,pulse,pulse-access,i2c,dialout,netdev"
 
-# Add 'neon' user with default password
-adduser "${default_username}" --gecos "" --disabled-password
+useradd "${default_username}" -u 1000 -U -m -k /etc/skel -G ${user_groups} -s /bin/bash
 echo "${default_username}:${default_password}" | chpasswd
-passwd --expire ${default_username}
+passwd --expire "${default_username}"
 
 if [ ! -f "/home/${default_username}/.profile" ]; then
     echo ".profile missing for added user"
     cp -r /etc/skel/.* "/home/${default_username}"
-    chown -R ${default_username}:${default_username} "/home/${default_username}"
+    chown -R "${default_username}:${default_username}" "/home/${default_username}"
 fi
-
-# Add neon user to groups
-usermod -aG sudo ${default_username}
-usermod -aG gpio ${default_username}
-usermod -aG video ${default_username}
-usermod -aG audio ${default_username}
-usermod -aG input ${default_username}
-usermod -aG render ${default_username}
-usermod -aG pulse ${default_username}
-usermod -aG pulse-access ${default_username}
-usermod -aG i2c ${default_username}
-usermod -aG dialout ${default_username}
-usermod -aG netdev ${default_username}
 
 echo "User configuration complete"

@@ -1,3 +1,5 @@
+{{- $default_user := or .default_user "neon" -}}
+
 architecture: {{ .architecture }}
 
 actions:
@@ -13,5 +15,9 @@ actions:
   - action: run
     description: Configure Default User
     chroot: true
-    script: ../scripts/40-configure-default-user.sh
-    # TODO: Refactor script to handle a configured username
+    script: ../scripts/40-configure-default-user.sh {{ $default_user }}
+  - action: run
+    description: Configure log2ram
+    chroot: true
+    command: |
+      sed "|^PATH_DISK=|s|PATH_DISK=/home/{{ $default_user }}/.local/state/neon|" /etc/log2ram.conf

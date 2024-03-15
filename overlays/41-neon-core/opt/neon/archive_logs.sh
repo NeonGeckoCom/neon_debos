@@ -28,10 +28,10 @@
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 boot_time=$(date +'%Y-%m-%d_%H-%M')
-archive_dir="${HOME}/.cache/neon/log_archive/${boot_time}"
+archive_dir="${HOME}/.cache/$(id -nu 1000)/log_archive/${boot_time}"
 mkdir "${archive_dir}"
-mv -f "${HOME}/.local/state/neon/"*.log* "${archive_dir}/" || rm -r "${archive_dir}"
+mv -f "${HOME}/.local/state/$(id -nu 1000)/"*.log* "${archive_dir}/" || rm -r "${archive_dir}"
 
 # Handle any archives in the old location
-cp -rn "${HOME}/.local/state/neon/20"* "${HOME}/.cache/neon/log_archive/" && echo "Relocated old archives"
-rm -rf "${HOME}/.local/state/neon/20"* && echo "Removed old archives"
+cp -rn "${HOME}/.local/state/$(id -nu 1000)/20"* "${HOME}/.cache/$(id -nu 1000)/log_archive/" && echo "Relocated old archives"
+rm -rf "${HOME}/.local/state/$(id -nu 1000)/20"* && echo "Removed old archives"
