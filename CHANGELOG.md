@@ -1,5 +1,17 @@
 # Changelog
 
+## [24.3.18a18](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.18a18) (2024-03-18)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.14a17...24.3.18a18)
+
+**Implemented enhancements:**
+
+- \[FEAT\] Notify reason for restarts [\#118](https://github.com/NeonGeckoCom/neon_debos/issues/118)
+
+**Merged pull requests:**
+
+- Add error screen when restarting due to an error [\#125](https://github.com/NeonGeckoCom/neon_debos/pull/125) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.3.14a17](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.14a17) (2024-03-14)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.14a16...24.3.14a17)
