@@ -51,6 +51,8 @@ validate_mark2() {
   done
   if journalctl -u gui-shell | grep "code=-13"; then
     echo "GUI failed to start! Restarting..."
+    systemctl start error-screen
+    sleep 5
     reboot now
   fi
   echo "Mark2 boot validated"
