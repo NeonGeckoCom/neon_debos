@@ -35,20 +35,23 @@ BACKUP_FILE=${5:-""}
 
 . /scripts/functions
 
-update_mib=$(du -m "${UPDATE_FILE}" | cut -f1)
-# Add a fairly permissive minimum size for a valid squashfs file. These are
-# usually >1GiB and the initramfs is ~35MiB
-if [ ${update_mib} -le 50 ]; then
-  log "Update file too small to be valid! ${UPDATE_FILE} (${update_mib}MiB)"
-  rm "${UPDATE_FILE}"
-  exit 0
-fi
 
 # Validate update and optionally create backup
 if [ ! -f "${UPDATE_FILE}" ]; then
   log "No update (${UPDATE_FILE})"
   exit 0
-elif [ -n "${BACKUP_FILE}" ]; then
+fi
+
+update_mib=$(du -m "${UPDATE_FILE}" | cut -f1)
+# Add a fairly permissive minimum size for a valid squashfs file. These are
+# usually >1GiB and the initramfs is ~35MiB
+if [ "${update_mib}" -le 50 ]; then
+  log "Update file too small to be valid! ${UPDATE_FILE} (${update_mib}MiB)"
+  rm "${UPDATE_FILE}"
+  exit 0
+fi
+
+if [ -n "${BACKUP_FILE}" ]; then
   mv "${ROOT_FILE}" "${BACKUP_FILE}" && log "Backed up existing image ${ROOT_FILE} to ${BACKUP_FILE}"
 fi
 
