@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.3.20a19](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.20a19) (2024-03-20)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.18a18...24.3.20a19)
+
+**Merged pull requests:**
+
+- Improved GUI failure handling [\#128](https://github.com/NeonGeckoCom/neon_debos/pull/128) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.3.18a18](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.18a18) (2024-03-18)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.14a17...24.3.18a18)
