@@ -4,6 +4,7 @@ Conflicts=gui-shell.service
 Conflicts=splashscreen.service
 
 [Service]
-ExecStart=/usr/bin/fbi -d /dev/fb0 --noverbose -a /opt/neon/error_restarting.png
+EnvironmentFile=/etc/neon/error_screen.conf
+ExecStart=/usr/bin/fbi -d /dev/fb0 --noverbose -a $ERROR_SCREEN
 StandardInput=tty
 StandardOutput=tty
