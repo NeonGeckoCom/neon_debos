@@ -27,6 +27,38 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+fail_file=/opt/neon/preflight_failures
+max_fails=5
+
+fail() {
+  failures=0
+  [ -f "${fail_file}" ] && failures=$(cat "${fail_file}")
+  failures=$((failures + 1))
+  echo "${failures}" > "${fail_file}"
+  if [ "${failures}" -gt ${max_fails} ]; then
+    echo "${failures} consecutive failed boots. Continue to the OS."
+    fail_case="${1}"
+  else
+    echo "Rebooting attempt ${failures}"
+    fail_case=""
+  fi
+  case ${fail_case} in
+    "gui")
+      error_screen="error_gui"
+      ;;
+    *)
+      error_screen="error_restarting"
+      ;;
+  esac
+  echo "ERROR_SCREEN=/opt/neon/${error_screen}.png" > "/etc/neon/error_screen.conf"
+  systemctl start error-screen
+  sleep 5
+  if [ ${error_screen} == "error_restarting" ]; then
+    reboot now
+  fi
+  exit 0
+}
+
 validate_mark2() {
   if [ "$(sj201 get-revision)" == "0" ]; then
     echo "Mark2 image booted but no SJ201 hardware detected"
@@ -51,9 +83,7 @@ validate_mark2() {
   done
   if journalctl -u gui-shell | grep "code=-13"; then
     echo "GUI failed to start! Restarting..."
-    systemctl start error-screen
-    sleep 5
-    reboot now
+    fail "gui"
   fi
   echo "Mark2 boot validated"
 }
@@ -67,7 +97,13 @@ validate_opi5() {
 }
 
 # Check for file flag to skip validation
-[ -f /boot/firmware/skip_preflight_check ] && exit 0
+mount_firmware
+if [ -f /opt/neon/firmware/skip_preflight_check ]; then
+  unmount_firmware
+  echo "Skipping checks"
+  exit 0
+fi
+unmount_firmware
 
 build_meta="/opt/neon/build_info.json"
 [ -f ${build_meta} ] || exit 0
@@ -80,4 +116,6 @@ elif [ "${device}" == "opi5" ]; then
   validate_opi5
 fi
 
+# Successful start
+[ -f "${fail_file}" ] && rm "${fail_file}"
 exit 0
