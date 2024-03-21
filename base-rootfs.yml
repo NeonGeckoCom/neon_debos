@@ -33,6 +33,9 @@ actions:
 {{ if eq $platform "rpi4" }}
   - action: recipe
     recipe: recipes/03-raspi-apt-repo.yml
+    variables:
+      architecture: {{ $architecture }}
+      suite: {{ $suite }}
 {{ end }}
 
   - action: recipe

@@ -1,3 +1,5 @@
+{{ $suite :=  or .suite "bookworm" }}
+
 architecture: {{ .architecture }}
 
 actions:
@@ -9,6 +11,10 @@ actions:
   - action: overlay
     description: Raspberrypi apt overlay
     source: ../overlays/03-raspi-apt-repo
+  - action: run
+    description: Add raspberrypi apt sources
+    chroot: true
+    command: echo "deb https://archive.raspberrypi.org/debian/ {{ $suite }} main">/etc/apt/sources.list.d/raspberrypi.list
   - action: apt
     description: Raspberry Pi Dependencies
     packages:
@@ -17,6 +23,10 @@ actions:
       - raspi-config
       - raspi-utils
       - rpi-eeprom
+  - action: run
+    description: Upgrade packages from RPi repo
+    chroot: true
+    command: apt upgrade -y
   - action: run
     description: Link firmware
     chroot: true
