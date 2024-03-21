@@ -34,7 +34,7 @@ wget https://archive.raspberrypi.org/debian/pool/main/r/raspberrypi-firmware/ras
 wget https://archive.raspberrypi.org/debian/pool/main/r/raspberrypi-userland/libraspberrypi0_2+git20231018~131943+3c97f76-1_arm64.deb
 wget https://archive.raspberrypi.org/debian/pool/main/r/raspberrypi-userland/libraspberrypi-dev_2+git20231018~131943+3c97f76-1_arm64.deb
 wget https://archive.raspberrypi.org/debian/pool/main/r/raspberrypi-userland/libraspberrypi-bin_2+git20231018~131943+3c97f76-1_arm64.deb
-dpkg -i ./raspberrypi-bootloader_1.20230405-1_arm64.deb
+dpkg -i ./raspberrypi-bootloader*.deb
 dpkg -i ./libraspberrypi0*.deb
 dpkg -i ./libraspberrypi-dev*.deb
 dpkg -i ./libraspberrypi-bin*.deb

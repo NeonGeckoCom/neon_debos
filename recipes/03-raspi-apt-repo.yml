@@ -1,0 +1,22 @@
+architecture: {{ .architecture }}
+
+actions:
+  - action: run
+    description: Add Raspberry Pi GPG key
+    chroot: true
+    command: |
+      curl https://archive.raspberrypi.org/debian/raspberrypi.gpg.key | apt-key add - 2> /dev/null
+  - action: overlay
+    description: Raspberrypi apt overlay
+    source: ../overlays/03-raspi-apt-repo
+  - action: apt
+    description: Raspberry Pi Dependencies
+    packages:
+      - raspberrypi-bootloader
+      - libraspberrypi0
+      - libraspberrypi-dev
+      - libraspberrypi-bin
+
+      - raspi-config
+      - raspi-utils
+      - rpi-eeprom
