@@ -146,11 +146,6 @@ actions:
       architecture: {{ $architecture }}
 
   - action: recipe
-    recipe: recipes/28-x-server.yml
-    variables:
-      architecture: {{ $architecture }}
-
-  - action: recipe
     recipe: recipes/29-ovos-shell.yml
     variables:
       architecture: {{ $architecture }}

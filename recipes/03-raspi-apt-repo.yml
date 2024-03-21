@@ -13,10 +13,11 @@ actions:
     description: Raspberry Pi Dependencies
     packages:
       - raspberrypi-bootloader
-      - libraspberrypi0
       - libraspberrypi-dev
-      - libraspberrypi-bin
-
       - raspi-config
       - raspi-utils
       - rpi-eeprom
+  - action: run
+    description: Link firmware
+    chroot: true
+    command: ln -s /boot/firmware/overlays /boot/overlays
