@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.3.21a20](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.21a20) (2024-03-21)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.20a19...24.3.21a20)
+
+**Merged pull requests:**
+
+- Add validation of update.squashfs before applying it [\#126](https://github.com/NeonGeckoCom/neon_debos/pull/126) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.3.20a19](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.20a19) (2024-03-20)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.18a18...24.3.20a19)
