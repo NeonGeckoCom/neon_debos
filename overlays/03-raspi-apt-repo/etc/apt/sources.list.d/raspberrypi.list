@@ -1,1 +1,1 @@
-deb https://archive.raspberrypi.org/debian/ bookworm main
+# This file will be updated at build time with the appropriate apt repo
