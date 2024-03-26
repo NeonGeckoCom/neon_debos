@@ -60,10 +60,10 @@ actions:
     chroot: true
     script: ../scripts/02-link_kernel.sh {{ $kernel_version }}
 
-#  - action: run
-#    description: Patch kernel headers
-#    chroot: true
-#    script: ../scripts/02-patch_kernel_headers.sh
+  - action: run
+    description: Patch kernel headers
+    chroot: true
+    script: ../scripts/02-patch_kernel_headers.sh
 
 #  - action: run
 #    description: Patch RPi5 Support
