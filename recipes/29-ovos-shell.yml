@@ -67,8 +67,7 @@ actions:
   - action: run
     description: Patch device path for Orange Pi5
     chroot: True
-    command: |
-      sed -i -e "s|card1|card0|g" /etc/neon/eglfs.json
+    command: echo "QT_QPA_EGLFS_KMS_CONFIG=/etc/neon/eglfs.json" >> /etc/neon/gui-shell.conf
 {{ end }}
 
   - action: run
