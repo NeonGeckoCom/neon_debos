@@ -1,5 +1,17 @@
 # Changelog
 
+## [24.3.26a22](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.26a22) (2024-03-26)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.22a21...24.3.26a22)
+
+**Fixed bugs:**
+
+- \[BUG\] Invalid squashFS updates break installations [\#121](https://github.com/NeonGeckoCom/neon_debos/issues/121)
+
+**Merged pull requests:**
+
+- Update initramfs and logging [\#133](https://github.com/NeonGeckoCom/neon_debos/pull/133) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.3.22a21](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.22a21) (2024-03-22)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.21a20...24.3.22a21)
