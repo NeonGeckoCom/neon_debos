@@ -27,16 +27,6 @@ actions:
     recipe: recipes/03-base-packages.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
-      suite: {{ $suite }}
-
-{{ if eq $platform "rpi4" }}
-  - action: recipe
-    recipe: recipes/03-raspi-apt-repo.yml
-    variables:
-      architecture: {{ $architecture }}
-      suite: {{ $suite }}
-{{ end }}
 
   - action: recipe
     recipe: recipes/04-base-overlay.yml
