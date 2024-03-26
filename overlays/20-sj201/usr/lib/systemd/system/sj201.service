@@ -1,6 +1,6 @@
 [Unit]
 Description=SJ201 Service
-After=configure-audio.service
+Requires=configure-audio.service
 
 [Service]
 Type=oneshot

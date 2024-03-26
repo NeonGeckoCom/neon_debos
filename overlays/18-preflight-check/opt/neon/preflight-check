@@ -29,8 +29,11 @@
 
 fail_file=/opt/neon/preflight_failures
 max_fails=5
+dmesg_output="$(dmesg)"
 
 fail() {
+  echo "${dmesg_output}" > "/var/log/failed_boot-$(date +%s).dmesg"
+  cp "/var/log/initramfs.log" "/var/log/failed_boot-$(date +%s).initramfs"
   failures=0
   [ -f "${fail_file}" ] && failures=$(cat "${fail_file}")
   failures=$((failures + 1))
@@ -65,6 +68,7 @@ validate_mark2() {
     exit 0
   fi
   if [ ! -e /dev/fb0 ]; then
+    # TODO: Observed a boot where this path didn't exist. Is something happening during init?
     # Display not loaded; there is no way to recover this without a hard reset
     # to re-init the Pi hardware. Do our best to communicate to the user what
     # has happened so they are able to manually reboot the system until a better
