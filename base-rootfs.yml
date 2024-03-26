@@ -1,5 +1,4 @@
 {{- $architecture := or .architecture "arm64" -}}
-{{- $firmware_version := or .firmware_version "master" -}}
 {{- $kernel_version := or .kernel_version "6.1.77-gecko+" -}}
 {{ $suite :=  or .suite "bookworm" }}
 {{- $build_cores := or .build_cores 4 -}}
@@ -12,14 +11,12 @@ actions:
     recipe: recipes/01-debian-base.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
 
   - action: recipe
     recipe: recipes/02-{{ $platform }}.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
       kernel_version: {{ $kernel_version }}
 
@@ -32,14 +29,12 @@ actions:
     recipe: recipes/04-base-overlay.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
 
   - action: recipe
     recipe: recipes/05-setup-networking.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
 
   - action: recipe
@@ -51,7 +46,6 @@ actions:
     recipe: recipes/08-poweroff-service.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
 
   - action: recipe
@@ -73,7 +67,6 @@ actions:
     recipe: recipes/13-audio-devices.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
       platform: {{ $platform }}
 
