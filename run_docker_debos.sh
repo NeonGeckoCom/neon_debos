@@ -29,6 +29,7 @@
 
 read -rsp "Password: " pass
 echo -e "\n"
+start_time=$(date +%s)
 source_dir="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 [ -d "${source_dir}/output" ] || mkdir "${source_dir}/output"
 timestamp=$(date '+%Y-%m-%d_%H_%M')
@@ -71,3 +72,7 @@ docker logs -f neon_debos
 echo "completed ${timestamp}"
 echo "${pass}" | sudo -S chown $USER:$USER "${source_dir}/output/${image%.*}-${platform}_${timestamp}"*
 echo -e "\n"
+run_time=$(($(date +%s) - start_time))
+minutes=$((run_time / 60))
+echo "completed ${timestamp} in ${minutes}m"
+notify-send "Debos build completed ${image} in ${minutes}m" || echo "Unable to Notify"
