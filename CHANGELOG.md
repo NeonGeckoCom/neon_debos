@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.3.27a24](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.27a24) (2024-03-27)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.27a23...24.3.27a24)
+
+**Merged pull requests:**
+
+- Refactor Kernel build to use Debos recipe [\#135](https://github.com/NeonGeckoCom/neon_debos/pull/135) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.3.27a23](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.27a23) (2024-03-27)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.26a22...24.3.27a23)
