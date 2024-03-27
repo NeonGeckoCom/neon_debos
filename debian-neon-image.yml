@@ -1,5 +1,4 @@
 {{- $architecture := or .architecture "arm64" -}}
-{{- $firmware_version := or .firmware_version "master" -}}
 {{ $suite :=  or .suite "bookworm" }}
 {{ $platform := or .platform "rpi4" }}
 {{ $device := or .device $platform }}

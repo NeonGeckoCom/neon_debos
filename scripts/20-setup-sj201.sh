@@ -35,8 +35,24 @@ set -Ee
 kernel="${2}"
 
 echo "Building for kernel ${kernel}"
+case "${kernel}" in
+  5.*)
+    branch=0.0.1
+    ;;
+  6.1.*)
+    branch=0.0.1
+    ;;
+  6.6.*)
+    branch=6.6.x
+    ;;
+  *)
+    echo "Guessing main branch for kernel=${kernel}"
+    branch="main"
+    ;;
+esac
+
 # Build and load VocalFusion Driver
-git clone https://github.com/OpenVoiceOS/vocalfusiondriver
+git clone https://github.com/OpenVoiceOS/vocalfusiondriver -b "${branch}"
 cd vocalfusiondriver/driver || exit 10
 sed -ie "s|\$(shell uname -r)|${kernel}|g" Makefile
 make -j${1:-} all || exit 2

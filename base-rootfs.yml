@@ -1,5 +1,5 @@
 {{- $architecture := or .architecture "arm64" -}}
-{{- $kernel_version := or .kernel_version "6.1.77-gecko+" -}}
+{{- $kernel_version := .kernel_version -}}
 {{ $suite :=  or .suite "bookworm" }}
 {{- $build_cores := or .build_cores 4 -}}
 {{ $platform := or .platform "rpi4" }}
