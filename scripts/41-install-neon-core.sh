@@ -96,6 +96,7 @@ chmod +x /usr/sbin/*
 chmod +x /usr/bin/*
 chmod +x /usr/libexec/*
 chmod +x /opt/neon/install_skills
+chmod +x /opt/neon/update
 
 # Disable wifi-connect
 systemctl disable wifi-setup.service

@@ -18,8 +18,10 @@ systemctl enable kdeconnect.service
 systemctl enable bluetooth.service
 systemctl enable raspotify.service
 systemctl enable update_bt_config.service
+
 # Fix permissions
 chown -R neon:neon /home/neon/.cache
+chmod +x /opt/neon/*.sh
 
 # Install packages for Bluetooth pairing script
 # TODO: Python packages to NeonCore dependencies(?)
