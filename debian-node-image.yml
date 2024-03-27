@@ -1,6 +1,4 @@
 {{- $architecture := or .architecture "arm64" -}}
-{{- $firmware_version := or .firmware_version "master" -}}
-{{- $kernel_version := or .kernel_version "6.1.77-gecko+" -}}
 {{ $suite :=  or .suite "bookworm" }}
 {{ $platform := or .platform "rpi4" }}
 {{ $device := or .device $platform }}
@@ -27,7 +25,6 @@ actions:
     recipe: recipes/40-add-default-user.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
       image: {{ $image }}
 
@@ -35,7 +32,6 @@ actions:
     recipe: recipes/42-install-neon-node.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
       image: {{ $image }}
       neon_core: {{ $neon_core }}
@@ -46,7 +42,6 @@ actions:
     recipe: recipes/45-reset-service.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
       image: {{ $image }}
 
@@ -54,7 +49,6 @@ actions:
     recipe: recipes/46-audio-receiver.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
       image: {{ $image }}
 
@@ -78,7 +72,6 @@ actions:
     recipe: recipes/98-backup-image.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
       image: {{ $image }}
 

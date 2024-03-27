@@ -34,7 +34,7 @@ mem_limit=${MEM_LIMIT:-"24G"}
 core_limit=${CORE_LIMIT:-4}
 
 platform=${1:-rpi4}
-[ "${platform}" == "rpi4" ] && kernel_version="6.1.77-gecko+"
+[ "${platform}" == "rpi4" ] && kernel_version="6.6.22-gecko+"
 [ "${platform}" == "opi5" ] && kernel_version="5.10.110-gecko+"
 
 docker run --rm \

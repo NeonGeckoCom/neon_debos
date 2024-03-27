@@ -43,7 +43,7 @@ debos_version="$(python3 "${source_dir}/version.py")*"
 echo "Building core=${neon_core} version=${debos_version} platform=${platform}"
 #sudo -S chmod ugo+x "${source_dir}/scripts/"*
 
-[ "${platform}" == "rpi4" ] && kernel_version="6.1.77-gecko+"
+[ "${platform}" == "rpi4" ] && kernel_version="6.6.22-gecko+"
 [ "${platform}" == "opi5" ] && kernel_version="5.10.110-gecko+"
 
 if [ ! -f "${source_dir}/base_images/${platform}_base.tar.gz" ]; then
