@@ -49,30 +49,14 @@ actions:
       - libcamera-apps
 
   - action: run
-    origin: kernel
     chroot: true
     description: Install kernel
-    label: dpkg
     command: dpkg -i /var/tmp/*.deb && rm /var/tmp/* -r || exit 3
 
   - action: run
     description: Copy dtb and kernel ({{ $kernel_version }}) to boot firmware partition
     chroot: true
     script: ../scripts/02-link_kernel.sh {{ $kernel_version }}
-
-  - action: run
-    description: Patch kernel headers
-    chroot: true
-    script: ../scripts/02-patch_kernel_headers.sh
-
-#  - action: run
-#    description: Patch RPi5 Support
-#    chroot: true
-#    command: |
-#      cd /usr/lib/firmware/brcm
-#      ln ../cypress/cyfmac43455-sdio.bin brcmfmac43455-sdio.raspberrypi,5-model-b.bin
-#      ln ../cypress/cyfmac43455-sdio.clm_blob brcmfmac43455-sdio.raspberrypi,5-model-b.clm_blob
-#      ln brcmfmac43455-sdio.raspberrypi,4-model-b.txt brcmfmac43455-sdio.raspberrypi,5-model-b.txt
 
   - action: run
     description: Link firmware

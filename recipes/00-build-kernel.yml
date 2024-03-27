@@ -1,0 +1,66 @@
+{{ $kernel :=  "rpi-6.6.y" }}
+
+architecture: arm64
+actions:
+  - action: debootstrap
+    suite: bookworm
+    components:
+      - main
+    mirror: https://deb.debian.org/debian
+    variant: minbase
+  - action: apt
+    chroot: true
+    description: Install Build Dependencies
+    packages:
+      - git-core
+      - bc
+      - bison
+      - flex
+      - libssl-dev
+      - make
+      - libc6-dev
+      - libncurses5-dev
+      - binutils
+      - build-essential
+      - rsync
+      - kmod
+      - cpio
+      - lsb-release
+      - gcc
+      - zstd
+      - debhelper
+
+  - action: overlay
+    description: Overlay Configuration
+    source: ../overlays/00-build-kernel
+    destination: /
+  - action: run
+    chroot: true
+    description: Clone Kernel
+    command: git clone --depth=1 https://github.com/raspberrypi/linux -b {{ $kernel }} /var/linux
+
+  - action: run
+    chroot: true
+    description: Configure Kernel
+    command: |
+      cd /var/linux || exit 10
+      export KERNEL=kernel8
+      make ARCH=arm64 bcm2711_defconfig
+      while read line; do
+        echo "${line}"
+        ./scripts/config --set-val ${line}
+      done < "/var/config-overlay-{{ $kernel }}"
+
+  - action: run
+    chroot: true
+    description: Build Kernel
+    command: |
+      cd /var/linux || exit 10
+      make -j16 ARCH=arm64 deb-pkg && echo "made kernel" || echo "kernel make failed"
+
+  - action: run
+    description: Copy output patch to host
+    chroot: false
+    command: |
+      mv "${ROOTDIR}/var/linux"*.deb "/image_build/overlays/02-rpi4/var/tmp/"
+      chmod 777 "/image_build/overlays/02-rpi4/var/tmp/"*.deb
