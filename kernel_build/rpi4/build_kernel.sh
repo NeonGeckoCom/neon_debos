@@ -28,7 +28,7 @@
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 sudo apt install -y git bc bison flex libssl-dev make libc6-dev libncurses5-dev\
-    crossbuild-essential-arm64 libncurses5-dev binutils
+    crossbuild-essential-arm64 libncurses5-dev binutils build-essential
 
 ROOT_PATH="$(pwd)"
 
@@ -37,9 +37,13 @@ git clone --depth=1 https://github.com/raspberrypi/linux -b "${branch}"
 cd linux || exit 10
 export KERNEL=kernel8
 make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- bcm2711_defconfig
-mv .config .config.old
-cp "../config-${branch}" .config
-make -j4 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- deb-pkg
+
+while read line; do
+  echo "${line}"
+  ./scripts/config --set-val ${line}
+done < "../config-overlay-${branch}"
+
+make -j ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- deb-pkg
 cd .. || exit 10
 rm -rf linux
 for file in *.deb; do
