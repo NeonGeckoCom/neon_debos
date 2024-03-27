@@ -1,7 +1,3 @@
-{{- $architecture := or .architecture "arm64" -}}
-{{- $firmware_version := or .firmware_version "master" -}}
-{{ $suite :=  or .suite "focal" }}
-
 architecture: {{ .architecture }}
 
 actions:

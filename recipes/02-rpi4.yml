@@ -1,26 +1,29 @@
 {{- $architecture := or .architecture "arm64" -}}
-{{- $firmware_version := or .firmware_version "master" -}}
 {{- $kernel_version := or .kernel_version "" -}}
+{{ $suite :=  or .suite "bookworm" }}
 
 architecture: {{ .architecture }}
 
 actions:
-  - action: download
-    description: Download latest version of the firmware from GitHub
-    url: https://github.com/raspberrypi/firmware/archive/{{ $firmware_version }}.tar.gz
-    unpack: true
-    name: firmware
+  - action: run
+    description: Add Raspberry Pi APT GPG key
+    chroot: true
+    command: curl https://archive.raspberrypi.org/debian/raspberrypi.gpg.key | apt-key add - 2> /dev/null
 
   - action: overlay
-    description: Apply downloaded RPi firmware
-    origin: firmware
-    source: firmware-{{ $firmware_version }}/boot
-    destination: /boot/firmware
+    description: Add Raspberry Pi 4 root overlay
+    source: ../overlays/02-rpi4
+    destination: /
 
   - action: run
-    description: Remove downloaded kernel and dtb files
+    description: Remove extra overlay files
     chroot: true
-    command: rm -rvf /boot/firmware/kernel*.img /boot/firmware/*.dtb /boot/firmware/overlays
+    command: rm /boot/firmware/initramfs.md5
+
+  - action: run
+    description: Add raspberrypi apt sources
+    chroot: true
+    command: echo "deb https://archive.raspberrypi.org/debian/ {{ $suite }} main">/etc/apt/sources.list.d/raspberrypi.list
 
   - action: apt
     description: Core RPi Dependencies
@@ -37,35 +40,13 @@ actions:
       - libssl-dev
       - firmware-brcm80211
       - rpi.gpio-common
-
-  - action: apt
-    description: RPi libcamera Dependencies
-    packages:
-      - libcamera-dev
-      - libepoxy-dev
-      - libjpeg-dev
-      - libtiff5-dev
-      - libpng-dev
-      - qtbase5-dev
-      - libqt5core5a
-      - libqt5gui5
-      - libqt5widgets5
-      - libavcodec-dev
-      - libavdevice-dev
-      - libavformat-dev
-      - libswresample-dev
-      - libexif12
-      - libboost-program-options-dev
-
-  - action: overlay
-    description: Add Raspberry Pi 4 root overlay
-    source: ../overlays/02-rpi4
-    destination: /
-
-  - action: run
-    description: Remove extra overlay files
-    chroot: true
-    command: rm /boot/firmware/initramfs.md5
+      - raspberrypi-bootloader
+      - libraspberrypi-dev
+      - raspi-config
+      - raspi-utils
+      - raspi-firmware
+      - rpi-eeprom
+      - libcamera-apps
 
   - action: run
     origin: kernel
@@ -84,14 +65,19 @@ actions:
     chroot: true
     script: ../scripts/02-patch_kernel_headers.sh
 
+#  - action: run
+#    description: Patch RPi5 Support
+#    chroot: true
+#    command: |
+#      cd /usr/lib/firmware/brcm
+#      ln ../cypress/cyfmac43455-sdio.bin brcmfmac43455-sdio.raspberrypi,5-model-b.bin
+#      ln ../cypress/cyfmac43455-sdio.clm_blob brcmfmac43455-sdio.raspberrypi,5-model-b.clm_blob
+#      ln brcmfmac43455-sdio.raspberrypi,4-model-b.txt brcmfmac43455-sdio.raspberrypi,5-model-b.txt
+
   - action: run
-    description: Patch RPi5 Support
+    description: Link firmware
     chroot: true
-    command: |
-      cd /usr/lib/firmware/brcm
-      ln ../cypress/cyfmac43455-sdio.bin brcmfmac43455-sdio.raspberrypi,5-model-b.bin
-      ln ../cypress/cyfmac43455-sdio.clm_blob brcmfmac43455-sdio.raspberrypi,5-model-b.clm_blob
-      ln brcmfmac43455-sdio.raspberrypi,4-model-b.txt brcmfmac43455-sdio.raspberrypi,5-model-b.txt
+    command: ln -s /boot/firmware/overlays /boot/overlays
 
   - action: run
     description: Set hostname
