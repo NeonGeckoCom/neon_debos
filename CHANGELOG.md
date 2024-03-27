@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.3.27a25](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.27a25) (2024-03-27)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.27a24...24.3.27a25)
+
+**Merged pull requests:**
+
+- Fix update script permissions [\#137](https://github.com/NeonGeckoCom/neon_debos/pull/137) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.3.27a24](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.27a24) (2024-03-27)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.27a23...24.3.27a24)
