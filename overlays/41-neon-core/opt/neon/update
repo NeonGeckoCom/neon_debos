@@ -34,13 +34,9 @@ fi
 . /etc/neon/versions.conf
 
 branch=${1:-"${NEON_CORE_REF}"}
-device=${NEON_OS_DEVICE:-"mark_2"}
-
-# TODO: Case statement here
-[ "${device}" == "mark_2" ] && update_path="pi/mycroft_mark_2"
 platform=${PLATFORM:-"rpi4"}
 initramfs_url="https://github.com/NeonGeckoCom/neon_debos/raw/${branch}/overlays/02-rpi4/boot/firmware/initramfs"
-squashfs_url="https://2222.us/app/files/neon_images/${update_path}/updates/${branch}/"
+squashfs_url="https://2222.us/app/files/neon_images/core/${platform}/updates/${branch}/"
 
 # Update initramfs
 wget "${initramfs_url}" -O /opt/neon/initramfs.tmp || exit 10
