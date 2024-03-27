@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.3.27a23](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.27a23) (2024-03-27)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.26a22...24.3.27a23)
+
+**Merged pull requests:**
+
+- Update raspi dependency installation [\#134](https://github.com/NeonGeckoCom/neon_debos/pull/134) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.3.26a22](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.26a22) (2024-03-26)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.22a21...24.3.26a22)
