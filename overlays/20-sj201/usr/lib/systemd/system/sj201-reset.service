@@ -1,7 +1,7 @@
 [Unit]
 Description=SJ201 Boot Check for Reset Service
 After=sj201.service
-After=multi-user.target
+After=basic.target
 
 [Service]
 Type=oneshot

@@ -1,5 +1,6 @@
 [Unit]
 Description=Neon GUI
+Before=neon.service
 After=basic.target
 
 [Service]
