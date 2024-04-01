@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.4.1a26](https://github.com/NeonGeckoCom/neon_debos/tree/24.4.1a26) (2024-04-01)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.27a25...24.4.1a26)
+
+**Merged pull requests:**
+
+- Improve recipe helper scripts [\#139](https://github.com/NeonGeckoCom/neon_debos/pull/139) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.3.27a25](https://github.com/NeonGeckoCom/neon_debos/tree/24.3.27a25) (2024-03-27)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.27a24...24.3.27a25)
