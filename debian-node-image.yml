@@ -9,6 +9,7 @@
 {{- $neon_debos := or .neon_debos "unknown" -}}
 {{- $build_cores := or .build_cores 4 -}}
 {{ $build_version := or .build_version "" }}
+{{- $uid := or .uid "" -}}
 
 architecture: {{ $architecture }}
 
@@ -88,3 +89,4 @@ actions:
       image: {{ $image }}
       build_cores: {{ $build_cores }}
       platform: {{ $platform }}
+      uid: {{ $uid }}

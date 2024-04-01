@@ -27,8 +27,9 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-read -rsp "Password: " pass
-echo -e "\n"
+#read -rsp "Password: " pass
+#echo -e "\n"
+start_time=$(date +%s)
 source_dir="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 [ -d "${source_dir}/output" ] || mkdir "${source_dir}/output"
 timestamp=$(date '+%Y-%m-%d_%H_%M')
@@ -40,7 +41,7 @@ mem_limit=${MEM_LIMIT:-"16G"}
 core_limit=${CORE_LIMIT:-4}
 debos_version="$(python3 "${source_dir}/version.py")*"
 echo "Building core=${neon_core} version=${debos_version} platform=${platform}"
-echo "${pass}" | sudo -S chmod ugo+x "${source_dir}/scripts/"*
+#sudo -S chmod ugo+x "${source_dir}/scripts/"*
 
 [ "${platform}" == "rpi4" ] && kernel_version="6.1.77-gecko+"
 [ "${platform}" == "opi5" ] && kernel_version="5.10.110-gecko+"
@@ -65,9 +66,14 @@ godebos/debos "${image}" \
 -t neon_debos:"${debos_version}" \
 -t build_cores:"${core_limit}" \
 -t kernel_version:"${kernel_version}" \
+-t uid:"$(id -u)" \
 -m "${mem_limit}" \
 -c "${core_limit}" && \
 docker logs -f neon_debos
 echo "completed ${timestamp}"
-echo "${pass}" | sudo -S chown $USER:$USER "${source_dir}/output/${image%.*}-${platform}_${timestamp}"*
+#echo "${pass}" | sudo -S chown $USER:$USER "${source_dir}/output/${image%.*}-${platform}_${timestamp}"*
 echo -e "\n"
+run_time=$(($(date +%s) - start_time))
+minutes=$((run_time / 60))
+echo "completed ${timestamp} in ${minutes}m"
+notify-send "Debos build completed ${image} in ${minutes}m" || echo "Unable to Notify"

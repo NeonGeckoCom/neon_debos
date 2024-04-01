@@ -29,6 +29,7 @@
 
 source_dir="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 sudo chmod ugo+x "${source_dir}/scripts/"*
+start_time=$(date +%s)
 mem_limit=${MEM_LIMIT:-"24G"}
 core_limit=${CORE_LIMIT:-4}
 
@@ -43,7 +44,6 @@ docker run --rm \
 --group-add=108 \
 --security-opt label=disable \
 --name "neon_debos_base_${platform}" \
--m "${mem_limit}" \
 --oom-kill-disable \
 godebos/debos "base-rootfs.yml" \
 -t architecture:arm64 \
@@ -52,3 +52,8 @@ godebos/debos "base-rootfs.yml" \
 -t platform:"${platform}" \
 -m "${mem_limit}" \
 -c "${core_limit}"
+
+run_time=$(($(date +%s) - start_time))
+minutes=$((run_time / 60))
+echo "Completed in ${minutes}m"
+notify-send "Debos base image completed ${platform} in ${minutes}m" || echo "Unable to Notify"

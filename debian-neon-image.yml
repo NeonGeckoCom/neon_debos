@@ -9,6 +9,7 @@
 {{- $build_cores := or .build_cores 4 -}}
 {{- $librespot_name := or .librespot_name  "Neon Mark 2" }}
 {{ $build_version := or .build_version "" }}
+{{- $uid := or .uid "" -}}
 
 architecture: {{ $architecture }}
 
@@ -99,3 +100,4 @@ actions:
       image: {{ $image }}
       build_cores: {{ $build_cores }}
       platform: {{ $platform }}
+      uid: {{ $uid }}
