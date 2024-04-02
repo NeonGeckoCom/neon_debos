@@ -67,32 +67,10 @@ actions:
   - action: run
     description: Patch device path for Orange Pi5
     chroot: True
-    command: |
-      sed -i -e "s|card1|card0|g" /etc/neon/eglfs.json
+    command: echo "QT_QPA_EGLFS_KMS_CONFIG=/etc/neon/eglfs.json" >> /etc/neon/gui-shell.conf
 {{ end }}
 
   - action: run
     description: Build and Install OVOS Shell and Mycroft GUI
     chroot: true
     script: ../scripts/29-build-ovos-shell.sh {{ $build_cores }}
-
-#{{ if eq $platform "rpi4" }}
-#  - action: apt
-#    description: Mesa unstable
-#    packages:
-#      - libegl-mesa0/unstable
-#      - libglx-mesa0/unstable
-#      - libgl1-mesa-dri/unstable
-#      - libdrm-radeon1/unstable
-#      - libx11-data/unstable
-#      - libglapi-mesa/unstable
-#      - libx11-6/unstable
-#      - libllvm17/unstable
-#      - libdrm-common/unstable
-#      - libx11-xcb1/unstable
-#      - libx11-dev/unstable
-#      - libdrm2/unstable
-#      - libdrm-amdgpu1/unstable
-#      - libdrm-nouveau2/unstable
-#      - libgbm1/unstable
-#{{ end }}
