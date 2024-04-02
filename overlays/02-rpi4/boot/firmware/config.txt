@@ -1,7 +1,11 @@
 
 [all]
-# Enable fKMS Driver
-dtoverlay=vc4-fkms-v3d
+# Enable KMS Driver
+dtoverlay=vc4-kms-v3d
+display_auto_detect=1
+#dtoverlay=vc4-kms-dsi-7inch
+#dtoverlay=vc4-fkms-v3d
+
 max_framebuffers=2
 
 # Set CPU params
