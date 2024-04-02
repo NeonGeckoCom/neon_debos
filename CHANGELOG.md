@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.4.2a27](https://github.com/NeonGeckoCom/neon_debos/tree/24.4.2a27) (2024-04-02)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.4.1a26...24.4.2a27)
+
+**Merged pull requests:**
+
+- Update GUI config to handle non-deterministic output devices [\#140](https://github.com/NeonGeckoCom/neon_debos/pull/140) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.4.1a26](https://github.com/NeonGeckoCom/neon_debos/tree/24.4.1a26) (2024-04-01)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.3.27a25...24.4.1a26)
