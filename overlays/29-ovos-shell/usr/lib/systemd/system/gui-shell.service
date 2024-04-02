@@ -1,6 +1,5 @@
 [Unit]
 Description=Neon GUI
-After=basic.target
 
 [Service]
 # TODO: Generic user ID
@@ -13,4 +12,4 @@ Restart=on-failure
 TimeoutStopSec=10
 
 [Install]
-WantedBy=graphical.target
+WantedBy=multi-user.target
