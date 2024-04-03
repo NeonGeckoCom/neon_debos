@@ -2,6 +2,7 @@
 Description=Neon Log Archival
 PartOf=neon.service
 Before=neon-bus.service
+After=update-clock.service
 
 [Service]
 Type=oneshot
