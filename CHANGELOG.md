@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.4.3a28](https://github.com/NeonGeckoCom/neon_debos/tree/24.4.3a28) (2024-04-03)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.4.2a27...24.4.3a28)
+
+**Merged pull requests:**
+
+- Refactor service dependencies to optimize startup [\#141](https://github.com/NeonGeckoCom/neon_debos/pull/141) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.4.2a27](https://github.com/NeonGeckoCom/neon_debos/tree/24.4.2a27) (2024-04-02)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.4.1a26...24.4.2a27)
