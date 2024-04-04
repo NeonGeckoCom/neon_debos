@@ -9,4 +9,6 @@ actions:
   - action: run
     description: Enable clock reset service
     chroot: true
-    command: systemctl enable update-clock
+    command: |
+      chmod ugo+x /opt/neon/check_clock
+      systemctl enable update-clock

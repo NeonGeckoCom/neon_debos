@@ -30,26 +30,27 @@
 # Do nothing if there's an RTC module present
 [ -e /dev/rtc ] && exit 0
 
-ip route | grep default
 
-if [ $? != 0 ]; then
+if ! grep "default" <<< "$(ip route)"; then
     if [ -n "$(ls /etc/NetworkManager/system-connections/)" ]; then
         echo "Network Configured, waiting for reconnection"
-        sleep 15
+        while ! grep "default" <<< "$(ip route)"; do
+          sleep 1
+        done
+        # Service may timeout here waiting for connection
     else
         echo "No Networks Configured"
     fi
-    ip route | grep default
 fi
-if [ $? != 0 ]; then
+if ! grep "default" <<< "$(ip route)" ; then
   echo "Network not connected."
   if [ -f "/opt/neon/reset_clock" ]; then
     echo "Reset time on first boot without networking"
     /usr/bin/date -s "1 JAN 1970 00:00:00"
   fi
 else
-  echo "Connected; force sync"
-  /usr/sbin/ntpd -ngq
+  ntpd -gq
 fi
 
 [ -f "/opt/neon/reset_clock" ] && rm /opt/neon/reset_clock
+exit 0
