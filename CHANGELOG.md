@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.4.4a29](https://github.com/NeonGeckoCom/neon_debos/tree/24.4.4a29) (2024-04-04)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.4.3a28...24.4.4a29)
+
+**Merged pull requests:**
+
+- Ensure Clock is synced during init [\#142](https://github.com/NeonGeckoCom/neon_debos/pull/142) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.4.3a28](https://github.com/NeonGeckoCom/neon_debos/tree/24.4.3a28) (2024-04-03)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.4.2a27...24.4.3a28)
