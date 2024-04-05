@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.4.5a30](https://github.com/NeonGeckoCom/neon_debos/tree/24.4.5a30) (2024-04-05)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.4.4a29...24.4.5a30)
+
+**Merged pull requests:**
+
+- Remove unstable apt sources [\#143](https://github.com/NeonGeckoCom/neon_debos/pull/143) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.4.4a29](https://github.com/NeonGeckoCom/neon_debos/tree/24.4.4a29) (2024-04-04)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.4.3a28...24.4.4a29)
