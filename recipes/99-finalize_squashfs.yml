@@ -1,9 +1,9 @@
-{{- $architecture := or .architecture "arm64" -}}
 {{- $image := or .image "ovos-dev-edition-rpi4" -}}
 {{- $build_cores := or .build_cores 4 -}}
 {{- $platform := or .platform "rpi4" -}}
+{{- $uid := or .uid "" -}}
 
-architecture: {{ $architecture }}
+architecture: {{ .architecture }}
 
 actions:
 {{ if eq $platform "rpi4" }}
@@ -89,3 +89,10 @@ actions:
     description: Compress image
     postprocess: true
     command: xz --compress -T{{ $build_cores }} output/{{ $image }}.img
+
+{{ if $uid }}
+  - action: run
+    description: Fix Output Ownership
+    chroot: false
+    command: chown {{ $uid }}:{{ $uid }}  /image_build/output/{{ $image }}.*
+{{ end }}

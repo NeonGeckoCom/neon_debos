@@ -1,15 +1,16 @@
-{{- $architecture := or .architecture "arm64" -}}
 {{- $build_cores := or .build_cores 4 -}}
+{{- $platform := or .platform "rpi4" -}}
 
-architecture: {{ $architecture }}
+architecture: {{ .architecture }}
 
 actions:
-  - action: run
-    description: Ensure /var/tmp directory
-    chroot: true
-    command: mkdir -p /var/tmp
+  - action: overlay
+    description: Shell Overlay
+    source: ../overlays/29-ovos-shell
+    destination: /
+
   - action: apt
-    description: GUI Build Dependencies
+    description: GUI/Shell Dependencies
     packages:
       - breeze-icon-theme
       - cmake
@@ -27,13 +28,11 @@ actions:
       - libkf5notifications-dev
       - libkf5plasma-dev
       - libqt5multimedia5-plugins
-      # TODO: Skip keyboard since build is below?
-#      - libqt5virtualkeyboard5-dev
       - libqt5websockets5-dev
       - libqt5webview5-dev
+      - make
       - pkg-config
       - pkg-kde-tools
-      - plasma-pa
       - qml-module-qt-labs-folderlistmodel
       - qml-module-qtgraphicaleffects
       - qml-module-qtlocation
@@ -56,20 +55,20 @@ actions:
       - qtbase5-dev
       - qtdeclarative5-dev
       - qtmultimedia5-dev
-      - qtwayland5
-      - xorg
-
-  - action: overlay
-    description: Neon Shell Overlay
-    source: ../overlays/29-ovos-shell
-    destination: /
 
   - action: run
-    description: Build Keyboard
+    description: Install patched keyboard binary
     chroot: true
     command: |
-      dpkg --force-overwrite -i /opt/qtvirtualkeyboard_patch/qtvirtualkeyboard_5.15.6_arm64.deb || exit 10
-      rm -rf /opt/qtvirtualkeyboard_patch || exit 10
+      dpkg --force-overwrite -i /var/tmp/*.deb
+      rm /var/tmp/*.deb
+
+{{ if eq $platform "opi5" }}
+  - action: run
+    description: Patch device path for Orange Pi5
+    chroot: True
+    command: echo "QT_QPA_EGLFS_KMS_CONFIG=/etc/neon/eglfs.json" >> /etc/neon/gui-shell.conf
+{{ end }}
 
   - action: run
     description: Build and Install OVOS Shell and Mycroft GUI

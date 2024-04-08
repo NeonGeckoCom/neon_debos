@@ -32,33 +32,39 @@
 # Set to exit on error
 set -Ee
 
-export PIPX_HOME=/opt/neon/pipx
-export PIPX_BIN_DIR=/bin
+kernel="${2}"
 
-[ -d ${PIPX_HOME} ] || mkdir -p ${PIPX_HOME}
-pipx install sj201-interface==0.0.3a2
+echo "Building for kernel ${kernel}"
+case "${kernel}" in
+  5.*)
+    branch=0.0.1
+    ;;
+  6.1.*)
+    branch=0.0.1
+    ;;
+  6.6.*)
+    branch=6.6.x
+    ;;
+  *)
+    echo "Guessing main branch for kernel=${kernel}"
+    branch="main"
+    ;;
+esac
 
-kernels=($(ls /lib/modules))
-echo "Looking for kernels with build dir in ${kernels[*]}"
-for k in "${kernels[@]}"; do
-  if [ -d "/lib/modules/${k}/build" ]; then
-    kernel="${k}"
-    echo "Building for kernel ${kernel}"
+# Build and load VocalFusion Driver
+git clone https://github.com/OpenVoiceOS/vocalfusiondriver -b "${branch}"
+cd vocalfusiondriver/driver || exit 10
+sed -ie "s|\$(shell uname -r)|${kernel}|g" Makefile
+make -j${1:-} all || exit 2
+mkdir -p "/lib/modules/${kernel}/kernel/drivers/vocalfusion"
+cp vocalfusion* "/lib/modules/${kernel}/kernel/drivers/vocalfusion" || exit 2
+[ -d /boot/overlays ] || mkdir /boot/overlays
+cp ../*.dtbo /boot/overlays/
+cd ../..
+rm -rf vocalfusiondriver
 
-    # Build and load VocalFusion Driver
-    git clone https://github.com/OpenVoiceOS/vocalfusiondriver
-    cd vocalfusiondriver/driver || exit 10
-    sed -ie "s|\$(shell uname -r)|${kernel}|g" Makefile
-    make -j${1:-} all || exit 2
-    mkdir -p "/lib/modules/${kernel}/kernel/drivers/vocalfusion"
-    cp vocalfusion* "/lib/modules/${kernel}/kernel/drivers/vocalfusion" || exit 2
-    cp ../*.dtbo /boot/overlays/
-    cd ../..
-    rm -rf vocalfusiondriver
+depmod "${kernel}" -a
 
-    depmod "${kernel}" -a
-  fi
-done
 # `modinfo -k ${kernel} vocalfusion-soundcard` should show the module info now
 
 # Ensure execute permissions

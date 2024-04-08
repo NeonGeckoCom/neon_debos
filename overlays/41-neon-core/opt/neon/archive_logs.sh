@@ -28,6 +28,10 @@
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 boot_time=$(date +'%Y-%m-%d_%H-%M')
-cd /home/neon/logs || exit 2
-mkdir "${boot_time}"
-mv -f ./*.log* "${boot_time}/" || rm -r "${boot_time}"
+archive_dir="${HOME}/.cache/neon/log_archive/${boot_time}"
+mkdir "${archive_dir}"
+mv -f "${HOME}/.local/state/neon/"*.log* "${archive_dir}/" || rm -r "${archive_dir}"
+
+# Handle any archives in the old location
+cp -rn "${HOME}/.local/state/neon/20"* "${HOME}/.cache/neon/log_archive/" && echo "Relocated old archives"
+rm -rf "${HOME}/.local/state/neon/20"* && echo "Removed old archives"

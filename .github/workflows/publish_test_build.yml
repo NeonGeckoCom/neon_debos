@@ -20,3 +20,18 @@ jobs:
       publish_pypi: false
       publish_prerelease: true
       update_changelog: true
+  trigger_os_build:
+    runs-on: ubuntu-latest
+    needs: publish_alpha_release
+    steps:
+      - name: Call Release Action
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{secrets.NEON_OS_TOKEN}}
+          repository: neongeckocom/neon-os
+          event-type: Publish Release
+          client-payload: |-
+            {
+              "ref": "dev",
+              "repo": "neon-debos"
+            }

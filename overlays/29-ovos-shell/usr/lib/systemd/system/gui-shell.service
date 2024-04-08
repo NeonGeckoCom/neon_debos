@@ -1,5 +1,7 @@
 [Unit]
 Description=Neon GUI
+Before=neon.service
+After=basic.target
 
 [Service]
 # TODO: Generic user ID
@@ -7,8 +9,9 @@ User=neon
 WorkingDirectory=/opt/neon
 EnvironmentFile=/etc/neon/gui-shell.conf
 ExecStartPre=-/usr/bin/kbuildsycoca5
-ExecStart=ovos-shell
+ExecStart=/usr/bin/ovos-shell
 Restart=on-failure
+TimeoutStopSec=10
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=graphical.target

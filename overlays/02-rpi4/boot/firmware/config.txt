@@ -1,14 +1,12 @@
-# # armstub8-gic stub for Pi4s with older firmware
-# armstub=armstub8-gic.bin
-# enable_gic=1
-
-[pi4]
-dtoverlay=vc4-fkms-v3d
-max_framebuffers=2
-arm_64bit=1
-arm_boost=1
 
 [all]
+# Enable fKMS Driver
+dtoverlay=vc4-fkms-v3d
+max_framebuffers=2
+
+# Set CPU params
+arm_64bit=1
+arm_boost=1
 
 # Enable audio (loads snd_bcm2835)
 dtparam=audio=on

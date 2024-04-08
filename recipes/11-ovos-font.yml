@@ -1,6 +1,4 @@
-{{- $architecture := or .architecture "arm64" -}}
-
-architecture: {{ $architecture }}
+architecture: {{ .architecture }}
 
 actions:
 
@@ -22,6 +20,11 @@ actions:
     description: Set font permissions
     chroot: true
     command: chmod +r /usr/share/fonts/truetype/noto/*
+
+  - action: apt
+    description: Install fontconfig dependency
+    packages:
+      - fontconfig
 
   - action: run
     description: Update font cache

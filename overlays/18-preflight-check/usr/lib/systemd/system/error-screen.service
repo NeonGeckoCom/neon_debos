@@ -1,0 +1,10 @@
+[Unit]
+Description=Error screen
+Conflicts=gui-shell.service
+Conflicts=splashscreen.service
+
+[Service]
+EnvironmentFile=/etc/neon/error_screen.conf
+ExecStart=/usr/bin/fbi -d /dev/fb0 --noverbose -a $ERROR_SCREEN
+StandardInput=tty
+StandardOutput=tty

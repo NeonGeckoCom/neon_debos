@@ -1,0 +1,17 @@
+[Unit]
+Description=Neon Node Service
+After=update-clock.service
+
+[Service]
+Type=notify
+TimeoutStartSec=60
+TimeoutStopSec=60
+Restart=always
+User=neon
+EnvironmentFile=/etc/neon/neon_env.conf
+WorkingDirectory=/opt/neon
+ExecStart=/usr/libexec/neon-node.py
+
+
+[Install]
+WantedBy=multi-user.target

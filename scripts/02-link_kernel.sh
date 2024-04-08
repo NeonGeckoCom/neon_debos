@@ -45,7 +45,6 @@ fi
 
 # RPi needs firmware and kernel updated on the boot partition
 if [ -d "/boot/firmware" ]; then
-  echo "${kernel}" > /boot/firmware/kernel.txt
 
   # Copy appropriate overlays to boot partition
   mkdir -p /boot/firmware/overlays
@@ -55,6 +54,4 @@ if [ -d "/boot/firmware" ]; then
   # Copy kernel to boot partition
   mv "/boot/vmlinuz-${kernel}" /boot/firmware/kernel8.img.gz
   gunzip /boot/firmware/kernel8.img.gz
-else
-  echo "${kernel}" > /boot/kernel.txt
 fi

@@ -1,8 +1,7 @@
 {{- $architecture := or .architecture "arm64" -}}
-{{- $firmware_version := or .firmware_version "master" -}}
 {{- $kernel_version := or .kernel_version "" -}}
 
-architecture: {{ $architecture }}
+architecture: {{ .architecture }}
 
 actions:
 

@@ -3,8 +3,10 @@ Description=Boot Partition Network Configuration Check
 Requires=network.target
 After=NetworkManager.service
 Before=wifi-setup.service
+Before=update-clock.service
 
 [Service]
+Type=oneshot
 Restart=on-failure
 RestartSec=15s
 ExecStart=/bin/bash /opt/neon/check_boot_network_config.sh

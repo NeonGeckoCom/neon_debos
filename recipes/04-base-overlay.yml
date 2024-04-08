@@ -1,10 +1,13 @@
-{{- $architecture := or .architecture "arm64" -}}
-{{- $firmware_version := or .firmware_version "master" -}}
-{{ $suite :=  or .suite "focal" }}
-
-architecture: {{ $architecture }}
+architecture: {{ .architecture }}
 
 actions:
+  # These pkgs should be installed before they are configured via overlay files
+  - action: apt
+    description: Install requirements for base overlay
+    packages:
+      - sudo
+      - bash-completion
+
   - action: overlay
     description: Assistant-specific overlay
     source: ../overlays/04-base-embedded

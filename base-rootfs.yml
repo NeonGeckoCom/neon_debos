@@ -1,6 +1,5 @@
 {{- $architecture := or .architecture "arm64" -}}
-{{- $firmware_version := or .firmware_version "master" -}}
-{{- $kernel_version := or .kernel_version "5.15.92-gecko+" -}}
+{{- $kernel_version := or .kernel_version "6.1.77-gecko+" -}}
 {{ $suite :=  or .suite "bookworm" }}
 {{- $build_cores := or .build_cores 4 -}}
 {{ $platform := or .platform "rpi4" }}
@@ -12,13 +11,12 @@ actions:
     recipe: recipes/01-debian-base.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
+
   - action: recipe
     recipe: recipes/02-{{ $platform }}.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
       kernel_version: {{ $kernel_version }}
 
@@ -26,33 +24,19 @@ actions:
     recipe: recipes/03-base-packages.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
-      suite: {{ $suite }}
-{{ if eq $platform "rpi4" }}
-  - action: recipe
-    recipe: recipes/03-get-raspi-packages.yml
-{{ end }}
+
   - action: recipe
     recipe: recipes/04-base-overlay.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
 
   - action: recipe
     recipe: recipes/05-setup-networking.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
-{{ if eq $platform "rpi4" }}
-  - action: recipe
-    recipe: recipes/06-libcamera.yml
-    variables:
-      architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
-      suite: {{ $suite }}
-{{ end }}
+
   - action: recipe
     recipe: recipes/07-splash-screen.yml
     variables:
@@ -62,7 +46,6 @@ actions:
     recipe: recipes/08-poweroff-service.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
 
   - action: recipe
@@ -84,7 +67,6 @@ actions:
     recipe: recipes/13-audio-devices.yml
     variables:
       architecture: {{ $architecture }}
-      firmware_version: {{ $firmware_version }}
       suite: {{ $suite }}
       platform: {{ $platform }}
 
@@ -125,10 +107,13 @@ actions:
     variables:
       architecture: {{ $architecture }}
       build_cores: {{ $build_cores }}
+      kernel_version: {{ $kernel_version }}
+
   - action: recipe
     recipe: recipes/21-seeed-audio.yml
     variables:
-      architecture: { { $architecture } }
+      architecture: {{ $architecture }}
+      kernel_version: {{ $kernel_version }}
 
   - action: recipe
     recipe: recipes/22-mark1.yml
@@ -151,6 +136,15 @@ actions:
     variables:
       architecture: {{ $architecture }}
       build_cores: {{ $build_cores }}
+      platform: {{ $platform }}
 
   - action: pack
-    file: {{ $platform }}_base.tar.gz
+    file: base_images/{{ $platform }}_base.tar.gz
+
+  - action: run
+    description: Update md5 base image references
+    chroot: false
+    command: |
+      cd /image_build/base_images
+      md5sum *.tar.gz > base_images.md5
+      chmod 777 ./*

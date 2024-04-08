@@ -32,6 +32,7 @@ import json
 import os
 import urllib.request
 
+from subprocess import getoutput
 from sys import argv
 from datetime import datetime, timezone
 
@@ -47,7 +48,7 @@ def get_commit_and_time(repo, branch="master"):
     return commit_sha, commit_time
 
 
-def get_neon_core_meta(core_branch="dev"):
+def get_neon_core_meta(core_branch="dev", core_repo="neoncore", version_path="neon_core/version.py"):
     try:
         core_sha, core_time = get_commit_and_time("neoncore", core_branch)
     except Exception as e:
@@ -58,8 +59,8 @@ def get_neon_core_meta(core_branch="dev"):
     core_version = "unknown"
     try:
         core_version_file = urllib.request.urlopen(
-            f"https://raw.githubusercontent.com/neongeckocom/neoncore/"
-            f"{core_branch}/neon_core/version.py").read().decode('utf-8')
+            f"https://raw.githubusercontent.com/neongeckocom/{core_repo}/"
+            f"{core_branch}/{version_path}").read().decode('utf-8')
         for line in core_version_file.split('\n'):
             if line.startswith("__version__"):
                 if '"' in line:
@@ -85,8 +86,14 @@ def get_recipe_meta(branch="dev"):
 
 
 def get_initramfs_metadata():
-    initramfs_path = "/boot/firmware/initramfs"
+    if platform == "rpi4":
+        initramfs_path = "/boot/firmware/initramfs"
+    elif platform == "opi5":
+        initramfs_path = "/boot/uInitrd"
+    else:
+        return dict()
     if not os.path.isfile(initramfs_path):
+        print(f"Missing initramfs at: {initramfs_path}")
         return dict()
     else:
         with open(initramfs_path, 'rb') as f:
@@ -99,16 +106,14 @@ def get_kernel_metadata(platform: str) -> dict:
     kernel_version = "unknown"
     if platform == "rpi4":
         kernel_path = "/boot/firmware/kernel8.img"
-        kernel_info_path = "/boot/firmware/kernel.txt"
     elif platform == "opi5":
         kernel_path = "/boot/Image"
-        kernel_info_path = "/boot/kernel.txt"
     else:
         return {"version": kernel_version}
 
-    if os.path.isfile(kernel_info_path):
-        with open(kernel_info_path, 'r') as f:
-            kernel_version = f.read().strip('\n')
+    kernel_version = getoutput(f'strings "{kernel_path}" | '
+                               'grep "Linux version" | head -n1').split()[2]
+
     with open(kernel_path, 'rb') as f:
         kernel_hash = hashlib.md5(f.read()).hexdigest()
     return {"version": kernel_version,
@@ -123,9 +128,25 @@ if __name__ == "__main__":
     architecture = argv[4]
     platform = argv[5]
     device = argv[6]
+    if len(argv) > 7:
+        build_version = argv[7]
+    else:
+        build_version = image_name.split('_')[1][2:].replace('-', '.') + "alpha"
+
     print(f"debos_ref={debos_ref}")
-    data = dict()
-    data["core"] = get_neon_core_meta(core_ref)
+    data = {"build_version": build_version}
+
+    if image_name.startswith("debian-neon-image"):
+        edition = "Core"
+        data["core"] = get_neon_core_meta(core_ref, "NeonCore",
+                                          "neon_core/version.py")
+    elif image_name.startswith("debian-node-image"):
+        edition = "Node"
+        data["core"] = get_neon_core_meta(core_ref, "neon-nodes",
+                                          "neon_nodes/version.py")
+    else:
+        edition = "Unknown"
+
     data["image"] = get_recipe_meta(debos_ref)
     data["image"]["version"] = debos_ref
     data["initramfs"] = get_initramfs_metadata()
@@ -136,6 +157,7 @@ if __name__ == "__main__":
                                   "%Y-%m-%d_%H_%M").timestamp(),
         "arch": architecture,
         "platform": platform,
+        "edition": edition,
         "device": device
     }
     os.makedirs("/opt/neon", exist_ok=True)

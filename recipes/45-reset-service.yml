@@ -1,16 +1,8 @@
-{{- $architecture := or .architecture "arm64" -}}
-{{- $firmware_version := or .firmware_version "master" -}}
-{{ $suite :=  or .suite "focal" }}
-
-architecture: {{ $architecture }}
+architecture: {{ .architecture }}
 
 actions:
   - action: overlay
     description: Neon Reset Service Overlay
     source: ../overlays/45-reset-service
     destination: /
-#  - action: run
-#    description: Install and Enable Neon Reset Service
-#    chroot: true
-#    script: ../scripts/45-enable-reset-service.sh
 

@@ -5,12 +5,13 @@
 {{- $image := or .image "debian-base-image-rpi4" -}}
 {{- $neon_debos := or .neon_debos "unknown" -}}
 {{- $build_cores := or .build_cores 4 -}}
+{{ $build_version := or .build_version "" }}
 
 architecture: {{ $architecture }}
 
 actions:
   - action: unpack
-    file: {{ $platform }}_base.tar.gz
+    file: base_images/{{ $platform }}_base.tar.gz
 
   - action: recipe
     recipe: recipes/70-developer-extras.yml
@@ -18,7 +19,7 @@ actions:
       architecture: {{ $architecture }}
 
   - action: recipe
-    recipe: recipes/90-base-finalscripts.yml
+    recipe: recipes/90-cleanup-build-leftovers.yml
     variables:
       architecture: {{ $architecture }}
       firmware_version: {{ $firmware_version }}

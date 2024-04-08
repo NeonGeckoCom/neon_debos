@@ -28,18 +28,22 @@
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 sudo apt install -y git bc bison flex libssl-dev make libc6-dev libncurses5-dev\
-    crossbuild-essential-arm64 libncurses5-dev binutils
+    crossbuild-essential-arm64 libncurses5-dev binutils build-essential
 
 ROOT_PATH="$(pwd)"
 
-branch="rpi-5.15.y"
+branch="rpi-6.1.y"
 git clone --depth=1 https://github.com/raspberrypi/linux -b "${branch}"
 cd linux || exit 10
 export KERNEL=kernel8
 make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- bcm2711_defconfig
-mv .config .config.old
-cp "../config-${branch}" .config
-make -j4 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- deb-pkg
+
+while read line; do
+  echo "${line}"
+  ./scripts/config --set-val ${line}
+done < "../config-overlay-${branch}"
+
+make -j ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- deb-pkg
 cd .. || exit 10
 rm -rf linux
 for file in *.deb; do
@@ -61,8 +65,6 @@ for file in *.deb; do
   rm -r "${work_dir}"
 done
 cp "${kernel_dir}/"*.deb "${ROOT_PATH}/../../overlays/02-rpi4/var/tmp/" && echo "Copied deb installers to overlay"
-echo "Compressing ${kernel_dir}"
-zip -j -r "${kernel_dir}.zip" "${kernel_dir}" || exit 2
 rm -r "${kernel_dir}"
 rm linux-upstream_*
 rm ./*.deb

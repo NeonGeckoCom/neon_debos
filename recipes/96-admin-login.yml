@@ -1,12 +1,16 @@
-{{- $architecture := or .architecture "arm64" -}}
-{{- $firmware_version := or .firmware_version "master" -}}
-{{ $suite :=  or .suite "focal" }}
-
-architecture: {{ $architecture }}
+architecture: {{ .architecture }}
 
 actions:
-
+  - action: apt
+    description: Install sudo
+    packages:
+      - sudo
   - action: run
     description: Enable shell login as admin
     chroot: true
-    script: ../scripts/96-admin-login.sh
+    command: |
+      adduser admin -gecos "" --disabled-password
+      echo "admin:password" | chpasswd
+      passwd --expire admin
+      usermod -aG sudo admin
+

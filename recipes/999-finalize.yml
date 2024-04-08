@@ -1,5 +1,4 @@
 {{- $architecture := or .architecture "arm64" -}}
-{{- $firmware_version := or .firmware_version "master" -}}
 {{ $suite :=  or .suite "focal" }}
 {{- $image := or .image "ovos-dev-edition-rpi4" -}}
 # This will not generate a usable image; manual changes to config.txt and cmdline.txt will be required

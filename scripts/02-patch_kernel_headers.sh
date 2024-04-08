@@ -32,10 +32,8 @@ set -Ee
 
 # shellcheck disable=SC2207
 # shellcheck disable=SC2010
-kernels=($(ls /usr/src | grep linux-headers))
-## Append default kernel to the end of the list
-#default_kernel="${1}"
-#kernels[${#kernels[@]}]="${default_kernel}"
+headers=($(ls /usr/src | grep linux-headers))
+
 
 patch_5_4() {
   gcc kallsyms.c -o "$HEADER_DIR/scripts/kallsyms"
@@ -64,18 +62,32 @@ patch_5_15() {
   gcc ./genksyms/genksyms.c ./genksyms/parse.tab.c ./genksyms/lex.lex.c -o "$HEADER_DIR/scripts/genksyms/genksyms"
 }
 
-for kernel in "${kernels[@]}"; do
-  echo "patching kernel ${kernel}"
-  export HEADER_DIR="/usr/src/${kernel}"
+patch_6_1() {
+  gcc kallsyms.c -o "$HEADER_DIR/scripts/kallsyms"
+  gcc recordmcount.c -o "$HEADER_DIR/scripts/recordmcount"
+  gcc unifdef.c -o "$HEADER_DIR/scripts/unifdef"
+  gcc ./basic/fixdep.c -o "$HEADER_DIR/scripts/basic/fixdep" || exit 10
+  gcc ./mod/modpost.c ./mod/file2alias.c ./mod/sumversion.c -o "$HEADER_DIR/scripts/mod/modpost"
+  gcc ./mod/mk_elfconfig.c -o "$HEADER_DIR/scripts/mod/mk_elfconfig"
+  gcc  -I../include asn1_compiler.c -o "$HEADER_DIR/scripts/asn1_compiler"
+  gcc ./genksyms/genksyms.c ./genksyms/parse.tab.c ./genksyms/lex.lex.c -o "$HEADER_DIR/scripts/genksyms/genksyms"
+}
+
+for header in "${headers[@]}"; do
+  echo "patching kernel header ${header}"
+  export HEADER_DIR="/usr/src/${header}"
   [ -d "${HEADER_DIR}" ] || exit 2
   [ -d "${HEADER_DIR}/scripts" ] || continue
   find "$HEADER_DIR/scripts" -type f | while read i; do if file -b $i | egrep -q "^ELF.*x86-64"; then rm "$i"; fi; done
   cd "$HEADER_DIR/scripts" || exit 2
-  if [[ ${kernel} == "linux-headers-5.4."* ]]; then
+  if [[ ${header} == "linux-headers-5.4."* ]]; then
     patch_5_4
-  elif [[ ${kernel} == "linux-headers-5.15."* ]]; then
+  elif [[ ${header} == "linux-headers-5.15."* ]]; then
     patch_5_15
-  # TODO: 6.x kernels
+  elif [[ ${header} == "linux-headers-6.1."* ]]; then
+    patch_6_1
+  else
+    echo "No patch for headers ${header}"
   fi
 done
 

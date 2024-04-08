@@ -4,14 +4,21 @@
 {{- $neon_debos := or .neon_debos "unknown" -}}
 {{ $platform := or .platform "rpi4" }}
 {{ $device := or .device $platform }}
+{{ $hostname := or .hostname "neon" }}
+{{ $build_version := or .build_version "" }}
 
-architecture: {{ $architecture }}
+architecture: {{ .architecture }}
 
 actions:
   - action: run
+    descripion: Update OS hostname
+    chroot: true
+    command: echo "{{ $hostname }}" > /etc/hostname
+
+  - action: run
     description: Add metadata file to image
     chroot: true
-    script: ../scripts/95-get_metadata.py {{ $neon_core }} {{ $neon_debos }} {{ $image }} {{ $architecture }} {{ $platform }} {{ $device }}
+    script: ../scripts/95-get_metadata.py {{ $neon_core }} {{ $neon_debos }} {{ $image }} {{ $architecture }} {{ $platform }} {{ $device }} {{ $build_version }}
   - action: run
     description: Copy metadata to outputs
     chroot: false

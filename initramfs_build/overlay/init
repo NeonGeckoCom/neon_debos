@@ -346,9 +346,9 @@ if [ -n "${ROOT_ROPATH}" ]; then
   log_end_msg
 
   if [ -f /media/rw/upperdir/opt/neon/squashfs_updated ]; then
-    user_backup_path="/media/rw/firmware_backup"
+    fw_backup_path="/media/rw/firmware_backup"
     log "Checking for updated kernel/firmware"
-    scripts/check_firmware_update.sh "${user_backup_path}"
+    scripts/check_firmware_update.sh "${fw_backup_path}"
     log "No firmware update to apply"
   fi
 
@@ -363,14 +363,20 @@ if [ -n "${ROOT_ROPATH}" ]; then
   [ "$quiet" != "y" ] && log "swapfile handled"
 
   # Define remaining paths and build overlayFS
-  mkdir -p /media/rw/work /media/rw/upperdir
+  [ -d /media/rw/work ] || mkdir -p /media/rw/work
+  [ -d /media/rw/upperdir ] || mkdir -p /media/rw/upperdir
+
   [ "$quiet" != "y" ] && log_begin_msg "Mounting overlayFS"
   mount -t overlay overlay -o lowerdir=/media/ro,upperdir=/media/rw/upperdir,workdir=/media/rw/work ${rootmnt}
   [ "$quiet" != "y" ] && log_end_msg
 
   [ "$quiet" != "y" ] && log_begin_msg "Running /scripts/init-bottom"
   # We expect udev's init-bottom script to move /dev to ${rootmnt}/dev
-  [ -d "${rootmnt}/dev" ] || mkdir "${rootmnt}/dev"  # Ensure new directory exists
+  if [ ! -d "${rootmnt}/dev" ]; then
+    log_warning_msg "/dev not initialized"
+    # Ensure /dev directory exists
+    mkdir "${rootmnt}/dev"
+  fi
   run_scripts /scripts/init-bottom
   [ "$quiet" != "y" ] && log_end_msg
   # Move /run to the root
@@ -381,28 +387,6 @@ if [ -n "${ROOT_ROPATH}" ]; then
   mount -n --move /media/ro ${rootmnt}/media/ro
   mount -n --move /media/rw ${rootmnt}/media/rw
 
-  init="/sbin/init"
-
-elif [ -n "${ROOT_RWDEVICE}" ]; then  # TODO: Deprecate? this was never deployed
-  log "configuring squashFS partition"
-
-  # Mount read-only FS
-  mkdir -p /media/ro
-  mount -t "${ROOTFSTYPE}" -o noatime,nodiratime "${ROOT}" /media/ro
-  mount -o remount,ro /media/ro
-
-  # Mount read-write FS
-  mkdir -p /media/rw
-  mount "${ROOT_RWDEVICE}" /media/rw -t auto -o relatime,nosuid,nodev
-
-  # Define remaining paths and build overlayFS
-  mkdir -p /media/rw/upperdir /media/rw/work
-  mount -t overlay overlay -o lowerdir=/media/ro,upperdir=/media/rw/upperdir,workdir=/media/rw/work ${rootmnt}
-
-  # Remount partitions in overlayfs
-  mkdir -p ${rootmnt}/media/ro ${rootmnt}/media/rw
-  /bin/mount -n --move /media/ro ${rootmnt}/media/ro
-  /bin/mount -n --move /media/rw ${rootmnt}/media/rw
   init="/sbin/init"
 else
   [ "$quiet" != "y" ] && log_begin_msg "Running /scripts/init-bottom"
@@ -468,11 +452,12 @@ unset starttime
 [ -d "${rootmnt}/proc" ] || mkdir "${rootmnt}/proc"
 mount -n -o move /sys ${rootmnt}/sys
 mount -n -o move /proc ${rootmnt}/proc
-
+log "Mounted /sys and /proc"
 # If a swapfile exists, remount it in the new root
 if [ -f /swapfile ]; then
   [ -f "${rootmnt}/swapfile" ] || touch "${rootmnt}/swapfile"
   mount -n -o move /swapfile ${rootmnt}/swapfile
+  log "Mounted /swapfile"
 fi
 
 # Flush dmesg logs to disk

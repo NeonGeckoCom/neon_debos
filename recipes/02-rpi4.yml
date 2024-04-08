@@ -1,28 +1,32 @@
 {{- $architecture := or .architecture "arm64" -}}
-{{- $firmware_version := or .firmware_version "master" -}}
 {{- $kernel_version := or .kernel_version "" -}}
+{{ $suite :=  or .suite "bookworm" }}
 
-architecture: {{ $architecture }}
+architecture: {{ .architecture }}
 
 actions:
-  - action: download
-    description: Download latest version of the firmware from GitHub
-    url: https://github.com/raspberrypi/firmware/archive/{{ $firmware_version }}.tar.gz
-    unpack: true
-    name: firmware
+  - action: run
+    description: Add Raspberry Pi APT GPG key
+    chroot: true
+    command: curl https://archive.raspberrypi.org/debian/raspberrypi.gpg.key | apt-key add - 2> /dev/null
 
   - action: overlay
-    description: Apply downloaded RPi firmware
-    origin: firmware
-    source: firmware-{{ $firmware_version }}/boot
-    destination: /boot/firmware
+    description: Add Raspberry Pi 4 root overlay
+    source: ../overlays/02-rpi4
+    destination: /
 
   - action: run
-    description: Remove downloaded kernel and dtb files
+    description: Remove extra overlay files
     chroot: true
-    command: rm -rvf /boot/firmware/kernel*.img /boot/firmware/*.dtb /boot/firmware/overlays
+    command: rm /boot/firmware/initramfs.md5
+
+  - action: run
+    description: Add raspberrypi apt sources
+    chroot: true
+    command: echo "deb https://archive.raspberrypi.org/debian/ {{ $suite }} main">/etc/apt/sources.list.d/raspberrypi.list
 
   - action: apt
+    description: Core RPi Dependencies
     packages:
       - file
       - gcc
@@ -36,38 +40,28 @@ actions:
       - libssl-dev
       - firmware-brcm80211
       - rpi.gpio-common
-
-  - action: overlay
-    description: Add Raspberry Pi 4 root overlay
-    source: ../overlays/02-rpi4
-    destination: /
+      - raspberrypi-bootloader
+      - libraspberrypi-dev
+      - raspi-config
+      - raspi-utils
+      - raspi-firmware
+      - rpi-eeprom
+      - libcamera-apps
 
   - action: run
-    origin: kernel
     chroot: true
     description: Install kernel
-    label: dpkg
-    command: dpkg -i /var/tmp/*.deb && rm /var/tmp/* -r
+    command: dpkg -i /var/tmp/*.deb && rm /var/tmp/* -r || exit 3
 
   - action: run
     description: Copy dtb and kernel ({{ $kernel_version }}) to boot firmware partition
     chroot: true
     script: ../scripts/02-link_kernel.sh {{ $kernel_version }}
 
-#  - action: run
-#    description: Get and Install Kernel Packages
-#    chroot: true
-#    script: ../scripts/02-get_raspi_kernel.sh
-
   - action: run
-    description: Patch kernel headers
+    description: Link firmware
     chroot: true
-    script: ../scripts/02-patch_kernel_headers.sh
-
-#  - action: run
-#    description: Set root device in cmdline.txt
-#    chroot: true
-#    script: ../scripts/02-set_root_fs.sh
+    command: ln -s /boot/firmware/overlays /boot/overlays
 
   - action: run
     description: Set hostname
