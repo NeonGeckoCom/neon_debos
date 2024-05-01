@@ -49,7 +49,7 @@ cd "${BASE_DIR}" || exit 10
 rm -rf ovos-shell
 
 # Install GUI
-git clone https://github.com/mycroftai/mycroft-gui -b stable-qt5
+git clone https://github.com/openvoiceos/mycroft-gui-qt5 -b dev mycroft-gui
 #bash mycroft-gui/dev_setup.sh
 cd mycroft-gui || exit 10
 TOP=$( pwd -L )
