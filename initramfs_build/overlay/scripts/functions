@@ -606,6 +606,8 @@ restore_backup()
   [ -f "${BACKUP_PATH}/etc/shadow" ] && mv "${BACKUP_PATH}/etc/shadow" "${RESTORE_PATH}/etc/" && log "Restored User Passwords"
   [ -f "${BACKUP_PATH}/etc/hostname" ] && mv "${BACKUP_PATH}/etc/hostname" "${RESTORE_PATH}/etc/" && log "Restored Hostname"
   [ -f "${BACKUP_PATH}/etc/machine-id" ] && mv "${BACKUP_PATH}/etc/machine-id" "${RESTORE_PATH}/etc/" && log "Restored machine-id"
+  [ -L "${BACKUP_PATH}/etc/localtime" ] && mv "${BACKUP_PATH}/etc/localtime" "${RESTORE_PATH}/etc/" && log "Restored localtime override"
+  [ -f "${BACKUP_PATH}/etc/timezone" ] && mv "${BACKUP_PATH}/etc/timezone" "${RESTORE_PATH}/etc/" && log "Restored timezone override"
   [ -d "${BACKUP_PATH}/home" ] && mv "${BACKUP_PATH}/home" "${RESTORE_PATH}/" && log "Restored /home"
   [ -d "${BACKUP_PATH}/root" ] && mv "${BACKUP_PATH}/root" "${RESTORE_PATH}/" && log "Restored /root"
   # Restore specific `/var` paths (https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch05.html)
