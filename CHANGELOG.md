@@ -1,5 +1,17 @@
 # Changelog
 
+## [24.5.2a2](https://github.com/NeonGeckoCom/neon_debos/tree/24.5.2a2) (2024-05-02)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.5.1a1...24.5.2a2)
+
+**Implemented enhancements:**
+
+- \[FEAT\] \(possibly\) change system timestamp for logs [\#146](https://github.com/NeonGeckoCom/neon_debos/issues/146)
+
+**Merged pull requests:**
+
+- Preserve system timezone changes [\#151](https://github.com/NeonGeckoCom/neon_debos/pull/151) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.5.1a1](https://github.com/NeonGeckoCom/neon_debos/tree/24.5.1a1) (2024-05-01)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.4.8...24.5.1a1)
