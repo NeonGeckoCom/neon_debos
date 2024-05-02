@@ -51,6 +51,8 @@ rm -rf /tmp/tinyalsa
 # Clone and install ovos-i2csound
 cd /tmp
 git clone https://github.com/openvoiceos/ovos-i2csound
+cd ovos-i2csound && git checkout 9f45e51
+cd ..
 
 cp ovos-i2csound/i2c.conf /etc/modules-load.d/
 cp ovos-i2csound/ovos-i2csound /usr/libexec/
