@@ -35,31 +35,31 @@ else
 fi
 
 # Check if the device exists, if not but mounted, umount it
-if ! [ -b $dev ]
+if ! [ -b "${dev}" ]
 then
-    if grep /etc/mtab -qe "^$dev"
+    if grep /etc/mtab -qe "^${dev}"
     then
-        log "$dev device removed, umounting and cleaning /media"
-        if umount "$dev"
+        log "${dev} device removed, umounting and cleaning /media"
+        if umount "${dev}"
         then
             exitcode=0
         else
             exitcode=$?
-            errorlog "Error umounting $dev errcode:$exitcode"
-            errorlog "Command was: umount $dev"
+            errorlog "Error umounting ${dev} errcode:${exitcode}"
+            errorlog "Command was: umount ${dev}"
         fi
     else
         # prevent it from failing on nonexistent devices and degrading systemctl boot
         exitcode=0
-        errorlog "device doesn't exist anymore or is not a block device: $dev"
+        errorlog "device doesn't exist anymore or is not a block device: ${dev}"
     fi
 
     # cleanup
-    for dir in "$mediadir"/*
+    for dir in "${mediadir}"/*
     do
         # Only clean non active mountpoints that have no /etc/fstab entry
-        if [ -d "$dir" ] && ! mountpoint -q "$dir" && ! grep -q "^\s*[^#\s]\+\s\+${dir}" /etc/fstab; then
-            rmdir "$dir"
+        if [ -d "${dir}" ] && ! mountpoint -q "${dir}" && ! grep -q "^\s*[^#\s]\+\s\+${dir}" /etc/fstab; then
+            rmdir "${dir}"
         fi
     done
     exit $exitcode
@@ -98,7 +98,10 @@ then
 fi
 
 # directory name
-AUTOMOUNT_DIR="${mediadir}/${LABEL:-${dev##*/}}.${TYPE}"
+#AUTOMOUNT_DIR="${mediadir}/${LABEL:-${dev##*/}}.${TYPE}"
+dir="${dev##*/}"
+dir="${dir//[[:digit:]]/}"
+AUTOMOUNT_DIR="${mediadir}/${dir}"
 
 # Avoid conflicts when multiple devices have the same label
 if [ -e "${AUTOMOUNT_DIR}" ] && mountpoint -q "${AUTOMOUNT_DIR}"
