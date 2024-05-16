@@ -1,12 +1,21 @@
 # Changelog
 
-## [24.5.2a2](https://github.com/NeonGeckoCom/neon_debos/tree/24.5.2a2) (2024-05-02)
+## [24.5.16a3](https://github.com/NeonGeckoCom/neon_debos/tree/24.5.16a3) (2024-05-16)
 
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.5.1a1...24.5.2a2)
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.5.2a2...24.5.16a3)
 
 **Implemented enhancements:**
 
 - \[FEAT\] \(possibly\) change system timestamp for logs [\#146](https://github.com/NeonGeckoCom/neon_debos/issues/146)
+- \[FEAT\] Replace autofs with udev rules [\#127](https://github.com/NeonGeckoCom/neon_debos/issues/127)
+
+**Merged pull requests:**
+
+- Improved media device handling [\#152](https://github.com/NeonGeckoCom/neon_debos/pull/152) ([NeonDaniel](https://github.com/NeonDaniel))
+
+## [24.5.2a2](https://github.com/NeonGeckoCom/neon_debos/tree/24.5.2a2) (2024-05-02)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.5.1a1...24.5.2a2)
 
 **Merged pull requests:**
 
