@@ -1,5 +1,17 @@
 # Changelog
 
+## [24.5.18a4](https://github.com/NeonGeckoCom/neon_debos/tree/24.5.18a4) (2024-05-18)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.5.16a3...24.5.18a4)
+
+**Implemented enhancements:**
+
+- \[FEAT\] Document u-boot-build script [\#89](https://github.com/NeonGeckoCom/neon_debos/issues/89)
+
+**Merged pull requests:**
+
+- Document `uboot_build` in README [\#155](https://github.com/NeonGeckoCom/neon_debos/pull/155) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.5.16a3](https://github.com/NeonGeckoCom/neon_debos/tree/24.5.16a3) (2024-05-16)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.5.2a2...24.5.16a3)
