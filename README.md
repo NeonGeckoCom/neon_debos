@@ -65,6 +65,10 @@ This directory contains a `.config` file with some customizations for a Linux
 kernel and `build_kernel.sh` to build a kernel using that config. Kernel
 files are applied in `recipes/02-rpi4.yml`.
 
+### uboot_build
+This directory contains a script to build a `u-boot` image for the Orange Pi 5.
+This builds `u-boot.itb` and `idbloader.img` for the Orange Pi 5.
+
 ## Outputs
 Each recipe will output several output files, named by the recipe name and time
 the image was created.
