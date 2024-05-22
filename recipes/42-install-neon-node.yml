@@ -38,9 +38,9 @@ actions:
       python3 -m venv /opt/neon/venv
       . /opt/neon/venv/bin/activate
 {{ if eq $neon_core "dev" }}
-      pip install --use-pep517 --pre neon-nodes[voice-client]
+      pip install --use-pep517 --pre neon-nodes[voice-client,websocket-client] || exit 10
 {{ else }}
-      pip install --use-pep517 neon-nodes[voice-client]
+      pip install --use-pep517 neon-nodes[voice-client,websocket-client] || exit 10
 {{ end }}
       systemctl enable neon-node
       systemctl disable gui-shell
