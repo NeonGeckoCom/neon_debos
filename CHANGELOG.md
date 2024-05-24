@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.5.24a5](https://github.com/NeonGeckoCom/neon_debos/tree/24.5.24a5) (2024-05-24)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.5.18a4...24.5.24a5)
+
+**Merged pull requests:**
+
+- Implement Websocket Node [\#157](https://github.com/NeonGeckoCom/neon_debos/pull/157) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.5.18a4](https://github.com/NeonGeckoCom/neon_debos/tree/24.5.18a4) (2024-05-18)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.5.16a3...24.5.18a4)
