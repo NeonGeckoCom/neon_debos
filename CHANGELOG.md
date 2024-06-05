@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.6.5a6](https://github.com/NeonGeckoCom/neon_debos/tree/24.6.5a6) (2024-06-05)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.5.24a5...24.6.5a6)
+
+**Merged pull requests:**
+
+- Resolve logged errors when booting from SD [\#158](https://github.com/NeonGeckoCom/neon_debos/pull/158) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.5.24a5](https://github.com/NeonGeckoCom/neon_debos/tree/24.5.24a5) (2024-05-24)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.5.18a4...24.5.24a5)
