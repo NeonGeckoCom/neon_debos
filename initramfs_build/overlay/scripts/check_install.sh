@@ -39,6 +39,11 @@ boot_uuid="3030-3030"
 [ "${rootpart}" = "/dev/mmcblk0p2" ] || exit 0
 log "Booted from SD Card. Checking for installation"
 
+if [ ! -e "/dev/mmcblk1" ]; then
+  log "No internal storage to install to"
+  exit 0
+fi
+
 if lsblk -o UUID | grep -q "3030-3030"; then
   log "Already installed to internal storage. Try next boot device"
   exit 11
@@ -54,9 +59,10 @@ log "Writing ${last_sector} sectors"
 sleep 5
 dd if=/dev/mmcblk0 of=/dev/mmcblk1 count=${last_sector} && log "Wrote image to internal storage"
 sleep 5
+
 # Guarantee unique partition UUIDs
 printf "\x30\x30\x30\x30" | dd bs=1 seek=67 count=4 conv=notrunc of=/dev/mmcblk1p1 && log "Changed boot partition UUID to ${boot_uuid}"
-tune2fs -U "${root_uuid}" /dev/mmcblk1p2 && lo9g "Changed root partition UUID to ${root_uuid}"
+tune2fs -U "${root_uuid}" /dev/mmcblk1p2 && log "Changed root partition UUID to ${root_uuid}"
 
 # Update labels in boot config
 [ -d /media/fw ] || mkdir /media/fw
