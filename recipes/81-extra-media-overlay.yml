@@ -6,7 +6,7 @@ architecture: {{ .architecture }}
 actions:
   - action: download
     description: Download demo music
-    url: "https://2222.us/app/files/neon_music/music.zip"
+    url: "https://download.neonaiservices.com/media/music.zip"
     unpack: true
     name: music
 
