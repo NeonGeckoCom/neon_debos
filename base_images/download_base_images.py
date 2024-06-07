@@ -31,7 +31,7 @@ from os.path import dirname, join, isfile
 from hashlib import md5
 
 _BASE_DIR = dirname(__file__)
-_BASE_DL_URL = "https://2222.us/app/files/neon_images/base_images/"
+_BASE_DL_URL = "https://download.neonaiservices.com/neon_os/base_images/"
 
 
 def download_file(file_md5: str, local_file: str):

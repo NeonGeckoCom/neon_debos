@@ -33,7 +33,7 @@ from os.path import dirname, join
 
 class TestBaseFiles(TestCase):
     _BASE_DIR = join(dirname(dirname(__file__)), "base_images")
-    _BASE_DL_URL = "https://2222.us/app/files/neon_images/base_images/"
+    _BASE_DL_URL = "https://download.neonaiservices.com/neon_os/base_images/"
 
     def test_base_images_exist(self):
         with open(join(self._BASE_DIR, "base_images.md5")) as f:

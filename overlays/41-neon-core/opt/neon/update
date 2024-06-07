@@ -36,7 +36,7 @@ fi
 branch=${1:-"${NEON_CORE_REF}"}
 platform=${PLATFORM:-"rpi4"}
 initramfs_url="https://github.com/NeonGeckoCom/neon_debos/raw/${branch}/overlays/02-rpi4/boot/firmware/initramfs"
-squashfs_url="https://2222.us/app/files/neon_images/core/${platform}/updates/${branch}/"
+squashfs_url="https://download.neonaiservices.com/neon_os/core/${platform}/updates/${branch}/"
 
 # Update initramfs
 wget "${initramfs_url}" -O /opt/neon/initramfs.tmp || exit 10
