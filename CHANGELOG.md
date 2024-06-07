@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.6.7a7](https://github.com/NeonGeckoCom/neon_debos/tree/24.6.7a7) (2024-06-07)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.6.5a6...24.6.7a7)
+
+**Merged pull requests:**
+
+- Update to use new download server [\#159](https://github.com/NeonGeckoCom/neon_debos/pull/159) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.6.5a6](https://github.com/NeonGeckoCom/neon_debos/tree/24.6.5a6) (2024-06-05)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.5.24a5...24.6.5a6)
