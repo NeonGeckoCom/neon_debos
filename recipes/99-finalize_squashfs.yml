@@ -94,5 +94,5 @@ actions:
   - action: run
     description: Fix Output Ownership
     chroot: false
-    command: chown {{ $uid }}:{{ $uid }}  /image_build/output/{{ $image }}.*
+    command: chown {{ $uid }}:{{ $uid }}  "${RECIPE_DIR}/output/{{ $image }}."*
 {{ end }}

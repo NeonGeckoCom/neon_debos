@@ -55,5 +55,5 @@ actions:
     description: Copy output patch to host
     chroot: false
     command: |
-      mv "${ROOTDIR}/var/qtvirtualkeyboard_"*.deb "/image_build/overlays/29-ovos-shell/var/tmp/"
-      chmod 777 "/image_build/overlays/29-ovos-shell/var/tmp/"*.deb
+      mv "${ROOTDIR}/var/qtvirtualkeyboard_"*.deb "${RECIPE_DIR}/overlays/29-ovos-shell/var/tmp/"
+      chmod 777 "${RECIPE_DIR}/overlays/29-ovos-shell/var/tmp/"*.deb
