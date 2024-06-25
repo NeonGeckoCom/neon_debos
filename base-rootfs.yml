@@ -145,5 +145,6 @@ actions:
     description: Update md5 base image references
     chroot: false
     command: |
-      md5sum base_images/*.tar.gz > base_images/base_images.md5
-      chmod 777 base_images/*
+      cd base_images
+      md5sum ./*.tar.gz > ./base_images.md5
+      chmod 777 ./*
