@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.6.26a9](https://github.com/NeonGeckoCom/neon_debos/tree/24.6.26a9) (2024-06-26)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.6.25a8...24.6.26a9)
+
+**Merged pull requests:**
+
+- Add support for native debos [\#161](https://github.com/NeonGeckoCom/neon_debos/pull/161) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.6.25a8](https://github.com/NeonGeckoCom/neon_debos/tree/24.6.25a8) (2024-06-25)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.6.7a7...24.6.25a8)
