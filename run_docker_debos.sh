@@ -57,7 +57,7 @@ docker run --rm -d \
 --group-add=108 \
 --security-opt label=disable \
 --name neon_debos \
-godebos/debos "${image}" \
+godebos/debos:main "${image}" \
 -t device:"${device}" \
 -t architecture:arm64 \
 -t platform:"${platform}" \
