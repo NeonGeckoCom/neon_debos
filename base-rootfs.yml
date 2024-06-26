@@ -146,5 +146,5 @@ actions:
     chroot: false
     command: |
       cd "${RECIPEDIR}/base_images"
-      md5sum ./*.tar.gz > ./base_images.md5
+      md5sum *.tar.gz > base_images.md5
       chmod 777 ./*
