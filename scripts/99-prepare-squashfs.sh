@@ -29,7 +29,7 @@
 
 image=${1}
 root_dir=${2}
-
+recipe_dir=${3}
 # Determine directory mounted to `boot` partition
 boot_part_dir=""
 if [ -d "${root_dir}/boot/firmware" ]; then
@@ -38,10 +38,12 @@ else
   boot_part_dir="/boot"
 fi
 
+echo "ENV=${ENV}"
+
 mv "${root_dir}${boot_part_dir}" "/image_build/output/boot_part"
 rm -rf "${root_dir:?}"/*
 mkdir "${root_dir}/root"
-cp "/image_build/output/${image}.squashfs" "${root_dir}/root/neon.squashfs" && echo "added ${image} as ${root_dir}/root/neon.squashfs"
+cp "${recipe_dir}/../output/${image}.squashfs" "${root_dir}/root/neon.squashfs" && echo "added ${image} as ${root_dir}/root/neon.squashfs"
 mkdir -p "${root_dir}${boot_part_dir}"
-mv "/image_build/output/boot_part"/* "${root_dir}${boot_part_dir}" && echo "restored boot partition to ${root_dir}${boot_part_dir}"
-rm -r "/image_build/output/boot_part"
+mv "${recipe_dir}/../output/boot_part"/* "${root_dir}${boot_part_dir}" && echo "restored boot partition to ${root_dir}${boot_part_dir}"
+rm -r "${recipe_dir}/../output/boot_part"

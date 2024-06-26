@@ -78,7 +78,7 @@ actions:
   - action: run
     description: Copy squashFS to image
     chroot: false
-    script: ../scripts/99-prepare-squashfs.sh "{{ $image }}" "${ROOTDIR}"
+    script: ../scripts/99-prepare-squashfs.sh "{{ $image }}" "${ROOTDIR}" "${RECIPEDIR}"
 
   - action: filesystem-deploy
     description: Deploying filesystem into image
