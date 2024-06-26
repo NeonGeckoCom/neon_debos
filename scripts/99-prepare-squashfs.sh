@@ -38,7 +38,7 @@ else
   boot_part_dir="/boot"
 fi
 
-echo "ENV=${ENV}"
+echo "ENV=$(env)"
 
 mv "${root_dir}${boot_part_dir}" "${recipe_dir}/../output/boot_part"
 rm -rf "${root_dir:?}"/*
