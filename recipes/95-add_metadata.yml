@@ -22,4 +22,4 @@ actions:
   - action: run
     description: Copy metadata to outputs
     chroot: false
-    command: cp "${ROOTDIR}/opt/neon/build_info.json" "/image_build/output/{{ $image }}.json"
+    command: cp "${ROOTDIR}/opt/neon/build_info.json" "${ARTIFACTDIR}/output/{{ $image }}.json"
