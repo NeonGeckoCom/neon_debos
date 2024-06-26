@@ -40,7 +40,7 @@ fi
 
 echo "ENV=${ENV}"
 
-mv "${root_dir}${boot_part_dir}" "/image_build/output/boot_part"
+mv "${root_dir}${boot_part_dir}" "${recipe_dir}/../output/boot_part"
 rm -rf "${root_dir:?}"/*
 mkdir "${root_dir}/root"
 cp "${recipe_dir}/../output/${image}.squashfs" "${root_dir}/root/neon.squashfs" && echo "added ${image} as ${root_dir}/root/neon.squashfs"
