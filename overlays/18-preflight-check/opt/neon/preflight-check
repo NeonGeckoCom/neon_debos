@@ -30,10 +30,12 @@
 fail_file=/opt/neon/preflight_failures
 max_fails=5
 dmesg_output="$(dmesg)"
-
+timestamp="$(date +%s)"
 fail() {
-  echo "${dmesg_output}" > "/var/log/failed_boot-$(date +%s).dmesg"
-  cp "/var/log/initramfs.log" "/var/log/failed_boot-$(date +%s).initramfs"
+  echo "${dmesg_output}" > "/var/log/failed_boot-${timestamp}.dmesg"
+  cp "/var/log/initramfs.log" "/var/log/failed_boot-${timestamp}.initramfs"
+  journalctl -b > "/var/log/failed-boot-${timestamp}.journal"
+  systemctl list-jobs > "/var/log/failed-boot-${timestamp}.systemctl"
   failures=0
   [ -f "${fail_file}" ] && failures=$(cat "${fail_file}")
   failures=$((failures + 1))
