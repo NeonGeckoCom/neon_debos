@@ -16,4 +16,4 @@ actions:
     description: Copy squashFS to host
     chroot: false
     command: |
-      mv "${ROOTDIR}/backup.squashfs" "/image_build/output/{{ $image }}.squashfs"
+      mv "${ROOTDIR}/backup.squashfs" "${ARTIFACTDIR}/output/{{ $image }}.squashfs"

@@ -30,5 +30,5 @@
 cd "$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" || exit 2
 for file in *.gz; do
   new_filename=$(md5sum "${file}" | cut -d" " -f1)
-  scp "${file}" "2222.us:/var/www/html/app/files/neon_images/base_images/${new_filename}" && echo "${file}: ${new_filename}"
+  scp "${file}" "download.neonaiservices.com:/home/neon/nginx/www/neon_os/base_images/${new_filename}" && echo "${file}: ${new_filename}"
 done

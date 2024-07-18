@@ -62,5 +62,5 @@ actions:
     description: Copy output patch to host
     chroot: false
     command: |
-      mv "${ROOTDIR}/var/linux"*.deb "/image_build/overlays/02-rpi4/var/tmp/"
-      chmod 777 "/image_build/overlays/02-rpi4/var/tmp/"*.deb
+      mv "${ROOTDIR}/var/linux"*.deb "${RECIPEDIR}/../overlays/02-rpi4/var/tmp/"
+      chmod 777 "${RECIPEDIR}/../overlays/02-rpi4/var/tmp/"*.deb

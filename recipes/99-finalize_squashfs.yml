@@ -78,7 +78,7 @@ actions:
   - action: run
     description: Copy squashFS to image
     chroot: false
-    script: ../scripts/99-prepare-squashfs.sh "{{ $image }}" "${ROOTDIR}"
+    script: ../scripts/99-prepare-squashfs.sh "{{ $image }}"
 
   - action: filesystem-deploy
     description: Deploying filesystem into image
@@ -94,5 +94,5 @@ actions:
   - action: run
     description: Fix Output Ownership
     chroot: false
-    command: chown {{ $uid }}:{{ $uid }}  /image_build/output/{{ $image }}.*
+    command: chown {{ $uid }}:{{ $uid }}  "${ARTIFACTDIR}/output/{{ $image }}."*
 {{ end }}

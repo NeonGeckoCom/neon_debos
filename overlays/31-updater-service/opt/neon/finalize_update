@@ -40,3 +40,6 @@ if [ -d "${home_dir}/.local/share/neon/skills/skill-icanhazdadjokes.jarbasskills
     echo "Legacy jokes skill found and will be removed"
     rm -rf "${home_dir}/.local/share/neon/skills/skill-icanhazdadjokes.jarbasskills"
 fi
+
+# Cleanup old HANA tokens
+rm "${home_dir}/.cache/neon/hana_token_"*

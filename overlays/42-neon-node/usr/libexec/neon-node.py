@@ -28,6 +28,10 @@
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 from neon_utils.process_utils import start_systemd_service
-from neon_nodes.voice_client import main
+try:
+    from neon_nodes.websocket_client import main
+except ImportError:
+    # neon-nodes 0.0.1 doesn't implement the WS client
+    from neon_nodes.voice_client import main
 
 start_systemd_service(main)

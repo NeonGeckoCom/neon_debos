@@ -20,7 +20,5 @@ actions:
     description: Enable update services
     chroot: true
     command: |
-      chmod +x /opt/neon/update
-      chmod +x /opt/neon/check_neon_modules.py
       systemctl enable post-update.service
       systemctl enable finalize-update.service
