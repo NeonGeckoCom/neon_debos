@@ -1,85 +1,12 @@
 # Changelog
 
-## [24.6.26a9](https://github.com/NeonGeckoCom/neon_debos/tree/24.6.26a9) (2024-06-26)
+## [24.9.20a1](https://github.com/NeonGeckoCom/neon_debos/tree/24.9.20a1) (2024-09-20)
 
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.6.25a8...24.6.26a9)
-
-**Merged pull requests:**
-
-- Add support for native debos [\#161](https://github.com/NeonGeckoCom/neon_debos/pull/161) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [24.6.25a8](https://github.com/NeonGeckoCom/neon_debos/tree/24.6.25a8) (2024-06-25)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.6.7a7...24.6.25a8)
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.7.18...24.9.20a1)
 
 **Merged pull requests:**
 
-- Remove HANA tokens after updating [\#160](https://github.com/NeonGeckoCom/neon_debos/pull/160) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [24.6.7a7](https://github.com/NeonGeckoCom/neon_debos/tree/24.6.7a7) (2024-06-07)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.6.5a6...24.6.7a7)
-
-**Merged pull requests:**
-
-- Update to use new download server [\#159](https://github.com/NeonGeckoCom/neon_debos/pull/159) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [24.6.5a6](https://github.com/NeonGeckoCom/neon_debos/tree/24.6.5a6) (2024-06-05)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.5.24a5...24.6.5a6)
-
-**Merged pull requests:**
-
-- Resolve logged errors when booting from SD [\#158](https://github.com/NeonGeckoCom/neon_debos/pull/158) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [24.5.24a5](https://github.com/NeonGeckoCom/neon_debos/tree/24.5.24a5) (2024-05-24)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.5.18a4...24.5.24a5)
-
-**Merged pull requests:**
-
-- Implement Websocket Node [\#157](https://github.com/NeonGeckoCom/neon_debos/pull/157) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [24.5.18a4](https://github.com/NeonGeckoCom/neon_debos/tree/24.5.18a4) (2024-05-18)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.5.16a3...24.5.18a4)
-
-**Implemented enhancements:**
-
-- \[FEAT\] Document u-boot-build script [\#89](https://github.com/NeonGeckoCom/neon_debos/issues/89)
-
-**Merged pull requests:**
-
-- Document `uboot_build` in README [\#155](https://github.com/NeonGeckoCom/neon_debos/pull/155) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [24.5.16a3](https://github.com/NeonGeckoCom/neon_debos/tree/24.5.16a3) (2024-05-16)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.5.2a2...24.5.16a3)
-
-**Implemented enhancements:**
-
-- \[FEAT\] \(possibly\) change system timestamp for logs [\#146](https://github.com/NeonGeckoCom/neon_debos/issues/146)
-- \[FEAT\] Replace autofs with udev rules [\#127](https://github.com/NeonGeckoCom/neon_debos/issues/127)
-
-**Merged pull requests:**
-
-- Improved media device handling [\#152](https://github.com/NeonGeckoCom/neon_debos/pull/152) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [24.5.2a2](https://github.com/NeonGeckoCom/neon_debos/tree/24.5.2a2) (2024-05-02)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.5.1a1...24.5.2a2)
-
-**Merged pull requests:**
-
-- Preserve system timezone changes [\#151](https://github.com/NeonGeckoCom/neon_debos/pull/151) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [24.5.1a1](https://github.com/NeonGeckoCom/neon_debos/tree/24.5.1a1) (2024-05-01)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.4.8...24.5.1a1)
-
-**Merged pull requests:**
-
-- Update ovos-shell to use OVOS fork of mycroft-gui [\#150](https://github.com/NeonGeckoCom/neon_debos/pull/150) ([NeonDaniel](https://github.com/NeonDaniel))
+- Export default configuration path to envvars [\#168](https://github.com/NeonGeckoCom/neon_debos/pull/168) ([NeonDaniel](https://github.com/NeonDaniel))
 
 
 
