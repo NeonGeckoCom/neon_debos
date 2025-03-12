@@ -1,5 +1,13 @@
 # Changelog
 
+## [25.3.12a2](https://github.com/NeonGeckoCom/neon_debos/tree/25.3.12a2) (2025-03-12)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.9.20a1...25.3.12a2)
+
+**Merged pull requests:**
+
+- Refactor `apt` dependency from shell script to Debos recipe [\#169](https://github.com/NeonGeckoCom/neon_debos/pull/169) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [24.9.20a1](https://github.com/NeonGeckoCom/neon_debos/tree/24.9.20a1) (2024-09-20)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.7.18...24.9.20a1)
