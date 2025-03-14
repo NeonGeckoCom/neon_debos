@@ -1,5 +1,13 @@
 # Changelog
 
+## [25.3.14a4](https://github.com/NeonGeckoCom/neon_debos/tree/25.3.14a4) (2025-03-14)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/25.3.14a3...25.3.14a4)
+
+**Merged pull requests:**
+
+- Update sj201-interface installation to use latest \(stable\) release [\#171](https://github.com/NeonGeckoCom/neon_debos/pull/171) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [25.3.14a3](https://github.com/NeonGeckoCom/neon_debos/tree/25.3.14a3) (2025-03-14)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/25.3.12a2...25.3.14a3)
