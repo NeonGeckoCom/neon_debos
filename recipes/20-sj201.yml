@@ -37,7 +37,7 @@ actions:
       export PIPX_HOME=/opt/neon/pipx
       export PIPX_BIN_DIR=/bin
       [ -d ${PIPX_HOME} ] || mkdir -p ${PIPX_HOME}
-      pipx install sj201-interface==0.0.3a6
+      pipx install sj201-interface
 
   - action: run
     description: Build and Install SJ201 VF driver
