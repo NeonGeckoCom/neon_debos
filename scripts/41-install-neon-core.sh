@@ -75,11 +75,11 @@ tar xvf hey-mycroft.tar.gz && echo "ww model unpacked"
 
 # Rust messagebus
 cd /home/neon/.local/share || exit 10
-wget https://github.com/OscillateLabsLLC/ovos-rust-messagebus/releases/download/v1.1.0/ovos_messagebus-armv7-unknown-linux-gnueabihf.tar.gz
-tar zxvf ovos_messagebus-armv7-unknown-linux-gnueabihf.tar.gz
-mv ovos_messagebus-armv7-unknown-linux-gnueabihf rust_messagebus
+wget https://github.com/OscillateLabsLLC/ovos-rust-messagebus/releases/download/v1.1.0/ovos_messagebus-aarch64-unknown-linux-gnu.tar.gz
+tar zxvf ovos_messagebus-aarch64-unknown-linux-gnu.tar.gz
+mv ovos_messagebus-aarch64-unknown-linux-gnu rust_messagebus
 chmod +x /home/neon/.local/share/rust_messagebus
-rm ovos_messagebus-armv7-unknown-linux-gnueabihf.tar.gz
+rm ovos_messagebus-aarch64-unknown-linux-gnu.tar.gz
 
 export XDG_CONFIG_HOME="/home/neon/.config"
 export XDG_DATA_HOME="/home/neon/.local/share"
