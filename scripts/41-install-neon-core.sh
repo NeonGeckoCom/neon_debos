@@ -76,7 +76,8 @@ tar xvf hey-mycroft.tar.gz && echo "ww model unpacked"
 # Rust messagebus
 cd /home/neon/.local/share || exit 10
 wget https://github.com/OscillateLabsLLC/ovos-rust-messagebus/releases/download/v1.1.0/ovos_messagebus-armv7-unknown-linux-gnueabihf.tar.gz
-tar zxvf ovos_messagebus-armv7-unknown-linux-gnueabihf.tar.gz -f rust_messagebus
+tar zxvf ovos_messagebus-armv7-unknown-linux-gnueabihf.tar.gz
+mv ovos_messagebus-armv7-unknown-linux-gnueabihf rust_messagebus
 chmod +x /home/neon/.local/share/rust_messagebus
 rm ovos_messagebus-armv7-unknown-linux-gnueabihf.tar.gz
 
