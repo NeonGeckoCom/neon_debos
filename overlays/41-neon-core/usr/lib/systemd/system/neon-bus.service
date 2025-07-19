@@ -4,7 +4,7 @@ PartOf=neon.service
 After=neon-logs.service
 
 [Service]
-Type=notify
+Type=simple
 TimeoutStartSec=300
 TimeoutStopSec=30
 Restart=always
