@@ -4,14 +4,14 @@ PartOf=neon.service
 After=neon-logs.service
 
 [Service]
-Type=notify
+Type=simple
 TimeoutStartSec=300
 TimeoutStopSec=30
 Restart=always
 User=neon
 EnvironmentFile=/etc/neon/neon_env.conf
 WorkingDirectory=/opt/neon
-ExecStart=/usr/libexec/neon-messagebus.py
+ExecStart=/home/neon/.local/share/rust_messagebus
 LogNamespace=neon
 
 [Install]
