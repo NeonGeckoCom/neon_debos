@@ -42,14 +42,14 @@ rm /boot/firmware/overlays/sj201-rev10-pwm-fan-overlay.dtbo
 # Configure venv for deepspeech compat.
 python3.10 -m venv "/home/neon/venv" || exit 10
 . /home/neon/venv/bin/activate
-pip install --upgrade pip wheel
+pip install --upgrade pip wheel setuptools
+
 mv /home/neon/pip /home/neon/venv/bin/pip
 chmod ugo+x /home/neon/venv/bin/pip
 
 # Install core and skills
 export NEON_IN_SETUP="true"
-# TODO: Normalize extras after NeonCore 24.2.x stable release
-pip install --use-pep517 "neon-core[core_modules,skills_required,skills_essential,skills_default,skills_extended,pi] @ git+https://github.com/neongeckocom/neoncore@${CORE_REF}" || exit 11
+pip install --use-pep517 "neon-core[core-modules,skills-required,skills-essential,skills-default,skills-extended,pi,audio-receiver] @ git+https://github.com/neongeckocom/neoncore@${CORE_REF}" || exit 11
 echo "Core Installed"
 neon install-default-skills && echo "Default git skills installed" || exit 2
 
