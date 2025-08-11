@@ -10,9 +10,6 @@ actions:
       - curl
       - uxplay # AirPlay
       - kdeconnect # KDE Connect
-      - "bluez*" # Bluetooth
-      - libbluetooth-dev
-      - libcairo2-dev
       - pulseaudio-module-bluetooth # PulseAudio Bluetooth Module
   - action: overlay
     description: Audio receiver scripts, configs, and service files

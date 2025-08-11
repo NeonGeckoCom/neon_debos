@@ -25,6 +25,13 @@ actions:
       - unzip
       - ffmpeg
       - make
+  - action: apt
+    description: Install Audio Receiver Dependencies
+    packages:
+      - "bluez*" # Bluetooth
+      - libbluetooth-dev
+      - libcairo2-dev
+      - libgirepository1.0-dev
   - action: overlay
     description: Neon Core Overlay
     source: ../overlays/41-neon-core
