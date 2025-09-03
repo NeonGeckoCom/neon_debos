@@ -1,44 +1,16 @@
 # Changelog
 
-## [25.3.17a5](https://github.com/NeonGeckoCom/neon_debos/tree/25.3.17a5) (2025-03-17)
+## [25.9.3a1](https://github.com/NeonGeckoCom/neon_debos/tree/25.9.3a1) (2025-09-03)
 
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/25.3.14a4...25.3.17a5)
+[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/25.8.25...25.9.3a1)
 
-**Merged pull requests:**
+**Implemented enhancements:**
 
-- Update base images [\#172](https://github.com/NeonGeckoCom/neon_debos/pull/172) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [25.3.14a4](https://github.com/NeonGeckoCom/neon_debos/tree/25.3.14a4) (2025-03-14)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/25.3.14a3...25.3.14a4)
+- \[FEAT\] Update image size to a multiple of 512B [\#179](https://github.com/NeonGeckoCom/neon_debos/issues/179)
 
 **Merged pull requests:**
 
-- Update sj201-interface installation to use latest \(stable\) release [\#171](https://github.com/NeonGeckoCom/neon_debos/pull/171) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [25.3.14a3](https://github.com/NeonGeckoCom/neon_debos/tree/25.3.14a3) (2025-03-14)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/25.3.12a2...25.3.14a3)
-
-**Merged pull requests:**
-
-- Update sj201-interface dependency installation [\#170](https://github.com/NeonGeckoCom/neon_debos/pull/170) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [25.3.12a2](https://github.com/NeonGeckoCom/neon_debos/tree/25.3.12a2) (2025-03-12)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.9.20a1...25.3.12a2)
-
-**Merged pull requests:**
-
-- Refactor `apt` dependency from shell script to Debos recipe [\#169](https://github.com/NeonGeckoCom/neon_debos/pull/169) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [24.9.20a1](https://github.com/NeonGeckoCom/neon_debos/tree/24.9.20a1) (2024-09-20)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon_debos/compare/24.7.18...24.9.20a1)
-
-**Merged pull requests:**
-
-- Export default configuration path to envvars [\#168](https://github.com/NeonGeckoCom/neon_debos/pull/168) ([NeonDaniel](https://github.com/NeonDaniel))
+- Update image size for sector alignment [\#180](https://github.com/NeonGeckoCom/neon_debos/pull/180) ([NeonDaniel](https://github.com/NeonDaniel))
 
 
 
