@@ -9,7 +9,7 @@ actions:
 {{ if eq $platform "rpi4" }}
   - action: image-partition
     imagename: output/{{ $image }}.img
-    imagesize: 3.5GB
+    imagesize: 3.5GiB
     partitiontype: msdos
     diskid: 1242d180
     mountpoints:
@@ -32,7 +32,7 @@ actions:
 {{ else }}
   - action: image-partition
     imagename: output/{{ $image }}.img
-    imagesize: 3.5GB
+    imagesize: 3.5GiB
     partitiontype: gpt
     diskid: 67d9d0ad-c9a4-a94a-b477-ce3a3e8534e9
     mountpoints:
